@@ -6,7 +6,7 @@ package com.dimples.boot.core.eunm;
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2019/11/8
  */
-public enum OpsLogType {
+public enum OpsLogTypeEnum {
     /**
      * 添加
      */

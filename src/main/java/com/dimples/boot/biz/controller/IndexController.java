@@ -1,7 +1,7 @@
 package com.dimples.boot.biz.controller;
 
 import com.dimples.boot.core.annotation.OpsLog;
-import com.dimples.boot.core.eunm.OpsLogType;
+import com.dimples.boot.core.eunm.OpsLogTypeEnum;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class IndexController {
 
     @ApiOperation(value = "Index列表", notes = "获取Index列表")
-    @OpsLog(value = "test", type = {OpsLogType.SELECT})
+    @OpsLog(value = "test", type = {OpsLogTypeEnum.SELECT})
     @GetMapping("/index")
     public String index() {
         return "index";

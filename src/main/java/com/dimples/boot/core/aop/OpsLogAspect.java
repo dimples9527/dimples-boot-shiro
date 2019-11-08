@@ -1,7 +1,7 @@
 package com.dimples.boot.core.aop;
 
 import com.dimples.boot.core.annotation.OpsLog;
-import com.dimples.boot.core.eunm.OpsLogType;
+import com.dimples.boot.core.eunm.OpsLogTypeEnum;
 import com.dimples.boot.core.util.HttpContextUtil;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -73,10 +73,10 @@ public class OpsLogAspect {
         // 获取注解中的内容
         OpsLog opsLog = currentMethod.getAnnotation(OpsLog.class);
         String value = opsLog.value();
-        OpsLogType[] opsLogTypes = opsLog.type();
+        OpsLogTypeEnum[] opsLogTypeEnums = opsLog.type();
         String opsLogTypeName = null;
-        if (opsLogTypes.length > 0) {
-            opsLogTypeName = opsLogTypes[0].name();
+        if (opsLogTypeEnums.length > 0) {
+            opsLogTypeName = opsLogTypeEnums[0].name();
         }
         // 获取请求的IP
         HttpServletRequest request = HttpContextUtil.getRequest();

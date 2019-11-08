@@ -1,6 +1,6 @@
 package com.dimples.boot.core.annotation;
 
-import com.dimples.boot.core.eunm.OpsLogType;
+import com.dimples.boot.core.eunm.OpsLogTypeEnum;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -24,7 +24,7 @@ public @interface OpsLog {
 
     String value() default "";
 
-    OpsLogType[] type() default {};
+    OpsLogTypeEnum[] type() default {};
 
 }
 
