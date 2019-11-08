@@ -107,8 +107,8 @@ public class OpsLogAspect {
             if (bf.toString().isEmpty()) {
                 bf.append(request.getQueryString());
             }
+            log.info("REQUEST PARAMS :" + bf.toString());
         }
-        log.info("REQUEST PARAMS :" + bf.toString());
         return String.format(LOG_CONTENT, className, methodName, bf.toString(), HttpContextUtil.getIp());
     }
 
