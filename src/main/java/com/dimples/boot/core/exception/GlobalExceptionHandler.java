@@ -38,8 +38,8 @@ public class GlobalExceptionHandler {
      * @param e Exception
      * @return ReturnCommon
      */
-    @ExceptionHandler(Exception.class)
-    public ReturnCommon exceptionHandler(Exception e) {
+    @ExceptionHandler(RuntimeException.class)
+    public ReturnCommon exceptionHandler(RuntimeException e) {
         log.error("系统异常:" + e.getMessage());
         return ReturnCommon.error(ResultCodeEnum.SERVER_ERROR.getCode(), ResultCodeEnum.SERVER_ERROR.getMsg());
     }
