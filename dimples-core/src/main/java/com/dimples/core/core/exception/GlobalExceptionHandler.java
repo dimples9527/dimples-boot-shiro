@@ -16,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2019/7/1
  */
 @Slf4j
-@ControllerAdvice(basePackages = "com.dimples.boot.biz.controller")
-@RestControllerAdvice(basePackages = "com.dimples.boot.biz.controller")
+@ControllerAdvice(basePackages = "com.dimples.core.biz.controller")
+@RestControllerAdvice(basePackages = "com.dimples.core.biz.controller")
 public class GlobalExceptionHandler {
 
     /**

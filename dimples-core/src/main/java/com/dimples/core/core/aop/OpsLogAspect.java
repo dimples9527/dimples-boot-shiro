@@ -32,7 +32,7 @@ public class OpsLogAspect {
 
     private static final String LOG_CONTENT = "[类名]:%s <br/>[方法]:%s <br>[参数]:%s <br/>[  IP ]:%s";
 
-    @Pointcut(value = "@annotation(com.dimples.boot.core.annotation.OpsLog)")
+    @Pointcut(value = "@annotation(com.dimples.core.core.annotation.OpsLog)")
     public void opsLogAnnotation() {
     }
 
