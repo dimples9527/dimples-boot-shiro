@@ -25,13 +25,7 @@ public class IndexController {
     @OpsLog(value = "test", type = {OpsLogTypeEnum.SELECT})
     @GetMapping("/index")
     public String index() throws BizException {
-        String result;
-        try {
-            result = "test";
-            throw new  BizException(BizExceptionEnum.REQUEST_NULL);
-        } catch (BizException e){
-            throw new  BizException(BizExceptionEnum.REQUEST_NULL);
-        }
+        throw new BizException(BizExceptionEnum.REQUEST_NULL);
     }
 
 }
