@@ -1,5 +1,8 @@
 package com.dimples.boot.core.result;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 通用返回结果类
  *
@@ -8,8 +11,16 @@ package com.dimples.boot.core.result;
  */
 public class ReturnCommon {
 
+    @Setter
+    @Getter
     private Integer code;
+
+    @Setter
+    @Getter
     private String msg;
+
+    @Setter
+    @Getter
     private Object data;
 
     private ReturnCommon() {
@@ -19,6 +30,12 @@ public class ReturnCommon {
     public ReturnCommon(Integer code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
+        this.data = data;
+    }
+
+    public ReturnCommon(ResultCodeEnum resultCodeEnum, Object data) {
+        this.code = resultCodeEnum.getCode();
+        this.msg = resultCodeEnum.getMsg();
         this.data = data;
     }
 
@@ -33,6 +50,21 @@ public class ReturnCommon {
         this.msg = msg;
     }
 
+    public ReturnCommon(ResultCodeEnum resultCodeEnum) {
+        this.code = resultCodeEnum.getCode();
+        this.msg = resultCodeEnum.getMsg();
+    }
+
+    /**
+     * 成功但不带数据
+     **/
+    public static ReturnCommon success() {
+        ReturnCommon result = new ReturnCommon();
+        result.setCode(ResultCodeEnum.SUCCESS.getCode());
+        result.setMsg(ResultCodeEnum.SUCCESS.getMsg());
+        return result;
+    }
+
     public static ReturnCommon success(Object object) {
         ReturnCommon result = new ReturnCommon();
         result.setCode(ResultCodeEnum.SUCCESS.getCode());
@@ -41,11 +73,12 @@ public class ReturnCommon {
         return result;
     }
 
-    /**
-     * 成功但不带数据
-     **/
-    public static ReturnCommon success() {
-        return ReturnCommon.success(null);
+    public static ReturnCommon success(ResultCodeEnum resultCodeEnum, Object object) {
+        ReturnCommon result = new ReturnCommon();
+        result.setCode(resultCodeEnum.getCode());
+        result.setMsg(resultCodeEnum.getMsg());
+        result.setData(object);
+        return result;
     }
 
     /**
@@ -55,6 +88,13 @@ public class ReturnCommon {
         ReturnCommon result = new ReturnCommon();
         result.setCode(code);
         result.setMsg(msg);
+        return result;
+    }
+
+    public static ReturnCommon error(ResultCodeEnum resultCodeEnum) {
+        ReturnCommon result = new ReturnCommon();
+        result.setCode(resultCodeEnum.getCode());
+        result.setMsg(resultCodeEnum.getMsg());
         return result;
     }
 
@@ -70,29 +110,11 @@ public class ReturnCommon {
         return result;
     }
 
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
+    public static ReturnCommon failed(ResultCodeEnum resultCodeEnum) {
+        ReturnCommon result = new ReturnCommon();
+        result.setCode(resultCodeEnum.getCode());
+        result.setMsg(resultCodeEnum.getMsg());
+        return result;
     }
 
 }

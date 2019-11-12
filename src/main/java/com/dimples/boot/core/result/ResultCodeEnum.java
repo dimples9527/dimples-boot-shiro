@@ -1,5 +1,8 @@
 package com.dimples.boot.core.result;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 响应状态码枚举类
  *
@@ -21,9 +24,13 @@ public enum ResultCodeEnum {
      */
     UNAUTHORIZED(401,"身份验证失败（签名错误）"),
     /**
+     * 没有权限
+     */
+    NOT_FOUND(403,"没有权限"),
+    /**
      * 找不到资源
      */
-    NOT_FOUND(404,"找不到资源"),
+    NOT_AUTH(404,"找不到资源"),
     /**
      * 请求中指定的方法不被允许
      */
@@ -37,8 +44,12 @@ public enum ResultCodeEnum {
      */
     SERVER_ERROR(500,"服务器内部错误");
 
+    @Setter
+    @Getter
     private Integer code;
 
+    @Setter
+    @Getter
     private String msg;
 
     ResultCodeEnum(Integer code, String msg) {
@@ -46,19 +57,4 @@ public enum ResultCodeEnum {
         this.msg = msg;
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 }
