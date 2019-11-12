@@ -11,7 +11,7 @@
 	</parent>
 
 	<modules>
-		<module>boot-core</module>
+		<module>dimples-core</module>
 	</modules>
 
 	<groupId>com.dimples.parent</groupId>
@@ -19,6 +19,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 
 	<name>dimples-parent</name>
+	<packaging>pom</packaging>
 	<description>Springboot基础配置和模块整合</description>
 
 	<properties>
