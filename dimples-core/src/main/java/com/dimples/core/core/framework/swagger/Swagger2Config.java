@@ -3,6 +3,7 @@ package com.dimples.core.core.framework.swagger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -22,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Slf4j
 @Configuration
 @EnableSwagger2
-public class Swagger2 {
+public class Swagger2Config {
 
     @Bean
     public Docket createRestApi() {
@@ -31,7 +32,7 @@ public class Swagger2 {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.dimples.boot.biz.controller"))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
     }
