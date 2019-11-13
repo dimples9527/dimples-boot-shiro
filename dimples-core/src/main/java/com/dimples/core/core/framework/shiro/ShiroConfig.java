@@ -13,10 +13,6 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
-import org.crazycake.shiro.RedisCacheManager;
-import org.crazycake.shiro.RedisManager;
-import org.crazycake.shiro.RedisSessionDAO;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -121,90 +117,17 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
+    /**
+     * shiro 的session管理器
+     *
+     * @return SessionManager
+     */
     @Bean
     public SessionManager sessionManager() {
         ShiroSessionManager mySessionManager = new ShiroSessionManager();
-        mySessionManager.setSessionDAO(redisSessionDAO());
-        // mySessionManager.setCacheManager(cacheManager());
         mySessionManager.setSessionIdUrlRewritingEnabled(true);
         return mySessionManager;
     }
-
-    /**
-     * 使用shiro-redis配置
-     * 获取配置文件中配置的Redis
-     *
-     * @return RedisManager
-     */
-    @ConfigurationProperties(prefix = "shiro.redis")
-    private RedisManager redisManager() {
-        return new RedisManager();
-    }
-
-    /**
-     * redis实现缓存
-     *
-     * @return RedisCacheManager
-     */
-    @Bean
-    public RedisCacheManager cacheManager() {
-        RedisCacheManager redisCacheManager = new RedisCacheManager();
-        redisCacheManager.setRedisManager(redisManager());
-        return redisCacheManager;
-    }
-
-    /**
-     * 使用Redis实现 shiro sessionDao
-     *
-     * @return RedisSessionDAO
-     */
-    @Bean
-    public RedisSessionDAO redisSessionDAO() {
-        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
-        // redisSessionDAO.setRedisManager(redisManager());
-        return redisSessionDAO;
-    }
-
-//    @Bean
-//    public SessionManager sessionManager() {
-//        DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
-//        defaultWebSessionManager.setGlobalSessionTimeout(1800000);
-//        defaultWebSessionManager.setSessionIdCookieEnabled(true);
-//        defaultWebSessionManager.setSessionIdCookie(simpleCookie());
-//        defaultWebSessionManager.setCacheManager(cacheManager());
-//        defaultWebSessionManager.setSessionIdUrlRewritingEnabled(true);
-//        defaultWebSessionManager.setSessionDAO(sessionDAO());
-//        return defaultWebSessionManager;
-//    }
-//
-//    @Bean
-//    public SessionDAO sessionDAO() {
-//        EnterpriseCacheSessionDAO sessionDAO = new EnterpriseCacheSessionDAO();
-//        sessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
-//        sessionDAO.setSessionIdGenerator(new JavaUuidSessionIdGenerator());
-//        return sessionDAO;
-//    }
-//
-//    @Bean
-//    public SimpleCookie simpleCookie() {
-//        SimpleCookie simpleCookie = new SimpleCookie();
-//        simpleCookie.setName("cn.tycoding.id");
-//        simpleCookie.setHttpOnly(true);
-//        simpleCookie.setMaxAge(180000);
-//        return simpleCookie;
-//    }
-//
-//    /**
-//     * Shiro本身只提供了Cahche缓存的接口，并不提供实现类。EhCacheManager是Shiro-Cache的一个实现类
-//     *
-//     * @return
-//     */
-//    @Bean
-//    public CacheManager cacheManager() {
-//        EhCacheManager cacheManager = new EhCacheManager();
-//        cacheManager.setCacheManagerConfigFile("classpath:config/shiro-ehcache.xml");
-//        return new EhCacheManager();
-//    }
 
 }
 
