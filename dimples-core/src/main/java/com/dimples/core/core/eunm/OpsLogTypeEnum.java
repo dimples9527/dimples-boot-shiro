@@ -7,6 +7,11 @@ package com.dimples.core.core.eunm;
  * @date 2019/11/8
  */
 public enum OpsLogTypeEnum {
+
+    /**
+     * 登录
+     */
+    LOGIN,
     /**
      * 添加
      */
