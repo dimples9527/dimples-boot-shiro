@@ -20,6 +20,14 @@ public enum ResultCodeEnum {
      */
     FAIL(300,"操作失败"),
     /**
+     * 操作失败
+     */
+    FIELD_INCOMPLETE(301,"必需字段数据不完整"),
+    /**
+     * 登录信息失效
+     */
+    LOGIN_OUT_TIME(302,"登录信息已失效"),
+    /**
      * 身份验证失败（签名错误）
      */
     UNAUTHORIZED(401,"身份验证失败（签名错误）"),
