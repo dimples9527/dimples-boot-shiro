@@ -2,6 +2,7 @@ package com.dimples.core.framework.shiro;
 
 import com.dimples.biz.system.po.User;
 import com.dimples.biz.system.service.UserService;
+import com.dimples.core.eunm.CodeAndMessageEnum;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -53,7 +54,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
         User user = userService.findByName(username);
         if (user == null) {
-            throw new UnknownAccountException(BizExceptionEnum.USER_NOT_EXISTED.getMessage());
+            throw new UnknownAccountException(CodeAndMessageEnum.USER_NOT_EXISTED.getMessage());
         }
         return new SimpleAuthenticationInfo(
                 user,
