@@ -1,5 +1,7 @@
 package com.dimples.core.result;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,7 @@ import lombok.Setter;
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2019/11/1
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultCommon {
 
     @Setter
