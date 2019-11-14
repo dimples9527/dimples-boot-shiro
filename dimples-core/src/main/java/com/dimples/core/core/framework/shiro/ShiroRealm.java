@@ -15,6 +15,9 @@ public class ShiroRealm extends AuthorizingRealm {
 
     /**
      * 权限校验
+     * 1. 获取当前登录用户信息
+     * 2. 获取当前用户关联的角色、权限等
+     * 3. 将角色、权限封装到AuthorizationInfo对象中并返回
      *
      * @param principals PrincipalCollection
      * @return AuthorizationInfo
@@ -26,6 +29,9 @@ public class ShiroRealm extends AuthorizingRealm {
 
     /**
      * 身份校验
+     * 1. 从token中获取输入的用户名
+     * 2. 通过username查询数据库得到用户对象
+     * 3. 调用Authenticator进行密码校验
      *
      * @param token AuthenticationToken
      * @return AuthenticationInfo
@@ -33,6 +39,30 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        /*String username = (String) token.getPrincipal();
+        User user = userService.findByName(username);
+        if (user == null) {
+            throw new UnknownAccountException(BizExceptionEnum.USER_NOT_EXISTED.getMessage());
+        }
+        return new SimpleAuthenticationInfo(
+                user,
+                user.getPassword(),
+                ByteSource.Util.bytes(user.getSalt()),
+                getName()
+        );*/
         return null;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
