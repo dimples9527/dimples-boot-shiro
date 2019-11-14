@@ -55,6 +55,10 @@ public enum OpsLogTypeEnum {
     /**
      * 下载
      */
-    DOWNLOAD;
+    DOWNLOAD,
+    /**
+     * 测试
+     */
+    TEST
 
 }
