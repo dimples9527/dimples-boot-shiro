@@ -12,7 +12,6 @@
 
 	<modules>
 		<module>dimples-core</module>
-		<module>dimples-web</module>
 	</modules>
 
 	<groupId>com.dimples.parent</groupId>

@@ -18,7 +18,7 @@ import lombok.Setter;
  * @date 2019/11/14
  */
 @Component
-public class PasswordUtil {
+public class PasswordHelper {
 
     /**
      * 实例化RandomNumberGenerator对象，用于生成一个随机数

@@ -14,5 +14,12 @@ public interface UserService {
      * @return User
      */
     User findByName(String username);
+
+    /**
+     * 增加一条数据
+     *
+     * @param user User
+     */
+    void insertSelective(User user);
 }
 

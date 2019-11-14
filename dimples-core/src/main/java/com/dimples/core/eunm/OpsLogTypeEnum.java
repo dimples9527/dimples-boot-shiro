@@ -13,6 +13,10 @@ public enum OpsLogTypeEnum {
      */
     LOGIN,
     /**
+     * 登出
+     */
+    LOGOUT,
+    /**
      * 添加
      */
     ADD,
