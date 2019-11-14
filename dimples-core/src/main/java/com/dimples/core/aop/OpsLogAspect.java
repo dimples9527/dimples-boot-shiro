@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 public class OpsLogAspect {
 
-    private static final String LOG_CONTENT = "[类名]:%s <br/>[方法]:%s <br>[参数]:%s <br/>[  IP ]:%s";
+    private static final String LOG_CONTENT = "[类名]==>%s [方法]==>%s [参数]==>%s [IP]==>%s";
 
     @Pointcut(value = "@annotation(com.dimples.core.annotation.OpsLog)")
     public void opsLogAnnotation() {
@@ -107,7 +107,6 @@ public class OpsLogAspect {
             if (bf.toString().isEmpty()) {
                 bf.append(request.getQueryString());
             }
-            log.info("REQUEST PARAMS :" + bf.toString());
         }
         return String.format(LOG_CONTENT, className, methodName, bf.toString(), HttpContextUtil.getIp());
     }
