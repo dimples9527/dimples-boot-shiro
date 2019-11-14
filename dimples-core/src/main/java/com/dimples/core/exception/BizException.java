@@ -1,5 +1,7 @@
 package com.dimples.core.exception;
 
+import com.dimples.core.eunm.CodeAndMessageEnum;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,13 +47,13 @@ public class BizException extends RuntimeException {
         this.code = code;
     }
 
-    public BizException(BizExceptionEnum bizExceptionEnum) {
+    public BizException(CodeAndMessageEnum bizExceptionEnum) {
         super(bizExceptionEnum.getMessage());
         this.code = bizExceptionEnum.getCode();
         this.message = bizExceptionEnum.getMessage();
     }
 
-    public BizException(BizExceptionEnum bizExceptionEnum, Throwable e) {
+    public BizException(CodeAndMessageEnum bizExceptionEnum, Throwable e) {
         super(bizExceptionEnum.getMessage(), e);
         this.code = bizExceptionEnum.getCode();
         this.message = bizExceptionEnum.getMessage();

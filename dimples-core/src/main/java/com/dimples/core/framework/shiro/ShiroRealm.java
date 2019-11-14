@@ -2,7 +2,6 @@ package com.dimples.core.framework.shiro;
 
 import com.dimples.biz.system.po.User;
 import com.dimples.biz.system.service.UserService;
-import com.dimples.core.exception.BizExceptionEnum;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

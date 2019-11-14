@@ -1,9 +1,9 @@
 package com.dimples.biz.controller;
 
 import com.dimples.core.annotation.OpsLog;
+import com.dimples.core.eunm.CodeAndMessageEnum;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
-import com.dimples.core.exception.BizExceptionEnum;
 import com.dimples.core.result.ResultCommon;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ public class TestController {
     @OpsLog(value = "测试异常", type = {OpsLogTypeEnum.TEST})
     @GetMapping("/exception")
     public String exception() throws BizException {
-        throw new BizException(BizExceptionEnum.REQUEST_NULL);
+        throw new BizException(CodeAndMessageEnum.REQUEST_NULL);
     }
 
     @ApiOperation(value = "测试自定义日志注解", notes = "测试自定义日志注解")

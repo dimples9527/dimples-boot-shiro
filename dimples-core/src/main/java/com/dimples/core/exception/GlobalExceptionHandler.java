@@ -1,6 +1,6 @@
 package com.dimples.core.exception;
 
-import com.dimples.core.result.ResultCodeEnum;
+import com.dimples.core.eunm.CodeAndMessageEnum;
 import com.dimples.core.result.ResultCommon;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BizException.class)
     public ResultCommon bizException(BizException e) {
         log.error("业务异常:" + e.getMessage());
-        return ResultCommon.error(ResultCodeEnum.SERVER_ERROR.getCode(), e.getMessage());
+        return ResultCommon.error(e.getCode(), e.getMessage());
     }
 
     /**
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     public ResultCommon authenticationException(AuthenticationException e) {
         log.error("身份校验失败: {}", e.getMessage());
-        return ResultCommon.error(ResultCodeEnum.UNAUTHORIZED);
+        return ResultCommon.error(CodeAndMessageEnum.UNAUTHORIZED);
     }
 
     @ExceptionHandler(value = UnauthorizedException.class)
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ResultCommon exceptionHandler(RuntimeException e) {
         log.error("系统异常:" + e.getMessage());
-        return ResultCommon.error(ResultCodeEnum.SERVER_ERROR.getCode(), ResultCodeEnum.SERVER_ERROR.getMsg());
+        return ResultCommon.error(CodeAndMessageEnum.SERVER_ERROR.getCode(), CodeAndMessageEnum.SERVER_ERROR.getMessage());
     }
 
 }

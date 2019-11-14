@@ -1,5 +1,6 @@
 package com.dimples.core.result;
 
+import com.dimples.core.eunm.CodeAndMessageEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Getter;
@@ -36,9 +37,9 @@ public class ResultCommon {
         this.data = data;
     }
 
-    public ResultCommon(ResultCodeEnum resultCodeEnum, Object data) {
+    public ResultCommon(CodeAndMessageEnum resultCodeEnum, Object data) {
         this.code = resultCodeEnum.getCode();
-        this.msg = resultCodeEnum.getMsg();
+        this.msg = resultCodeEnum.getMessage();
         this.data = data;
     }
 
@@ -53,9 +54,9 @@ public class ResultCommon {
         this.msg = msg;
     }
 
-    public ResultCommon(ResultCodeEnum resultCodeEnum) {
+    public ResultCommon(CodeAndMessageEnum resultCodeEnum) {
         this.code = resultCodeEnum.getCode();
-        this.msg = resultCodeEnum.getMsg();
+        this.msg = resultCodeEnum.getMessage();
     }
 
     /**
@@ -63,23 +64,23 @@ public class ResultCommon {
      **/
     public static ResultCommon success() {
         ResultCommon result = new ResultCommon();
-        result.setCode(ResultCodeEnum.SUCCESS.getCode());
-        result.setMsg(ResultCodeEnum.SUCCESS.getMsg());
+        result.setCode(CodeAndMessageEnum.SUCCESS.getCode());
+        result.setMsg(CodeAndMessageEnum.SUCCESS.getMessage());
         return result;
     }
 
     public static ResultCommon success(Object object) {
         ResultCommon result = new ResultCommon();
-        result.setCode(ResultCodeEnum.SUCCESS.getCode());
-        result.setMsg(ResultCodeEnum.SUCCESS.getMsg());
+        result.setCode(CodeAndMessageEnum.SUCCESS.getCode());
+        result.setMsg(CodeAndMessageEnum.SUCCESS.getMessage());
         result.setData(object);
         return result;
     }
 
-    public static ResultCommon success(ResultCodeEnum resultCodeEnum, Object object) {
+    public static ResultCommon success(CodeAndMessageEnum resultCodeEnum, Object object) {
         ResultCommon result = new ResultCommon();
         result.setCode(resultCodeEnum.getCode());
-        result.setMsg(resultCodeEnum.getMsg());
+        result.setMsg(resultCodeEnum.getMessage());
         result.setData(object);
         return result;
     }
@@ -94,10 +95,10 @@ public class ResultCommon {
         return result;
     }
 
-    public static ResultCommon error(ResultCodeEnum resultCodeEnum) {
+    public static ResultCommon error(CodeAndMessageEnum resultCodeEnum) {
         ResultCommon result = new ResultCommon();
         result.setCode(resultCodeEnum.getCode());
-        result.setMsg(resultCodeEnum.getMsg());
+        result.setMsg(resultCodeEnum.getMessage());
         return result;
     }
 
@@ -108,15 +109,15 @@ public class ResultCommon {
      */
     public static ResultCommon failed() {
         ResultCommon result = new ResultCommon();
-        result.setCode(ResultCodeEnum.FAIL.getCode());
-        result.setMsg(ResultCodeEnum.FAIL.getMsg());
+        result.setCode(CodeAndMessageEnum.FAIL.getCode());
+        result.setMsg(CodeAndMessageEnum.FAIL.getMessage());
         return result;
     }
 
-    public static ResultCommon failed(ResultCodeEnum resultCodeEnum) {
+    public static ResultCommon failed(CodeAndMessageEnum resultCodeEnum) {
         ResultCommon result = new ResultCommon();
         result.setCode(resultCodeEnum.getCode());
-        result.setMsg(resultCodeEnum.getMsg());
+        result.setMsg(resultCodeEnum.getMessage());
         return result;
     }
 

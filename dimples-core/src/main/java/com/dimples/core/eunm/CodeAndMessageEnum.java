@@ -1,12 +1,12 @@
-package com.dimples.core.exception;
+package com.dimples.core.eunm;
 
 /**
- * 业务异常的枚举
+ * 通用的枚举
  *
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2019/11/7
  */
-public enum BizExceptionEnum {
+public enum CodeAndMessageEnum {
 
     /**
      * 文件上传
@@ -63,9 +63,46 @@ public enum BizExceptionEnum {
     // 会话超时
     SESSION_TIMEOUT(400, "会话超时"),
     // 服务器异常
-    SERVER_ERROR(500, "服务器异常");
+    SERVER_ERROR(500, "服务器异常"),
+    /**
+     * 操作成功
+     */
+    SUCCESS(200, "操作成功"),
+    /**
+     * 操作失败
+     */
+    FAIL(300,"操作失败"),
+    /**
+     * 操作失败
+     */
+    FIELD_INCOMPLETE(301,"必需字段数据不完整"),
+    /**
+     * 登录信息失效
+     */
+    LOGIN_OUT_TIME(302,"登录信息已失效"),
 
-    BizExceptionEnum(int code, String message) {
+    /**
+     * 身份验证失败（签名错误）
+     */
+    UNAUTHORIZED(401,"身份验证失败（签名错误）"),
+    /**
+     * 没有权限
+     */
+    NOT_FOUND(403,"没有权限"),
+    /**
+     * 找不到资源
+     */
+    NOT_AUTH(404,"找不到资源"),
+    /**
+     * 请求中指定的方法不被允许
+     */
+    METHOD_NOT_ALLOWED(405,"请求中指定的方法不被允许"),
+    /**
+     * 请求头中指定的一些前提条件失败，例如请求参数错误或为空
+     */
+    PRECONDITION_FAILED(412,"请求头错误");
+
+    CodeAndMessageEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }
