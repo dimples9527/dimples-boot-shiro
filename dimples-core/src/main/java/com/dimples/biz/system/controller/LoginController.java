@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -31,7 +32,9 @@ public class LoginController {
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
     @OpsLog(value = "用户登陆", type = OpsLogTypeEnum.LOGIN)
     @PostMapping("/login")
-    public ResultCommon login(String username, String password, @RequestParam(defaultValue = "false") Boolean remember) {
+    public ResultCommon login(@ApiParam(name = "username", value = "用户名", required = true) String username,
+                              @ApiParam(name = "password", value = "密码", required = true) String password,
+                              @RequestParam(defaultValue = "false") Boolean remember) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, remember);
         try {
             getSubject().login(token);

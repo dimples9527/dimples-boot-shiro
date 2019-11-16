@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -38,15 +39,14 @@ public class UserController {
     @ApiOperation(value = "增加用户", notes = "增加用户")
     @OpsLog(value = "增加用户", type = OpsLogTypeEnum.ADD)
     @PostMapping("/add")
-    public ResultCommon add(User user){
+    public ResultCommon add(@ApiParam(name = "user", value = "用户User对象", required = true) User user) {
         try {
             userService.insertSelective(user);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new BizException(e.getMessage());
         }
         return ResultCommon.success();
     }
-
 
 
 }
