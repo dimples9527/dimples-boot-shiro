@@ -20,6 +20,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<docker.image.prefix>dimples</docker.image.prefix>
+		<build.final.name>dimples-core</build.final.name>
 		<log4j2.vsersion>2.0.2.RELEASE</log4j2.vsersion>
 		<swagger2>2.9.2</swagger2>
 		<swagger.ui>2.9.2</swagger.ui>
@@ -156,6 +158,24 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.11</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<imageTags>dimples</imageTags>
+					<!-- 指定Dockerfile文件位置 -->
+					<dockerDirectory>${project.basedir}</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${build.final.name}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
