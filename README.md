@@ -5,7 +5,6 @@
 目前包含
 - 自定义异常 与 全局异常处理
 - 自定义日志注解
-- aop 模块 ：对请求拦截，打印日志信息
 - 自定义公共返回类
 - 整合 swagger API文档
 - 工具类模块
@@ -17,6 +16,8 @@
    http工具类
    
    Spring的ApplicationContext的持有类，操作bean
+   
+- shiro权限处理框架
    
    
    
