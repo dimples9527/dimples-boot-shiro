@@ -2,7 +2,6 @@ package com.dimples.core.framework.shiro;
 
 import com.dimples.core.util.SysConstant;
 
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
@@ -60,7 +59,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public Realm realm(HashedCredentialsMatcher matcher) {
+    public Realm realm(ShiroHashedCredentialsMatcher matcher) {
         ShiroRealm realm = new ShiroRealm();
         realm.setCredentialsMatcher(matcher);
         return realm;
@@ -76,7 +75,7 @@ public class ShiroConfig {
         // 配置 缓存管理类 cacheManager
         // securityManager.setCacheManager(cacheManager());
         // 配置 SecurityManager，并注入 shiroRealm
-        securityManager.setRealm(realm(hashedCredentialsMatcher()));
+        securityManager.setRealm(realm(shiroHashedCredentialsMatcher()));
         return securityManager;
     }
 
@@ -94,8 +93,8 @@ public class ShiroConfig {
     }
 
     @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+    public ShiroHashedCredentialsMatcher shiroHashedCredentialsMatcher() {
+        ShiroHashedCredentialsMatcher credentialsMatcher = new ShiroHashedCredentialsMatcher();
         credentialsMatcher.setHashAlgorithmName(SysConstant.ALGORITHNAME);
         credentialsMatcher.setHashIterations(SysConstant.HASHNUM);
         return credentialsMatcher;
