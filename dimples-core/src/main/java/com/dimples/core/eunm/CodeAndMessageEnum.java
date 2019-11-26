@@ -1,5 +1,8 @@
 package com.dimples.core.eunm;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 通用的枚举
  *
@@ -107,23 +110,11 @@ public enum CodeAndMessageEnum {
         this.message = message;
     }
 
+    @Getter
+    @Setter
     private int code;
+    @Setter
+    @Getter
     private String message;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
 }
