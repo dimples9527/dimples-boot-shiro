@@ -2,6 +2,7 @@ package com.dimples.core.framework.shiro;
 
 import com.dimples.core.util.SysConstant;
 
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
@@ -42,16 +43,20 @@ public class ShiroConfig {
         //      perms: 该资源必须得到资源权限才可以访问
         //      role: 该资源必须得到资源权限才可以访问
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/logout", "logout");
+        filterChainDefinitionMap.put("/logout", "anon");
         filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/test/**","anon");
+        filterChainDefinitionMap.put("/test/**", "anon");
+        //放行静态资源
+        filterChainDefinitionMap.put("/static/**", "anon");
         //swagger2
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         filterChainDefinitionMap.put("/v2/api-docs/**", "anon");
         filterChainDefinitionMap.put("/webjars/springfox-swagger-ui/**", "anon");
-        // 开放actuator
-        filterChainDefinitionMap.put("/actuator/**","anon");
+        // actuator
+        filterChainDefinitionMap.put("/actuator/**", "anon");
+        // Druid
+        filterChainDefinitionMap.put("/druid/*", "anon");
 
         filterChainDefinitionMap.put("/**", "user");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -59,7 +64,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public Realm realm(ShiroHashedCredentialsMatcher matcher) {
+    public Realm realm(HashedCredentialsMatcher matcher) {
         ShiroRealm realm = new ShiroRealm();
         realm.setCredentialsMatcher(matcher);
         return realm;
@@ -75,7 +80,7 @@ public class ShiroConfig {
         // 配置 缓存管理类 cacheManager
         // securityManager.setCacheManager(cacheManager());
         // 配置 SecurityManager，并注入 shiroRealm
-        securityManager.setRealm(realm(shiroHashedCredentialsMatcher()));
+        securityManager.setRealm(realm(hashedCredentialsMatcher()));
         return securityManager;
     }
 
@@ -93,8 +98,8 @@ public class ShiroConfig {
     }
 
     @Bean
-    public ShiroHashedCredentialsMatcher shiroHashedCredentialsMatcher() {
-        ShiroHashedCredentialsMatcher credentialsMatcher = new ShiroHashedCredentialsMatcher();
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
         credentialsMatcher.setHashAlgorithmName(SysConstant.ALGORITHNAME);
         credentialsMatcher.setHashIterations(SysConstant.HASHNUM);
         return credentialsMatcher;
