@@ -13,10 +13,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @SpringBootApplication
-public class CoreApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(CoreApplication.class, args);
+        SpringApplication.run(Application.class, args);
         log.info("============================ 程序启动 ============================");
     }
 
