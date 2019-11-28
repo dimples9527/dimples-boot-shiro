@@ -15,7 +15,7 @@
    
    http工具类
    
-   Spring的ApplicationContext的持有类，操作bean
+   Spring的ApplicationContext的持有类，操作BEAN
    
 - shiro权限处理框架
    
