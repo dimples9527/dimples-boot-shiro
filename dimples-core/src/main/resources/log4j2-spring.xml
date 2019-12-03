@@ -10,7 +10,7 @@
 		<!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %message：日志消息，%n是换行符-->
 		<!-- %aop{36} 表示 Logger 名字最长36个字符 -->
 		<property name="LOG_PATTERN"
-			value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} : %message%n" />
+			value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} : %message%n" />
 		<!-- 彩色日志打印，只用于输出到控制台-->
 		<property name="CONSOLE_LOG_PATTERN"
 			value="%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{[%5p]} %clr{[%thread]}{magenta} %clr{---}{faint} %clr{%logger{36}}{cyan} %clr{:}{faint} %m%n%xwEx" />
