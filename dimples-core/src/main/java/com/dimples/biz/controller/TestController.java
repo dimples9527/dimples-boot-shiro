@@ -4,7 +4,7 @@ import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.CodeAndMessageEnum;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
-import com.dimples.core.result.ResultCommon;
+import com.dimples.core.transport.ResponseDTO;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +34,8 @@ public class TestController {
     @ApiOperation(value = "测试自定义日志注解", notes = "测试自定义日志注解")
     @OpsLog(value = "测试自定义日志注解", type = {OpsLogTypeEnum.TEST})
     @GetMapping("/log")
-    public ResultCommon log() {
-        return ResultCommon.success();
+    public ResponseDTO log() {
+        return ResponseDTO.success();
     }
 
 }

@@ -1,6 +1,8 @@
 package com.dimples.biz.web.controller;
 
 import com.dimples.biz.web.constant.PageConstant;
+import com.dimples.core.annotation.OpsLog;
+import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.properties.DimplesProperties;
 import com.dimples.core.properties.ValidateCodeProperties;
 import com.wf.captcha.utils.CaptchaUtil;
@@ -34,6 +36,7 @@ public class LoginController {
         return new ModelAndView(PageConstant.LOGIN);
     }
 
+    @OpsLog(value = "获取图形验证码",type = OpsLogTypeEnum.CAPTCHA)
     @GetMapping("/captcha")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ValidateCodeProperties code = properties.getCode();

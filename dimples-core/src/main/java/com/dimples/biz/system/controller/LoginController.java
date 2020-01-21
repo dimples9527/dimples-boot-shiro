@@ -3,7 +3,7 @@ package com.dimples.biz.system.controller;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
-import com.dimples.core.result.ResultCommon;
+import com.dimples.core.transport.ResponseDTO;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -34,9 +34,9 @@ public class LoginController {
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
     @OpsLog(value = "用户登陆", type = OpsLogTypeEnum.LOGIN)
     @PostMapping("/login")
-    public ResultCommon login(@ApiParam(name = "username", value = "用户名", required = true) String username,
-                              @ApiParam(name = "password", value = "密码", required = true) String password,
-                              @RequestParam(defaultValue = "false") Boolean remember) {
+    public ResponseDTO login(@ApiParam(name = "username", value = "用户名", required = true) String username,
+                             @ApiParam(name = "password", value = "密码", required = true) String password,
+                             @RequestParam(defaultValue = "false") Boolean remember) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, remember);
         try {
             getSubject().login(token);
@@ -44,7 +44,7 @@ public class LoginController {
             throw new BizException(e.getMessage());
         }
         log.info("是否登录==>{}", getSubject().isAuthenticated());
-        return ResultCommon.success();
+        return ResponseDTO.success();
     }
 
     private static Subject getSubject() {
@@ -54,9 +54,9 @@ public class LoginController {
     @ApiOperation(value = "退出登录", notes = "退出登录")
     @OpsLog(value = "退出登录", type = OpsLogTypeEnum.LOGOUT)
     @GetMapping("/logout")
-    public ResultCommon logout() {
+    public ResponseDTO logout() {
         getSubject().logout();
-        return ResultCommon.success();
+        return ResponseDTO.success();
     }
 
 

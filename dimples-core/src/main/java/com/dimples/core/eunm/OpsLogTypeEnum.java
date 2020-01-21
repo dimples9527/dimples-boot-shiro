@@ -9,6 +9,11 @@ package com.dimples.core.eunm;
 public enum OpsLogTypeEnum {
 
     /**
+     * 验证码
+     */
+    CAPTCHA,
+
+    /**
      * 登录
      */
     LOGIN,

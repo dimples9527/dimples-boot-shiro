@@ -1,15 +1,14 @@
-package com.dimples.core.aop;
+package com.dimples.core.aspect;
 
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
+import com.dimples.core.exception.BizException;
 import com.dimples.core.util.HttpContextUtil;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -28,9 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @Aspect
-public class OpsLogAspect {
+public class OpsLogAspect extends BaseAspectSupport {
 
-    private static final String LOG_CONTENT = "[类名]==>%s [方法]==>%s [参数]==>%s [IP]==>%s";
+    private static final String LOG_CONTENT = "[类名] ==>%s \n [方法] ==> %s \n [参数] ==> %s \n [IP] ==> %s ";
 
     @Pointcut(value = "@annotation(com.dimples.core.annotation.OpsLog)")
     public void opsLogAnnotation() {
@@ -38,16 +37,13 @@ public class OpsLogAspect {
 
     @Around("opsLogAnnotation()")
     public Object recordSysLog(ProceedingJoinPoint point) throws Throwable {
-
         // 先执行业务
         Object result = point.proceed();
-
         try {
-            handle(point);
+            handleLog(point);
         } catch (Exception e) {
-            log.error("日志记录出错!", e);
+            throw new BizException("日志记录出错", e);
         }
-
         return result;
     }
 
@@ -57,18 +53,9 @@ public class OpsLogAspect {
      * 2、写入到文件中
      *
      * @param point ProceedingJoinPoint
-     * @throws Exception Exception
      */
-    private void handle(ProceedingJoinPoint point) throws Exception {
-        // 获取拦截的方法名
-        Signature signature = point.getSignature();
-        MethodSignature methodSignature;
-        if (!(signature instanceof MethodSignature)) {
-            throw new IllegalArgumentException("该注解只能用于方法");
-        }
-        methodSignature = (MethodSignature) signature;
-        Object target = point.getTarget();
-        Method currentMethod = target.getClass().getMethod(methodSignature.getName(), methodSignature.getParameterTypes());
+    private void handleLog(ProceedingJoinPoint point) {
+        Method currentMethod = resolveMethod(point);
         String methodName = currentMethod.getName();
         // 获取注解中的内容
         OpsLog opsLog = currentMethod.getAnnotation(OpsLog.class);
@@ -82,7 +69,7 @@ public class OpsLogAspect {
         HttpServletRequest request = HttpContextUtil.getRequest();
         // 构建一些基础信息
         String content = buildContent(point, methodName, request);
-        log.info("执行的操作：{}, 类型：{}, 信息: {}", value, opsLogTypeName, content);
+        log.info("执行的操作:{}, 类型:{}, \n 信息:{}", value, opsLogTypeName, content);
     }
 
     /**
@@ -101,8 +88,7 @@ public class OpsLogAspect {
             Enumeration<String> paraNames = request.getParameterNames();
             while (paraNames.hasMoreElements()) {
                 String key = paraNames.nextElement();
-                bf.append(key).append("=");
-                bf.append(request.getParameter(key)).append("&");
+                bf.append(key).append("=").append(request.getParameter(key)).append("&");
             }
             if (bf.toString().isEmpty()) {
                 bf.append(request.getQueryString());
@@ -112,6 +98,7 @@ public class OpsLogAspect {
         }
         return String.format(LOG_CONTENT, className, methodName, bf.toString(), HttpContextUtil.getIp());
     }
+
 
 }
 

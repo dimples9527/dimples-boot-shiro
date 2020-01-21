@@ -5,7 +5,7 @@ import com.dimples.biz.system.service.UserService;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
-import com.dimples.core.result.ResultCommon;
+import com.dimples.core.transport.ResponseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,13 +39,13 @@ public class UserController {
     @ApiOperation(value = "增加用户", notes = "增加用户")
     @OpsLog(value = "增加用户", type = OpsLogTypeEnum.ADD)
     @PostMapping("/add")
-    public ResultCommon add(@ApiParam(name = "user", value = "用户User对象", required = true) User user) {
+    public ResponseDTO add(@ApiParam(name = "user", value = "用户User对象", required = true) User user) {
         try {
             userService.insertSelective(user);
         } catch (Exception e) {
             throw new BizException(e.getMessage());
         }
-        return ResultCommon.success();
+        return ResponseDTO.success();
     }
 
 
