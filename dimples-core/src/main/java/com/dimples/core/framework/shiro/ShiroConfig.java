@@ -46,8 +46,12 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/logout", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/test/**", "anon");
+        filterChainDefinitionMap.put("/error", "anon");
         //放行静态资源
-        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/images/**", "anon");
+        filterChainDefinitionMap.put("/fonts/**", "anon");
         //swagger2
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");

@@ -13,7 +13,7 @@
 			value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} : %message%n" />
 		<!-- 彩色日志打印，只用于输出到控制台-->
 		<property name="CONSOLE_LOG_PATTERN"
-			value="%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{[%5p]} %clr{[%thread]}{magenta} %clr{---}{faint} %clr{%logger{36}}{cyan} %clr{:}{faint} %m%n%xwEx" />
+			value="%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{[%5p]} %clr{---}{faint} %clr{%logger{36}}{cyan} %clr{:}{faint} %m%n%xwEx" />
 		<!-- 定义日志存储的路径，不要配置相对路径 -->
 		<property name="FILE_PATH" value="c:/logs" />
 		<property name="FILE_NAME" value="log-dimples" />

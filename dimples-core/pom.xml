@@ -161,6 +161,12 @@
 			<artifactId>guava</artifactId>
 			<version>28.1-jre</version>
 		</dependency>
+		<!-- 自定义properties或者XML配置文件支持 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>
