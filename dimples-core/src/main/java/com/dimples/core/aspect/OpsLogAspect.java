@@ -71,7 +71,7 @@ public class OpsLogAspect extends BaseAspectSupport {
         String content = buildContent(point, methodName, request);
         log.info("\n =============================== {} ======================================== \n" +
                 "{} \n" +
-                "========================================================================================== \n", value, content);
+                "====================================================================================== \n", value, content);
     }
 
     /**
@@ -85,7 +85,7 @@ public class OpsLogAspect extends BaseAspectSupport {
     private String buildContent(ProceedingJoinPoint joinPoint, String methodName, HttpServletRequest request) {
         String className = joinPoint.getTarget().getClass().getName();
         Object[] params = joinPoint.getArgs();
-        StringBuilder bf = new StringBuilder();
+        StringBuilder bf = new StringBuilder("无");
         if (params != null && params.length > 0) {
             Enumeration<String> paraNames = request.getParameterNames();
             while (paraNames.hasMoreElements()) {
