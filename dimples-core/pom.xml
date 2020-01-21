@@ -119,12 +119,17 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- Thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 		<!-- shiro + thymeleaf 实现页面级权限控制-->
-		<!--<dependency>
+		<dependency>
 			<groupId>com.github.theborakompanioni</groupId>
 			<artifactId>thymeleaf-extras-shiro</artifactId>
 			<version>${shiro-thymeleaf-extras.version}</version>
-		</dependency>-->
+		</dependency>
 
 		<!-- ip获取地址 -->
 		<dependency>
