@@ -47,6 +47,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/test/**", "anon");
         filterChainDefinitionMap.put("/error", "anon");
+        filterChainDefinitionMap.put("/captcha", "anon");
         //放行静态资源
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");

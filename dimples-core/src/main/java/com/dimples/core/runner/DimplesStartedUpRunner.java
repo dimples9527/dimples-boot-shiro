@@ -1,5 +1,6 @@
 package com.dimples.core.runner;
 
+import com.dimples.core.helper.RedisHelper;
 import com.dimples.core.properties.DimplesProperties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,11 +28,13 @@ public class DimplesStartedUpRunner implements ApplicationRunner {
 
     private ConfigurableApplicationContext context;
     private DimplesProperties dimplesProperties;
+    private RedisHelper redisHelper;
 
     @Autowired
-    public DimplesStartedUpRunner(ConfigurableApplicationContext context, DimplesProperties dimplesProperties) {
+    public DimplesStartedUpRunner(ConfigurableApplicationContext context, DimplesProperties dimplesProperties,RedisHelper redisHelper) {
         this.context = context;
         this.dimplesProperties = dimplesProperties;
+        this.redisHelper = redisHelper;
     }
 
     @Value("${server.port:8080}")
@@ -44,6 +47,19 @@ public class DimplesStartedUpRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        try {
+            // 测试 Redis连接是否正常
+            redisHelper.hasKey("dimples_test");
+        } catch (Exception e) {
+            log.error(" ____   __    _   _ ");
+            log.error("| |_   / /\\  | | | |");
+            log.error("|_|   /_/--\\ |_| |_|__");
+            log.error("                        ");
+            log.error("Dimples启动失败，{}", e.getMessage());
+            log.error("Redis连接异常，请检查Redis连接配置并确保Redis服务已启动");
+            // 关闭 Dimples
+            context.close();
+        }
         if (context.isActive()) {
             InetAddress address = InetAddress.getLocalHost();
             String url = String.format("http://%s:%s", address.getHostAddress(), port);

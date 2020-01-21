@@ -1,4 +1,4 @@
-package com.dimples.core.config;
+package com.dimples.core.configure;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;

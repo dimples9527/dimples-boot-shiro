@@ -1,4 +1,4 @@
-package com.dimples.core.config;
+package com.dimples.core.configure;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
