@@ -3,16 +3,25 @@ package com.dimples.biz.system.controller;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
+import com.dimples.core.properties.DimplesProperties;
+import com.dimples.core.properties.ValidateCodeProperties;
 import com.dimples.core.transport.ResponseDTO;
+import com.wf.captcha.utils.CaptchaUtil;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,10 +35,17 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2019/11/14
  */
 @Slf4j
-@Api(value = "用户登录模块", tags = "用户登录模块")
+@Api(tags = "用户登录模块")
 @RestController
 @RequestMapping("sys")
 public class LoginController {
+
+    private DimplesProperties properties;
+
+    @Autowired
+    public LoginController(DimplesProperties properties) {
+        this.properties = properties;
+    }
 
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
     @OpsLog(value = "用户登陆", type = OpsLogTypeEnum.LOGIN)
@@ -59,6 +75,16 @@ public class LoginController {
         return ResponseDTO.success();
     }
 
+    @OpsLog(value = "获取图形验证码",type = OpsLogTypeEnum.CAPTCHA)
+    @GetMapping("/captcha")
+    public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ValidateCodeProperties code = properties.getCode();
+        // 设置位数
+        CaptchaUtil.out(code.getLength(), request, response);
+        // 设置宽、高、位数
+        CaptchaUtil.out(code.getHeight(), code.getWidth(), code.getLength(), request, response);
+        CaptchaUtil.out(request, response);
+    }
 
 }
 

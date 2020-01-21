@@ -19,11 +19,10 @@ import lombok.ToString;
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2019/11/1
  */
-@SuppressWarnings("all")
 @ToString
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseDTO<T> {
+public class ResponseDTO {
 
     @Setter
     @Getter
@@ -35,7 +34,7 @@ public class ResponseDTO<T> {
 
     @Setter
     @Getter
-    private T data;
+    private Object data;
 
     /**
      * 成功但不带数据
@@ -91,35 +90,6 @@ public class ResponseDTO<T> {
         ResponseDTO result = new ResponseDTO();
         result.setCode(resultCodeEnum.getCode());
         result.setMsg(resultCodeEnum.getMessage());
-        return result;
-    }
-
-    /**
-     * 泛型数据返回
-     *
-     * @param object T
-     * @return ResponseDTO<T>
-     */
-    public ResponseDTO<T> ok(T object) {
-        ResponseDTO result = new ResponseDTO();
-        result.setCode(CodeAndMessageEnum.SUCCESS.getCode());
-        result.setMsg(CodeAndMessageEnum.SUCCESS.getMessage());
-        result.setData(object);
-        return result;
-    }
-
-    public ResponseDTO<T> ok(CodeAndMessageEnum resultCodeEnum, T object) {
-        ResponseDTO result = new ResponseDTO();
-        result.setCode(resultCodeEnum.getCode());
-        result.setMsg(resultCodeEnum.getMessage());
-        result.setData(object);
-        return result;
-    }
-
-    public ResponseDTO<T> error(String msg) {
-        ResponseDTO result = new ResponseDTO();
-        result.setCode(CodeAndMessageEnum.FAIL.getCode());
-        result.setMsg(msg);
         return result;
     }
 
