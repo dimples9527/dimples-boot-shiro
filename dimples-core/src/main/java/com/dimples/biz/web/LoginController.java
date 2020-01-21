@@ -16,4 +16,9 @@ public class LoginController {
         return new ModelAndView("login");
     }
 
+    @GetMapping("/captcha")
+    public void captcha(){
+
+    }
+
 }
