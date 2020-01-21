@@ -13,11 +13,13 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.stereotype.Component;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2020/1/21
  */
+@Component
 public class DimplesLettuceRedisConfigure {
 
     @Bean
@@ -48,7 +50,7 @@ public class DimplesLettuceRedisConfigure {
 
     @Bean
     @ConditionalOnBean(name = "redisTemplate")
-    public RedisHelper redisHelper() {
+    public RedisHelper redisService() {
         return new RedisHelper();
     }
 
