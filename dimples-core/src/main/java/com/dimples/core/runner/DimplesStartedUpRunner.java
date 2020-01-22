@@ -31,7 +31,7 @@ public class DimplesStartedUpRunner implements ApplicationRunner {
     private RedisHelper redisHelper;
 
     @Autowired
-    public DimplesStartedUpRunner(ConfigurableApplicationContext context, DimplesProperties dimplesProperties,RedisHelper redisHelper) {
+    public DimplesStartedUpRunner(ConfigurableApplicationContext context, DimplesProperties dimplesProperties, RedisHelper redisHelper) {
         this.context = context;
         this.dimplesProperties = dimplesProperties;
         this.redisHelper = redisHelper;
@@ -62,7 +62,8 @@ public class DimplesStartedUpRunner implements ApplicationRunner {
         }
         if (context.isActive()) {
             InetAddress address = InetAddress.getLocalHost();
-            String url = String.format("http://%s:%s", address.getHostAddress(), port);
+            String urlBase = String.format("http://%s:%s", address.getHostAddress(), port);
+            String url = urlBase;
             String loginUrl = dimplesProperties.getShiro().getLoginUrl();
             if (StringUtils.isNotBlank(contextPath)) {
                 url += contextPath;
@@ -75,6 +76,7 @@ public class DimplesStartedUpRunner implements ApplicationRunner {
             log.info("\\_\\_, \\_\\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ ");
             log.info("                                                      ");
             log.info("DIMPLES 权限系统启动完毕，地址：{}", url);
+            log.info("DIMPLES 文档地址：{}", urlBase + "/doc.html");
 
             boolean auto = dimplesProperties.isAutoOpenBrowser();
             if (auto && StringUtils.equalsIgnoreCase(active, DEV)) {

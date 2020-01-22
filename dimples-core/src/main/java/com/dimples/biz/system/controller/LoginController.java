@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.swagger.annotations.Api;
@@ -75,8 +74,8 @@ public class LoginController {
 
     @OpsLog(value = "获取图形验证码",type = OpsLogTypeEnum.CAPTCHA)
     @GetMapping("/captcha")
-    public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        validateCodeService.create(request, response);
+    public void captcha(HttpServletResponse response) throws IOException {
+        validateCodeService.create(response);
     }
 
 }

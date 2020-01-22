@@ -17,10 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * 验证码服务
@@ -40,13 +39,12 @@ public class ValidateCodeServiceImpl {
         this.properties = properties;
     }
 
-    public void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
-        String key = session.getId();
+    public void create(HttpServletResponse response) throws IOException {
+        String key = UUID.randomUUID().toString();
         ValidateCodeProperties code = properties.getCode();
         setHeader(response, code.getType());
         Captcha captcha = createCaptcha(code);
-        redisHelper.set(DimplesConstant.CODE_PREFIX  + key, StringUtils.lowerCase(captcha.text()), code.getTime());
+        redisHelper.set(DimplesConstant.CODE_PREFIX + key, StringUtils.lowerCase(captcha.text()), code.getTime());
         captcha.out(response.getOutputStream());
     }
 

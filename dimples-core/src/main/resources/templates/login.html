@@ -46,14 +46,14 @@
                               aria-hidden="true"></span>
                     </div>
                     <div class="col-xs-5">
-                        <img th:src="@{/sys/captcha}" src="images/captcha.png" class="pull-right" id="captcha"
+                        <img th:src="@{/sys/captcha}" src="images/captcha.png" class="pull-right"
+                             id="captcha"
                              onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新"
                              alt="captcha">
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-block btn-primary" type="button"
-                            onclick="location.href='index.html'">立即登录
+                    <button class="btn btn-block btn-primary" id="login" type="button">立即登录
                     </button>
                 </div>
             </form>
@@ -69,9 +69,32 @@
 <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/dimples/login.js}"></script>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        // 登陆
+        $("#login").on("click", function () {
+            login("dimples");
+        });
+
+    })
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
