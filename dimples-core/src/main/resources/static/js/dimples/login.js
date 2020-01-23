@@ -1,7 +1,6 @@
-$(function () {
-
-});
-
+function loginClick() {
+    alert("dimples");
+}
 
 
 
