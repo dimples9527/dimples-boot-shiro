@@ -1,23 +1,35 @@
 package com.dimples.core.framework.shiro;
 
-import com.dimples.core.util.SysConstant;
+import com.dimples.core.properties.DimplesProperties;
+import com.dimples.core.properties.ShiroProperties;
 
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.mgt.SessionManager;
-import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.crazycake.shiro.RedisCacheManager;
+import org.crazycake.shiro.RedisManager;
+import org.crazycake.shiro.RedisSessionDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.Base64Utils;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
 /**
  * Shiro权限配置类
@@ -28,13 +40,32 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
+    private DimplesProperties properties;
+
+    @Autowired
+    public ShiroConfig(DimplesProperties properties) {
+        this.properties = properties;
+    }
+
+    @Value("${spring.redis.host}")
+    private String host;
+    @Value("${spring.redis.port}")
+    private int port;
+    @Value("${spring.redis.password:}")
+    private String password;
+    @Value("${spring.redis.timeout}")
+    private int timeout;
+    @Value("${spring.redis.database:0}")
+    private int database;
+
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        ShiroProperties shiro = properties.getShiro();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        shiroFilterFactoryBean.setLoginUrl("/login");
-        shiroFilterFactoryBean.setSuccessUrl("/index");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");
+        shiroFilterFactoryBean.setLoginUrl(shiro.getLoginUrl());
+        shiroFilterFactoryBean.setSuccessUrl(shiro.getSuccessUrl());
+        shiroFilterFactoryBean.setUnauthorizedUrl(shiro.getUnauthorizedUrl());
 
         //配置拦截器链，注意顺序
         //      anon: 无需认证即可访问
@@ -72,50 +103,63 @@ public class ShiroConfig {
     }
 
     @Bean
-    public Realm realm(HashedCredentialsMatcher matcher) {
-        ShiroRealm realm = new ShiroRealm();
-        realm.setCredentialsMatcher(matcher);
-        return realm;
-    }
-
-    @Bean
-    public SecurityManager securityManager() {
+    public SecurityManager securityManager(ShiroRealm shiroRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 配置 rememberMeCookie
         securityManager.setRememberMeManager(rememberMeManager());
         // 配置 shiro session管理器
         securityManager.setSessionManager(sessionManager());
         // 配置 缓存管理类 cacheManager
-        // securityManager.setCacheManager(cacheManager());
+        securityManager.setCacheManager(cacheManager());
         // 配置 SecurityManager，并注入 shiroRealm
-        securityManager.setRealm(realm(hashedCredentialsMatcher()));
+        securityManager.setRealm(shiroRealm);
         return securityManager;
     }
 
-    @Bean
-    public SimpleCookie rememberCookie() {
-        return new SimpleCookie("rememberMe");
+    private RedisCacheManager cacheManager() {
+        RedisCacheManager redisCacheManager = new RedisCacheManager();
+        redisCacheManager.setRedisManager(redisManager());
+        return redisCacheManager;
     }
 
-    @Bean
-    public CookieRememberMeManager rememberMeManager() {
+    /**
+     * shiro 中配置 redis 缓存
+     *
+     * @return RedisManager
+     */
+    private RedisManager redisManager() {
+        RedisManager redisManager = new RedisManager();
+        redisManager.setHost(host + ":" + port);
+        if (StringUtils.isNotBlank(password)) {
+            redisManager.setPassword(password);
+        }
+        redisManager.setTimeout(timeout);
+        redisManager.setDatabase(database);
+        return redisManager;
+    }
+
+    private SimpleCookie rememberMeCookie() {
+        // 设置 cookie 名称，对应 login.html 页面的 <input type="checkbox" name="rememberMe"/>
+        SimpleCookie cookie = new SimpleCookie("rememberMe");
+        // 设置 cookie 的过期时间，单位为秒，这里为一天
+        cookie.setMaxAge(properties.getShiro().getCookieTimeout());
+        return cookie;
+    }
+
+    /**
+     * cookie管理对象
+     *
+     * @return CookieRememberMeManager
+     */
+    private CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
-        cookieRememberMeManager.setCookie(rememberCookie());
-        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        // rememberMe cookie 加密的密钥
+        String encryptKey = "dimples_shiro_key";
+        byte[] encryptKeyBytes = encryptKey.getBytes(StandardCharsets.UTF_8);
+        String rememberKey = Base64Utils.encodeToString(Arrays.copyOf(encryptKeyBytes, 16));
+        cookieRememberMeManager.setCipherKey(Base64.decode(rememberKey));
         return cookieRememberMeManager;
-    }
-
-    @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
-        credentialsMatcher.setHashAlgorithmName(SysConstant.ALGORITHNAME);
-        credentialsMatcher.setHashIterations(SysConstant.HASHNUM);
-        return credentialsMatcher;
-    }
-
-    @Bean
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
     }
 
     /**
@@ -133,15 +177,38 @@ public class ShiroConfig {
     }
 
     /**
+     * 用于开启 Thymeleaf 中的 shiro 标签的使用
+     *
+     * @return ShiroDialect shiro 方言对象
+     */
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
+    }
+
+    @Bean
+    public RedisSessionDAO redisSessionDAO() {
+        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+        redisSessionDAO.setRedisManager(redisManager());
+        return redisSessionDAO;
+    }
+
+    /**
      * shiro 的session管理器
      *
      * @return SessionManager
      */
     @Bean
-    public SessionManager sessionManager() {
-        ShiroSessionManager mySessionManager = new ShiroSessionManager();
-        mySessionManager.setSessionIdUrlRewritingEnabled(true);
-        return mySessionManager;
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        Collection<SessionListener> listeners = new ArrayList<>();
+        listeners.add(new ShiroSessionListener());
+        // 设置 session超时时间
+        sessionManager.setGlobalSessionTimeout(properties.getShiro().getSessionTimeout() * 1000L);
+        sessionManager.setSessionListeners(listeners);
+        sessionManager.setSessionDAO(redisSessionDAO());
+        sessionManager.setSessionIdUrlRewritingEnabled(false);
+        return sessionManager;
     }
 
 }
