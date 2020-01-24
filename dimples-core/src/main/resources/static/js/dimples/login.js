@@ -1,17 +1,21 @@
 function loginClick() {
     verify();
+    let username = $("#username").val();
+    let password = $("#password").val();
+    let verifyCode = $("#captcha-text").val();
+    console.log("用户登陆信息" + username + ";" + password + ";" + verifyCode);
     $.ajax({
-            type: "post",
-            url: "test.json",
-            data: {
-                username: $("#username").val(),
-                content: $("#content").val()
-            },
-            success: function (data) {
-
-            }
+        url: "/sys/login",
+        type: "post",
+        data: {
+            'username': username,
+            'password': password,
+            'verifyCode': verifyCode
+        },
+        success: function (data) {
+            console.log("登陆回调信息:" + data);
         }
-    );
+    });
 }
 
 // 输入框验证

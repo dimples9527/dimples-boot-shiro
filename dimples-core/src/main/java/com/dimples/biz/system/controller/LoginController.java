@@ -1,6 +1,5 @@
 package com.dimples.biz.system.controller;
 
-import com.dimples.biz.system.service.UserService;
 import com.dimples.biz.system.service.impl.ValidateCodeServiceImpl;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
@@ -40,12 +39,10 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 
     private ValidateCodeServiceImpl validateCodeService;
-    private UserService userService;
 
     @Autowired
-    public LoginController(ValidateCodeServiceImpl validateCodeService, UserService userService) {
+    public LoginController(ValidateCodeServiceImpl validateCodeService) {
         this.validateCodeService = validateCodeService;
-        this.userService = userService;
     }
 
     private static Subject getSubject() {
