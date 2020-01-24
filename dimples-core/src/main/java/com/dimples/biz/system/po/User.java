@@ -1,5 +1,10 @@
 package com.dimples.biz.system.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,37 +13,74 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author tycoding
- * @date 2019-01-19
+ * @author zhongyj <1126834403@qq.com><br/>
+ * @date 2020/1/24
  */
+@ApiModel(value = "com-dimples-biz-system-po-User")
 @Data
-@ApiModel("用户User对象")
+@TableName(value = "db_dimples_shiro.tb_user")
 public class User implements Serializable {
+    /**
+     * 用户状态：有效
+     */
+    public static final String STATUS_VALID = "1";
+    /**
+     * 用户状态：锁定
+     */
+    public static final String STATUS_LOCK = "0";
+    /**
+     * 用户id
+     */
+    @TableId(value = "user_id", type = IdType.AUTO)
+    @ApiModelProperty(value = "用户id")
+    private Long userId;
 
-    private static final long serialVersionUID = 3554316034860494763L;
-
-    private Long id;
-
-    @ApiModelProperty(name = "username", value = "用户名", required = true)
+    /**
+     * 用户名
+     */
+    @TableField(value = "username")
+    @ApiModelProperty(value = "用户名")
     private String username;
 
-    @ApiModelProperty(name = "password", value = "密码", required = true)
+    /**
+     * 登录密码
+     */
+    @TableField(value = "password")
+    @ApiModelProperty(value = "登录密码")
     private String password;
 
-    private String salt;
+    /**
+     * 用户状态，0不启用，1启用，默认为1
+     */
+    @TableField(value = "status")
+    @ApiModelProperty(value = "用户状态，0不启用，1启用，默认为1 ")
+    private String status;
 
-    private Date createTime;
+    /**
+     * 创建日期
+     */
+    @TableField(value = "create_date")
+    @ApiModelProperty(value = "创建日期")
+    private Date createDate;
 
-    private Date modifyTime;
+    /**
+     * 更新日期
+     */
+    @TableField(value = "modify_date")
+    @ApiModelProperty(value = "更新日期")
+    private Date modifyDate;
 
+    private static final long serialVersionUID = 1L;
 
-    private Boolean status;
+    public static final String COL_USER_ID = "user_id";
 
-    public void setUsername(String username) {
-        this.username = username == null ? "" : username.trim();
-    }
+    public static final String COL_USERNAME = "username";
 
-    public void setPassword(String password) {
-        this.password = password == null ? "" : password.trim();
-    }
+    public static final String COL_PASSWORD = "password";
+
+    public static final String COL_STATUS = "status";
+
+    public static final String COL_CREATE_DATE = "create_date";
+
+    public static final String COL_MODIFY_DATE = "modify_date";
 }

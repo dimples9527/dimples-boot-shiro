@@ -1,12 +1,13 @@
 package com.dimples.biz.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.dimples.biz.system.po.User;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2019/11/14
  */
-public interface UserService {
+public interface UserService extends IService<User> {
     /**
      * 根据用户名查询用户
      *
@@ -20,6 +21,9 @@ public interface UserService {
      *
      * @param user User
      */
-    void insertSelective(User user);
+    void add(User user);
 }
+
+
+
 

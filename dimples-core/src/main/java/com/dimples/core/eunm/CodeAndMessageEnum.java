@@ -48,9 +48,11 @@ public enum CodeAndMessageEnum {
     // 没有此用户
     NO_THIS_USER(400, "没有此用户"),
     // 没有此用户
-    USER_NOT_EXISTED(400, "没有此用户"),
+    USER_NOT_EXISTED(400, "账号未注册"),
     // 账号被冻结
-    ACCOUNT_FREEZED(401, "账号被冻结"),
+    ACCOUNT_FREEZE(401, "账号被冻结"),
+    ACCOUNT_ERROR(401, "用户名或密码错误！"),
+    ACCOUNT_LOCK(401, "账号已被锁定,请联系管理员！"),
     // 原密码不正确
     OLD_PWD_NOT_RIGHT(402, "原密码不正确"),
     // 两次输入密码不一致

@@ -69,9 +69,9 @@ public class OpsLogAspect extends BaseAspectSupport {
         HttpServletRequest request = HttpContextUtil.getRequest();
         // 构建一些基础信息
         String content = buildContent(point, methodName, request);
-        log.info("\n =============================== {} ======================================== \n" +
+        log.info("\n =============================== {} ========================================\n" +
                 "{} \n" +
-                "====================================================================================== \n", value, content);
+                "======================================================================================", value, content);
     }
 
     /**

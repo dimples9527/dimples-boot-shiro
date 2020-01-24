@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("/add")
     public ResponseDTO add(@ApiParam(name = "user", value = "用户User对象", required = true) User user) {
         try {
-            userService.insertSelective(user);
+            userService.add(user);
         } catch (Exception e) {
             throw new BizException(e.getMessage());
         }

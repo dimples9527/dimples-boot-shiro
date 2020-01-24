@@ -17,8 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -39,15 +39,14 @@ public class ValidateCodeServiceImpl {
         this.properties = properties;
     }
 
-    public void create(HttpServletResponse response) throws IOException {
-        String key = UUID.randomUUID().toString();
+    public void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String key = request.getSession().getId();
         ValidateCodeProperties code = properties.getCode();
         setHeader(response, code.getType());
         Captcha captcha = createCaptcha(code);
         redisHelper.set(DimplesConstant.CODE_PREFIX + key, StringUtils.lowerCase(captcha.text()), code.getTime());
         captcha.out(response.getOutputStream());
     }
-
 
     public void check(String key, String value) throws BizException {
         Object codeInRedis = redisHelper.get(DimplesConstant.CODE_PREFIX + key);

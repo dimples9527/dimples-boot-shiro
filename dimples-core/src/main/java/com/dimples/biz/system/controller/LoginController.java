@@ -13,16 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -45,13 +46,21 @@ public class LoginController {
     }
 
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true),
+            @ApiImplicitParam(name = "password", value = "密码", required = true),
+            @ApiImplicitParam(name = "verifyCode", value = "验证码", required = true),
+            @ApiImplicitParam(name = "remember", value = "记住我", defaultValue = "false")
+    })
     @OpsLog(value = "用户登陆", type = OpsLogTypeEnum.LOGIN)
     @PostMapping("/login")
-    public ResponseDTO login(@ApiParam(name = "username", value = "用户名", required = true) String username,
-                             @ApiParam(name = "password", value = "密码", required = true) String password,
-                             @RequestParam(defaultValue = "false") Boolean remember) {
+    public ResponseDTO login(String username, String password, String verifyCode, Boolean remember, HttpServletRequest request) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, remember);
         try {
+            // 验证码验证
+            String key = request.getSession().getId();
+            validateCodeService.check(key, verifyCode);
+            // 用户登陆验证
             getSubject().login(token);
         } catch (Exception e) {
             throw new BizException(e.getMessage());
@@ -72,10 +81,10 @@ public class LoginController {
         return ResponseDTO.success();
     }
 
-    @OpsLog(value = "获取图形验证码",type = OpsLogTypeEnum.CAPTCHA)
+    @OpsLog(value = "获取图形验证码", type = OpsLogTypeEnum.CAPTCHA)
     @GetMapping("/captcha")
-    public void captcha(HttpServletResponse response) throws IOException {
-        validateCodeService.create(response);
+    public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        validateCodeService.create(request, response);
     }
 
 }

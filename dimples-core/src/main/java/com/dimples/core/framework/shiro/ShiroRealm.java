@@ -4,17 +4,19 @@ import com.dimples.biz.system.po.User;
 import com.dimples.biz.system.service.UserService;
 import com.dimples.core.eunm.CodeAndMessageEnum;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
 
@@ -56,16 +58,18 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();
+        String password = new String((char[]) token.getCredentials());
         User user = userService.findByName(username);
         if (user == null) {
             throw new UnknownAccountException(CodeAndMessageEnum.USER_NOT_EXISTED.getMessage());
         }
-        return new SimpleAuthenticationInfo(
-                user,
-                user.getPassword(),
-                ByteSource.Util.bytes(user.getSalt()),
-                getName()
-        );
+        if (!StringUtils.equals(password, user.getPassword())) {
+            throw new IncorrectCredentialsException(CodeAndMessageEnum.ACCOUNT_ERROR.getMessage());
+        }
+        if (StringUtils.equals(User.STATUS_LOCK, user.getStatus())) {
+            throw new LockedAccountException(CodeAndMessageEnum.ACCOUNT_LOCK.getMessage());
+        }
+        return new SimpleAuthenticationInfo(user, password, getName());
     }
 }
 
