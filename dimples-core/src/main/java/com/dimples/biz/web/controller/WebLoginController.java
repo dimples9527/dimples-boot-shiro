@@ -4,6 +4,7 @@ import com.dimples.biz.web.constant.PageConstant;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -11,7 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @date 2020/1/21
  */
 @Controller("webLoginController")
-public class LoginController {
+@RequestMapping("web")
+public class WebLoginController {
 
     @GetMapping("/login")
     public ModelAndView login() {

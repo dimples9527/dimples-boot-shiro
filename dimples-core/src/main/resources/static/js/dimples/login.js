@@ -1,5 +1,17 @@
 function loginClick() {
     verify();
+    $.ajax({
+            type: "post",
+            url: "test.json",
+            data: {
+                username: $("#username").val(),
+                content: $("#content").val()
+            },
+            success: function (data) {
+
+            }
+        }
+    );
 }
 
 // 输入框验证
