@@ -58,6 +58,28 @@ public class ShiroConfig {
     @Value("${spring.redis.database:0}")
     private int database;
 
+    /**
+     * shiro 中配置 redis 缓存
+     *
+     * @return RedisManager
+     */
+    private RedisManager redisManager() {
+        RedisManager redisManager = new RedisManager();
+        redisManager.setHost(host + ":" + port);
+        if (StringUtils.isNotBlank(password)) {
+            redisManager.setPassword(password);
+        }
+        redisManager.setTimeout(timeout);
+        redisManager.setDatabase(database);
+        return redisManager;
+    }
+
+    private RedisCacheManager cacheManager() {
+        RedisCacheManager redisCacheManager = new RedisCacheManager();
+        redisCacheManager.setRedisManager(redisManager());
+        return redisCacheManager;
+    }
+
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -79,6 +101,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/test/**", "anon");
         filterChainDefinitionMap.put("/error", "anon");
         filterChainDefinitionMap.put("/sys/captcha", "anon");
+        filterChainDefinitionMap.put("/user/register", "anon");
         //放行静态资源
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
@@ -116,28 +139,11 @@ public class ShiroConfig {
         return securityManager;
     }
 
-    private RedisCacheManager cacheManager() {
-        RedisCacheManager redisCacheManager = new RedisCacheManager();
-        redisCacheManager.setRedisManager(redisManager());
-        return redisCacheManager;
-    }
-
     /**
-     * shiro 中配置 redis 缓存
+     * rememberMe cookie 效果是重开浏览器后无需重新登录
      *
-     * @return RedisManager
+     * @return SimpleCookie
      */
-    private RedisManager redisManager() {
-        RedisManager redisManager = new RedisManager();
-        redisManager.setHost(host + ":" + port);
-        if (StringUtils.isNotBlank(password)) {
-            redisManager.setPassword(password);
-        }
-        redisManager.setTimeout(timeout);
-        redisManager.setDatabase(database);
-        return redisManager;
-    }
-
     private SimpleCookie rememberMeCookie() {
         // 设置 cookie 名称，对应 login.html 页面的 <input type="checkbox" name="rememberMe"/>
         SimpleCookie cookie = new SimpleCookie("rememberMe");
@@ -194,9 +200,9 @@ public class ShiroConfig {
     }
 
     /**
-     * shiro 的session管理器
+     * session 管理对象
      *
-     * @return SessionManager
+     * @return DefaultWebSessionManager
      */
     @Bean
     public DefaultWebSessionManager sessionManager() {

@@ -70,17 +70,4 @@ public class User implements Serializable {
     @ApiModelProperty(value = "更新日期")
     private Date modifyDate;
 
-    private static final long serialVersionUID = 1L;
-
-    public static final String COL_USER_ID = "user_id";
-
-    public static final String COL_USERNAME = "username";
-
-    public static final String COL_PASSWORD = "password";
-
-    public static final String COL_STATUS = "status";
-
-    public static final String COL_CREATE_DATE = "create_date";
-
-    public static final String COL_MODIFY_DATE = "modify_date";
 }

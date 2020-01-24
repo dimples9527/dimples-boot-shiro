@@ -1,10 +1,11 @@
 package com.dimples.biz.system.controller;
 
+import com.dimples.biz.system.service.UserService;
 import com.dimples.biz.system.service.impl.ValidateCodeServiceImpl;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
-import com.dimples.core.exception.BizException;
 import com.dimples.core.transport.ResponseDTO;
+import com.dimples.core.util.MD5Util;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -39,10 +40,16 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 
     private ValidateCodeServiceImpl validateCodeService;
+    private UserService userService;
 
     @Autowired
-    public LoginController(ValidateCodeServiceImpl validateCodeService) {
+    public LoginController(ValidateCodeServiceImpl validateCodeService, UserService userService) {
         this.validateCodeService = validateCodeService;
+        this.userService = userService;
+    }
+
+    private static Subject getSubject() {
+        return SecurityUtils.getSubject();
     }
 
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
@@ -55,22 +62,15 @@ public class LoginController {
     @OpsLog(value = "用户登陆", type = OpsLogTypeEnum.LOGIN)
     @PostMapping("/login")
     public ResponseDTO login(String username, String password, String verifyCode, Boolean remember, HttpServletRequest request) {
+        password = MD5Util.encrypt(username, password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, remember);
-        try {
-            // 验证码验证
-            String key = request.getSession().getId();
-            validateCodeService.check(key, verifyCode);
-            // 用户登陆验证
-            getSubject().login(token);
-        } catch (Exception e) {
-            throw new BizException(e.getMessage());
-        }
+        // 验证码验证
+        String key = request.getSession().getId();
+        validateCodeService.check(key, verifyCode);
+        // 用户登陆验证
+        getSubject().login(token);
         log.info("是否登录==>{}", getSubject().isAuthenticated());
         return ResponseDTO.success();
-    }
-
-    private static Subject getSubject() {
-        return SecurityUtils.getSubject();
     }
 
     @ApiOperation(value = "退出登录", notes = "退出登录")

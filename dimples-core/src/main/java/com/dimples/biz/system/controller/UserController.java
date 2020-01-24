@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotBlank;
+
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +52,23 @@ public class UserController {
         return ResponseDTO.success();
     }
 
+    @ApiOperation(value = "用户注册", notes = "用户注册")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", paramType = "string", dataType = "query", required = true),
+            @ApiImplicitParam(name = "password", value = "密码", paramType = "string", dataType = "query", required = true)
+    })
+    @OpsLog(value = "用户注册", type = OpsLogTypeEnum.ADD)
+    @PostMapping("register")
+    public ResponseDTO register(
+            @NotBlank(message = "{required}") String username,
+            @NotBlank(message = "{required}") String password) throws BizException {
+        User user = userService.findByName(username);
+        if (user != null) {
+            throw new BizException("该用户名已存在");
+        }
+        this.userService.register(username, password);
+        return ResponseDTO.success();
+    }
 
 }
 

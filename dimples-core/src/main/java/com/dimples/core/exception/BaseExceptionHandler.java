@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2019/12/27
  */
 @Slf4j
-@SuppressWarnings("all")
 public class BaseExceptionHandler {
 
     /**
