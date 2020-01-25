@@ -3,22 +3,25 @@ function loginClick() {
     let username = $("#username").val();
     let password = $("#password").val();
     let verifyCode = $("#captcha-text").val();
-    console.log("用户登陆信息" + username + ";" + password + ";" + verifyCode);
     $.ajax({
         url: "/sys/login",
         type: "post",
+        dataType: 'json',
         data: {
-            'username': username,
-            'password': password,
-            'verifyCode': verifyCode
+            "username": username,
+            "password": password,
+            "verifyCode": verifyCode
         },
-        success: function (data) {
-            console.log("登陆回调信息:" + data);
+        success: function (result) {
+            console.log("登陆回调数据: " + result);
         }
     });
 }
 
-// 输入框验证
+/**
+ * 输入框验证
+ * @returns {boolean}
+ */
 function verify() {
     let usernameComponent = $("#username");
     let passwordComponent = $("#password");

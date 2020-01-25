@@ -96,11 +96,12 @@ public class ShiroConfig {
         //      perms: 该资源必须得到资源权限才可以访问
         //      role: 该资源必须得到资源权限才可以访问
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/logout", "anon");
+        filterChainDefinitionMap.put("/sys/logout", "anon");
+        filterChainDefinitionMap.put("/sys/login", "anon");
+        filterChainDefinitionMap.put("/sys/captcha", "anon");
         filterChainDefinitionMap.put("/web/login", "anon");
         filterChainDefinitionMap.put("/test/**", "anon");
         filterChainDefinitionMap.put("/error", "anon");
-        filterChainDefinitionMap.put("/sys/captcha", "anon");
         filterChainDefinitionMap.put("/user/register", "anon");
         //放行静态资源
         filterChainDefinitionMap.put("/js/**", "anon");

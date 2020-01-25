@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class LoginController {
     })
     @OpsLog(value = "用户登陆", type = OpsLogTypeEnum.LOGIN)
     @PostMapping("/login")
-    public ResponseDTO login(String username, String password, String verifyCode, Boolean remember, HttpServletRequest request) {
+    public ResponseDTO login(String username, String password, String verifyCode, @RequestParam(defaultValue = "false") Boolean remember, HttpServletRequest request) {
         password = MD5Util.encrypt(username, password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, remember);
         // 验证码验证
@@ -66,7 +67,7 @@ public class LoginController {
         validateCodeService.check(key, verifyCode);
         // 用户登陆验证
         getSubject().login(token);
-        log.info("是否登录==>{}", getSubject().isAuthenticated());
+        log.info("{} 是否登录==>{}", getSubject(), getSubject().isAuthenticated());
         return ResponseDTO.success();
     }
 

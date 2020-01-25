@@ -30,7 +30,7 @@ public class BaseExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseDTO handleException(Exception e) {
         log.error("系统内部异常,异常信息: ", e);
-        return ResponseDTO.failed(CodeAndMessageEnum.SERVER_ERROR);
+        return ResponseDTO.failed(e.getMessage());
     }
 
     /**
