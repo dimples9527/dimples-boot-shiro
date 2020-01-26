@@ -559,8 +559,8 @@ button.list-group-item:hover {
 }
 
 /* 复选框 & 单选框 */
-.lyear-checkbox,
-.lyear-radio {
+.dimples-checkbox,
+.dimples-radio {
     display: block;
     position: relative;
     margin-top: 0px;
@@ -578,14 +578,14 @@ input[type=radio] {
     box-sizing: border-box;
     padding: 0;
 }
-.lyear-checkbox input,
-.lyear-radio input {
+.dimples-checkbox input,
+.dimples-radio input {
     position: absolute;;
     /*opacity: 0;*/
     display: none;
 }
-.lyear-checkbox span::before,
-.lyear-radio span::before {
+.dimples-checkbox span::before,
+.dimples-radio span::before {
     content: '';
     position: absolute;
     display: inline-block;
@@ -598,8 +598,8 @@ input[type=radio] {
     -o-transition: all .1s;
     transition: all .1s;
 }
-.lyear-checkbox span::after,
-.lyear-radio span::after {
+.dimples-checkbox span::after,
+.dimples-radio span::after {
     content: '';
     position: absolute;
     display: none;
@@ -613,33 +613,33 @@ input[type=radio] {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-.lyear-checkbox span,
-.lyear-radio span {
+.dimples-checkbox span,
+.dimples-radio span {
     display: inline-block;
 }
-.lyear-checkbox input:checked~span:after,
-.lyear-radio input:checked~span:after {
+.dimples-checkbox input:checked~span:after,
+.dimples-radio input:checked~span:after {
     display: inline-block;
 }
-.lyear-checkbox:hover span::before,
-.lyear-radio:hover span::before {
+.dimples-checkbox:hover span::before,
+.dimples-radio:hover span::before {
     border-color: #ebebeb;
 }
-.lyear-checkbox.checkbox-grey span::before,
-.lyear-checkbox.radio-grey span::before,
-.lyear-radio.checkbox-grey span::before,
-.lyear-radio.radio-grey span::before {
+.dimples-checkbox.checkbox-grey span::before,
+.dimples-checkbox.radio-grey span::before,
+.dimples-radio.checkbox-grey span::before,
+.dimples-radio.radio-grey span::before {
     background-color: #ebebeb;
     border-color: #ebebeb;
 }
-.lyear-checkbox input:disabled + span,
-.lyear-radio input:disabled + span {
+.dimples-checkbox input:disabled + span,
+.dimples-radio input:disabled + span {
     cursor: not-allowed;
 }
-.lyear-checkbox input:disabled + span::before,
-.lyear-checkbox input:disabled + span::after,
-.lyear-radio input:disabled + span::before,
-.lyear-radio input:disabled + span::after {
+.dimples-checkbox input:disabled + span::before,
+.dimples-checkbox input:disabled + span::after,
+.dimples-radio input:disabled + span::before,
+.dimples-radio input:disabled + span::after {
     opacity: .4;
 }
 /* checkbox */
@@ -728,11 +728,11 @@ input[type=radio] {
     border-color: #fff;
 }
 /* radio */
-.lyear-radio span::before {
+.dimples-radio span::before {
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
-.lyear-radio span::after {
+.dimples-radio span::after {
     border: 0;
     height: 6px;
     left: 6px;
@@ -832,7 +832,7 @@ input[type=radio] {
 }
 
 /* 开关 */
-.lyear-switch {
+.dimples-switch {
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;
@@ -843,13 +843,13 @@ input[type=radio] {
     align-items: center;
     margin-bottom: 0;
 }
-.lyear-switch input {
+.dimples-switch input {
     height: 0;
     width: 0;
     position: absolute;
     opacity: 0;
 }
-.lyear-switch span {
+.dimples-switch span {
 	display: inline-block;
 	position: relative;
 	width: 40px;
@@ -863,7 +863,7 @@ input[type=radio] {
 	-o-transition: all .1s ease;
 	transition: all .1s ease
 }
-.lyear-switch span:after {
+.dimples-switch span:after {
 	content: '';
 	height: 20px;
 	width: 20px;
@@ -882,7 +882,7 @@ input[type=radio] {
 	-webkit-box-shadow: rgba(0,0,0,.12) 0 1px 6px,rgba(0,0,0,.12) 0 1px 4px;
 	box-shadow: rgba(0,0,0,.12) 0 1px 6px,rgba(0,0,0,.12) 0 1px 4px
 }
-.lyear-switch input:checked~span:after {
+.dimples-switch input:checked~span:after {
 	left: -webkit-calc(100% - 20px);
 	left: calc(100% - 20px);
 }
@@ -923,17 +923,17 @@ input[type=radio] {
 	background-color: #8d6658
 }
 
-.lyear-switch.switch-solid span,
-.lyear-switch.switch-light span,
-.lyear-switch.switch-outline span {
+.dimples-switch.switch-solid span,
+.dimples-switch.switch-light span,
+.dimples-switch.switch-outline span {
     height: 20px;
 }
-.lyear-switch.switch-solid span:after,
-.lyear-switch.switch-light span:after,
-.lyear-switch.switch-outline span:after {
+.dimples-switch.switch-solid span:after,
+.dimples-switch.switch-light span:after,
+.dimples-switch.switch-outline span:after {
     top: -2px;
 }
-.lyear-switch.switch-outline span {
+.dimples-switch.switch-outline span {
 	background-color: #fff
 }
 .switch-solid.switch-primary input:checked~span {
@@ -2453,7 +2453,7 @@ dd, dt {
 /** ----------------------------------
  * 左侧导航
  -------------------------------------- */
-.lyear-layout-sidebar {
+.dimples-layout-sidebar {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -2470,17 +2470,17 @@ dd, dt {
 	-moz-box-shadow: 0px 0px 5px rgba(0,0,0,0.08);
     box-shadow: 0px 0px 5px rgba(0,0,0,0.08);
 }
-.lyear-layout-sidebar-close .lyear-layout-sidebar {
+.dimples-layout-sidebar-close .dimples-layout-sidebar {
     transform: translateX(-100%);
     -webkit-box-shadow: none;
 	-moz-box-shadow: none;
     box-shadow: none;
 }
-.lyear-layout-sidebar-close .lyear-layout-header,
-.lyear-layout-sidebar-close .lyear-layout-content {
+.dimples-layout-sidebar-close .dimples-layout-header,
+.dimples-layout-sidebar-close .dimples-layout-content {
     padding-left: 0px;
 }
-.lyear-layout-sidebar-scroll {
+.dimples-layout-sidebar-scroll {
 	height: -moz-calc(100% - 68px);
 	height: -webkit-calc(100% - 68px);
 	height: calc(100% - 68px);
@@ -2489,13 +2489,13 @@ dd, dt {
 }
 
 /* 侧边栏开关 */
-.lyear-aside-toggler {
+.dimples-aside-toggler {
     margin-right: .25rem;
     padding: .25rem .95rem .25rem .25rem;
     line-height: 1.5;
     cursor: pointer;
 }
-.lyear-aside-toggler .lyear-toggler-bar {
+.dimples-aside-toggler .dimples-toggler-bar {
     display: block;
     height: 2px;
     width: 20px;
@@ -2504,13 +2504,13 @@ dd, dt {
     -webkit-transition: 0.3s;
     transition: 0.3s;
 }
-.lyear-aside-toggler .lyear-toggler-bar:nth-child(2) {
+.dimples-aside-toggler .dimples-toggler-bar:nth-child(2) {
     width: 15px;
 }
-.lyear-aside-toggler:hover .lyear-toggler-bar:nth-child(2) {
+.dimples-aside-toggler:hover .dimples-toggler-bar:nth-child(2) {
     width: 20px;
 }
-.lyear-layout-sidebar-close .lyear-aside-toggler .lyear-toggler-bar {
+.dimples-layout-sidebar-close .dimples-aside-toggler .dimples-toggler-bar {
     width: 20px;
 }
 
@@ -2623,7 +2623,7 @@ dd, dt {
 /** ----------------------------------
  * 头部信息
  -------------------------------------- */
-.lyear-layout-header {
+.dimples-layout-header {
     position: fixed;
     top: 0;
     right: 0;
@@ -2637,7 +2637,7 @@ dd, dt {
     -moz-box-shadow: 4px 0 5px rgba(0, 0, 0, 0.035);
     box-shadow: 4px 0 5px rgba(0, 0, 0, 0.035);
 }
-.lyear-layout-header .navbar {
+.dimples-layout-header .navbar {
     position: relative;
     min-height: 64px;
     margin-bottom: 0;
@@ -2646,7 +2646,7 @@ dd, dt {
     -moz-border-radius: 0px;
     border-radius: 0px;
 }
-.lyear-layout-header .navbar-default {
+.dimples-layout-header .navbar-default {
     background-color: transparent;
 }
 .topbar {
@@ -2727,7 +2727,7 @@ dd, dt {
 /** ----------------------------------
  * 主要内容
  -------------------------------------- */
-.lyear-layout-content {
+.dimples-layout-content {
 	height: 100%;
 	width: 100%;
     padding-top: 68px;
@@ -2735,7 +2735,7 @@ dd, dt {
     -webkit-transition: padding 0.3s;
     transition: padding 0.3s;
 }
-.lyear-layout-content .container-fluid {
+.dimples-layout-content .container-fluid {
     padding-top: 15px;
     padding-bottom: 15px;
 }
@@ -2860,14 +2860,14 @@ dd, dt {
 }
 
 /* 加载动画 */
-#lyear-loading {
+#dimples-loading {
 	position: fixed;
 	width: 100%;
 	height: 100%;
 	z-index: 9990;
 	background: rgba(0, 0, 0, 0.0325)
 }
-#lyear-loading .spinner-border {
+#dimples-loading .spinner-border {
 	z-index: 999999;
 	position: fixed;
 	left: 50%;
@@ -3090,21 +3090,21 @@ dd, dt {
 }
 
 /* 多图上传 */
-.lyear-uploads-pic {
+.dimples-uploads-pic {
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: stretch;
     align-items: stretch;
     margin-bottom: 0px;
 }
-.lyear-uploads-pic figure  {
+.dimples-uploads-pic figure  {
     position: relative;
     background: #4d5259;
     overflow: hidden;
     text-align: center;
     cursor: pointer;
 }
-.lyear-uploads-pic figure img {
+.dimples-uploads-pic figure img {
     position: relative;
     display: block;
     min-height: 100%;
@@ -3116,18 +3116,18 @@ dd, dt {
     -webkit-transition: opacity 0.5s;
     transition: opacity 0.5s;
 }
-.lyear-uploads-pic figure:hover img {
+.dimples-uploads-pic figure:hover img {
     opacity: 0.5;
 }
-.lyear-uploads-pic figure figcaption,
-.lyear-uploads-pic figure figcaption > a:not(.btn) {
+.dimples-uploads-pic figure figcaption,
+.dimples-uploads-pic figure figcaption > a:not(.btn) {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
 }
-.lyear-uploads-pic figure figcaption {
+.dimples-uploads-pic figure figcaption {
     display: -webkit-box;
     display: flex;
     -webkit-box-align: center;
@@ -3142,7 +3142,7 @@ dd, dt {
     -webkit-transition: .35s;
     transition: .35s;
 }
-.lyear-uploads-pic figure figcaption > a {
+.dimples-uploads-pic figure figcaption > a {
     position: static;
     z-index: auto;
     text-indent: 0;
@@ -3151,14 +3151,14 @@ dd, dt {
 	margin-left: 2px;
 	margin-right: 2px
 }
-.lyear-uploads-pic figure figcaption > *:first-child {
+.dimples-uploads-pic figure figcaption > *:first-child {
     margin-left: 0;
 }
-.lyear-uploads-pic figure:hover figcaption {
+.dimples-uploads-pic figure:hover figcaption {
 	-webkit-transform: scale(1);
 	transform: scale(1)
 }
-.lyear-uploads-pic .pic-add {
+.dimples-uploads-pic .pic-add {
     display: -webkit-flex;
     justify-content: center;
     align-items: center;
@@ -3170,10 +3170,10 @@ dd, dt {
     -webkit-transition: .35s;
     transition: .35s;
 }
-.lyear-uploads-pic .pic-add:before {
+.dimples-uploads-pic .pic-add:before {
     content: "\f415";
 }
-.lyear-uploads-pic .pic-add:hover {
+.dimples-uploads-pic .pic-add:hover {
     border-color: #33cabb;
     color: #33cabb;
 }
@@ -3182,23 +3182,23 @@ dd, dt {
  * 响应式处理
  -------------------------------------- */
 @media (max-width: 1024px) {
-    .lyear-layout-sidebar {
+    .dimples-layout-sidebar {
         transform: translateX(-100%);
     }
-	.lyear-layout-header,
-    .lyear-layout-content {
+	.dimples-layout-header,
+    .dimples-layout-content {
         padding-left: 0;
     }
-	.lyear-layout-sidebar {
+	.dimples-layout-sidebar {
         -webkit-box-shadow: none;
 		-moz-webkit-box-shadow: none;
         box-shadow: none;
     }
-	.lyear-layout-sidebar.lyear-aside-open {
+	.dimples-layout-sidebar.dimples-aside-open {
         transform: translateX(0);
     }
     /* 遮罩层 */
-    .lyear-mask-modal {
+    .dimples-mask-modal {
         background-color: rgba(0, 0, 0, 0.5);
         height: 100%;
         left: 0;
@@ -3365,10 +3365,10 @@ body[data-theme='dark'] a,
 [data-theme='dark'] .panel {
     background-color: #292B3D;
 }
-[data-theme='dark'] .lyear-aside-toggler .lyear-toggler-bar {
+[data-theme='dark'] .dimples-aside-toggler .dimples-toggler-bar {
     background-color: #8c909a;
 }
-[data-theme='dark'] .lyear-layout-header {
+[data-theme='dark'] .dimples-layout-header {
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
@@ -3378,14 +3378,14 @@ body[data-theme='dark'] a,
     -moz-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.35);
     box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.35);
 }
-[data-theme='dark'] .lyear-layout-sidebar-scroll {
+[data-theme='dark'] .dimples-layout-sidebar-scroll {
     -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.35);
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.35)
 }
 [data-theme='dark'] .sidebar-header,
-[data-theme='dark'] .lyear-layout-sidebar-scroll,
-[data-theme='dark'] .lyear-layout-header,
+[data-theme='dark'] .dimples-layout-sidebar-scroll,
+[data-theme='dark'] .dimples-layout-header,
 [data-theme='dark'] .card,
 [data-theme='dark'] .jconfirm .jconfirm-box {
     background-color: #222437;
@@ -3628,21 +3628,21 @@ body[data-theme='dark'] a,
 [data-theme='dark'] .list-group-item.active:hover .list-group-item-heading>small {
     color: #fff;
 }
-[data-theme='dark'] .lyear-checkbox span::before,
-[data-theme='dark'] .lyear-radio span::before {
+[data-theme='dark'] .dimples-checkbox span::before,
+[data-theme='dark'] .dimples-radio span::before {
     border-color: #656B77;
 }
-[data-theme='dark'] .lyear-checkbox.checkbox-grey span::before,
-[data-theme='dark'] .lyear-checkbox.radio-grey span::before,
-[data-theme='dark'] .lyear-radio.checkbox-grey span::before,
-[data-theme='dark'] .lyear-radio.radio-grey span::before {
+[data-theme='dark'] .dimples-checkbox.checkbox-grey span::before,
+[data-theme='dark'] .dimples-checkbox.radio-grey span::before,
+[data-theme='dark'] .dimples-radio.checkbox-grey span::before,
+[data-theme='dark'] .dimples-radio.radio-grey span::before {
     background-color: #656B77;
 }
-[data-theme='dark'] .lyear-switch span {
+[data-theme='dark'] .dimples-switch span {
     background-color: #1D1F2F;
     border-color: #1D1F2F;
 }
-[data-theme='dark'] .lyear-switch.switch-outline span {
+[data-theme='dark'] .dimples-switch.switch-outline span {
     background-color: transparent;
 }
 [data-theme='dark'] .input-group-btn .btn-default:focus,
@@ -3831,8 +3831,8 @@ body[data-theme='translucent'] {
 }
 [data-theme='translucent'] .card,
 [data-theme='translucent'] .sidebar-header,
-[data-theme='translucent'] .lyear-layout-sidebar-scroll,
-[data-theme='translucent'] .lyear-layout-header {
+[data-theme='translucent'] .dimples-layout-sidebar-scroll,
+[data-theme='translucent'] .dimples-layout-header {
     background-color: rgba(0, 0, 0, .075);
 }
 [data-theme='translucent'] .card-header,
@@ -3842,7 +3842,7 @@ body[data-theme='translucent'] {
 [data-theme='translucent'] .divider::after {
     border-color: rgba(255, 255, 255, .075);
 }
-[data-theme='translucent'] .lyear-aside-toggler .lyear-toggler-bar {
+[data-theme='translucent'] .dimples-aside-toggler .dimples-toggler-bar {
     background-color: rgba(255, 255, 255, .85);
 }
 [data-theme='translucent'] .table-bordered,
@@ -4130,25 +4130,25 @@ body[data-theme='translucent'] {
 [data-theme='translucent'] .help-block {
     color: rgba(255, 255, 255, .5);
 }
-[data-theme='translucent'] .lyear-checkbox span::before,
-[data-theme='translucent'] .lyear-radio span::before,
-[data-theme='translucent'] .lyear-checkbox.checkbox-grey span::before,
-[data-theme='translucent'] .lyear-checkbox.radio-grey span::before,
-[data-theme='translucent'] .lyear-radio.checkbox-grey span::before,
-[data-theme='translucent'] .lyear-radio.radio-grey span::before {
+[data-theme='translucent'] .dimples-checkbox span::before,
+[data-theme='translucent'] .dimples-radio span::before,
+[data-theme='translucent'] .dimples-checkbox.checkbox-grey span::before,
+[data-theme='translucent'] .dimples-checkbox.radio-grey span::before,
+[data-theme='translucent'] .dimples-radio.checkbox-grey span::before,
+[data-theme='translucent'] .dimples-radio.radio-grey span::before {
     border-color: rgba(0, 0, 0, .125);
 }
-[data-theme='translucent'] .lyear-checkbox.checkbox-grey span::before,
-[data-theme='translucent'] .lyear-checkbox.radio-grey span::before,
-[data-theme='translucent'] .lyear-radio.checkbox-grey span::before,
-[data-theme='translucent'] .lyear-radio.radio-grey span::before {
+[data-theme='translucent'] .dimples-checkbox.checkbox-grey span::before,
+[data-theme='translucent'] .dimples-checkbox.radio-grey span::before,
+[data-theme='translucent'] .dimples-radio.checkbox-grey span::before,
+[data-theme='translucent'] .dimples-radio.radio-grey span::before {
     background-color: rgba(235, 235, 235, .35)
 }
-[data-theme='translucent'] .lyear-switch.switch-outline span {
+[data-theme='translucent'] .dimples-switch.switch-outline span {
     background-color: transparent;
     border-color: rgba(0, 0, 0, .35);
 }
-[data-theme='translucent'] .lyear-switch span {
+[data-theme='translucent'] .dimples-switch span {
     border-color: rgba(0, 0, 0, .035);
     background-color: rgba(0, 0, 0, .35);
 }
@@ -4174,46 +4174,46 @@ body[data-theme='translucent'] {
 }
 
 @media (max-width: 1024px) {
-    [data-theme='translucent'].lyear-layout-sidebar-close .lyear-layout-sidebar-scroll,
-    [data-theme='translucent'].lyear-layout-sidebar-close .sidebar-header {
+    [data-theme='translucent'].dimples-layout-sidebar-close .dimples-layout-sidebar-scroll,
+    [data-theme='translucent'].dimples-layout-sidebar-close .sidebar-header {
         background-color: rgba(0, 0, 0, .75);
     }
 }
 
 /* 颜色搭配 */
-[data-headerbg='color_2'] .lyear-layout-header,
+[data-headerbg='color_2'] .dimples-layout-header,
 [data-logobg='color_2'] .sidebar-header,
-[data-sidebarbg='color_2'] .lyear-layout-sidebar-scroll {
+[data-sidebarbg='color_2'] .dimples-layout-sidebar-scroll {
     background-color: #15c377;
 }
-[data-headerbg='color_3'] .lyear-layout-header,
+[data-headerbg='color_3'] .dimples-layout-header,
 [data-logobg='color_3'] .sidebar-header,
-[data-sidebarbg='color_3'] .lyear-layout-sidebar-scroll {
+[data-sidebarbg='color_3'] .dimples-layout-sidebar-scroll {
     background-color: #48b0f7;
 }
-[data-headerbg='color_4'] .lyear-layout-header,
+[data-headerbg='color_4'] .dimples-layout-header,
 [data-logobg='color_4'] .sidebar-header,
-[data-sidebarbg='color_4'] .lyear-layout-sidebar-scroll {
+[data-sidebarbg='color_4'] .dimples-layout-sidebar-scroll {
     background-color: #faa64b;
 }
-[data-headerbg='color_5'] .lyear-layout-header,
+[data-headerbg='color_5'] .dimples-layout-header,
 [data-logobg='color_5'] .sidebar-header,
-[data-sidebarbg='color_5'] .lyear-layout-sidebar-scroll {
+[data-sidebarbg='color_5'] .dimples-layout-sidebar-scroll {
     background-color: #f96868;
 }
-[data-headerbg='color_6'] .lyear-layout-header,
+[data-headerbg='color_6'] .dimples-layout-header,
 [data-logobg='color_6'] .sidebar-header,
-[data-sidebarbg='color_6'] .lyear-layout-sidebar-scroll {
+[data-sidebarbg='color_6'] .dimples-layout-sidebar-scroll {
     background-color: #926dde;
 }
-[data-headerbg='color_7'] .lyear-layout-header,
+[data-headerbg='color_7'] .dimples-layout-header,
 [data-logobg='color_7'] .sidebar-header,
-[data-sidebarbg='color_7'] .lyear-layout-sidebar-scroll {
+[data-sidebarbg='color_7'] .dimples-layout-sidebar-scroll {
     background-color: #33cabb;
 }
-[data-headerbg='color_8'] .lyear-layout-header,
+[data-headerbg='color_8'] .dimples-layout-header,
 [data-logobg='color_8'] .sidebar-header,
-[data-sidebarbg='color_8'] .lyear-layout-sidebar-scroll {
+[data-sidebarbg='color_8'] .dimples-layout-sidebar-scroll {
     background-color: #465161;
 }
 
@@ -4227,9 +4227,9 @@ body[data-theme='translucent'] {
     -o-filter: drop-shadow(rgb(255, 255, 255) 220px 0px);
     filter: drop-shadow(rgb(255, 255, 255) 220px 0px);
 }
-[data-headerbg*='color_'] .lyear-layout-header,
-[data-headerbg*='color_'] .lyear-layout-header .topbar-right > li > a,
-[data-sidebarbg*='color_'] .lyear-layout-sidebar-scroll a,
+[data-headerbg*='color_'] .dimples-layout-header,
+[data-headerbg*='color_'] .dimples-layout-header .topbar-right > li > a,
+[data-sidebarbg*='color_'] .dimples-layout-sidebar-scroll a,
 [data-sidebarbg*='color_'] .sidebar-footer {
     color: rgba(255, 255, 255, .85);
 }
@@ -4237,7 +4237,7 @@ body[data-theme='translucent'] {
 [data-sidebarbg*='color_'] .nav-drawer .nav-subnav > li > a:hover {
     color: #fff;
 }
-[data-headerbg*='color_'] .lyear-aside-toggler .lyear-toggler-bar {
+[data-headerbg*='color_'] .dimples-aside-toggler .dimples-toggler-bar {
     background-color: #fff;
 }
 [data-sidebarbg*='color_'] .nav-drawer > .active > a {

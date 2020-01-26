@@ -9,15 +9,29 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/1/21
+ * @date 2020/1/26
  */
-@Controller("webLoginController")
+@Controller
 @RequestMapping("web")
-public class WebLoginController {
+public class WebIndexController {
 
-    @GetMapping("login")
-    public ModelAndView login() {
-        return new ModelAndView(PageConstant.LOGIN);
+    @GetMapping("index")
+    public ModelAndView index() {
+        return new ModelAndView(PageConstant.INDEX);
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

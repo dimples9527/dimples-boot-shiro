@@ -1,5 +1,7 @@
 function loginClick() {
-    verify();
+    if (!verify()) {
+        return;
+    }
     let username = $("#username").val();
     let password = $("#password").val();
     let verifyCode = $("#captcha-text").val();
@@ -13,7 +15,17 @@ function loginClick() {
             "verifyCode": verifyCode
         },
         success: function (result) {
-            console.log("登陆回调数据: " + result);
+            if (result.code === 200) {
+                window.location.href = "/web/index";
+            } else {
+                let errorComponent = $("#login-error");
+                if (result.code === 500) {
+                    console.log(result.message);
+                    errorComponent.text(result.message);
+                    return;
+                }
+                errorComponent.text(ACCOUNT_PASSWORD_ERROR);
+            }
         }
     });
 }
@@ -46,6 +58,7 @@ function verify() {
         return false;
     }
     errorComponent[0].style.visibility = "hidden";
+    return true;
 }
 
 

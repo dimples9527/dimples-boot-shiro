@@ -9,5 +9,6 @@ package com.dimples.biz.web.constant;
 public class PageConstant {
 
     public static final String LOGIN = "login";
+    public static final String INDEX = "index";
 
 }

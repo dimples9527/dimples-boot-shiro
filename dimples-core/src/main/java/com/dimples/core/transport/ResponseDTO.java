@@ -30,7 +30,7 @@ public class ResponseDTO {
 
     @Setter
     @Getter
-    private String msg;
+    private String message;
 
     @Setter
     @Getter
@@ -42,7 +42,7 @@ public class ResponseDTO {
     public static ResponseDTO success() {
         ResponseDTO result = new ResponseDTO();
         result.setCode(CodeAndMessageEnum.SUCCESS.getCode());
-        result.setMsg(CodeAndMessageEnum.SUCCESS.getMessage());
+        result.setMessage(CodeAndMessageEnum.SUCCESS.getMessage());
         return result;
     }
 
@@ -52,7 +52,7 @@ public class ResponseDTO {
     public static ResponseDTO success(Object object) {
         ResponseDTO result = new ResponseDTO();
         result.setCode(CodeAndMessageEnum.SUCCESS.getCode());
-        result.setMsg(CodeAndMessageEnum.SUCCESS.getMessage());
+        result.setMessage(CodeAndMessageEnum.SUCCESS.getMessage());
         result.setData(object);
         return result;
     }
@@ -65,7 +65,7 @@ public class ResponseDTO {
     public static ResponseDTO failed() {
         ResponseDTO result = new ResponseDTO();
         result.setCode(CodeAndMessageEnum.FAIL.getCode());
-        result.setMsg(CodeAndMessageEnum.FAIL.getMessage());
+        result.setMessage(CodeAndMessageEnum.FAIL.getMessage());
         return result;
     }
 
@@ -75,21 +75,21 @@ public class ResponseDTO {
     public static ResponseDTO failed(Integer code, String msg) {
         ResponseDTO result = new ResponseDTO();
         result.setCode(code);
-        result.setMsg(msg);
+        result.setMessage(msg);
         return result;
     }
 
     public static ResponseDTO failed(String message) {
         ResponseDTO result = new ResponseDTO();
         result.setCode(CodeAndMessageEnum.SERVER_ERROR.getCode());
-        result.setMsg(message);
+        result.setMessage(message);
         return result;
     }
 
     public static ResponseDTO failed(CodeAndMessageEnum resultCodeEnum) {
         ResponseDTO result = new ResponseDTO();
         result.setCode(resultCodeEnum.getCode());
-        result.setMsg(resultCodeEnum.getMessage());
+        result.setMessage(resultCodeEnum.getMessage());
         return result;
     }
 

@@ -21,19 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 public class BaseExceptionHandler {
 
     /**
-     * Exception
-     *
-     * @param e Exception
-     * @return ResponseDTO
-     */
-    @ExceptionHandler(value = Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseDTO handleException(Exception e) {
-        log.error("系统内部异常,异常信息: ", e);
-        return ResponseDTO.failed(e.getMessage());
-    }
-
-    /**
      * BizException
      *
      * @param e BizException
@@ -57,5 +44,17 @@ public class BaseExceptionHandler {
         return ResponseDTO.failed(CodeAndMessageEnum.NOT_AUTH);
     }
 
+    /**
+     * Exception
+     *
+     * @param e Exception
+     * @return ResponseDTO
+     */
+    @ExceptionHandler(value = Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseDTO handleException(Exception e) {
+        log.error("系统内部异常,异常信息: ", e);
+        return ResponseDTO.failed(e.getMessage());
+    }
 
 }
