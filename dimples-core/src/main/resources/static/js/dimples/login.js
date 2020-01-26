@@ -19,12 +19,9 @@ function loginClick() {
                 window.location.href = "/web/index";
             } else {
                 let errorComponent = $("#login-error");
-                if (result.code === 500) {
-                    console.log(result.message);
-                    errorComponent.text(result.message);
-                    return;
-                }
-                errorComponent.text(ACCOUNT_PASSWORD_ERROR);
+                console.log(result.message);
+                errorComponent[0].style.visibility = 'visible';
+                errorComponent.text(result.message);
             }
         }
     });
