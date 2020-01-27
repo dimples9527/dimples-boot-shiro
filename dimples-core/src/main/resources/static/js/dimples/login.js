@@ -5,6 +5,9 @@ function loginClick() {
     let username = $("#username").val();
     let password = $("#password").val();
     let verifyCode = $("#captcha-text").val();
+    //显示加载动画
+    $(".gif").css("display", "flex");
+    //调用ajax发送请求
     $.ajax({
         url: "/sys/login",
         type: "post",
@@ -15,6 +18,8 @@ function loginClick() {
             "verifyCode": verifyCode
         },
         success: function (result) {
+            //请求成功后再次隐藏加载动画
+            $(".gif").css("display", "none");
             if (result.code === 200) {
                 window.location.href = "/web/index";
             } else {

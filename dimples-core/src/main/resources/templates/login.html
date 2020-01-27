@@ -24,6 +24,7 @@
                                   src="/images/logo-sidebar.png"> </a>
             </div>
             <div class="login-error" id="login-error">错误信息</div>
+            <!-- 登陆框 -->
             <form action="/sys/login" method="post">
                 <div class="form-group has-feedback feedback-left">
                     <label for="username"></label>
@@ -64,6 +65,10 @@
                     All
                     right reserved</p>
             </footer>
+            <!-- 加载动画 -->
+            <div class="gif">
+                <img src="/images/gif/loading.gif" th:src="@{/images/gif/loading.gif}" alt="加载动画"/>
+            </div>
         </div>
     </div>
 </div>

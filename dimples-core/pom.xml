@@ -7,7 +7,6 @@
 		<groupId>com.dimples.shiro</groupId>
 		<artifactId>dimples-shiro</artifactId>
 		<version>1.0.0</version>
-		<relativePath />
 	</parent>
 
 	<groupId>com.dimples.core</groupId>
