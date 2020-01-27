@@ -1,5 +1,6 @@
 .dimples-wrapper {
     position: relative;
+    background: #f0f2f5 url("../images/background.svg") no-repeat center 110px;
 }
 
 .dimples-login {
@@ -48,33 +49,4 @@
 
 #captcha {
     cursor: pointer;
-}
-
-.gif {
-    /*声明绝对定位*/
-    position: absolute;
-    /*在页面最左侧对齐*/
-    left: 0;
-    /*在页面最上方对齐*/
-    top: 0;
-    /*高度是相对屏幕高度的100%*/
-    height: 100vh;
-    /*宽度是相对屏幕宽度的100%*/
-    width: 100vw;
-    /*设置元素优先级为1级*/
-    z-index: 1;
-    /*设置元素隐藏*/
-    display: none;
-    /*让子元素横向居中(声明flex后有效)*/
-    align-items: center;
-    /*让子元素垂直居中(声明flex后有效)*/
-    justify-content: center;
-    /*设置背景颜色为黑色，并给0.5透明度*/
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-/*设置gif下的img元素样式*/
-.gif > img {
-    height: 20%;
-    width: 10%;
 }

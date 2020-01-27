@@ -11,6 +11,7 @@
     <meta name="author" content="dimples">
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
     <link th:href="@{/css/style.min.css}" rel="stylesheet">
     <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
@@ -65,17 +66,17 @@
                     All
                     right reserved</p>
             </footer>
-            <!-- 加载动画 -->
-            <div class="gif">
-                <img src="/images/gif/loading.gif" th:src="@{/images/gif/loading.gif}" alt="加载动画"/>
-            </div>
         </div>
     </div>
 </div>
+</body>
 <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/dimples/login.js}"></script>
+<!--消息提示-->
+<script type="text/javascript" th:src="@{/js/bootstrap-notify.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/lightyear.js}"></script>
 <script type="text/javascript" th:src="@{/js/dimples/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/dimples/login.js}"></script>
 <script type="text/javascript">
     $(function () {
         // 登陆
@@ -84,7 +85,6 @@
         });
     });
 </script>
-</body>
 </html>
 
 
