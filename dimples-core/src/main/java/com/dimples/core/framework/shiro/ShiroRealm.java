@@ -16,7 +16,9 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -71,7 +73,10 @@ public class ShiroRealm extends AuthorizingRealm {
         if (StringUtils.equals(User.STATUS_LOCK, user.getStatus())) {
             throw new LockedAccountException(CodeAndMessageEnum.ACCOUNT_LOCK.getMessage());
         }
-        return new SimpleAuthenticationInfo(user, password, getName());
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(password), getName());
+        Session session = SecurityUtils.getSubject().getSession();
+        session.setAttribute("username", username);
+        return authenticationInfo;
     }
 }
 

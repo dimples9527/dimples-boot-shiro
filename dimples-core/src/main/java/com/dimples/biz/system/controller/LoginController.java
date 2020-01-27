@@ -1,6 +1,7 @@
 package com.dimples.biz.system.controller;
 
 import com.dimples.biz.system.service.impl.ValidateCodeServiceImpl;
+import com.dimples.biz.web.constant.PageConstant;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.transport.ResponseDTO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 
@@ -74,9 +76,9 @@ public class LoginController {
     @ApiOperation(value = "退出登录", notes = "退出登录")
     @OpsLog(value = "退出登录", type = OpsLogTypeEnum.LOGOUT)
     @GetMapping("/logout")
-    public ResponseDTO logout() {
+    public ModelAndView logout() {
         getSubject().logout();
-        return ResponseDTO.success();
+        return new ModelAndView(PageConstant.LOGIN);
     }
 
     @OpsLog(value = "获取图形验证码", type = OpsLogTypeEnum.CAPTCHA)

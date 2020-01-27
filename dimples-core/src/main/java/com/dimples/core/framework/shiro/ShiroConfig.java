@@ -77,6 +77,8 @@ public class ShiroConfig {
     private RedisCacheManager cacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager());
+        // 解决登出提示需要 id 字段异常
+        redisCacheManager.setPrincipalIdFieldName("userId");
         return redisCacheManager;
     }
 
@@ -108,6 +110,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/images/**", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
+        filterChainDefinitionMap.put("/layui/**", "anon");
         //swagger2
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");

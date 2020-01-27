@@ -5,7 +5,8 @@ function loginClick() {
     let username = $("#username").val();
     let password = $("#password").val();
     let verifyCode = $("#captcha-text").val();
-    //调用ajax发送请求
+    //调用ajax发送请求,显示加载动画
+    let index = layer.load();
     $.ajax({
         url: "/sys/login",
         type: "post",
@@ -16,6 +17,8 @@ function loginClick() {
             "verifyCode": verifyCode
         },
         success: function (result) {
+            // 隐藏加载动画
+            layer.close(index);
             if (result.code === 200) {
                 window.location.href = "/web/index";
             } else {

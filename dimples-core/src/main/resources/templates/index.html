@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>首页 - Dimples后台管理系统模板</title>
+    <title>首页 - Dimples后台管理系统</title>
     <link rel="icon" th:href="@{/images/favicon.ico}" type="image/ico">
     <meta name="keywords" content="Dimples 后台管理系统">
     <meta name="description" content="Dimples是一个基于SpringBoot的后台管理系统。">
@@ -21,8 +21,10 @@
 
             <!-- logo -->
             <div id="logo" class="sidebar-header">
-                <a href="index.html"><img src="images/logo-sidebar.png" th:src="@{/images/logo-sidebar.png}" title="LightYear"
-                                          alt="LightYear"/></a>
+                <a th:href="@{/web/index}"><img src="images/logo-sidebar.png"
+                                                th:src="@{/images/logo-sidebar.png}"
+                                                title="DimplesSystem"
+                                                alt="DimplesSystem"/></a>
             </div>
             <div class="dimples-layout-sidebar-scroll">
 
@@ -131,15 +133,17 @@
                             <span class="dimples-toggler-bar"></span>
                             <span class="dimples-toggler-bar"></span>
                         </div>
-                        <span class="navbar-page-title"> 后台首页 </span>
+                        <span class="navbar-page-title"> 系统首页 </span>
                     </div>
 
                     <ul class="topbar-right">
                         <li class="dropdown dropdown-profile">
                             <a href="javascript:void(0)" data-toggle="dropdown">
                                 <img class="img-avatar img-avatar-48 m-r-10"
-                                     src="images/users/avatar.jpg" th:src="@{/images/users/avatar.jpg}" alt="笔下光年"/>
-                                <span>笔下光年 <span class="caret"></span></span>
+                                     src="images/users/avatar.png"
+                                     th:src="@{/images/users/avatar.png}" th:alt="${user.username}"
+                                     alt="Dimples"/>
+                                <span th:text="${user.username}">Dimples <span class="caret"></span></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i
@@ -149,7 +153,7 @@
                                 <li><a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a href="#"><i
+                                <li><a th:href="@{/sys/logout}"><i
                                         class="mdi mdi-logout-variant"></i> 退出登录</a></li>
                             </ul>
                         </li>

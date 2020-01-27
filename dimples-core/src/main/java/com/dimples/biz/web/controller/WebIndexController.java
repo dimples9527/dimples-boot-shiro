@@ -1,23 +1,32 @@
 package com.dimples.biz.web.controller;
 
+import com.dimples.biz.system.po.User;
 import com.dimples.biz.web.constant.PageConstant;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2020/1/26
  */
+@Slf4j
 @Controller
 @RequestMapping("web")
 public class WebIndexController {
 
     @GetMapping("index")
     public ModelAndView index() {
-        return new ModelAndView(PageConstant.INDEX);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        log.info("当前用户：{}", user.getUsername());
+        ModelAndView view = new ModelAndView(PageConstant.INDEX);
+        view.addObject("user", user);
+        return view;
     }
 }
 
