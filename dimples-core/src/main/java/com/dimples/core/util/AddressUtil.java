@@ -28,7 +28,7 @@ public class AddressUtil {
      * @param ip String
      * @return String
      */
-    public static String getAddress(String ip,int algorithm) {
+    public static String getAddress(String ip, int algorithm) {
         //db
         String dbPath = AddressUtil.class.getResource("/config/ip2region.db").getPath();
 
@@ -50,7 +50,7 @@ public class AddressUtil {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             //define the method
-            Method method = null;
+            Method method;
             switch (algorithm) {
                 case DbSearcher.BTREE_ALGORITHM:
                     method = searcher.getClass().getMethod("btreeSearch", String.class);
@@ -62,6 +62,8 @@ public class AddressUtil {
                     method = searcher.getClass().getMethod("memorySearch", String.class);
                     break;
                 default:
+                    method = searcher.getClass().getMethod("btreeSearch", String.class);
+                    break;
             }
 
             DataBlock dataBlock;

@@ -23,7 +23,7 @@ public class WebIndexController {
     @GetMapping("index")
     public ModelAndView index() {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        log.info("当前用户：{}", user.getUsername());
+        log.info("当前用户登陆：{}", user.getUsername());
         ModelAndView view = new ModelAndView(PageConstant.INDEX);
         view.addObject("user", user);
         return view;

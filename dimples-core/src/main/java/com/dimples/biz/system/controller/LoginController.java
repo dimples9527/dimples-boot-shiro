@@ -1,5 +1,6 @@
 package com.dimples.biz.system.controller;
 
+import com.dimples.biz.system.service.LoginLogService;
 import com.dimples.biz.system.service.impl.ValidateCodeServiceImpl;
 import com.dimples.biz.web.constant.PageConstant;
 import com.dimples.core.annotation.OpsLog;
@@ -42,10 +43,12 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 
     private ValidateCodeServiceImpl validateCodeService;
+    private LoginLogService loginLogService;
 
     @Autowired
-    public LoginController(ValidateCodeServiceImpl validateCodeService) {
+    public LoginController(ValidateCodeServiceImpl validateCodeService, LoginLogService loginLogService) {
         this.validateCodeService = validateCodeService;
+        this.loginLogService = loginLogService;
     }
 
     private static Subject getSubject() {
@@ -59,7 +62,6 @@ public class LoginController {
             @ApiImplicitParam(name = "verifyCode", value = "验证码", required = true),
             @ApiImplicitParam(name = "remember", value = "记住我", defaultValue = "false")
     })
-    @OpsLog(value = "用户登陆", type = OpsLogTypeEnum.LOGIN)
     @PostMapping("/login")
     public ResponseDTO login(String username, String password, String verifyCode, @RequestParam(defaultValue = "false") Boolean remember, HttpServletRequest request) {
         password = MD5Util.encrypt(username, password);
@@ -69,7 +71,8 @@ public class LoginController {
         validateCodeService.check(key, verifyCode);
         // 用户登陆验证
         getSubject().login(token);
-        log.info("{} 是否登录==>{}", getSubject(), getSubject().isAuthenticated());
+        // 保存登录日志
+        this.loginLogService.saveLoginLog(username);
         return ResponseDTO.success();
     }
 
@@ -81,7 +84,6 @@ public class LoginController {
         return new ModelAndView(PageConstant.LOGIN);
     }
 
-    @OpsLog(value = "获取图形验证码", type = OpsLogTypeEnum.CAPTCHA)
     @GetMapping("/captcha")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         validateCodeService.create(request, response);
