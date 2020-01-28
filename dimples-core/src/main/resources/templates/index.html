@@ -200,7 +200,7 @@
                                             <td>
                                                 <div class="progress progress-striped progress-sm">
                                                     <div class="progress-bar progress-bar-danger"
-                                                         style="width: 0%;"></div>
+                                                         style="width: 0;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -314,10 +314,6 @@
         let myLineChart = new Chart($dashChartLinesCnt, {
             type: 'line',
             data: $dashChartLinesData,
-        });
-
-        $("#test").click(function () {
-            lightyear.loading('show');  // 显示
         });
 
         function handleSuccess(username) {
