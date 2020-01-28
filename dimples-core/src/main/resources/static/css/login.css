@@ -18,6 +18,11 @@
     margin: 2.85714em 0;
 }
 
+.dimples-wrapper .dimples-login .login-center {
+    width: 500px;
+    height: 450px;
+}
+
 .login-header {
     margin-bottom: 1.5rem !important;
 }
@@ -26,11 +31,22 @@
     text-align: center;
     color: red;
     visibility: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .login-center .has-feedback.feedback-left .form-control {
     padding-left: 38px;
     padding-right: 12px;
+}
+
+.has-feedback label ~ .form-control-feedback.mdi {
+    top: 0;
+}
+
+.has-feedback label ~ .form-control-feedback.mdi-account, .has-feedback label ~ .form-control-feedback.mdi-lock {
+    top: 17px;
 }
 
 .login-center .has-feedback.feedback-left .form-control-feedback {
