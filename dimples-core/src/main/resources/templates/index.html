@@ -11,6 +11,9 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
     <link th:href="@{/css/style.min.css}" rel="stylesheet">
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet">
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/index.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -28,59 +31,62 @@
 
             <div class="container-fluid">
 
+                <!-- 第一行 -->
                 <div class="row">
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="card bg-primary">
-                            <div class="card-body clearfix">
-                                <div class="pull-right">
-                                    <p class="h6 text-white m-t-0">今日收入</p>
-                                    <p class="h3 text-white m-b-0">102,125.00</p>
+                    <div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
+                        <div class="layui-card">
+                            <div class="layui-card-body layui-anim layui-anim-fadein">
+                                <div class="layui-row welcome-info">
+                                    <div class="layui-col-md6 layui-col-sm12 layui-col-xs12">
+                                        <div class="layui-row welcome-info-wrapper">
+                                            <div class="user-header">
+                                                <img alt="头像" id="user-avatar"
+                                                     data-th-src="@{/images/users/avatar.png}"
+                                                     src="">
+                                            </div>
+                                            <div class="user-info">
+                                                <div class="layui-row">
+                                                    <div class="random-message">
+                                                        <span id="welcome-message">晚上好，
+                                                            <a id="dimples-index-user"
+                                                               th:text="${user.username}">zhongyj</a>，今天帮助别人了吗
+                                                        </span>
+                                                    </div>
+                                                    <div class="user-dept">
+                                                        <span id="user-dept">暂无所属部门</span> | <span
+                                                            id="user-role">暂无角色</span>
+                                                    </div>
+                                                    <div class="user-login-info">
+                                                        上次登录时间：<span
+                                                            id="last-login-time">第一次访问系统</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-col-md6 layui-col-sm12 layui-col-xs12">
+                                        <div class="layui-col-md-offset5">
+                                            <table class="login-count-table">
+                                                <tr>
+                                                    <td>今日IP</td>
+                                                    <td>今日访问</td>
+                                                    <td>总访问量</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="count" id="today-ip">
+                                                        0
+                                                    </td>
+                                                    <td class="count" id="today-visit-count">
+                                                        0
+                                                    </td>
+                                                    <td class="count" id="total-visit-count">
+                                                        0
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="pull-left"><span
-                                        class="img-avatar img-avatar-48 bg-translucent"><i
-                                        class="mdi mdi-currency-cny fa-1-5x"></i></span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="card bg-danger">
-                            <div class="card-body clearfix">
-                                <div class="pull-right">
-                                    <p class="h6 text-white m-t-0">用户总数</p>
-                                    <p class="h3 text-white m-b-0">920,000</p>
-                                </div>
-                                <div class="pull-left"><span
-                                        class="img-avatar img-avatar-48 bg-translucent"><i
-                                        class="mdi mdi-account fa-1-5x"></i></span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="card bg-success">
-                            <div class="card-body clearfix">
-                                <div class="pull-right">
-                                    <p class="h6 text-white m-t-0">下载总量</p>
-                                    <p class="h3 text-white m-b-0">34,005,000</p>
-                                </div>
-                                <div class="pull-left"><span
-                                        class="img-avatar img-avatar-48 bg-translucent"><i
-                                        class="mdi mdi-arrow-down-bold fa-1-5x"></i></span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="card bg-purple">
-                            <div class="card-body clearfix">
-                                <div class="pull-right">
-                                    <p class="h6 text-white m-t-0">新增留言</p>
-                                    <p class="h3 text-white m-b-0">153 条</p>
-                                </div>
-                                <div class="pull-left"><span
-                                        class="img-avatar img-avatar-48 bg-translucent"><i
-                                        class="mdi mdi-comment-outline fa-1-5x"></i></span></div>
                             </div>
                         </div>
                     </div>
@@ -262,10 +268,16 @@
 <script type="text/javascript" th:src="@{/js/Chart.js}"></script>
 <script type="text/javascript">
     $(document).ready(function (e) {
-        var $dashChartBarsCnt = jQuery('.js-chartjs-bars')[0].getContext('2d'),
+
+        /* 生成用户信息 */
+        let username = $("#header-username").text();
+        console.log("当前登陆用户：" + username);
+        handleSuccess(username);
+
+        let $dashChartBarsCnt = jQuery('.js-chartjs-bars')[0].getContext('2d'),
             $dashChartLinesCnt = jQuery('.js-chartjs-lines')[0].getContext('2d');
 
-        var $dashChartBarsData = {
+        let $dashChartBarsData = {
             labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
             datasets: [
                 {
@@ -279,7 +291,7 @@
                 }
             ]
         };
-        var $dashChartLinesData = {
+        let $dashChartLinesData = {
             labels: ['2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014'],
             datasets: [
                 {
@@ -299,7 +311,7 @@
             data: $dashChartBarsData
         });
 
-        var myLineChart = new Chart($dashChartLinesCnt, {
+        let myLineChart = new Chart($dashChartLinesCnt, {
             type: 'line',
             data: $dashChartLinesData,
         });
@@ -307,6 +319,26 @@
         $("#test").click(function () {
             lightyear.loading('show');  // 显示
         });
+
+        function handleSuccess(username) {
+            let hour = new Date().getHours();
+            let time = hour < 6 ? '早上好' : (hour <= 11 ? '上午好' : (hour <= 13 ? '中午好' : (hour <= 18 ? '下午好' : '晚上好')));
+            let welcomeArr = [
+                '喝杯咖啡休息下吧☕',
+                '要不要和朋友打局LOL',
+                '今天又写了几个Bug呢',
+                '今天在群里吹水了吗',
+                '今天吃了什么好吃的呢',
+                '今天您微笑了吗😊',
+                '今天帮助别人了吗',
+                '准备吃些什么呢',
+                '周末要不要去看电影？'
+            ];
+            let index = Math.floor((Math.random() * welcomeArr.length));
+            let welcomeMessage = time + '，<a id="dimples-index-user">' + username + '</a>，' + welcomeArr[index];
+            console.log("随机问候语:" + welcomeMessage);
+            $("#welcome-message").html(welcomeMessage);
+        }
     });
 </script>
 </body>

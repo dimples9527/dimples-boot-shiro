@@ -52,11 +52,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void register(String username, String password) {
-        User user = new User();
-        user.setPassword(MD5Util.encrypt(username, password));
-        user.setUsername(username);
-        user.setCreateDate(new Date());
-        user.setStatus(User.STATUS_VALID);
+        User user = User.builder()
+                .password(MD5Util.encrypt(username, password))
+                .username(username)
+                .createDate(new Date())
+                .status(User.STATUS_VALID)
+                .build();
         // 保存用户信息
         this.save(user);
         RoleUser roleUser = new RoleUser();

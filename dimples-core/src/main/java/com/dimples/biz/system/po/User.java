@@ -10,6 +10,7 @@ import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -18,6 +19,7 @@ import lombok.Data;
  */
 @ApiModel(value = "com-dimples-biz-system-po-User")
 @Data
+@Builder
 @TableName(value = "db_dimples_shiro.tb_user")
 public class User implements Serializable {
     /**
