@@ -1,4 +1,4 @@
-package com.dimples.biz.system.service;
+package com.dimples.biz.monitor.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dimples.biz.system.po.LoginLog;
@@ -15,5 +15,33 @@ public interface LoginLogService extends IService<LoginLog> {
      * @param username String
      */
     void saveLoginLog(String username);
+
+    /**
+     * 统计当日访问IP量
+     *
+     * @return Integer
+     */
+    Integer todayIpTotal();
+
+    /**
+     * 统计当日访问量
+     *
+     * @return Integer
+     */
+    Integer todayTotal();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

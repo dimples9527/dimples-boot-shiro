@@ -27,8 +27,7 @@ public class Swagger2Config {
 
     @Bean
     public Docket createRestApi() {
-        log.info("==================== 开启Swagger2配置 ====================");
-        log.info("==================== 访问网址：IP:Port/swagger-ui.html ====================");
+        log.info("==================== 开启 Swagger2 配置 ====================");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()

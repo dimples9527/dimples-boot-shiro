@@ -11,4 +11,18 @@ import org.apache.ibatis.annotations.Mapper;
   */
 @Mapper
 public interface LoginLogMapper extends BaseMapper<LoginLog> {
+
+    /**
+     * 统计当日访问IP量
+     *
+     * @return Integer
+     */
+    Integer todayIpTotal();
+
+    /**
+     * 统计当日访问量
+     *
+     * @return Integer
+     */
+    Integer todayTotal();
 }

@@ -1,9 +1,9 @@
-package com.dimples.biz.system.service.impl;
+package com.dimples.biz.monitor.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dimples.biz.monitor.service.LoginLogService;
 import com.dimples.biz.system.mapper.LoginLogMapper;
 import com.dimples.biz.system.po.LoginLog;
-import com.dimples.biz.system.service.LoginLogService;
 import com.dimples.core.util.AddressUtil;
 import com.dimples.core.util.HttpContextUtil;
 
@@ -37,6 +37,16 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
                 .build();
         loginLog.setSystemBrowserInfo();
         this.save(loginLog);
+    }
+
+    @Override
+    public Integer todayIpTotal() {
+        return loginLogMapper.todayIpTotal();
+    }
+
+    @Override
+    public Integer todayTotal() {
+        return loginLogMapper.todayTotal();
     }
 }
 

@@ -1,6 +1,6 @@
 package com.dimples.biz.system.controller;
 
-import com.dimples.biz.system.service.LoginLogService;
+import com.dimples.biz.monitor.service.LoginLogService;
 import com.dimples.biz.system.service.impl.ValidateCodeServiceImpl;
 import com.dimples.biz.web.constant.PageConstant;
 import com.dimples.core.annotation.OpsLog;
