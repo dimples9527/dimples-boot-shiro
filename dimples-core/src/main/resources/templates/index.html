@@ -263,6 +263,9 @@
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/perfect-scrollbar.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.min.js}"></script>
+<!--消息提示-->
+<script type="text/javascript" th:src="@{/js/bootstrap-notify.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/lightyear.js}"></script>
 <!--图表插件-->
 <script type="text/javascript" th:src="@{/js/Chart.js}"></script>
 <script type="text/javascript" th:src="@{/js/dimples/index.js}"></script>
@@ -273,7 +276,6 @@
         let username = $("#header-username").text();
         console.log("当前登陆用户：" + username);
         index.welcomeMsg(username);
-
         let $dashChartBarsCnt = jQuery('.js-chartjs-bars')[0].getContext('2d'),
             $dashChartLinesCnt = jQuery('.js-chartjs-lines')[0].getContext('2d');
 
