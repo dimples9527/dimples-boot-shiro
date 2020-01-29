@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dimples.biz.monitor.mapper.LoginLogMapper">
-	<resultMap id="BaseResultMap" type="com.dimples.biz.system.po.LoginLog">
+	<resultMap id="BaseResultMap" type="com.dimples.biz.monitor.po.LoginLog">
 		<!--@mbg.generated-->
 		<!--@Table db_dimples_shiro.tb_login_log-->
 		<id column="login_log_id" jdbcType="BIGINT" property="loginLogId" />

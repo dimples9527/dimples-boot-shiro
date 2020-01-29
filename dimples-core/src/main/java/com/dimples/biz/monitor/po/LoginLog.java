@@ -1,4 +1,4 @@
-package com.dimples.biz.system.po;
+package com.dimples.biz.monitor.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

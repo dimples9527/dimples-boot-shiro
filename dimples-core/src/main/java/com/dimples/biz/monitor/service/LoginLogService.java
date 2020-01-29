@@ -1,7 +1,7 @@
 package com.dimples.biz.monitor.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dimples.biz.system.po.LoginLog;
+import com.dimples.biz.monitor.po.LoginLog;
 
 import java.util.List;
 

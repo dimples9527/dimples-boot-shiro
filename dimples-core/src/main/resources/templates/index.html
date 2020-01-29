@@ -53,12 +53,14 @@
                                                         </span>
                                                     </div>
                                                     <div class="user-dept">
-                                                        <span id="user-dept">暂无所属部门</span> | <span
-                                                            id="user-role">暂无角色</span>
+                                                        <span id="user-dept">暂无所属部门</span> |
+                                                        <span id="user-role"
+                                                              th:text="${statistic.role}">暂无角色</span>
                                                     </div>
                                                     <div class="user-login-info">
                                                         上次登录时间：
-                                                        <span id="last-login-time" th:text="${statistic.lastLoginTime}">第一次访问系统</span>
+                                                        <span id="last-login-time"
+                                                              th:text="${statistic.lastLoginTime}">第一次访问系统</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -73,13 +75,16 @@
                                                     <td>总访问量</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="count" id="today-ip" th:text="${statistic.todayIpTotal}">
+                                                    <td class="count" id="today-ip"
+                                                        th:text="${statistic.todayIpTotal}">
                                                         0
                                                     </td>
-                                                    <td class="count" id="today-visit-count" th:text="${statistic.todayTotal}">
+                                                    <td class="count" id="today-visit-count"
+                                                        th:text="${statistic.todayTotal}">
                                                         0
                                                     </td>
-                                                    <td class="count" id="total-visit-count" th:text="${statistic.loginTotal}">
+                                                    <td class="count" id="total-visit-count"
+                                                        th:text="${statistic.loginTotal}">
                                                         0
                                                     </td>
                                                 </tr>

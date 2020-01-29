@@ -1,11 +1,13 @@
 package com.dimples.biz.monitor.vo;
 
-import com.dimples.biz.system.po.LoginLog;
+import com.dimples.biz.monitor.po.LoginLog;
+import com.dimples.biz.system.po.Role;
 import com.dimples.core.util.DateUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Builder;
 import lombok.Data;
@@ -42,6 +44,17 @@ public class StatisticVO {
             this.lastLoginTime = "第一次访问系统";
         }
 
+    }
+
+    public void buildRole(List<Role> byUserId) {
+        if (byUserId.size() > 0) {
+            List<String> collect = byUserId.stream()
+                    .map(Role::getRoleName)
+                    .collect(Collectors.toList());
+            this.role = StringUtils.join(collect, ",");
+        } else {
+            this.role = "暂无角色";
+        }
     }
 }
 

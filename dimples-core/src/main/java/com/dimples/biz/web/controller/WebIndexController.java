@@ -3,6 +3,7 @@ package com.dimples.biz.web.controller;
 import com.dimples.biz.monitor.service.LoginLogService;
 import com.dimples.biz.monitor.vo.StatisticVO;
 import com.dimples.biz.system.po.User;
+import com.dimples.biz.system.service.RoleService;
 import com.dimples.biz.web.constant.PageConstant;
 
 import org.apache.shiro.SecurityUtils;
@@ -24,10 +25,12 @@ import lombok.extern.slf4j.Slf4j;
 public class WebIndexController {
 
     private LoginLogService loginLogService;
+    private RoleService roleService;
 
     @Autowired
-    public WebIndexController(LoginLogService loginLogService) {
+    public WebIndexController(LoginLogService loginLogService, RoleService roleService) {
         this.loginLogService = loginLogService;
+        this.roleService = roleService;
     }
 
     @GetMapping("index")
@@ -42,6 +45,7 @@ public class WebIndexController {
                 .todayTotal(loginLogService.todayTotal())
                 .build();
         statistic.buildLastLoginTime(loginLogService.findByUsername(user.getUsername()));
+        statistic.buildRole(roleService.findByUserId(user.getUserId()));
         log.info("用户信息与统计数据：{}", statistic);
         ModelAndView view = new ModelAndView(PageConstant.INDEX);
         view.addObject("user", user);

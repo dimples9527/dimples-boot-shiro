@@ -1,7 +1,7 @@
 package com.dimples.biz.monitor.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.dimples.biz.system.po.LoginLog;
+import com.dimples.biz.monitor.po.LoginLog;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

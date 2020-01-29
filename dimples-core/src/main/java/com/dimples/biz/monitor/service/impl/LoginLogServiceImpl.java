@@ -3,7 +3,7 @@ package com.dimples.biz.monitor.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dimples.biz.monitor.service.LoginLogService;
 import com.dimples.biz.monitor.mapper.LoginLogMapper;
-import com.dimples.biz.system.po.LoginLog;
+import com.dimples.biz.monitor.po.LoginLog;
 import com.dimples.core.util.AddressUtil;
 import com.dimples.core.util.HttpContextUtil;
 
