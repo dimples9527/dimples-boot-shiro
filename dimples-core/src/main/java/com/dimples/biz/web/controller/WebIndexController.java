@@ -23,7 +23,7 @@ public class WebIndexController {
     @GetMapping("index")
     public ModelAndView index() {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        // 开发时设置，生产环境去除
+        // TODO: 2020/1/29  开发时设置，生产环境去除
         user = User.builder().username("zhongyj").userId(4L).build();
         log.info("当前用户登陆：{}", user.getUsername());
         ModelAndView view = new ModelAndView(PageConstant.INDEX);

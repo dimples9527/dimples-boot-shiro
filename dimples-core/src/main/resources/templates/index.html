@@ -12,8 +12,8 @@
     <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet">
     <link th:href="@{/css/style.min.css}" rel="stylesheet">
     <link th:href="@{/layui/css/layui.css}" rel="stylesheet">
-    <link th:href="@{/css/common.css}" rel="stylesheet">
-    <link th:href="@{/css/index.css}" rel="stylesheet">
+    <link th:href="@{/css/dimples/common.css}" rel="stylesheet">
+    <link th:href="@{/css/dimples/index.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -263,16 +263,16 @@
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/perfect-scrollbar.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.min.js}"></script>
-
 <!--图表插件-->
 <script type="text/javascript" th:src="@{/js/Chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/dimples/index.js}"></script>
 <script type="text/javascript">
     $(document).ready(function (e) {
 
         /* 生成用户信息 */
         let username = $("#header-username").text();
         console.log("当前登陆用户：" + username);
-        handleSuccess(username);
+        index.welcomeMsg(username);
 
         let $dashChartBarsCnt = jQuery('.js-chartjs-bars')[0].getContext('2d'),
             $dashChartLinesCnt = jQuery('.js-chartjs-lines')[0].getContext('2d');
@@ -315,26 +315,6 @@
             type: 'line',
             data: $dashChartLinesData,
         });
-
-        function handleSuccess(username) {
-            let hour = new Date().getHours();
-            let time = hour < 6 ? '早上好' : (hour <= 11 ? '上午好' : (hour <= 13 ? '中午好' : (hour <= 18 ? '下午好' : '晚上好')));
-            let welcomeArr = [
-                '喝杯咖啡休息下吧☕',
-                '要不要和朋友打局LOL',
-                '今天又写了几个Bug呢',
-                '今天在群里吹水了吗',
-                '今天吃了什么好吃的呢',
-                '今天您微笑了吗😊',
-                '今天帮助别人了吗',
-                '准备吃些什么呢',
-                '周末要不要去看电影？'
-            ];
-            let index = Math.floor((Math.random() * welcomeArr.length));
-            let welcomeMessage = time + '，<a id="dimples-index-user">' + username + '</a>，' + welcomeArr[index];
-            console.log("随机问候语:" + welcomeMessage);
-            $("#welcome-message").html(welcomeMessage);
-        }
     });
 </script>
 </body>

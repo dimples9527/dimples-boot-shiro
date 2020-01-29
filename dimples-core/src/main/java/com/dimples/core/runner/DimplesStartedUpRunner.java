@@ -83,7 +83,7 @@ public class DimplesStartedUpRunner implements ApplicationRunner {
                 String os = System.getProperty("os.name");
                 // 默认为 windows时才自动打开页面
                 if (StringUtils.containsIgnoreCase(os, WINDOWS)) {
-                    // 开发时使用
+                    // TODO: 2020/1/29  开发时使用
                     url = urlBase + "/web/index";
                     //使用默认浏览器打开系统登录页
                     Runtime.getRuntime().exec("cmd  /c  start " + url);
