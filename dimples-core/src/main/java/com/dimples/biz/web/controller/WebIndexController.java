@@ -41,6 +41,8 @@ public class WebIndexController {
                 .todayIpTotal(loginLogService.todayIpTotal())
                 .todayTotal(loginLogService.todayTotal())
                 .build();
+        statistic.buildLastLoginTime(loginLogService.findByUsername(user.getUsername()));
+        log.info("用户信息与统计数据：{}", statistic);
         ModelAndView view = new ModelAndView(PageConstant.INDEX);
         view.addObject("user", user);
         view.addObject("statistic", statistic);
