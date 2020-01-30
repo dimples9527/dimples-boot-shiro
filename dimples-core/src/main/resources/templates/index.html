@@ -53,7 +53,9 @@
                                                         </span>
                                                     </div>
                                                     <div class="user-dept">
-                                                        <span id="user-dept">暂无所属部门</span> |
+                                                        <span id="user-dept"
+                                                              th:text="${statistic.dept}">暂无所属部门</span>
+                                                        |
                                                         <span id="user-role"
                                                               th:text="${statistic.role}">暂无角色</span>
                                                     </div>

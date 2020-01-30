@@ -3,6 +3,7 @@ package com.dimples.biz.web.controller;
 import com.dimples.biz.monitor.service.LoginLogService;
 import com.dimples.biz.monitor.vo.StatisticVO;
 import com.dimples.biz.system.po.User;
+import com.dimples.biz.system.service.DeptService;
 import com.dimples.biz.system.service.RoleService;
 import com.dimples.biz.web.constant.PageConstant;
 
@@ -26,11 +27,13 @@ public class WebIndexController {
 
     private LoginLogService loginLogService;
     private RoleService roleService;
+    private DeptService deptService;
 
     @Autowired
-    public WebIndexController(LoginLogService loginLogService, RoleService roleService) {
+    public WebIndexController(LoginLogService loginLogService, RoleService roleService, DeptService deptService) {
         this.loginLogService = loginLogService;
         this.roleService = roleService;
+        this.deptService = deptService;
     }
 
     @GetMapping("index")
@@ -46,6 +49,7 @@ public class WebIndexController {
                 .build();
         statistic.buildLastLoginTime(loginLogService.findByUsername(user.getUsername()));
         statistic.buildRole(roleService.findByUserId(user.getUserId()));
+        statistic.buildDept(deptService.findByUserId(user.getUserId()));
         log.info("用户信息与统计数据：{}", statistic);
         ModelAndView view = new ModelAndView(PageConstant.INDEX);
         view.addObject("user", user);

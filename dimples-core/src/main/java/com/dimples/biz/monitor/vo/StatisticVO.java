@@ -1,6 +1,7 @@
 package com.dimples.biz.monitor.vo;
 
 import com.dimples.biz.monitor.po.LoginLog;
+import com.dimples.biz.system.po.Dept;
 import com.dimples.biz.system.po.Role;
 import com.dimples.core.util.DateUtil;
 
@@ -54,6 +55,17 @@ public class StatisticVO {
             this.role = StringUtils.join(collect, ",");
         } else {
             this.role = "暂无角色";
+        }
+    }
+
+    public void buildDept(List<Dept> byUserId) {
+        if (byUserId.size() > 0) {
+            List<String> collect = byUserId.stream()
+                    .map(Dept::getDeptName)
+                    .collect(Collectors.toList());
+            this.dept = StringUtils.join(collect, ",");
+        } else {
+            this.dept = "暂无所属部门";
         }
     }
 }

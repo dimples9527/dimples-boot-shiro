@@ -10,5 +10,6 @@ public class PageConstant {
 
     public static final String LOGIN = "login";
     public static final String INDEX = "index";
+    public static final String SWAGGER = "swagger";
 
 }

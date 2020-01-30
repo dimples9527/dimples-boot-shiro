@@ -19,6 +19,7 @@ import javax.sql.DataSource;
  * @date 2019/11/26
  */
 @Configuration
+@SuppressWarnings("all")
 public class DruidConfig {
 
     /**
@@ -38,16 +39,15 @@ public class DruidConfig {
      *
      * @return ServletRegistrationBean
      */
-    @SuppressWarnings("unchecked")
     @Bean
     public ServletRegistrationBean druidStatViewServlet() {
         //org.springframework.boot.context.embedded.ServletRegistrationBean提供类的进行注册.
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(
                 new StatViewServlet(), "/druid/*");
         //白名单：多个用逗号分割， 如果allow没有配置或者为空，则允许所有访问
-        servletRegistrationBean.addInitParameter("allow", "127.0.0.1");
+        servletRegistrationBean.addInitParameter("allow", "");
         //IP黑名单 (存在共同时，deny优先于allow) : 如果满足deny的话提示:Sorry, you are not permitted to view this page.
-        servletRegistrationBean.addInitParameter("deny","0.0.0.0");
+        servletRegistrationBean.addInitParameter("deny", "");
         servletRegistrationBean.addInitParameter("loginUsername", "druid");
         servletRegistrationBean.addInitParameter("loginPassword", "druid");
         //是否能够重置数据源
@@ -61,7 +61,6 @@ public class DruidConfig {
      *
      * @return FilterRegistrationBean
      */
-    @SuppressWarnings("unchecked")
     @Bean
     public FilterRegistrationBean druidStatFilter() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
