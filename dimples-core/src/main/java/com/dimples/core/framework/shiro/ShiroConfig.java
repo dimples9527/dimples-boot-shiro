@@ -91,7 +91,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSuccessUrl(shiro.getSuccessUrl());
         shiroFilterFactoryBean.setUnauthorizedUrl(shiro.getUnauthorizedUrl());
 
-        //配置拦截器链，注意顺序
+        // 配置拦截器链，注意顺序
         //      anon: 无需认证即可访问
         //      authc: 必须认证才可访问
         //      user: 如果使用rememberMe的功能才可以访问

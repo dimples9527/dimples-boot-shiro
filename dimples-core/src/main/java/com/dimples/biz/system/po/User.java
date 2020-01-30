@@ -14,9 +14,10 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/1/24
- */
+  *
+  * @author zhongyj <1126834403@qq.com><br/>
+  * @date 2020/1/30
+  */
 @ApiModel(value = "com-dimples-biz-system-po-User")
 @Data
 @Builder
@@ -72,4 +73,9 @@ public class User implements Serializable {
     @ApiModelProperty(value = "更新日期")
     private Date modifyDate;
 
+    private static final long serialVersionUID = 1L;
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
 }

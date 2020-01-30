@@ -68,7 +68,7 @@ public enum CodeAndMessageEnum {
     // 会话超时
     SESSION_TIMEOUT(400, "会话超时"),
     // 服务器异常
-    SERVER_ERROR(500, "服务器异常"),
+    SERVER_ERROR(500, "服务器异常,请联系管理员"),
     /**
      * 操作成功
      */

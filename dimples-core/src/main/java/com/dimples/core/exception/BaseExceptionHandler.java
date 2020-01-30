@@ -49,7 +49,7 @@ public class BaseExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseDTO handleException(Exception e) {
         log.error("系统内部异常,异常信息: ", e);
-        return ResponseDTO.failed(e.getMessage());
+        return ResponseDTO.failed(CodeAndMessageEnum.FAIL);
     }
 
 }

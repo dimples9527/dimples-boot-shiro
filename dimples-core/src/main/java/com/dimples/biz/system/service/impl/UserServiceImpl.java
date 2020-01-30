@@ -8,7 +8,6 @@ import com.dimples.biz.system.service.RoleUserService;
 import com.dimples.biz.system.service.UserService;
 import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.util.MD5Util;
-import com.google.common.collect.Maps;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
@@ -36,9 +34,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User findByName(String username) {
-        Map<String, Object> condition = Maps.newHashMap();
-        condition.put("username", username);
-        List<User> users = userMapper.selectByMap(condition);
+        List<User> users = userMapper.findByUsername(username);
         return users.size() > 0 ? users.get(0) : null;
     }
 
@@ -67,6 +63,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         this.roleUserService.save(roleUser);
     }
 }
+
+
+
+
 
 
 
