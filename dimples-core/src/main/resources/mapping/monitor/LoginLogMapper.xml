@@ -16,12 +16,7 @@
 		<!--@mbg.generated-->
 		login_log_id, username, login_time, login_location, login_ip, login_system, login_browser
 	</sql>
-	<select id="todayIpTotal" resultType="java.lang.Integer">
-		select count(login_ip)
-		from db_dimples_shiro.tb_login_log
-		where date(login_time) = curdate()
-		group by login_ip
-	</select>
+
 	<select id="todayTotal" resultType="java.lang.Integer">
 		select count(*)
 		from db_dimples_shiro.tb_login_log
@@ -33,6 +28,12 @@
 		from tb_login_log
 		where username = #{username,jdbcType=VARCHAR}
 		order by login_time desc
+	</select>
+	<select id="todayIpTotal" resultType="java.lang.String">
+		select login_ip
+		from db_dimples_shiro.tb_login_log
+		where date(login_time) = curdate()
+		group by login_ip
 	</select>
 </mapper>
 

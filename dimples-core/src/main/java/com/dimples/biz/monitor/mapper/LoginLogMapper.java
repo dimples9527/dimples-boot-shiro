@@ -20,7 +20,7 @@ public interface LoginLogMapper extends BaseMapper<LoginLog> {
      *
      * @return Integer
      */
-    Integer todayIpTotal();
+    List<String> todayIpTotal();
 
     /**
      * 统计当日访问量
