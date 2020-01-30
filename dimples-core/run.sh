@@ -1,5 +1,5 @@
-sudo docker stop dimples/dimples-shiro:dimples
-sudo docker rm dimples/dimples-shiro:dimples
+sudo docker stop shiro
+sudo docker rm shiro
 echo "================================== 删除已有镜像 =================================="
 sudo docker rmi dimples/dimples-shiro:dimples dimples/dimples-shiro
 echo "================================== 开始构建项目 =================================="
