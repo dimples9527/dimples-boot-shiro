@@ -78,7 +78,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="count" id="today-ip"
-                                                        th:text="${statistic.todayIpTotal}">
+                                                        th:text="${statistic.todayIpTotal} == null ? '0' : ${statistic.todayIpTotal}">
                                                         0
                                                     </td>
                                                     <td class="count" id="today-visit-count"

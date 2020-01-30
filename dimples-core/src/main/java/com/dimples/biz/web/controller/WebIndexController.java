@@ -40,7 +40,7 @@ public class WebIndexController {
     public ModelAndView index() {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         // TODO: 2020/1/29  开发时设置，生产环境去除
-        user = User.builder().username("zhongyj").userId(4L).build();
+//        user = User.builder().username("zhongyj").userId(4L).build();
         log.info("当前用户登陆：{}", user.getUsername());
         StatisticVO statistic = StatisticVO.builder()
                 .loginTotal(loginLogService.count())

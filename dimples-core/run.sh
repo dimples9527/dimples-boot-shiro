@@ -1,5 +1,7 @@
+sudo docker stop dimples/dimples-shiro:dimples
+sudo docker rm dimples/dimples-shiro:dimples
 echo "================================== 删除已有镜像 =================================="
-docker rmi dimples/dimples-shiro:dimples dimples/dimples-shiro
+sudo docker rmi dimples/dimples-shiro:dimples dimples/dimples-shiro
 echo "================================== 开始构建项目 =================================="
 echo "================================== Steep 1 编译打包 =================================="
 sudo mvn clean install
