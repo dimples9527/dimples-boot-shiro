@@ -9,17 +9,15 @@
 		<version>1.0.0</version>
 	</parent>
 
-	<groupId>com.dimples.core</groupId>
-	<artifactId>dimples-core</artifactId>
+	<artifactId>dimples-shiro-system</artifactId>
 
-	<name>dimples-core</name>
 	<packaging>jar</packaging>
 	<description>Springboot的核心配置模块</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<docker.image.prefix>dimples</docker.image.prefix>
-		<build.final.name>dimples-core</build.final.name>
+		<build.final.name>${project.artifactId}</build.final.name>
 		<log4j2.vsersion>2.0.2.RELEASE</log4j2.vsersion>
 		<swagger2>2.9.2</swagger2>
 		<swagger.ui>2.9.2</swagger.ui>
@@ -245,7 +243,7 @@
 						<resource>
 							<targetPath>/</targetPath>
 							<directory>${project.build.directory}</directory>
-							<include>${build.final.name}-${version}.jar</include>
+							<include>${build.final.name}-${project.version}.jar</include>
 						</resource>
 					</resources>
 				</configuration>

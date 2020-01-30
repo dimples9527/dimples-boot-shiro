@@ -8,8 +8,7 @@ VOLUME /dimples/logs/myblog/tmp
 
 # 要添加到镜像中的文件
 # docker拷贝文件不允许超过当前目录
-ADD target/dimples-core-1.0.0.jar app.jar
-
+ADD target/dimples-shiro-system-1.0.0.jar app.jar
 
 RUN sh -c 'touch /app.jar'
 ENV JAVA_OPTS=""
