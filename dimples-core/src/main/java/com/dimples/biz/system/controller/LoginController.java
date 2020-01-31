@@ -4,7 +4,9 @@ import com.dimples.biz.monitor.service.LoginLogService;
 import com.dimples.biz.system.service.impl.ValidateCodeServiceImpl;
 import com.dimples.biz.web.constant.PageConstant;
 import com.dimples.core.annotation.OpsLog;
+import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.eunm.OpsLogTypeEnum;
+import com.dimples.core.helper.RedisHelper;
 import com.dimples.core.transport.ResponseDTO;
 import com.dimples.core.util.MD5Util;
 
@@ -42,14 +44,17 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("sys")
 public class LoginController {
 
+    private RedisHelper redisHelper;
     private ValidateCodeServiceImpl validateCodeService;
     private LoginLogService loginLogService;
 
     @Autowired
-    public LoginController(ValidateCodeServiceImpl validateCodeService, LoginLogService loginLogService) {
+    public LoginController(RedisHelper redisHelper, ValidateCodeServiceImpl validateCodeService, LoginLogService loginLogService) {
+        this.redisHelper = redisHelper;
         this.validateCodeService = validateCodeService;
         this.loginLogService = loginLogService;
     }
+
 
     private static Subject getSubject() {
         return SecurityUtils.getSubject();
@@ -73,6 +78,8 @@ public class LoginController {
         getSubject().login(token);
         // 保存登录日志
         this.loginLogService.saveLoginLog(username);
+        // 登陆成功, 删除验证码
+        redisHelper.del(DimplesConstant.CODE_PREFIX + key);
         return ResponseDTO.success();
     }
 
