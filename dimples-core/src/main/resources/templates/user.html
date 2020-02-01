@@ -16,7 +16,6 @@
     <link th:href="@{/css/dimples/dimples.css}" rel="stylesheet">
     <link th:href="@{/css/dimples/user.css}" rel="stylesheet">
 </head>
-
 <body>
 <div class="dimples-layout-web">
     <div class="dimples-layout-container">
@@ -158,11 +157,11 @@
 <script type="text/javascript" th:src="@{/js/perfect-scrollbar.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.min.js}"></script>
 <script type="text/javascript" th:src="@{/layui/layui.all.js}"></script>
+<script type="text/javascript" th:src="@{/js/dimples/common.js}"></script>
 <script type="text/javascript">
     // 加载 element模块
     layui.use('element', function () {
         let element = layui.element;
-
         //一些事件监听
         element.on('tab(demo)', function (data) {
             console.log(data.index);
@@ -170,3 +169,15 @@
     });
 </script>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

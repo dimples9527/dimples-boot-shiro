@@ -4,7 +4,8 @@ const USERNAME_NOT_NULL = "用户名不能为空";
 const PASSWORD_NOT_NULL = "密码不能为空";
 const CAPTCHA_NOT_NULL = "验证码不能为空";
 const ACCOUNT_PASSWORD_ERROR = "用户名或密码错误";
-
+let CURRENT_CLICK_NAV_ELE;
+let CURRENT_CLICK_NAV_CLASS;
 
 /**
  * 去除字符串的空格
@@ -14,3 +15,15 @@ const ACCOUNT_PASSWORD_ERROR = "用户名或密码错误";
 function trim(str) {
     return str.replace(/\s+/g, "");
 }
+
+
+
+
+
+
+
+
+
+
+
+
