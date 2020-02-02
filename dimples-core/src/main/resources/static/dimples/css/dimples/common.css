@@ -24,3 +24,7 @@ a {
     color: #008c8c;
     transition: color 0.3s ease;
 }
+
+label {
+    margin-bottom: 0;
+}
