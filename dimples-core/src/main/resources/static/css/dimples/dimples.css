@@ -9,7 +9,7 @@ body, html, #app, .layui-body {
 
 a {
     cursor: pointer;
-    color: #008c8c;
+    color: #2db7f5;
     transition: color 0.3s ease
 }
 
@@ -73,15 +73,15 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
 }
 
 #app-header .layui-nav-bar, .layui-bg-black {
-    background-color: #008c8c !important
+    background-color: #2db7f5 !important
 }
 
 .dimples-c-blue, #app-sidebar .layui-logo, #app-sidebar .layui-logo span b, .dimples-grid:hover .layui-icon, .dimples-cell-selected, .layui-laypage a:hover, .layui-laydate-footer span[lay-type='date'], .layui-laydate .layui-laydate-footer span:hover, .layui-dropdown .layui-dropdown-option:hover, .layui-laydate td.layui-this, .dimples-laydate-full td.layui-this .laydate-day-mark {
-    color: #008c8c !important
+    color: #2db7f5 !important
 }
 
 #app-sidebar .layui-nav-tree .layui-nav-bar, .layui-bg-blue, .layui-layer-prompt .layui-layer-btn a.layui-layer-btn0, .layui-layer-admin-modal .layui-layer-btn a.layui-layer-btn0, .layui-laydate li.layui-this, .layui-laydate td.layui-this {
-    background-color: #008c8c !important
+    background-color: #2db7f5 !important
 }
 
 .layui-form-select dl dd.layui-this {
@@ -90,7 +90,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
 }
 
 .dimples-br-blue, #app-sidebar .layui-logo span, .dimples-linecard, .layui-layer-prompt .layui-layer-btn a.layui-layer-btn0, .layui-layer-admin-modal .layui-layer-btn a.layui-layer-btn0, .layui-tab-brief > .layui-tab-more li.layui-this:after, .layui-tab-brief > .layui-tab-title .layui-this:after {
-    border-color: #008c8c !important
+    border-color: #2db7f5 !important
 }
 
 #app-sidebar, #app-sidebar .layui-nav-itemed .layui-nav-child {

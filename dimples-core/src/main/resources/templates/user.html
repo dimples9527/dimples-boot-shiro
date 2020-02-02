@@ -51,7 +51,8 @@
                                 <li><a href="#">登录日志</a></li>
                                 <li><a href="#">Redis监控</a></li>
                                 <li><a th:href="@{/druid}" target="_blank" href="#">Druid监控</a></li>
-                                <li><a th:href="@{/doc.html}" target="_blank" href="#">Swagger文档</a></li>
+                                <li><a th:href="@{/doc.html}" target="_blank" href="#">Swagger文档</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item nav-item-has-subnav">
@@ -106,7 +107,8 @@
                                      src="images/users/avatar.png"
                                      th:src="@{/images/users/avatar.png}" th:alt="${user.username}"
                                      alt="Dimples"/>
-                                <span id="header-username" th:text="${user.username}">Dimples <span class="caret"></span></span>
+                                <span id="header-username" th:text="${user.username}">Dimples <span
+                                        class="caret"></span></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i
@@ -262,118 +264,117 @@
             <div class="container-fluid">
 
                 <div class="row">
-
-                    <!--<div class="col-lg-12">
-                        <div class="card">-->
-                            <div class="layui-fluid layui-anim dimples-anim" id="dimples-user">
-                                <div class="layui-row dimples-container">
-                                    <div class="layui-col-md12">
-                                        <div class="layui-card">
-                                            <div class="layui-card-body dimples-table-full">
-                                                <form class="layui-form layui-table-form"
-                                                      lay-filter="user-table-form">
-                                                    <div class="layui-row">
-                                                        <div class="layui-col-md10">
-                                                            <div class="layui-form-item">
-                                                                <div class="layui-inline">
-                                                                    <label class="layui-form-label layui-form-label-sm">用户名</label>
-                                                                    <div class="layui-input-inline">
-                                                                        <label>
-                                                                            <input type="text"
-                                                                                   name="username"
-                                                                                   autocomplete="off"
-                                                                                   class="layui-input">
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="layui-inline">
-                                                                    <label class="layui-form-label layui-form-label-sm">创建时间</label>
-                                                                    <div class="layui-input-inline">
-                                                                        <label for="user-createTime"></label><input type="text"
-                                                                                                                    name="createTime"
-                                                                                                                    id="user-createTime"
-                                                                                                                    class="layui-input">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="layui-inline">
-                                                                    <label class="layui-form-label layui-form-label-sm">状态</label>
-                                                                    <div class="layui-input-inline">
-                                                                        <label>
-                                                                            <select name="status">
-                                                                                <option value=""></option>
-                                                                                <option value="0">禁用
-                                                                                </option>
-                                                                                <option value="1">有效
-                                                                                </option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="layui-inline">
-                                                                    <label class="layui-form-label layui-form-label-sm">手机</label>
-                                                                    <div class="layui-input-inline">
-                                                                        <label>
-                                                                            <input type="text"
-                                                                                   name="mobile"
-                                                                                   autocomplete="off"
-                                                                                   class="layui-input">
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="layui-inline">
-                                                                    <label class="layui-form-label layui-form-label-sm">部门</label>
-                                                                    <div class="layui-input-inline">
-                                                                        <label for="dept"></label><input type="text"
-                                                                                                         name="dept" id="dept"
-                                                                                                         lay-filter="dept"
-                                                                                                         class="layui-input">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="layui-inline">
-                                                                    <label class="layui-form-label layui-form-label-sm">性别</label>
-                                                                    <div class="layui-input-inline">
-                                                                        <label>
-                                                                            <select name="sex">
-                                                                                <option value=""></option>
-                                                                                <option value="0">男
-                                                                                </option>
-                                                                                <option value="1">女
-                                                                                </option>
-                                                                                <option value="2">保密
-                                                                                </option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
+                    <div class="layui-fluid layui-anim dimples-anim" id="dimples-user">
+                        <div class="layui-row dimples-container">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-body dimples-table-full">
+                                        <!-- 顶部筛选栏 -->
+                                        <form class="layui-form layui-table-form"
+                                              lay-filter="user-table-form">
+                                            <div class="layui-row">
+                                                <div class="layui-col-md10">
+                                                    <div class="layui-form-item">
+                                                        <div class="layui-inline">
+                                                            <label class="layui-form-label layui-form-label-sm">用户名</label>
+                                                            <div class="layui-input-inline">
+                                                                <label>
+                                                                    <input type="text"
+                                                                           name="username"
+                                                                           autocomplete="off"
+                                                                           class="layui-input">
+                                                                </label>
                                                             </div>
                                                         </div>
-                                                        <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
-                                                            <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
-                                                                 id="query">
-<!--                                                                <i class="layui-icon layui-icon-search"></i>-->
-                                                                <span class="mdi mdi-magnify mdi-18px mdi-dark mdi-inactive"></span>
+                                                        <div class="layui-inline">
+                                                            <label class="layui-form-label layui-form-label-sm">创建时间</label>
+                                                            <div class="layui-input-inline">
+                                                                <label for="user-createTime"></label><input
+                                                                    type="text"
+                                                                    name="createTime"
+                                                                    id="user-createTime"
+                                                                    class="layui-input">
                                                             </div>
-                                                            <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
-                                                                 id="reset">
-<!--                                                                <i class="layui-icon">&#xe79b;</i>-->
-                                                                <span class="mdi mdi-reload mdi-18px mdi-dark mdi-inactive"></span>
+                                                        </div>
+                                                        <div class="layui-inline">
+                                                            <label class="layui-form-label layui-form-label-sm">状态</label>
+                                                            <div class="layui-input-inline">
+                                                                <label>
+                                                                    <select name="status">
+                                                                        <option value=""></option>
+                                                                        <option value="0">禁用
+                                                                        </option>
+                                                                        <option value="1">有效
+                                                                        </option>
+                                                                    </select>
+                                                                </label>
                                                             </div>
-                                                            <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
-<!--                                                                <i class="layui-icon">&#xe875;</i>-->
-                                                                <span class="mdi mdi-format-list-bulleted mdi-18px mdi-dark mdi-inactive"></span>
+                                                        </div>
+                                                        <div class="layui-inline">
+                                                            <label class="layui-form-label layui-form-label-sm">手机</label>
+                                                            <div class="layui-input-inline">
+                                                                <label>
+                                                                    <input type="text"
+                                                                           name="mobile"
+                                                                           autocomplete="off"
+                                                                           class="layui-input">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-inline">
+                                                            <label class="layui-form-label layui-form-label-sm">部门</label>
+                                                            <div class="layui-input-inline">
+                                                                <label for="dept"></label><input
+                                                                    type="text"
+                                                                    name="dept" id="dept"
+                                                                    lay-filter="dept"
+                                                                    class="layui-input">
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-inline">
+                                                            <label class="layui-form-label layui-form-label-sm">性别</label>
+                                                            <div class="layui-input-inline">
+                                                                <label>
+                                                                    <select name="sex">
+                                                                        <option value=""></option>
+                                                                        <option value="0">男
+                                                                        </option>
+                                                                        <option value="1">女
+                                                                        </option>
+                                                                        <option value="2">保密
+                                                                        </option>
+                                                                    </select>
+                                                                </label>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
-                                                <table lay-filter="userTable"
-                                                       lay-data="{id: 'userTable'}"></table>
+                                                </div>
+                                                <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
+                                                         id="query">
+                                                        <!--                                                                <i class="layui-icon layui-icon-search"></i>-->
+                                                        <span class="mdi mdi-magnify mdi-18px mdi-dark mdi-inactive"></span>
+                                                    </div>
+                                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
+                                                         id="reset">
+                                                        <!--                                                                <i class="layui-icon">&#xe79b;</i>-->
+                                                        <span class="mdi mdi-reload mdi-18px mdi-dark mdi-inactive"></span>
+                                                    </div>
+                                                    <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
+                                                        <!--                                                                <i class="layui-icon">&#xe875;</i>-->
+                                                        <span class="mdi mdi-format-list-bulleted mdi-18px mdi-dark mdi-inactive"></span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
+                                        <!-- 表格 通过js动态渲染 -->
+                                        <table lay-filter="userTable"
+                                               lay-data="{id: 'userTable'}"></table>
                                     </div>
                                 </div>
                             </div>
-                        <!--</div>
-                    </div>-->
+                        </div>
+                    </div>
 
                 </div>
 
@@ -390,14 +391,7 @@
 <script type="text/javascript" th:src="@{/layui/layui.all.js}"></script>
 <script type="text/javascript" th:src="@{/js/dimples/common.js}"></script>
 <script type="text/javascript">
-    // 加载 element模块
-    layui.use('element', function () {
-        let element = layui.element;
-        //一些事件监听
-        element.on('tab(demo)', function (data) {
-            console.log(data.index);
-        });
-    });
+
 </script>
 </html>
 
