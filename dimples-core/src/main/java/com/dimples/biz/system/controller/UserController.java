@@ -1,13 +1,17 @@
 package com.dimples.biz.system.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dimples.biz.system.po.User;
 import com.dimples.biz.system.service.UserService;
 import com.dimples.core.annotation.OpsLog;
+import com.dimples.core.controller.BaseController;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
+import com.dimples.core.transport.QueryRequest;
 import com.dimples.core.transport.ResponseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @Api(value = "用户管理模块", tags = "用户管理模块")
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
     private UserService userService;
 
@@ -68,6 +72,15 @@ public class UserController {
         }
         this.userService.register(username, password);
         return ResponseDTO.success();
+    }
+
+    @ApiOperation(value = "用户查询", notes = "用户查询")
+    @OpsLog(value = "分页查询用户", type = OpsLogTypeEnum.SELECT)
+    @GetMapping("list")
+    public ResponseDTO userList(User user, QueryRequest request) {
+        IPage<User> userList = this.userService.findUserDetailList(user, request);
+        log.info("" + userList.getRecords().get(0));
+        return ResponseDTO.success(userList);
     }
 
 }

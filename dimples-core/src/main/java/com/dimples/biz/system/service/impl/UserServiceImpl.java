@@ -1,5 +1,7 @@
 package com.dimples.biz.system.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dimples.biz.system.mapper.UserMapper;
 import com.dimples.biz.system.po.RoleUser;
@@ -7,6 +9,7 @@ import com.dimples.biz.system.po.User;
 import com.dimples.biz.system.service.RoleUserService;
 import com.dimples.biz.system.service.UserService;
 import com.dimples.core.constant.DimplesConstant;
+import com.dimples.core.transport.QueryRequest;
 import com.dimples.core.util.MD5Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +51,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void register(String username, String password) {
-        User user = User.builder()
-                .password(MD5Util.encrypt(username, password))
-                .username(username)
-                .createDate(new Date())
-                .status(User.STATUS_VALID)
-                .build();
+        User user = new User();
+        user.setPassword(MD5Util.encrypt(username, password));
+        user.setUsername(username);
+        user.setStatus(User.STATUS_VALID);
+        user.setCreateDate(new Date());
         // 保存用户信息
         this.save(user);
         RoleUser roleUser = new RoleUser();
@@ -61,6 +63,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         roleUser.setRoleId(DimplesConstant.REGISTER_ROLE_ID);
         // 保存用户角色信息
         this.roleUserService.save(roleUser);
+    }
+
+    @Override
+    public IPage<User> findUserDetailList(User user, QueryRequest request) {
+        Page<User> page = new Page<>(request.getPageNum(), request.getPageSize());
+        return this.baseMapper.findUserDetailPage(page, user);
     }
 }
 

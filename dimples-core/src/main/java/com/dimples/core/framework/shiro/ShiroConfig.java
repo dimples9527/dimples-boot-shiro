@@ -100,6 +100,7 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // TODO: 2020/1/29  开发时开放所有页面资源
         filterChainDefinitionMap.put("/web/**", "anon");
+        filterChainDefinitionMap.put("/user/**", "anon");
         filterChainDefinitionMap.put("/sys/logout", "anon");
         filterChainDefinitionMap.put("/sys/login", "anon");
         filterChainDefinitionMap.put("/sys/captcha", "anon");
@@ -108,11 +109,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/error", "anon");
         filterChainDefinitionMap.put("/user/register", "anon");
         //放行静态资源
-        filterChainDefinitionMap.put("/js/**", "anon");
-        filterChainDefinitionMap.put("/css/**", "anon");
-        filterChainDefinitionMap.put("/images/**", "anon");
-        filterChainDefinitionMap.put("/fonts/**", "anon");
+        filterChainDefinitionMap.put("/dimples/**", "anon");
         filterChainDefinitionMap.put("/layui/**", "anon");
+        filterChainDefinitionMap.put("/images/**", "anon");
         //swagger2
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");

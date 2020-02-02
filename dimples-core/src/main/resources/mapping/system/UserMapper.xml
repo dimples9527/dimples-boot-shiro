@@ -21,6 +21,29 @@
 		from db_dimples_shiro.tb_user
 		where username = #{username,jdbcType=VARCHAR}
 	</select>
+	<select id="findUserDetailPage" resultMap="BaseResultMap">
+		SELECT
+		u.user_id,
+		u.username,
+		u.status,
+		u.create_date,
+		u.modify_date
+		FROM
+		db_dimples_shiro.tb_user u
+		<where>
+			<if test="user.username != null and user.username != ''">
+				AND u.username = #{user.username}
+			</if>
+			<if test="user.status != null and user.status != ''">
+				AND u.status = #{user.status}
+			</if>
+		</where>
+		GROUP BY
+		u.username,
+		u.user_id,
+		u.status
+		ORDER BY u.user_id
+	</select>
 </mapper>
 
 

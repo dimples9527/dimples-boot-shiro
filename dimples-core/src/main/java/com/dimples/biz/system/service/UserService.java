@@ -1,7 +1,9 @@
 package com.dimples.biz.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dimples.biz.system.po.User;
+import com.dimples.core.transport.QueryRequest;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
@@ -30,6 +32,15 @@ public interface UserService extends IService<User> {
      * @param password 密码
      */
     void register(String username, String password);
+
+    /**
+     * 查找用户详细信息
+     *
+     * @param request request
+     * @param user    用户对象，用于传递查询条件
+     * @return IPage
+     */
+    IPage<User> findUserDetailList(User user, QueryRequest request);
 }
 
 

@@ -1,0 +1,19 @@
+.layui-inline .layui-form-label {
+    width: 90px;
+}
+
+.dimples-layout-content .container-fluid {
+    padding-top: 0;
+}
+
+.row .layui-fluid.layui-anim.dimples-anim {
+    padding: 5px 5px 0 5px;
+}
+
+.row .dimples-table {
+    padding: 0 5px 5px 5px;
+}
+
+.row .card .card-toolbar {
+    padding: 0 24px;
+}
