@@ -2,7 +2,7 @@ package com.dimples.biz.system.controller;
 
 import com.dimples.biz.monitor.service.LoginLogService;
 import com.dimples.biz.system.service.impl.ValidateCodeServiceImpl;
-import com.dimples.biz.web.constant.PageConstant;
+import com.dimples.biz.web.constant.WebConstant;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.eunm.OpsLogTypeEnum;
@@ -88,7 +88,7 @@ public class LoginController {
     @GetMapping("/logout")
     public ModelAndView logout() {
         getSubject().logout();
-        return new ModelAndView(PageConstant.LOGIN);
+        return new ModelAndView(WebConstant.LOGIN);
     }
 
     @GetMapping("/captcha")

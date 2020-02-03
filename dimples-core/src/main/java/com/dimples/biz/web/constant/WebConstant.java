@@ -6,7 +6,7 @@ package com.dimples.biz.web.constant;
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2020/1/21
  */
-public class PageConstant {
+public class WebConstant {
 
     public static final String LOGIN = "login";
     public static final String INDEX = "index";

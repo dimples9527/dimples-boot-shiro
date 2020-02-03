@@ -5,9 +5,9 @@ import com.dimples.biz.monitor.vo.StatisticVO;
 import com.dimples.biz.system.po.User;
 import com.dimples.biz.system.service.DeptService;
 import com.dimples.biz.system.service.RoleService;
-import com.dimples.biz.web.constant.PageConstant;
+import com.dimples.biz.web.constant.WebConstant;
+import com.dimples.core.controller.BaseController;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,32 +18,33 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/1/26
+ * @date 2020/1/21
  */
 @Slf4j
-@Controller
+@Controller("webController")
 @RequestMapping("web")
-public class WebIndexController {
+public class WebController extends BaseController {
 
     private LoginLogService loginLogService;
     private RoleService roleService;
     private DeptService deptService;
 
     @Autowired
-    public WebIndexController(LoginLogService loginLogService, RoleService roleService, DeptService deptService) {
+    public WebController(LoginLogService loginLogService, RoleService roleService, DeptService deptService) {
         this.loginLogService = loginLogService;
         this.roleService = roleService;
         this.deptService = deptService;
     }
 
+    @GetMapping("login")
+    public ModelAndView login() {
+        return new ModelAndView(WebConstant.LOGIN);
+    }
+
     @GetMapping("index")
     public ModelAndView index() {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        // TODO: 2020/1/29  开发时设置，生产环境去除
-        user = new User();
-        user.setUserId(4L);
-        user.setUsername("zhongyj");
-        log.info("当前用户登陆：{}", user.getUsername());
+        User user = getCurrentUser();
+        log.info("当前登陆用户：{}", user.getUsername());
         StatisticVO statistic = StatisticVO.builder()
                 .loginTotal(loginLogService.count())
                 .todayIpTotal(loginLogService.todayIpTotal())
@@ -52,25 +53,18 @@ public class WebIndexController {
         statistic.buildLastLoginTime(loginLogService.findByUsername(user.getUsername()));
         statistic.buildRole(roleService.findByUserId(user.getUserId()));
         statistic.buildDept(deptService.findByUserId(user.getUserId()));
-        log.info("用户信息与统计数据：{}", statistic);
-        ModelAndView view = new ModelAndView(PageConstant.INDEX);
+        ModelAndView view = new ModelAndView(WebConstant.INDEX);
         view.addObject("user", user);
         view.addObject("statistic", statistic);
         return view;
     }
+
+    @GetMapping("user")
+    public ModelAndView user() {
+        User user = getCurrentUser();
+        ModelAndView view = new ModelAndView(WebConstant.USER);
+        view.addObject("user", user);
+        return view;
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
