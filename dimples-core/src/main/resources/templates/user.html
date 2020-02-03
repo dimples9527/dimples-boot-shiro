@@ -438,49 +438,8 @@
                                             <th>操作</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr th:each="user : ${userList.records}">
-                                            <td>
-                                                <label class="dimples-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]"
-                                                           value="1"
-                                                           th:value="${user.userId}"><span></span>
-                                                </label>
-                                            </td>
-                                            <td th:text="${user.userId}">暂无数据</td>
-                                            <td th:text="${user.username}">暂无数据</td>
-                                            <td th:text="${user.username}">暂无数据</td>
-                                            <td th:text="${user.username}">暂无数据</td>
-                                            <td th:text="${user.username}">暂无数据</td>
-                                            <td th:text="${user.username}">暂无数据</td>
-                                            <td>
-                                                <!--<font class="text-success" th:text="${user.status}">暂无数据</font>-->
-                                                <div class="layui-table-cell laytable-cell-1-0-6">
-                                                    <span class="layui-badge dimples-tag-green"
-                                                          th:text="${user.status} == 1 ? '有效' : '无效'">有效</span>
-                                                </div>
-                                            </td>
-                                            <td th:text="${user.createDate}">暂无数据</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default"
-                                                       href="#" title=""
-                                                       data-toggle="tooltip"
-                                                       data-original-title="查看"><i
-                                                            class="mdi mdi-eye-outline dimples-green"></i></a>
-                                                    <a class="btn btn-xs btn-default"
-                                                       href="#" title=""
-                                                       data-toggle="tooltip"
-                                                       data-original-title="编辑"><i
-                                                            class="mdi mdi-account-edit dimples-blue"></i></a>
-                                                    <a class="btn btn-xs btn-default"
-                                                       href="#" title=""
-                                                       data-toggle="tooltip"
-                                                       data-original-title="删除"><i
-                                                            class="mdi mdi-delete-variant dimples-red"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <tbody id="table-user-data">
+
                                         </tbody>
                                     </table>
                                 </div>
