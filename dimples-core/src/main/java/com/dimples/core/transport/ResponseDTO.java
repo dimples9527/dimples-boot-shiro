@@ -24,6 +24,8 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseDTO {
 
+    public static final Integer ZERO = 0;
+
     @Setter
     @Getter
     private Integer code;
@@ -35,6 +37,10 @@ public class ResponseDTO {
     @Setter
     @Getter
     private Object data;
+
+    @Getter
+    @Setter
+    private Long count;
 
     /**
      * 成功但不带数据
@@ -49,10 +55,33 @@ public class ResponseDTO {
     /**
      * 成功带数据
      **/
+    public static ResponseDTO success(Integer code, Object object) {
+        ResponseDTO result = new ResponseDTO();
+        result.setCode(code);
+        result.setMessage(CodeAndMessageEnum.SUCCESS.getMessage());
+        result.setData(object);
+        return result;
+    }
+
+    /**
+     * 成功带数据
+     **/
     public static ResponseDTO success(Object object) {
         ResponseDTO result = new ResponseDTO();
         result.setCode(CodeAndMessageEnum.SUCCESS.getCode());
         result.setMessage(CodeAndMessageEnum.SUCCESS.getMessage());
+        result.setData(object);
+        return result;
+    }
+
+    /**
+     * 成功带数据
+     **/
+    public static ResponseDTO successWithPage(Integer code, Long count, Object object) {
+        ResponseDTO result = new ResponseDTO();
+        result.setCode(code);
+        result.setMessage(CodeAndMessageEnum.SUCCESS.getMessage());
+        result.setCount(count);
         result.setData(object);
         return result;
     }

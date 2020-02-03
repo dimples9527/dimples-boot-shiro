@@ -3,6 +3,7 @@ package com.dimples.biz.system.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dimples.biz.system.dto.UserDetailDTO;
 import com.dimples.biz.system.po.User;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -32,6 +33,6 @@ public interface UserMapper extends BaseMapper<User> {
      * @param user 用户对象，用于传递查询条件
      * @return IPage
      */
-    IPage<User> findUserDetailPage(@Param("page") Page<User> page, @Param("user") User user);
+    IPage<UserDetailDTO> findUserDetailPage(@Param("page") Page<UserDetailDTO> page, @Param("user") User user);
 
 }

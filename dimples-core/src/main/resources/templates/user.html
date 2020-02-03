@@ -263,13 +263,13 @@
         <main class="dimples-layout-content">
             <div class="container-fluid">
                 <div class="row">
-                    <!-- 筛选栏 -->
-                    <!--<div class="layui-fluid layui-anim dimples-anim" id="dimples-user">
+                    <!-- 主页内容 -->
+                    <div class="layui-fluid layui-anim dimples-anim" id="dimples-user">
                         <div class="layui-row dimples-container">
                             <div class="layui-col-md12">
                                 <div class="layui-card">
                                     <div class="layui-card-body dimples-table-full">
-                                        &lt;!&ndash; 顶部筛选栏 &ndash;&gt;
+                                        <!-- 顶部筛选栏 -->
                                         <form class="layui-form layui-table-form"
                                               lay-filter="user-table-form">
                                             <div class="layui-row">
@@ -352,113 +352,22 @@
                                                 <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
                                                     <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
                                                          id="query">
-                                                        &lt;!&ndash;                                                                <i class="layui-icon layui-icon-search"></i>&ndash;&gt;
                                                         <span class="mdi mdi-magnify mdi-18px mdi-dark mdi-inactive"></span>
                                                     </div>
                                                     <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
                                                          id="reset">
-                                                        &lt;!&ndash;                                                                <i class="layui-icon">&#xe79b;</i>&ndash;&gt;
                                                         <span class="mdi mdi-reload mdi-18px mdi-dark mdi-inactive"></span>
                                                     </div>
                                                     <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
-                                                        &lt;!&ndash;                                                                <i class="layui-icon">&#xe875;</i>&ndash;&gt;
                                                         <span class="mdi mdi-format-list-bulleted mdi-18px mdi-dark mdi-inactive"></span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
+                                        <!-- 表格 -->
+                                        <table id="user-info" lay-filter="user-info"></table>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>-->
-
-                    <!-- 表格 -->
-                    <div class="col-lg-12 dimples-table">
-                        <div class="card">
-                            <div class="card-toolbar clearfix">
-                                <form class="pull-right search-bar" method="get"
-                                      action="" role="form">
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                            <input type="hidden" name="search_field"
-                                                   id="search-field" value="title">
-                                            <button class="btn btn-default dropdown-toggle"
-                                                    id="search-btn"
-                                                    data-toggle="dropdown" type="button"
-                                                    aria-haspopup="true"
-                                                    aria-expanded="false">标题 <span
-                                                    class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                                <li><a tabindex="-1"
-                                                       href="javascript:void(0)"
-                                                       data-field="title">标题</a></li>
-                                                <li><a tabindex="-1"
-                                                       href="javascript:void(0)"
-                                                       data-field="cat_name">栏目</a></li>
-                                            </ul>
-                                        </div>
-                                        <label>
-                                            <input type="text" class="form-control" value=""
-                                                   name="keyword" placeholder="请输入名称">
-                                        </label>
-                                    </div>
-                                </form>
-                                <div class="toolbar-btn-action">
-                                    <a class="btn btn-primary m-r-5" href="#"><i
-                                            class="mdi mdi-plus"></i> 新增</a>
-                                    <a class="btn btn-success m-r-5" href="#"><i
-                                            class="mdi mdi-check"></i> 启用</a>
-                                    <a class="btn btn-warning m-r-5" href="#"><i
-                                            class="mdi mdi-block-helper"></i> 禁用</a>
-                                    <a class="btn btn-danger" href="#"><i
-                                            class="mdi mdi-window-close"></i> 删除</a>
-                                </div>
-                            </div>
-                            <div class="card-body">
-
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="dimples-checkbox checkbox-primary">
-                                                    <input type="checkbox"
-                                                           id="check-all"><span></span>
-                                                </label>
-                                            </th>
-                                            <th>编号</th>
-                                            <th>用户名</th>
-                                            <th>性别</th>
-                                            <th>部门</th>
-                                            <th>手机</th>
-                                            <th>邮箱</th>
-                                            <th>状态</th>
-                                            <th>创建时间</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="table-user-data">
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <ul class="pagination">
-                                    <li class="disabled"><span>«</span></li>
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">6</a></li>
-                                    <li><a href="#">7</a></li>
-                                    <li><a href="#">8</a></li>
-                                    <li class="disabled"><span>...</span></li>
-                                    <li><a href="#">14452</a></li>
-                                    <li><a href="#">14453</a></li>
-                                    <li><a href="#">»</a></li>
-                                </ul>
-
                             </div>
                         </div>
                     </div>
@@ -468,6 +377,32 @@
         <!--End 页面主要内容-->
     </div>
 </div>
+<script type="text/html" id="user-status">
+    {{#
+    var status = {
+    1: {title: '有效', color: 'green'},
+    0: {title: '禁用', color: 'volcano'}
+    }[d.status];
+    }}
+    <span class="layui-badge dimples-tag-{{status.color}}">{{ status.title }}</span>
+</script>
+<script type="text/html" id="user-sex">
+    {{#
+    var gender = {
+    2: {title: '保密'},
+    1: {title: '男'},
+    0: {title: '女'}
+    }[d.gender];
+    }}
+    <span>{{ gender.title }}</span>
+</script>
+<script type="text/html" id="user-option">
+    <a lay-event="detail"><i
+            class="layui-icon dimples-edit-area mdi mdi-eye-outline dimples-green"></i></a>
+    <a lay-event="edit"><i
+            class="layui-icon dimples-edit-area mdi mdi-account-edit dimples-blue"></i></a>
+    <a lay-event="del"><i class="layui-icon dimples-edit-area mdi mdi-delete-variant dimples-red"></i></a>
+</script>
 </body>
 <script type="text/javascript" th:src="@{/dimples/js/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/dimples/js/bootstrap.min.js}"></script>
@@ -478,8 +413,27 @@
 <script type="text/javascript" th:src="@{/dimples/js/dimples/user.js}"></script>
 <!-- 页面处理 -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        user.initTable();
+    layui.use('table', function () {
+        let table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#user-info',
+            url: '/user/list', //数据接口
+            page: true, //开启分页
+            cols: [
+                [
+                    {type: 'checkbox'},
+                    {field: 'username', title: '用户名', minWidth: 100},
+                    {title: '性别', templet: '#user-sex'},
+                    {field: 'username', title: '部门'},
+                    {field: 'username', title: '手机', minWidth: 165},
+                    {field: 'username', title: '邮箱', minWidth: 180},
+                    {title: '状态', templet: '#user-status'},
+                    {field: 'createDate', title: '创建时间', minWidth: 180, sort: true},
+                    {title: '操作', toolbar: '#user-option', minWidth: 140}
+                ]
+            ]
+        });
     });
 </script>
 </html>

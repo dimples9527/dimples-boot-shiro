@@ -3,6 +3,7 @@ package com.dimples.biz.system.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dimples.biz.system.dto.UserDetailDTO;
 import com.dimples.biz.system.mapper.UserMapper;
 import com.dimples.biz.system.po.RoleUser;
 import com.dimples.biz.system.po.User;
@@ -69,11 +70,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public IPage<User> findUserDetailList(User user, QueryRequest request) {
-        Page<User> page = new Page<>(request.getPageNum(), request.getPageSize());
-        IPage<User> users = this.baseMapper.findUserDetailPage(page, user);
-        log.info("用户注册日期: {}", users.getRecords().get(0).getCreateDate());
-        return users;
+    public IPage<UserDetailDTO> findUserDetailList(User user, QueryRequest request) {
+        Page<UserDetailDTO> page = new Page<>(request.getPageNum(), request.getPageSize());
+        return this.baseMapper.findUserDetailPage(page, user);
     }
 }
 

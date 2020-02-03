@@ -2,6 +2,7 @@ package com.dimples.biz.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dimples.biz.system.dto.UserDetailDTO;
 import com.dimples.biz.system.po.User;
 import com.dimples.core.transport.QueryRequest;
 
@@ -40,7 +41,7 @@ public interface UserService extends IService<User> {
      * @param user    用户对象，用于传递查询条件
      * @return IPage
      */
-    IPage<User> findUserDetailList(User user, QueryRequest request);
+    IPage<UserDetailDTO> findUserDetailList(User user, QueryRequest request);
 }
 
 

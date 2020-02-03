@@ -6,5 +6,4 @@ package com.dimples.core.controller;
  */
 public class BaseController {
 
-
 }

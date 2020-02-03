@@ -22,13 +22,19 @@
     padding: 10px 24px;
 }
 
+/* 表格样式 */
 table tbody tr td .dimples-checkbox.checkbox-primary {
     padding-left: 5px;
 }
 
-.layui-table-cell {
-    padding: 0;
+table .laytable-cell-checkbox .layui-form-checkbox {
+    margin-top: 7px;
 }
+
+.layui-table-view .layui-table td, .layui-table-view .layui-table th {
+    border: none;
+}
+
 
 
 

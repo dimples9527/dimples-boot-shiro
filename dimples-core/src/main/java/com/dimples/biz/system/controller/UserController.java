@@ -1,6 +1,7 @@
 package com.dimples.biz.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.dimples.biz.system.dto.UserDetailDTO;
 import com.dimples.biz.system.po.User;
 import com.dimples.biz.system.service.UserService;
 import com.dimples.core.annotation.OpsLog;
@@ -78,8 +79,8 @@ public class UserController extends BaseController {
     @OpsLog(value = "分页查询用户", type = OpsLogTypeEnum.SELECT)
     @GetMapping("list")
     public ResponseDTO userList(User user, QueryRequest request) {
-        IPage<User> userList = this.userService.findUserDetailList(user, request);
-        return ResponseDTO.success(userList);
+        IPage<UserDetailDTO> userList = this.userService.findUserDetailList(user, request);
+        return ResponseDTO.successWithPage(ResponseDTO.ZERO, userList.getTotal(), userList.getRecords());
     }
 
 }
