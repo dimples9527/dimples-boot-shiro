@@ -79,7 +79,6 @@ public class UserController extends BaseController {
     @GetMapping("list")
     public ResponseDTO userList(User user, QueryRequest request) {
         IPage<User> userList = this.userService.findUserDetailList(user, request);
-        log.info("" + userList.getRecords().get(0));
         return ResponseDTO.success(userList);
     }
 

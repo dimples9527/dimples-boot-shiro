@@ -19,10 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2019/11/14
  */
+@Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
@@ -68,7 +71,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public IPage<User> findUserDetailList(User user, QueryRequest request) {
         Page<User> page = new Page<>(request.getPageNum(), request.getPageSize());
-        return this.baseMapper.findUserDetailPage(page, user);
+        IPage<User> users = this.baseMapper.findUserDetailPage(page, user);
+        log.info("用户注册日期: {}", users.getRecords().get(0).getCreateDate());
+        return users;
     }
 }
 

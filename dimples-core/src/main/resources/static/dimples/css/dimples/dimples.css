@@ -50,7 +50,7 @@ a:hover {
     width: 245px
 }
 
-.layui-body, #app-header .layui-layout-left, .febs-tabs-wrap .febs-tabs-menu, .febs-tabs-wrap .febs-tabs-action {
+.layui-body, #app-header .layui-layout-left, .dimples-tabs-wrap .dimples-tabs-menu, .dimples-tabs-wrap .dimples-tabs-action {
     left: 245px
 }
 
@@ -64,7 +64,7 @@ a:hover {
     transition: height 0.8s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
-body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href), .febs-tabs-wrap .febs-tabs-menu li:hover, .febs-tabs-wrap .febs-tabs-action:hover, .febs-tabs-wrap .febs-tabs-active, .febs-grid:hover > p, .febs-cell-arrow:before, .febs-breadcrumb a:hover, .layui-layer-admin-page .layui-layer-setwin .layui-layer-close2:hover, .febs-tabs-wrap .febs-tabs-action:hover {
+body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href), .dimples-tabs-wrap .dimples-tabs-menu li:hover, .dimples-tabs-wrap .dimples-tabs-action:hover, .dimples-tabs-wrap .dimples-tabs-active, .dimples-grid:hover > p, .dimples-cell-arrow:before, .dimples-breadcrumb a:hover, .layui-layer-admin-page .layui-layer-setwin .layui-layer-close2:hover, .dimples-tabs-wrap .dimples-tabs-action:hover {
     color: rgba(0, 0, 0, .65) !important
 }
 
@@ -76,7 +76,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     background-color: #2db7f5 !important
 }
 
-.febs-c-blue, #app-sidebar .layui-logo, #app-sidebar .layui-logo span b, .febs-grid:hover .layui-icon, .febs-cell-selected, .layui-laypage a:hover, .layui-laydate-footer span[lay-type='date'], .layui-laydate .layui-laydate-footer span:hover, .layui-dropdown .layui-dropdown-option:hover, .layui-laydate td.layui-this, .febs-laydate-full td.layui-this .laydate-day-mark {
+.dimples-c-blue, #app-sidebar .layui-logo, #app-sidebar .layui-logo span b, .dimples-grid:hover .layui-icon, .dimples-cell-selected, .layui-laypage a:hover, .layui-laydate-footer span[lay-type='date'], .layui-laydate .layui-laydate-footer span:hover, .layui-dropdown .layui-dropdown-option:hover, .layui-laydate td.layui-this, .dimples-laydate-full td.layui-this .laydate-day-mark {
     color: #2db7f5 !important
 }
 
@@ -89,7 +89,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     border: 5px solid #fff
 }
 
-.febs-br-blue, #app-sidebar .layui-logo span, .febs-linecard, .layui-layer-prompt .layui-layer-btn a.layui-layer-btn0, .layui-layer-admin-modal .layui-layer-btn a.layui-layer-btn0, .layui-tab-brief > .layui-tab-more li.layui-this:after, .layui-tab-brief > .layui-tab-title .layui-this:after {
+.dimples-br-blue, #app-sidebar .layui-logo span, .dimples-linecard, .layui-layer-prompt .layui-layer-btn a.layui-layer-btn0, .layui-layer-admin-modal .layui-layer-btn a.layui-layer-btn0, .layui-tab-brief > .layui-tab-more li.layui-this:after, .layui-tab-brief > .layui-tab-title .layui-this:after {
     border-color: #2db7f5 !important
 }
 
@@ -98,7 +98,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     background-color: #393e46
 }
 
-.febs-sidebar-shrink #app-sidebar .layui-nav-itemed, #app-sidebar .layui-nav-tree .layui-nav-child dd.layui-this, #app-sidebar .layui-nav-tree .layui-nav-child dd.layui-this a, #app-sidebar .layui-nav-tree .layui-this, #app-sidebar .layui-nav-tree .layui-this > a, .layui-nav-tree .layui-this > a:hover {
+.dimples-sidebar-shrink #app-sidebar .layui-nav-itemed, #app-sidebar .layui-nav-tree .layui-nav-child dd.layui-this, #app-sidebar .layui-nav-tree .layui-nav-child dd.layui-this a, #app-sidebar .layui-nav-tree .layui-this, #app-sidebar .layui-nav-tree .layui-this > a, .layui-nav-tree .layui-this > a:hover {
     background-color: #1c1f27
 }
 
@@ -106,7 +106,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     color: #fff
 }
 
-#app-header, .febs-tabs-wrap, .febs-tabs-wrap .febs-tabs-menu li, .febs-tabs-wrap .febs-tabs-action, .layui-form-checkbox, .layui-form-select dl dd.layui-disabled, .layui-btn-primary, .layui-layer-admin-page .layui-layer-setwin .layui-layer-close2, .layui-dropdown .layui-dropdown-select {
+#app-header, .dimples-tabs-wrap, .dimples-tabs-wrap .dimples-tabs-menu li, .dimples-tabs-wrap .dimples-tabs-action, .layui-form-checkbox, .layui-form-select dl dd.layui-disabled, .layui-btn-primary, .layui-layer-admin-page .layui-layer-setwin .layui-layer-close2, .layui-dropdown .layui-dropdown-select {
     background-color: #fff !important
 }
 
@@ -133,11 +133,11 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
 .layui-table[lay-skin='line'] td, .layui-table[lay-skin='line'] th {
 }
 
-.febs-table-full {
+.dimples-table-full {
     padding: 15px 15px 40px 15px
 }
 
-.febs-table-full .layui-table, .febs-table-full .layui-table-view {
+.dimples-table-full .layui-table, .dimples-table-full .layui-table-view {
     margin: 0
 }
 
@@ -282,11 +282,11 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     right: 0
 }
 
-.febs-tabs-hidden {
+.dimples-tabs-hidden {
     display: none
 }
 
-.febs-tabs-wrap {
+.dimples-tabs-wrap {
     z-index: 999;
     position: fixed;
     top: 50px;
@@ -298,12 +298,12 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05)
 }
 
-.febs-tabs-wrap .febs-tabs-menu {
+.dimples-tabs-wrap .dimples-tabs-menu {
     position: relative;
     transition: left 0.3s
 }
 
-.febs-tabs-wrap .febs-tabs-menu li, .febs-tabs-wrap .febs-tabs-action {
+.dimples-tabs-wrap .dimples-tabs-menu li, .dimples-tabs-wrap .dimples-tabs-action {
     text-align: center;
     border-right: 1px solid #f1f1f1;
     cursor: pointer;
@@ -312,15 +312,15 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     transition: all 0.3s ease
 }
 
-.febs-tabs-wrap .febs-tabs-action:hover, .febs-tabs-wrap .febs-tabs-menu li:hover {
+.dimples-tabs-wrap .dimples-tabs-action:hover, .dimples-tabs-wrap .dimples-tabs-menu li:hover {
     background: #fdfdfd !important
 }
 
-.febs-tabs-wrap .febs-tabs-menu li:hover > .febs-tabs-close {
+.dimples-tabs-wrap .dimples-tabs-menu li:hover > .dimples-tabs-close {
     color: red
 }
 
-.febs-tabs-wrap .febs-tabs-menu li {
+.dimples-tabs-wrap .dimples-tabs-menu li {
     display: inline-block;
     padding-left: 18px;
     line-height: 38px;
@@ -328,7 +328,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     user-select: none
 }
 
-.febs-tabs-wrap .febs-tabs-close {
+.dimples-tabs-wrap .dimples-tabs-close {
     color: #fff;
     font-size: 10px;
     height: 36px;
@@ -337,7 +337,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     transition: color 0.3s ease
 }
 
-.febs-tabs-wrap .febs-tabs-action {
+.dimples-tabs-wrap .dimples-tabs-action {
     display: inline-block;
     position: absolute;
     top: 0;
@@ -347,187 +347,187 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     color: #999
 }
 
-.febs-tabs-wrap .febs-tabs-next {
+.dimples-tabs-wrap .dimples-tabs-next {
     left: auto;
     right: 31px;
     border-left: 1px solid #f1f1f1
 }
 
-.febs-tabs-wrap .febs-tabs-down {
+.dimples-tabs-wrap .dimples-tabs-down {
     left: auto;
     right: 0
 }
 
-.febs-lead {
+.dimples-lead {
     font-weight: 300
 }
 
-.febs-ignore {
+.dimples-ignore {
     font-size: 14px;
     color: #999
 }
 
-.febs-pad30 {
+.dimples-pad30 {
     padding: 30px !important
 }
 
-.febs-pad20 {
+.dimples-pad20 {
     padding: 20px !important
 }
 
-.febs-pad10 {
+.dimples-pad10 {
     padding: 20px !important
 }
 
-.febs-pad5 {
+.dimples-pad5 {
     padding: 20px !important
 }
 
-.febs-pad0 {
+.dimples-pad0 {
     padding: 0px !important
 }
 
-.febs-pad-tb20 {
+.dimples-pad-tb20 {
     padding: 20px 0 !important
 }
 
-.febs-pad-tb10 {
+.dimples-pad-tb10 {
     padding: 10px 0 !important
 }
 
-.febs-pad-tb5 {
+.dimples-pad-tb5 {
     padding: 5px 0 !important
 }
 
-.febs-pad-r20 {
+.dimples-pad-r20 {
     padding-right: 20px !important
 }
 
-.febs-pad-r10 {
+.dimples-pad-r10 {
     padding-right: 10px !important
 }
 
-.febs-pad-r5 {
+.dimples-pad-r5 {
     padding-right: 5px !important
 }
 
-.febs-pad-b20 {
+.dimples-pad-b20 {
     padding-bottom: 20px !important
 }
 
-.febs-pad-b10 {
+.dimples-pad-b10 {
     padding-bottom: 10px !important
 }
 
-.febs-pad-b5 {
+.dimples-pad-b5 {
     padding-bottom: 5px !important
 }
 
-.febs-pad-t20 {
+.dimples-pad-t20 {
     padding-top: 20px !important
 }
 
-.febs-pad-t10 {
+.dimples-pad-t10 {
     padding-top: 10px !important
 }
 
-.febs-pad-t5 {
+.dimples-pad-t5 {
     padding-top: 5px !important
 }
 
-.febs-pad-l20 {
+.dimples-pad-l20 {
     padding-left: 20px !important
 }
 
-.febs-pad-l10 {
+.dimples-pad-l10 {
     padding-left: 10px !important
 }
 
-.febs-pad-l5 {
+.dimples-pad-l5 {
     padding-left: 5px !important
 }
 
-.febs-mar30 {
+.dimples-mar30 {
     margin: 30px !important
 }
 
-.febs-mar20 {
+.dimples-mar20 {
     margin: 20px !important
 }
 
-.febs-mar10 {
+.dimples-mar10 {
     margin: 20px !important
 }
 
-.febs-mar5 {
+.dimples-mar5 {
     margin: 20px !important
 }
 
-.febs-mar0 {
+.dimples-mar0 {
     margin: 0px !important
 }
 
-.febs-mar-tb20 {
+.dimples-mar-tb20 {
     margin: 20px 0 !important
 }
 
-.febs-mar-tb10 {
+.dimples-mar-tb10 {
     margin: 10px 0 !important
 }
 
-.febs-mar-tb5 {
+.dimples-mar-tb5 {
     margin: 5px 0 !important
 }
 
-.febs-mar-r20 {
+.dimples-mar-r20 {
     margin-right: 20px !important
 }
 
-.febs-mar-r10 {
+.dimples-mar-r10 {
     margin-right: 10px !important
 }
 
-.febs-mar-r5 {
+.dimples-mar-r5 {
     margin-right: 5px !important
 }
 
-.febs-mar-b20 {
+.dimples-mar-b20 {
     margin-bottom: 20px !important
 }
 
-.febs-mar-b10 {
+.dimples-mar-b10 {
     margin-bottom: 10px !important
 }
 
-.febs-mar-b5 {
+.dimples-mar-b5 {
     margin-bottom: 5px !important
 }
 
-.febs-mar-t20 {
+.dimples-mar-t20 {
     margin-top: 20px !important
 }
 
-.febs-mar-t10 {
+.dimples-mar-t10 {
     margin-top: 10px !important
 }
 
-.febs-mar-t5 {
+.dimples-mar-t5 {
     margin-top: 5px !important
 }
 
-.febs-mar-l20 {
+.dimples-mar-l20 {
     margin-left: 20px !important
 }
 
-.febs-mar-l10 {
+.dimples-mar-l10 {
     margin-left: 10px !important
 }
 
-.febs-mar-l5 {
+.dimples-mar-l5 {
     margin-left: 5px !important
 }
 
-.febs-gray {
+.dimples-gray {
     filter: grayscale(100%)
 }
 
@@ -567,57 +567,57 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     background-color: #fff !important
 }
 
-.febs-rle {
+.dimples-rle {
     position: relative
 }
 
-.febs-aler {
+.dimples-aler {
     position: absolute;
     top: 0;
     right: 0;
     z-index: 1
 }
 
-.febs-alel {
+.dimples-alel {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1
 }
 
-.febs-fl {
+.dimples-fl {
     float: left
 }
 
-.febs-fr {
+.dimples-fr {
     float: right
 }
 
-.febs-tc {
+.dimples-tc {
     text-align: center
 }
 
-.febs-tr {
+.dimples-tr {
     text-align: right
 }
 
-.febs-tl {
+.dimples-tl {
     text-align: left
 }
 
-.febs-font-12 {
+.dimples-font-12 {
     font-size: 12px !important
 }
 
-.febs-font-14 {
+.dimples-font-14 {
     font-size: 14px !important
 }
 
-.febs-bold {
+.dimples-bold {
     font-weight: bold !important
 }
 
-.febs-avatar {
+.dimples-avatar {
     position: relative;
     height: 40px;
     width: 40px;
@@ -625,30 +625,30 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     overflow: hidden
 }
 
-.febs-avatar-lg {
+.dimples-avatar-lg {
     height: 60px;
     width: 60px
 }
 
-.febs-avatar-xs {
+.dimples-avatar-xs {
     height: 20px;
     width: 20px
 }
 
-.febs-avatar img {
+.dimples-avatar img {
     height: 100%;
     width: 100%;
     display: block
 }
 
-.febs-avatar .layui-badge-dot {
+.dimples-avatar .layui-badge-dot {
     position: absolute;
     top: 2px;
     right: 2px;
     z-index: 1
 }
 
-.febs-avatar, .febs-avatar img {
+.dimples-avatar, .dimples-avatar img {
     border-radius: 5px
 }
 
@@ -688,7 +688,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     background: #f9f9f9
 }
 
-.febs-linecard {
+.dimples-linecard {
     margin-bottom: 15px;
     border-radius: 2px;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
@@ -700,37 +700,37 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     transition: background 0.3s ease
 }
 
-.febs-linecard:hover {
+.dimples-linecard:hover {
     background: #f8fafe
 }
 
-.febs-linecard.febs-br-green:hover {
+.dimples-linecard.dimples-br-green:hover {
     background: #f6fdfa
 }
 
-.febs-linecard.febs-br-red:hover {
+.dimples-linecard.dimples-br-red:hover {
     background: #fff8f6
 }
 
-.febs-linecard.febs-br-gray:hover {
+.dimples-linecard.dimples-br-gray:hover {
     background: #f6f6f6
 }
 
-.febs-linecard:last-child {
+.dimples-linecard:last-child {
     margin-bottom: 0
 }
 
-.febs-linecard-title {
+.dimples-linecard-title {
     padding-bottom: 12px;
     font-size: 16px
 }
 
-.febs-linecard-text {
+.dimples-linecard-text {
     font-size: 26px;
     padding-right: 5px
 }
 
-.febs-grid {
+.dimples-grid {
     text-align: center;
     border-radius: 5px;
     padding: 15px 0;
@@ -738,22 +738,22 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     cursor: pointer
 }
 
-.febs-grid > p {
+.dimples-grid > p {
     color: #999;
     font-size: 14px
 }
 
-.febs-grid > p, .febs-grid .layui-icon {
+.dimples-grid > p, .dimples-grid .layui-icon {
     transition: color 0.3s ease
 }
 
-.febs-grid .layui-icon {
+.dimples-grid .layui-icon {
     font-size: 28px;
     display: inline-block;
     margin-bottom: 10px
 }
 
-.febs-cell {
+.dimples-cell {
     padding: 7px 16px;
     clear: both;
     font-size: 12px !important;
@@ -762,18 +762,18 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     transition: background 0.2s ease-in-out
 }
 
-.febs-cell .febs-avatar {
+.dimples-cell .dimples-avatar {
     float: left;
     margin-right: 10px;
     position: relative;
     top: 3px
 }
 
-.febs-cell .febs-avatar-xs {
+.dimples-cell .dimples-avatar-xs {
     top: 4px
 }
 
-.febs-cell-arrow:before {
+.dimples-cell-arrow:before {
     font-family: 'layui-icon', 'nep-icon' !important;
     font-size: 12px;
     font-style: normal;
@@ -788,34 +788,34 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     height: 20px
 }
 
-.febs-cell:hover {
+.dimples-cell:hover {
     background: #f6f6f6
 }
 
-.febs-cell-selected, .febs-cell-selected:hover {
+.dimples-cell-selected, .dimples-cell-selected:hover {
     background: #f8fafe
 }
 
-.febs-cell-title {
+.dimples-cell-title {
     line-height: 28px;
     font-size: 14px
 }
 
-.febs-cell-label {
+.dimples-cell-label {
     line-height: 1.2;
     font-size: 12px;
     color: #999;
     padding-bottom: 4px
 }
 
-.febs-cell-title, .febs-cell-label {
+.dimples-cell-title, .dimples-cell-label {
     padding-right: 70px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap
 }
 
-.febs-cell-extra {
+.dimples-cell-extra {
     position: absolute;
     top: 50%;
     margin-top: -8px;
@@ -825,11 +825,11 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     color: #999
 }
 
-.febs-cell-arrow .febs-cell-extra {
+.dimples-cell-arrow .dimples-cell-extra {
     right: 32px
 }
 
-.febs-cell-disabled {
+.dimples-cell-disabled {
 }
 
 .layui-layout-admin .layui-body {
@@ -839,7 +839,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     padding-bottom: 15px
 }
 
-.layui-layout-admin .febs-tabs-body {
+.layui-layout-admin .dimples-tabs-body {
     padding-top: 86px;
     float: left
 }
@@ -848,51 +848,51 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
     transition: all 0.5s cubic-bezier(0.86, 0, 0.07, 1)
 }
 
-.febs-breadcrumb {
+.dimples-breadcrumb {
     visibility: visible;
     vertical-align: middle
 }
 
-.febs-breadcrumb a {
+.dimples-breadcrumb a {
     color: rgba(0, 0, 0, 0.45) !important;
     cursor: default
 }
 
-.febs-breadcrumb > * {
+.dimples-breadcrumb > * {
     font-size: .78rem
 }
 
-#febs-body .layui-fluid {
+#dimples-body .layui-fluid {
     margin: 0 !important;
     padding: 0 !important
 }
 
-#febs-body .layui-fluid > .layui-table-view, #febs-body .layui-fluid > .layui-card > .layui-table-view {
+#dimples-body .layui-fluid > .layui-table-view, #dimples-body .layui-fluid > .layui-card > .layui-table-view {
     margin: 0
 }
 
-#febs-body .febs-body-tabs {
+#dimples-body .dimples-body-tabs {
     margin: 0
 }
 
-.febs-sidebar-shrink #app-sidebar {
+.dimples-sidebar-shrink #app-sidebar {
     left: 0;
     width: 52px
 }
 
-.febs-sidebar-shrink #app-sidebar .layui-nav-item .layui-nav-child {
+.dimples-sidebar-shrink #app-sidebar .layui-nav-item .layui-nav-child {
     display: none
 }
 
-.febs-sidebar-shrink #app-sidebar .layui-logo {
+.dimples-sidebar-shrink #app-sidebar .layui-logo {
     height: 0
 }
 
-.febs-sidebar-shrink .layui-body, .febs-sidebar-shrink #app-header .layui-layout-left, .febs-sidebar-shrink .febs-tabs-wrap .febs-tabs-menu, .febs-sidebar-shrink .febs-tabs-wrap .febs-tabs-prev {
+.dimples-sidebar-shrink .layui-body, .dimples-sidebar-shrink #app-header .layui-layout-left, .dimples-sidebar-shrink .dimples-tabs-wrap .dimples-tabs-menu, .dimples-sidebar-shrink .dimples-tabs-wrap .dimples-tabs-prev {
     left: 56px
 }
 
-.febs-sidebar-shrink #app-header .layui-icon-shrink-right:before {
+.dimples-sidebar-shrink #app-header .layui-icon-shrink-right:before {
     content: '\e66b'
 }
 
@@ -1119,35 +1119,35 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     border-radius: 6px
 }
 
-.febs-laydate-full .layui-laydate {
+.dimples-laydate-full .layui-laydate {
     border: none;
     box-shadow: none !important
 }
 
-.febs-laydate-full .layui-laydate-static {
+.dimples-laydate-full .layui-laydate-static {
     display: block
 }
 
-.febs-laydate-full .layui-laydate-main, .febs-laydate-full .layui-laydate-content table {
+.dimples-laydate-full .layui-laydate-main, .dimples-laydate-full .layui-laydate-content table {
     width: 100%
 }
 
-.febs-laydate-full .layui-laydate-content {
+.dimples-laydate-full .layui-laydate-content {
     font-size: 24px !important
 }
 
-.febs-laydate-full .layui-laydate-content td, .febs-laydate-full .layui-laydate-content th {
+.dimples-laydate-full .layui-laydate-content td, .dimples-laydate-full .layui-laydate-content th {
     height: 100px !important;
     width: 100px !important
 }
 
-.febs-laydate-full .laydate-day-mark {
+.dimples-laydate-full .laydate-day-mark {
     font-size: 24px;
     line-height: 100px;
     color: #f25657
 }
 
-.febs-laydate-full .laydate-day-mark::after {
+.dimples-laydate-full .laydate-day-mark::after {
     display: none;
     width: 8px !important;
     height: 8px !important;
@@ -1237,17 +1237,17 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 }
 
 @media screen and (max-width: 991px) {
-    .febs-sidebar-shrink #app-sidebar {
+    .dimples-sidebar-shrink #app-sidebar {
         width: 0
     }
 
-    .febs-sidebar-shrink .layui-body, .febs-sidebar-shrink #app-header .layui-layout-left, .febs-sidebar-shrink .febs-tabs-wrap .febs-tabs-menu, .febs-sidebar-shrink .febs-tabs-wrap .febs-tabs-prev {
+    .dimples-sidebar-shrink .layui-body, .dimples-sidebar-shrink #app-header .layui-layout-left, .dimples-sidebar-shrink .dimples-tabs-wrap .dimples-tabs-menu, .dimples-sidebar-shrink .dimples-tabs-wrap .dimples-tabs-prev {
         left: 0
     }
 }
 
 @media screen and (max-width: 768px) {
-    .layui-layout-admin .febs-tabs-body {
+    .layui-layout-admin .dimples-tabs-body {
         padding-top: 50px
     }
 
@@ -1283,15 +1283,15 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
         width: 100%
     }
 
-    .febs-tabs-wrap {
+    .dimples-tabs-wrap {
         display: none
     }
 
-    .febs-sidebar-shrink .layui-body, .febs-sidebar-shrink #app-header .layui-layout-left {
+    .dimples-sidebar-shrink .layui-body, .dimples-sidebar-shrink #app-header .layui-layout-left {
         left: 0px
     }
 
-    .febs-sidebar-shrink .layui-body, .febs-sidebar-shrink #app-header {
+    .dimples-sidebar-shrink .layui-body, .dimples-sidebar-shrink #app-header {
         left: 0px
     }
 
@@ -1315,7 +1315,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     }
 }
 
-.febs-arrow-up {
+.dimples-arrow-up {
     width: 0;
     height: 0;
     border-left: 8px solid transparent;
@@ -1331,13 +1331,13 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     opacity: 0
 }
 
-.layui-dropdown .febs-arrow-up {
+.layui-dropdown .dimples-arrow-up {
     position: absolute;
     top: -6px;
     left: 10px
 }
 
-.layui-dropdown-right .febs-arrow-up {
+.layui-dropdown-right .dimples-arrow-up {
     left: auto;
     right: 10px
 }
@@ -3606,171 +3606,171 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     border-radius: 0 !important
 }
 
-.febs-tag-green {
+.dimples-tag-green {
     color: #52c41a;
     background: #f6ffed;
     border: 1px solid #b7eb8f
 }
 
-.febs-tag-magenta {
+.dimples-tag-magenta {
     color: #eb2f96;
     background: #fff0f6;
     border: 1px solid #ffadd2
 }
 
-.febs-tag-orange {
+.dimples-tag-orange {
     color: #fa8c16;
     background: #fff7e6;
     border: 1px solid #ffd591
 }
 
-.febs-tag-red {
+.dimples-tag-red {
     color: #f5222d;
     background: #fff1f0;
     border: 1px solid #ffa39e
 }
 
-.febs-tag-volcano {
+.dimples-tag-volcano {
     color: #fa541c;
     background: #fff2e8;
     border: 1px solid #ffbb96
 }
 
-.febs-tag-gold {
+.dimples-tag-gold {
     color: #faad14;
     background: #fffbe6;
     border: 1px solid #ffe58f
 }
 
-.febs-tag-lime {
+.dimples-tag-lime {
     color: #a0d911;
     background: #fcffe6;
     border: 1px solid #eaff8f
 }
 
-.febs-tag-cyan {
+.dimples-tag-cyan {
     color: #13c2c2;
     background: #e6fffb;
     border: 1px solid #87e8de
 }
 
-.febs-tag-blue {
+.dimples-tag-blue {
     color: #1890ff;
     background: #e6f7ff;
     border: 1px solid #91d5ff
 }
 
-.febs-tag-geekblue {
+.dimples-tag-geekblue {
     color: #2f54eb;
     background: #f0f5ff;
     border: 1px solid #adc6ff
 }
 
-.febs-tag-purple {
+.dimples-tag-purple {
     color: #722ed1;
     background: #f9f0ff;
     border: 1px solid #d3adf7
 }
 
-.febs-green {
+.dimples-green {
     color: #52c41a
 }
 
-.febs-magenta {
+.dimples-magenta {
     color: #eb2f96
 }
 
-.febs-orange {
+.dimples-orange {
     color: #fa8c16
 }
 
-.febs-red {
+.dimples-red {
     color: #f5222d
 }
 
-.febs-volcano {
+.dimples-volcano {
     color: #fa541c
 }
 
-.febs-gold {
+.dimples-gold {
     color: #faad14
 }
 
-.febs-lime {
+.dimples-lime {
     color: #a0d911
 }
 
-.febs-cyan {
+.dimples-cyan {
     color: #13c2c2
 }
 
-.febs-blue {
+.dimples-blue {
     color: #1890ff
 }
 
-.febs-geekblue {
+.dimples-geekblue {
     color: #2f54eb
 }
 
-.febs-purple {
+.dimples-purple {
     color: #722ed1
 }
 
-.febs-bg-green {
+.dimples-bg-green {
     background: #52c41a
 }
 
-.febs-bg-orange {
+.dimples-bg-orange {
     background: #fa8c16
 }
 
-.febs-bg-red {
+.dimples-bg-red {
     background: #f5222d
 }
 
-.febs-bg-magenta {
+.dimples-bg-magenta {
     background: #eb2f96
 }
 
-.febs-bg-gold {
+.dimples-bg-gold {
     background: #faad14
 }
 
-.febs-bg-volcano {
+.dimples-bg-volcano {
     background: #fa541c
 }
 
-.febs-bg-lime {
+.dimples-bg-lime {
     background: #a0d911
 }
 
-.febs-bg-cyan {
+.dimples-bg-cyan {
     background: #13c2c2
 }
 
-.febs-bg-blue {
+.dimples-bg-blue {
     background: #1890ff
 }
 
-.febs-bg-geekblue {
+.dimples-bg-geekblue {
     background: #2f54eb
 }
 
-.febs-bg-purple {
+.dimples-bg-purple {
     background: #722ed1
 }
 
-.febs-alert {
+.dimples-alert {
     border: 1px solid #fff !important;
     box-shadow: 3px 2px 9px rgba(0, 0, 0, 0.1) !important
 }
 
-.febs-edit-area {
+.dimples-edit-area {
     font-size: 18px;
     margin-right: 5px
 }
 
-.febs-form-item-require:before {
+.dimples-form-item-require:before {
     display: inline-block;
     margin-right: 4px;
     content: "*";
@@ -3787,7 +3787,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     margin-top: .5rem
 }
 
-.febs-container {
+.dimples-container {
     padding: 6px
 }
 
@@ -3799,34 +3799,34 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     width: 45px
 }
 
-.febs-alert-base {
+.dimples-alert-base {
     margin: 3px 0 3px 0;
     display: block;
     border-radius: 2px;
     padding: 8px 15px 8px 15px
 }
 
-.febs-alert-success {
+.dimples-alert-success {
     border: 1px solid #b7eb8f;
     background-color: #f6ffed
 }
 
-.febs-alert-info {
+.dimples-alert-info {
     border: 1px solid #91d5ff;
     background-color: #e6f7ff
 }
 
-.febs-alert-warn {
+.dimples-alert-warn {
     border: 1px solid #ffe58f;
     background-color: #fffbe6
 }
 
-.febs-alert-error {
+.dimples-alert-error {
     border: 1px solid #ffa39e;
     background-color: #fff1f0
 }
 
-.febs-hide {
+.dimples-hide {
     display: none
 }
 
@@ -3843,57 +3843,57 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     background-color: #393e46 !important
 }
 
-.febs-theme-white {
+.dimples-theme-white {
     background-color: #fff !important
 }
 
-.febs-theme-white .layui-logo span {
+.dimples-theme-white .layui-logo span {
     color: #1890ff !important;
     font-weight: 600
 }
 
-.febs-theme-white .layui-nav .layui-nav-item a, .febs-theme-white .layui-nav .layui-this a {
+.dimples-theme-white .layui-nav .layui-nav-item a, .dimples-theme-white .layui-nav .layui-this a {
     color: rgba(0, 0, 0, 0.65)
 }
 
-.febs-theme-white .layui-nav .layui-nav-item a:hover, .febs-theme-white .layui-nav .layui-this a {
+.dimples-theme-white .layui-nav .layui-nav-item a:hover, .dimples-theme-white .layui-nav .layui-this a {
     color: rgba(0, 0, 0, 0.65)
 }
 
-.febs-theme-white .layui-nav-itemed > a {
+.dimples-theme-white .layui-nav-itemed > a {
     color: rgba(0, 0, 0, 0.65) !important
 }
 
-.febs-theme-white .layui-nav-itemed > .layui-nav-child {
+.dimples-theme-white .layui-nav-itemed > .layui-nav-child {
     background-color: #fff !important
 }
 
-#app-sidebar.febs-theme-white .layui-nav-tree .layui-this {
+#app-sidebar.dimples-theme-white .layui-nav-tree .layui-this {
     background-color: #fff !important
 }
 
-.febs-theme-white .layui-nav-tree .layui-nav-child dd.layui-this a {
+.dimples-theme-white .layui-nav-tree .layui-nav-child dd.layui-this a {
     background-color: #e6f7ff !important;
     color: #1890ff !important
 }
 
-.febs-theme-white .layui-nav-itemed .layui-nav-child {
+.dimples-theme-white .layui-nav-itemed .layui-nav-child {
     box-shadow: none !important
 }
 
-.febs-sidebar-shrink #app-sidebar.febs-theme-white .layui-nav-itemed {
+.dimples-sidebar-shrink #app-sidebar.dimples-theme-white .layui-nav-itemed {
     background-color: #fff !important
 }
 
-.febs-theme-white .layui-nav .layui-nav-mored, .febs-theme-white .layui-nav-itemed > a .layui-nav-more {
+.dimples-theme-white .layui-nav .layui-nav-mored, .dimples-theme-white .layui-nav-itemed > a .layui-nav-more {
     border-color: transparent transparent rgba(0, 0, 0, .5)
 }
 
-.febs-theme-white .layui-nav .layui-nav-more {
+.dimples-theme-white .layui-nav .layui-nav-more {
     border-color: rgba(0, 0, 0, .5) transparent transparent
 }
 
-.febs-tabs-wrap .febs-tabs-ball {
+.dimples-tabs-wrap .dimples-tabs-ball {
     display: inline-block;
     height: 5px;
     width: 5px;
@@ -3906,7 +3906,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     transition: background .4s ease
 }
 
-.febs-tabs-wrap li.febs-tabs-active .febs-tabs-ball {
+.dimples-tabs-wrap li.dimples-tabs-active .dimples-tabs-ball {
     background-color: #85ef47 !important;
     box-shadow: 0 0 7px #b7eb8f
 }
@@ -3922,7 +3922,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     animation-duration: .4s !important
 }
 
-@keyframes febs-anim {
+@keyframes dimples-anim {
     from {
         transform: translate3d(30px, 0, 0);
         opacity: .3
@@ -3933,12 +3933,12 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     }
 }
 
-.febs-anim {
-    -webkit-animation-name: febs-anim;
-    animation-name: febs-anim
+.dimples-anim {
+    -webkit-animation-name: dimples-anim;
+    animation-name: dimples-anim
 }
 
-@keyframes febs-anim-right {
+@keyframes dimples-anim-right {
     from {
         transform: translate3d(-30px, 0, 0);
         opacity: .3
@@ -3949,12 +3949,12 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     }
 }
 
-.febs-anim-right {
-    -webkit-animation-name: febs-anim-right;
-    animation-name: febs-anim-right
+.dimples-anim-right {
+    -webkit-animation-name: dimples-anim-right;
+    animation-name: dimples-anim-right
 }
 
-@keyframes febs-anim-down {
+@keyframes dimples-anim-down {
     from {
         transform: translate3d(0, -30px, 0);
         opacity: .3
@@ -3965,12 +3965,12 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     }
 }
 
-.febs-anim-down {
-    -webkit-animation-name: febs-anim-down;
-    animation-name: febs-anim-down
+.dimples-anim-down {
+    -webkit-animation-name: dimples-anim-down;
+    animation-name: dimples-anim-down
 }
 
-@keyframes febs-anim-up {
+@keyframes dimples-anim-up {
     from {
         transform: translate3d(0, 30px, 0);
         opacity: 0
@@ -3981,9 +3981,9 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     }
 }
 
-.febs-anim-up {
-    -webkit-animation-name: febs-anim-up;
-    animation-name: febs-anim-up
+.dimples-anim-up {
+    -webkit-animation-name: dimples-anim-up;
+    animation-name: dimples-anim-up
 }
 
 .layui-user .layui-nav-child dd.layui-this a, .layui-user dd.layui-this {

@@ -566,7 +566,7 @@ button.list-group-item:hover {
     margin-top: 0px;
     margin-bottom: 0px;
     cursor: pointer;
-    padding-left: 30px;
+    /*padding-left: 30px;*/
     font-weight: 400;
     min-height: 18px;
     height: auto!important;
