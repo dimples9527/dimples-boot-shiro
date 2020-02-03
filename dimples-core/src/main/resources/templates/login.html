@@ -28,18 +28,21 @@
             <div class="login-error" id="login-error">错误信息</div>
             <!-- 登陆框 -->
             <form action="/sys/login" method="post">
+                <!-- 用户名 -->
                 <div class="form-group has-feedback feedback-left">
                     <label for="username"></label>
                     <input type="text" placeholder="请输入您的用户名" class="form-control" name="username"
                            id="username"/>
                     <span class="mdi mdi-account form-control-feedback" aria-hidden="true"></span>
                 </div>
+                <!-- 密码 -->
                 <div class="form-group has-feedback feedback-left">
                     <label for="password"></label>
                     <input type="password" placeholder="请输入密码" class="form-control" id="password"
                            name="password"/>
                     <span class="mdi mdi-lock form-control-feedback" aria-hidden="true"></span>
                 </div>
+                <!-- 验证码 -->
                 <div class="form-group has-feedback feedback-left row">
                     <div class="col-xs-7">
                         <label>
@@ -56,6 +59,13 @@
                              alt="captcha">
                     </div>
                 </div>
+                <!-- 记住我 -->
+                <div class="form-group has-feedback feedback-left">
+                    <label for="rememberMe"></label>
+                    <input type="checkbox" name="rememberMe" id="rememberMe" title="记住我"
+                           lay-skin="primary">
+                </div>
+                <!-- 登陆 -->
                 <div class="form-group">
                     <button class="btn btn-block btn-primary" id="login" type="button">立即登录
                     </button>

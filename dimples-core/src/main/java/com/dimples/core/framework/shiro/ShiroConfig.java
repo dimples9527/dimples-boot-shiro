@@ -2,6 +2,7 @@ package com.dimples.core.framework.shiro;
 
 import com.dimples.core.properties.DimplesProperties;
 import com.dimples.core.properties.ShiroProperties;
+import com.google.common.collect.Maps;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.codec.Base64;
@@ -26,7 +27,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
@@ -86,43 +86,29 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         ShiroProperties shiro = properties.getShiro();
+        // 设置 securityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        // 登录的 url
         shiroFilterFactoryBean.setLoginUrl(shiro.getLoginUrl());
+        // 登录成功后跳转的 url
         shiroFilterFactoryBean.setSuccessUrl(shiro.getSuccessUrl());
+        // 未授权 url
         shiroFilterFactoryBean.setUnauthorizedUrl(shiro.getUnauthorizedUrl());
 
+        // 设置免认证 url
         // 配置拦截器链，注意顺序
         //      anon: 无需认证即可访问
         //      authc: 必须认证才可访问
         //      user: 如果使用rememberMe的功能才可以访问
         //      perms: 该资源必须得到资源权限才可以访问
         //      role: 该资源必须得到资源权限才可以访问
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-
-        filterChainDefinitionMap.put("/sys/logout", "anon");
-        filterChainDefinitionMap.put("/sys/login", "anon");
-        filterChainDefinitionMap.put("/sys/captcha", "anon");
-        filterChainDefinitionMap.put("/web/login", "anon");
-        filterChainDefinitionMap.put("/test/**", "anon");
-        filterChainDefinitionMap.put("/error", "anon");
-        filterChainDefinitionMap.put("/user/register", "anon");
-        //放行静态资源
-        filterChainDefinitionMap.put("/dimples/**", "anon");
-        filterChainDefinitionMap.put("/layui/**", "anon");
-        filterChainDefinitionMap.put("/images/**", "anon");
-        //swagger2
-        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
-        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
-        filterChainDefinitionMap.put("/v2/api-docs/**", "anon");
-        filterChainDefinitionMap.put("/webjars/**", "anon");
-        filterChainDefinitionMap.put("/doc.html", "anon");
-        filterChainDefinitionMap.put("/api-docs-ext/**", "anon");
-        filterChainDefinitionMap.put("/api-docs/**", "anon");
-        // actuator
-        filterChainDefinitionMap.put("/actuator/**", "anon");
-        // Druid
-        filterChainDefinitionMap.put("/druid/**", "anon");
-
+        Map<String, String> filterChainDefinitionMap = Maps.newLinkedHashMap();
+        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getShiro().getAnonUrl(), ",");
+        for (String url : anonUrls) {
+            filterChainDefinitionMap.put(url, "anon");
+        }
+        // 配置退出过滤器，其中具体的退出代码 Shiro已经替我们实现了
+        filterChainDefinitionMap.put(properties.getShiro().getLogoutUrl(), "logout");
         filterChainDefinitionMap.put("/**", "user");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
@@ -131,14 +117,14 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager(ShiroRealm shiroRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        // 配置 rememberMeCookie
-        securityManager.setRememberMeManager(rememberMeManager());
+        // 配置 SecurityManager，并注入 shiroRealm
+        securityManager.setRealm(shiroRealm);
         // 配置 shiro session管理器
         securityManager.setSessionManager(sessionManager());
         // 配置 缓存管理类 cacheManager
         securityManager.setCacheManager(cacheManager());
-        // 配置 SecurityManager，并注入 shiroRealm
-        securityManager.setRealm(shiroRealm);
+        // 配置 rememberMeCookie
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
     }
 
