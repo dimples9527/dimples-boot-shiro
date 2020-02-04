@@ -34,8 +34,8 @@ public class StatisticVO {
     private String role;
 
     public void buildLastLoginTime(List<LoginLog> loginLog) {
-        if (loginLog.size() > 0) {
-            String formatDate = DateUtil.format(loginLog.get(0).getLoginTime(), DateUtil.YYYY_MM_DD_HH_MM_SS);
+        if (loginLog.size() > 1) {
+            String formatDate = DateUtil.format(loginLog.get(1).getLoginTime(), DateUtil.YYYY_MM_DD_HH_MM_SS);
             String[] string = StringUtils.splitByWholeSeparatorPreserveAllTokens(formatDate, null);
             String[] stringD = StringUtils.splitByWholeSeparatorPreserveAllTokens(string[0], "-");
             String[] stringT = StringUtils.splitByWholeSeparatorPreserveAllTokens(string[1], ":");

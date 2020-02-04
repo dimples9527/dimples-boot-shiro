@@ -7,7 +7,7 @@ package com.dimples.core.constant;
 public class DimplesConstant {
 
     /**
-     * 注册用户角色ID
+     * 注册用户角色ID 测试账号
      */
     public static final Long REGISTER_ROLE_ID = 3L;
 

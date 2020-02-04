@@ -1,10 +1,12 @@
-// 定义常用的校验，常用的正则 https://www.open-open.com/code/view/1430625516632
+/**
+ * 定义常用的校验，常用的正则 https://www.open-open.com/code/view/1430625516632
+ */
 layui.define(['jquery'], function (exports) {
-    var $ = layui.jquery;
+    let $ = layui.jquery;
     exports('validate', {
         username: function (value, item) {
             if (!isEmpty(value)) {
-                var result = '';
+                let result = '';
                 $.ajax({
                     url: ctx + 'user/check/' + value,
                     data: {
@@ -23,7 +25,7 @@ layui.define(['jquery'], function (exports) {
         },
         cron: function (value, item) {
             if (!isEmpty(value)) {
-                var result = '';
+                let result = '';
                 $.ajax({
                     url: ctx + 'job/cron/check',
                     data: {
@@ -62,9 +64,9 @@ layui.define(['jquery'], function (exports) {
             }
         },
         range: function (value, item) {
-            var minlength = item.getAttribute('minlength') ? item.getAttribute('minlength') : -1;
-            var maxlength = item.getAttribute('maxlength') ? item.getAttribute('maxlength') : -1;
-            var length = value.length;
+            let minlength = item.getAttribute('minlength') ? item.getAttribute('minlength') : -1;
+            let maxlength = item.getAttribute('maxlength') ? item.getAttribute('maxlength') : -1;
+            let length = value.length;
             if (minlength === -1) {
                 if (length > maxlength) {
                     return '长度不能超过 ' + maxlength + ' 个字符';
