@@ -5,34 +5,19 @@ layui.extend({
     let table = layui.table,
         dropdown = layui.dropdown,
         dimples = layui.dimples,
+        form = layui.form,
         $view = $('#dimples-user'),
         $query = $view.find('#query'),
         sortObject = {field: 'createDate', type: null},
         $reset = $view.find('#reset'),
         $searchForm = $view.find('form'),
+        tableIns,
         createTimeFrom,
         createTimeTo;
 
     form.render();
     //表格渲染
-    table.render({
-        elem: '#user-info',
-        url: '/user/list', //数据接口
-        page: true, //开启分页
-        cols: [
-            [
-                {type: 'checkbox'},
-                {field: 'username', title: '用户名', minWidth: 100},
-                {title: '性别', templet: '#user-sex'},
-                {field: 'username', title: '部门'},
-                {field: 'username', title: '手机', minWidth: 165},
-                {field: 'username', title: '邮箱', minWidth: 180},
-                {title: '状态', templet: '#user-status'},
-                {field: 'createDate', title: '创建时间', minWidth: 180, sort: true},
-                {title: '操作', toolbar: '#user-option', minWidth: 140}
-            ]
-        ]
-    });
+    initTable();
 
     /* 更多操作下拉框 */
     dropdown.render({
@@ -143,5 +128,29 @@ layui.extend({
             deptId: $searchForm.find("input[name='dept']").val().trim(),
             invalidate_ie_cache: new Date()
         };
+    }
+
+    /**
+     * 初始化表格
+     */
+    function initTable() {
+        tableIns = dimples.table.init({
+            elem: $view.find('table'),
+            id: 'userTable',
+            url: '/user/list',
+            cols: [
+                [
+                    {type: 'checkbox'},
+                    {field: 'username', title: '用户名', minWidth: 100},
+                    {title: '性别', templet: '#user-sex'},
+                    {field: 'username', title: '部门'},
+                    {field: 'username', title: '手机', minWidth: 165},
+                    {field: 'username', title: '邮箱', minWidth: 180},
+                    {title: '状态', templet: '#user-status'},
+                    {field: 'createDate', title: '创建时间', minWidth: 180, sort: true},
+                    {title: '操作', toolbar: '#user-option', minWidth: 140}
+                ]
+            ]
+        });
     }
 });

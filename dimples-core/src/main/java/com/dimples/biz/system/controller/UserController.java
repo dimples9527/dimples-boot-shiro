@@ -80,7 +80,7 @@ public class UserController extends BaseController {
     @GetMapping("list")
     public ResponseDTO userList(User user, QueryRequest request) {
         IPage<UserDetailDTO> userList = this.userService.findUserDetailList(user, request);
-        return ResponseDTO.successWithPage(ResponseDTO.ZERO, userList.getTotal(), userList.getRecords());
+        return ResponseDTO.success(userList);
     }
 
 }

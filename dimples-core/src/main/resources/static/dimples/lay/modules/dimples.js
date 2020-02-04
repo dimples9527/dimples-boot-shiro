@@ -529,7 +529,7 @@ layui.extend({
                 return {
                     "code": res.code === 200 ? 0 : res.code,
                     "count": res.data.total,
-                    "data": res.data.rows
+                    "data": res.data.records
                 }
             }
         };
