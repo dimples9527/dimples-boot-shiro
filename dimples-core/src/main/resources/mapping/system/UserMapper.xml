@@ -28,10 +28,13 @@
 		u.status,
 		u.create_date,
 		u.modify_date,
-		tui.email, tui.mobile, tui.last_login_time, tui.avatar, tui.gender, tui.description
+		tui.email, tui.mobile, tui.last_login_time, tui.avatar, tui.gender, tui.description,
+		td.dept_name
 		FROM
 		db_dimples_shiro.tb_user u
 		LEFT JOIN db_dimples_shiro.tb_user_info tui ON u.user_id = tui.user_id
+		LEFT JOIN db_dimples_shiro.tb_user_dept tud ON u.user_id = tud.user_id
+		LEFT JOIN db_dimples_shiro.tb_dept td ON tud.dept_id = td.dept_id
 		<where>
 			<if test="user.username != null and user.username != ''">
 				AND u.username = #{user.username}

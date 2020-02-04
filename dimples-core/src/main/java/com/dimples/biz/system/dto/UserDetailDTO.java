@@ -1,7 +1,5 @@
 package com.dimples.biz.system.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-
 import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
@@ -26,12 +24,6 @@ public class UserDetailDTO {
     private String username;
 
     /**
-     * 登录密码
-     */
-    @ApiModelProperty(value = "登录密码")
-    private String password;
-
-    /**
      * 用户状态，0不启用，1启用，默认为1
      */
     @ApiModelProperty(value = "用户状态，0不启用，1启用，默认为1 ")
@@ -48,6 +40,12 @@ public class UserDetailDTO {
      */
     @ApiModelProperty(value = "更新日期")
     private Date modifyDate;
+
+    /**
+     * 用户邮箱
+     */
+    @ApiModelProperty(value="用户部门")
+    private String deptName;
 
     /**
      * 用户邮箱

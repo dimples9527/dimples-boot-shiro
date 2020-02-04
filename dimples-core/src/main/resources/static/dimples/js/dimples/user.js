@@ -143,9 +143,9 @@ layui.extend({
                     {type: 'checkbox'},
                     {field: 'username', title: '用户名', minWidth: 100},
                     {title: '性别', templet: '#user-sex'},
-                    {field: 'username', title: '部门'},
-                    {field: 'username', title: '手机', minWidth: 165},
-                    {field: 'username', title: '邮箱', minWidth: 180},
+                    {field: 'deptName', title: '部门'},
+                    {field: 'mobile', title: '手机', minWidth: 165},
+                    {field: 'email', title: '邮箱', minWidth: 180},
                     {title: '状态', templet: '#user-status'},
                     {field: 'createDate', title: '创建时间', minWidth: 180, sort: true},
                     {title: '操作', toolbar: '#user-option', minWidth: 140}
