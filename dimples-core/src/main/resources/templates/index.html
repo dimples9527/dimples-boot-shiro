@@ -36,7 +36,8 @@
                         <li class="nav-item active"><a th:href="@{/web/index}"><i
                                 class="mdi mdi-home"></i> 系统首页</a></li>
                         <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 系统管理</a>
+                            <a href="javascript:void(0)"><i
+                                    class="mdi mdi-account-settings-variant"></i> 系统管理</a>
                             <ul class="nav nav-subnav">
                                 <li><a th:href="@{/web/user}" href="#">用户管理</a></li>
                                 <li><a href="#">角色管理</a></li>
@@ -51,7 +52,8 @@
                                 <li><a href="#">登录日志</a></li>
                                 <li><a href="#">Redis监控</a></li>
                                 <li><a th:href="@{/druid}" target="_blank" href="#">Druid监控</a></li>
-                                <li><a th:href="@{/doc.html}" target="_blank" href="#">Swagger文档</a></li>
+                                <li><a th:href="@{/doc.html}" target="_blank" href="#">Swagger文档</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item nav-item-has-subnav">
@@ -63,7 +65,7 @@
                             </ul>
                         </li>
                         <li class="nav-item nav-item-has-subnav">
-                            <a href="javascript:void(0)"><i class="mdi mdi-language-javascript"></i>
+                            <a href="javascript:void(0)"><i class="mdi mdi-unity"></i>
                                 其它模块</a>
                             <ul class="nav nav-subnav">
                                 <li><a href="#">七牛云存储</a></li>
@@ -106,7 +108,8 @@
                                      src="images/users/avatar.png"
                                      th:src="@{/images/users/avatar.png}" th:alt="${user.username}"
                                      alt="Dimples"/>
-                                <span id="header-username" th:text="${user.username}">Dimples <span class="caret"></span></span>
+                                <span id="header-username" th:text="${user.username}">Dimples <span
+                                        class="caret"></span></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i

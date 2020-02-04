@@ -1,18 +1,18 @@
 //视图路由
 layui
     .extend({
-        loadBar: 'lay/modules/loadBar',
-        dropdown: 'lay/modules/dropdown'
+        loadBar: '/dimples/lay/modules/loadBar',
+        dropdown: '/dimples/lay/modules/dropdown'
     })
     .define(
         ['jquery', 'laytpl', 'element', 'form', 'loadBar', 'dropdown'],
         function (exports) {
-            var $ = layui.jquery;
-            var laytpl = layui.laytpl;
-            var conf = layui.conf;
+            let $ = layui.jquery;
+            let laytpl = layui.laytpl;
+            let conf = layui.conf;
             conf.viewTabs = currentUser.isTab === '1';
-            var loadBar = layui.loadBar;
-            var self = {
+            let loadBar = layui.loadBar;
+            let self = {
                 ie8:
                     navigator.appName === 'Microsoft Internet Explorer' &&
                     navigator.appVersion.split(';')[1].replace(/[ ]/g, '') === 'MSIE8.0',
@@ -25,17 +25,17 @@ layui
              * @param htmlStr
              */
             self.checkHtml = function (htmlStr) {
-                var reg = /<[^>]+>/g;
+                let reg = /<[^>]+>/g;
                 return reg.test(htmlStr)
             };
             self.parse = function (container) {
                 if (container === undefined) container = self.containerBody;
-                var template =
+                let template =
                     container.get(0).tagName === 'SCRIPT'
                         ? container
                         : container.find('[template]');
 
-                var renderTemplate = function (template, data, callback) {
+                let renderTemplate = function (template, data, callback) {
                     laytpl(template.html()).render(data, function (html) {
                         try {
                             html = $(
@@ -52,12 +52,12 @@ layui
                 };
 
                 layui.each(template, function (index, t) {
-                    var tem = $(t);
-                    var url = tem.attr('lay-url') || '';
-                    var api = tem.attr('lay-api') || '';
-                    var type = tem.attr('lay-type') || 'get';
-                    var data = new Function('return ' + tem.attr('lay-data'))();
-                    var done = tem.attr('lay-done') || '';
+                    let tem = $(t);
+                    let url = tem.attr('lay-url') || '';
+                    let api = tem.attr('lay-api') || '';
+                    let type = tem.attr('lay-type') || 'get';
+                    let data = new Function('return ' + tem.attr('lay-data'))();
+                    let done = tem.attr('lay-done') || '';
 
                     if (url || api) {
                         //进行AJAX请求
@@ -93,7 +93,7 @@ layui
             self.loading = function (elem) {
                 elem.append(
                     (this.elemLoad = $(
-                        '<i class="layui-anim layui-anim-rotate layui-anim-loop layui-icon layui-icon-loading febs-loading"></i>'
+                        '<i class="layui-anim layui-anim-rotate layui-anim-loop layui-icon layui-icon-loading dimples-loading"></i>'
                     ))
                 )
             };
@@ -125,7 +125,7 @@ layui
                 ];
                 params = $.extend(
                     {
-                        skin: 'layui-layer-admin-modal febs-alert',
+                        skin: 'layui-layer-admin-modal dimples-alert',
                         area: [$(window).width() <= 750 ? '60%' : '400px'],
                         closeBtn: 0,
                         shadeClose: false
@@ -154,7 +154,7 @@ layui
             self.loadHtml = function (url, callback) {
                 url = url || conf.entry;
                 loadBar.start();
-                var queryIndex = url.indexOf('?');
+                let queryIndex = url.indexOf('?');
                 if (queryIndex !== -1) url = url.slice(0, queryIndex);
                 $.ajax({
                     url:
@@ -169,7 +169,7 @@ layui
                     },
                     dataType: 'html',
                     success: function (r) {
-                        var result;
+                        let result;
                         try {
                             result = JSON.parse(r);
                         } catch (e) {
@@ -225,17 +225,17 @@ layui
                 tabMenuTplId: 'TPL-app-tabsmenu',
                 minLeft: null,
                 maxLeft: null,
-                wrap: '.febs-tabs-wrap',
-                menu: '.febs-tabs-menu',
-                next: '.febs-tabs-next',
-                prev: '.febs-tabs-prev',
+                wrap: '.dimples-tabs-wrap',
+                menu: '.dimples-tabs-menu',
+                next: '.dimples-tabs-next',
+                prev: '.dimples-tabs-prev',
                 step: 200,
                 init: function () {
-                    var tab = this;
-                    var btnCls = tab.wrap + ' .febs-tabs-btn';
+                    let tab = this;
+                    let btnCls = tab.wrap + ' .dimples-tabs-btn';
 
                     layui.dropdown.render({
-                        elem: '.febs-tabs-down',
+                        elem: '.dimples-tabs-down',
                         click: function (name) {
                             if (name === 'all') {
                                 tab.delAll();
@@ -244,7 +244,7 @@ layui
                                 tab.delOther();
                             }
                             if (name === 'current') {
-                                tab.del(layui.febs.route.fileurl);
+                                tab.del(layui.dimples.route.fileurl);
                             }
                             if (name === 'refresh') {
                                 tab.refresh();
@@ -271,26 +271,26 @@ layui
                     });
 
                     $(document).on('click', btnCls, function (e) {
-                        var url = $(this).attr('lay-url');
-                        if ($(e.target).hasClass('febs-tabs-close')) {
+                        let url = $(this).attr('lay-url');
+                        if ($(e.target).hasClass('dimples-tabs-close')) {
                             tab.del(url)
                         } else {
-                            var type = $(this).attr('data-type');
+                            let type = $(this).attr('data-type');
                             if (type === 'page') {
                                 tab.change(tab.has(url))
                             } else if (type === 'prev' || type === 'next') {
                                 tab.menuElem = $(tab.menu);
-                                var menu = tab.menuElem;
+                                let menu = tab.menuElem;
                                 tab.minLeft = tab.minLeft || parseInt(menu.css('left'));
                                 tab.maxLeft = tab.maxLeft || $(tab.next).offset().left;
 
-                                var left = 0;
+                                let left = 0;
                                 if (type === 'prev') {
                                     left = parseInt(menu.css('left')) + tab.step;
                                     if (left >= tab.minLeft) left = tab.minLeft
                                 } else {
                                     left = parseInt(menu.css('left')) - tab.step;
-                                    var last = menu.find('li:last');
+                                    let last = menu.find('li:last');
                                     if (last.offset().left + last.width() < tab.maxLeft) return
                                 }
                                 menu.css('left', left)
@@ -298,37 +298,37 @@ layui
                         }
                     });
 
-                    $('.febs-tabs-hidden').addClass('layui-show');
+                    $('.dimples-tabs-hidden').addClass('layui-show');
                     this.isInit = true
                 },
                 has: function (url) {
-                    var exists = false;
+                    let exists = false;
                     layui.each(this.data, function (i, data) {
                         if (data.fileurl === url) return (exists = data)
                     });
                     return exists
                 },
                 delAll: function (type) {
-                    var tab = this;
-                    var menuBtnClas = tab.menu + ' .febs-tabs-btn';
+                    let tab = this;
+                    let menuBtnClas = tab.menu + ' .dimples-tabs-btn';
                     $(menuBtnClas).each(function () {
-                        var url = $(this).attr('lay-url');
+                        let url = $(this).attr('lay-url');
                         if (url === conf.entry) return true;
                         tab.del(url)
                     })
                 },
                 delOther: function () {
-                    var tab = this;
-                    var menuBtnClas = tab.menu + ' .febs-tabs-btn';
-                    $(menuBtnClas + '.febs-tabs-active')
+                    let tab = this;
+                    let menuBtnClas = tab.menu + ' .dimples-tabs-btn';
+                    $(menuBtnClas + '.dimples-tabs-active')
                         .siblings()
                         .each(function () {
-                            var url = $(this).attr('lay-url');
+                            let url = $(this).attr('lay-url');
                             tab.del(url)
                         })
                 },
                 del: function (url, backgroundDel) {
-                    var tab = this;
+                    let tab = this;
                     if (tab.data.length <= 1 && backgroundDel === undefined) return;
                     layui.each(tab.data, function (i, data) {
                         if (data.fileurl === url) {
@@ -337,22 +337,22 @@ layui
                         }
                     });
 
-                    var lay = '[lay-url="' + url + '"]';
-                    var thisBody = $(
-                        '#' + conf.containerBody + ' > .febs-tabs-item' + lay
+                    let lay = '[lay-url="' + url + '"]';
+                    let thisBody = $(
+                        '#' + conf.containerBody + ' > .dimples-tabs-item' + lay
                     );
-                    var thisMenu = $(this.menu).find(lay);
+                    let thisMenu = $(this.menu).find(lay);
                     thisMenu.remove();
                     thisBody.remove();
 
                     if (backgroundDel === undefined) {
-                        if (thisMenu.hasClass('febs-tabs-active')) {
+                        if (thisMenu.hasClass('dimples-tabs-active')) {
                             $(this.menu + ' li:last').click()
                         }
                     }
                 },
                 refresh: function (url) {
-                    url = url || layui.febs.route.fileurl;
+                    url = url || layui.dimples.route.fileurl;
                     if (this.has(url)) {
                         this.del(url, true);
                         self.renderTabs(url)
@@ -361,32 +361,32 @@ layui
                 clear: function () {
                     this.data = [];
                     this.isInit = false;
-                    $(document).off('click', this.wrap + ' .febs-tabs-btn')
+                    $(document).off('click', this.wrap + ' .dimples-tabs-btn')
                 },
                 change: function (route, callback) {
                     if (typeof route == 'string') {
                         route = layui.router('#' + route);
                         route.fileurl = '/' + route.path.join('/')
                     }
-                    var fileurl = route.fileurl;
-                    var tab = this;
+                    let fileurl = route.fileurl;
+                    let tab = this;
                     if (tab.isInit === false) tab.init();
 
-                    var changeView = function (lay) {
-                        $('#' + conf.containerBody + ' > .febs-tabs-item' + lay)
+                    let changeView = function (lay) {
+                        $('#' + conf.containerBody + ' > .dimples-tabs-item' + lay)
                             .show()
                             .siblings()
                             .hide()
                     };
 
-                    var lay = '[lay-url="' + fileurl + '"]';
+                    let lay = '[lay-url="' + fileurl + '"]';
 
-                    var activeCls = 'febs-tabs-active';
+                    let activeCls = 'dimples-tabs-active';
 
-                    var existsTab = tab.has(fileurl);
+                    let existsTab = tab.has(fileurl);
                     if (existsTab) {
-                        var menu = $(this.menu);
-                        var currentMenu = menu.find(lay);
+                        let menu = $(this.menu);
+                        let currentMenu = menu.find(lay);
 
                         if (existsTab.href !== route.href) {
                             tab.del(existsTab.fileurl, true);
@@ -403,7 +403,7 @@ layui
 
                         this.minLeft = this.minLeft || parseInt(menu.css('left'));
 
-                        var offsetLeft = currentMenu.offset().left;
+                        let offsetLeft = currentMenu.offset().left;
                         if (offsetLeft - this.minLeft - $(this.next).width() < 0) {
                             $(this.prev).click()
                         } else if (offsetLeft - this.minLeft > menu.width() * 0.5) {
@@ -411,22 +411,22 @@ layui
                         }
                         $(document).scrollTop(-100);
 
-                        layui.febs.navigate(route.href)
+                        layui.dimples.navigate(route.href)
                     } else {
                         self.loadHtml(fileurl, function (res) {
-                            var htmlElem = $(
-                                "<div><div class='febs-tabs-item' lay-url='" +
+                            let htmlElem = $(
+                                "<div><div class='dimples-tabs-item' lay-url='" +
                                 fileurl +
                                 "'>" +
                                 res.html +
                                 '</div></div>'
                             );
-                            var params = self.fillHtml(fileurl, htmlElem, 'prepend');
+                            let params = self.fillHtml(fileurl, htmlElem, 'prepend');
                             route.title = params.title;
                             tab.data.push(route);
-                            layui.febs.render(tab.tabMenuTplId);
+                            layui.dimples.render(tab.tabMenuTplId);
 
-                            var currentMenu = $(tab.menu + ' ' + lay);
+                            let currentMenu = $(tab.menu + ' ' + lay);
                             currentMenu.addClass(activeCls);
 
                             changeView(lay);
@@ -434,7 +434,7 @@ layui
                             if ($.isFunction(callback)) callback(params)
                         })
                     }
-                    layui.febs.sidebarFocus(route.href);
+                    layui.dimples.sidebarFocus(route.href);
                     return false
                 },
                 onChange: function () {
@@ -442,14 +442,14 @@ layui
             };
 
             self.fillHtml = function (url, htmlElem, modeName) {
-                var fluid = htmlElem.find('.layui-fluid[lay-title]');
-                var title = '';
+                let fluid = htmlElem.find('.layui-fluid[lay-title]');
+                let title = '';
                 if (fluid.length > 0) {
                     title = fluid.attr('lay-title');
                     // self.setTitle(title)
                 }
 
-                var container = self.containerBody || self.container;
+                let container = self.containerBody || self.container;
                 container[modeName](htmlElem.html());
                 if (modeName === 'prepend') {
                     self.parse(container.children('[lay-url="' + url + '"]'))
@@ -461,14 +461,14 @@ layui
             //解析普通文件
             self.render = function (fileurl, callback) {
                 self.loadHtml(fileurl, function (res) {
-                    var htmlElem = $('<div>' + res.html + '</div>');
-                    var params = self.fillHtml(res.url, htmlElem, 'html');
+                    let htmlElem = $('<div>' + res.html + '</div>');
+                    let params = self.fillHtml(res.url, htmlElem, 'html');
                     if ($.isFunction(callback)) callback(params)
                 })
             };
             //加载 tab
             self.renderTabs = function (route, callback) {
-                var tab = self.tab;
+                let tab = self.tab;
                 tab.change(route, callback)
             };
             //加载layout文件
@@ -479,9 +479,9 @@ layui
                 self.render(url, function (res) {
                     self.containerBody = $('#' + conf.containerBody);
                     if (conf.viewTabs === true) {
-                        self.containerBody.addClass('febs-tabs-body')
+                        self.containerBody.addClass('dimples-tabs-body')
                     }
-                    layui.febs.appBody = self.containerBody;
+                    layui.dimples.appBody = self.containerBody;
                     if ($.isFunction(callback)) callback()
                 })
             };
@@ -498,8 +498,8 @@ layui
                 console.error(msg)
             };
             self.createRequestParams = function (params) {
-                var success = params.success;
-                var error = params.error;
+                let success = params.success;
+                let error = params.error;
 
                 if (params.api) {
                     if (!layui.api[params.api]) {
@@ -511,7 +511,7 @@ layui
                     params.url = conf.requestUrl + params.url
                 }
 
-                var defaultParams = {
+                let defaultParams = {
                     timeout: 5000,
                     type: 'get',
                     dataType: 'json',

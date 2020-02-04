@@ -1,16 +1,16 @@
 layui.define(['jquery'], function (exports) {
-    var $ = layui.jquery;
-    var CLS_DROPDOWN = 'layui-dropdown';
-    var CLS_DROPDOWN_RIGHT = 'layui-dropdown-direright';
-    var CLS_SELECT = 'layui-dropdown-select';
-    var CLS_OPTION = 'layui-dropdown-option';
-    var CLS_TITLE = 'layui-dropdown-title';
-    var CLS_ARROW = 'febs-arrow-up';
-    var HTML_DROPDOWN = '<div class="' + CLS_DROPDOWN + '"><div>';
-    var DEPTH = 0;
-    var INDEX = 0;
+    let $ = layui.jquery;
+    let CLS_DROPDOWN = 'layui-dropdown';
+    let CLS_DROPDOWN_RIGHT = 'layui-dropdown-direright';
+    let CLS_SELECT = 'layui-dropdown-select';
+    let CLS_OPTION = 'layui-dropdown-option';
+    let CLS_TITLE = 'layui-dropdown-title';
+    let CLS_ARROW = 'dimples-arrow-up';
+    let HTML_DROPDOWN = '<div class="' + CLS_DROPDOWN + '"><div>';
+    let DEPTH = 0;
+    let INDEX = 0;
 
-    var Class = function (config) {
+    let Class = function (config) {
         this.config = $.extend({}, this.config, config);
         this.render(config)
     };
@@ -23,7 +23,7 @@ layui.define(['jquery'], function (exports) {
     Class.prototype.depth = 0;
     Class.prototype.index = 0;
     Class.prototype.render = function (config) {
-        var self = this;
+        let self = this;
         if (typeof this.config.elem == 'string') {
             $(document).on('click', this.config.elem, event)
         } else {
@@ -31,16 +31,17 @@ layui.define(['jquery'], function (exports) {
         }
 
         function event(e) {
+            let body = $('body');
             e.stopPropagation();
             if (self.dropdownElem === '') {
                 INDEX += 1;
                 self.index = INDEX;
 
-                var dropdown = $(HTML_DROPDOWN).attr('lay-index', self.index);
+                let dropdown = $(HTML_DROPDOWN).attr('lay-index', self.index);
                 $('.' + CLS_DROPDOWN + '[lay-index="' + self.index + '"]').remove();
 
                 dropdown.html(self.createOptionsHtml(config));
-                $('body').prepend(dropdown);
+                body.prepend(dropdown);
                 dropdown.on('click', '.' + CLS_OPTION, function (e) {
                     e.stopPropagation();
                     if ($.isFunction(config.click)) {
@@ -52,14 +53,14 @@ layui.define(['jquery'], function (exports) {
                 self.dropdownSelect = dropdown.find('.' + CLS_SELECT)
             }
 
-            var dropdown = self.dropdownElem;
+            let dropdown = self.dropdownElem;
 
-            var top = $(this).offset().top + $(this).height() + 12;
-            var left = $(this).offset().left - 5;
+            let top = $(this).offset().top + $(this).height() + 12;
+            let left = $(this).offset().left - 5;
             dropdown.css({
                 top: top - 10
             });
-            var offsetWidth = (self.depth + 1) * self.config.width;
+            let offsetWidth = (self.depth + 1) * self.config.width;
 
             if (left + offsetWidth > $(window).width()) {
                 dropdown
@@ -71,7 +72,7 @@ layui.define(['jquery'], function (exports) {
                 self.dropdownSelect.css({right: 'auto', left: self.config.width})
             }
 
-            $('body').one('click', function (e) {
+            body.one('click', function (e) {
                 dropdown.stop().animate(
                     {
                         top: '-=100000',
@@ -95,9 +96,9 @@ layui.define(['jquery'], function (exports) {
     };
     Class.prototype.createOptionsHtml = function (data, depth) {
         depth = depth || 0;
-        var self = this;
-        var width = self.config.width + 'px;';
-        var html =
+        let self = this;
+        let width = self.config.width + 'px;';
+        let html =
             '<div class="' +
             CLS_SELECT +
             '" style="width:' +
@@ -108,16 +109,17 @@ layui.define(['jquery'], function (exports) {
             html += '<div class="' + CLS_ARROW + '"></div>'
         }
         layui.each(data.options, function (i, option) {
-            var paserHtml = false;
-            var permissions = currentUser.permissionSet;
-            var options = option.options || [];
-            if (option.perms) {
+            let paserHtml = false;
+            // let permissions = currentUser.permissionSet;
+            let options = option.options || [];
+            /*if (option.perms) {
                 if (permissions.indexOf(option.perms) !== -1) {
                     paserHtml = true;
                 }
             } else {
                 paserHtml = true;
-            }
+            }*/
+            paserHtml = true;
             if (paserHtml) {
                 html +=
                     '<div lay-name=' +
@@ -145,7 +147,7 @@ layui.define(['jquery'], function (exports) {
         return html
     };
 
-    var self = {
+    let self = {
         render: function (config) {
             new Class(config)
         }
