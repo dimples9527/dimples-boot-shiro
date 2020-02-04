@@ -1,149 +1,149 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>Dimples 后台管理系统</title>
-    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/ico">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!-- 外部样式 -->
-    <link th:href="@{/layui/css/layui.css}" rel="stylesheet">
-    <link th:href="@{/dimples/css/dimples/dimples.css}" rel="stylesheet">
-    <link th:href="@{/dimples/css/dimples/login.css}" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport"
+				content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<title>Dimples 后台管理系统</title>
+	<link rel="icon" th:href="@{/images/favicon.ico}" type="image/ico">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport"
+				content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- 外部样式 -->
+	<link th:href="@{/layui/css/layui.css}" rel="stylesheet">
+	<link th:href="@{/dimples/css/dimples/dimples.css}" rel="stylesheet">
+	<link th:href="@{/dimples/css/dimples/login.css}" rel="stylesheet">
 </head>
 
 <body>
 <div id="dimples-login" lay-title="登录">
-    <div class="login-wrap">
-        <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4 dimples-tc">
-                    <div class="layui-logo"><span><b>DIMPLES</b> 管理系统</span></div>
-                </div>
-                <!-- 用户登陆 -->
-                <div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4" id="login-div">
-                    <div class="layui-form" lay-filter="login-form">
-                        <div class="layui-anim layui-anim-upbit">
-                            <ul class="login-type-tab">
-                                <li class="active">系统登录</li>
-                            </ul>
-                            <div class="normal-login-form">
-                                <div class="layui-form-item">
-                                    <label class="layui-icon label-icon layui-icon-username"></label>
-                                    <label>
-                                        <input type="text" name="username" lay-verify="required"
-                                               placeholder="用户名" autocomplete="off"
-                                               class="layui-input">
-                                    </label>
-                                </div>
-                                <div class="layui-form-item password-block">
-                                    <label class="layui-icon label-icon layui-icon-password"></label>
-                                    <label>
-                                        <input type="password" name="password" lay-verify="required"
-                                               placeholder="密码" autocomplete="off"
-                                               class="layui-input">
-                                    </label>
-                                </div>
-                                <div class="layui-form-item">
-                                    <div class="layui-row">
-                                        <div class="layui-col-xs7">
-                                            <label class="layui-icon label-icon layui-icon-vercode"></label>
-                                            <label>
-                                                <input type="text" maxlength="4" name="verifyCode"
-                                                       lay-verify="required"
-                                                       placeholder="验证码" class="layui-input"
-                                                       autocomplete="off">
-                                            </label>
-                                        </div>
-                                        <div class="layui-col-xs5">
-                                            <img class="code-img" id="code-img" alt=""
-                                                 th:src="@{/sys/captcha}" src="/images/captcha.png"
-                                                 onclick="this.src=this.src+'?d='+Math.random();"
-                                                 title="点击刷新"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item" style="margin-top: -10px;">
-                                    <input type="checkbox" name="rememberMe" title="记住我"
-                                           lay-skin="primary">
-                                </div>
-                                <div class="layui-form-item">
-                                    <button class="layui-btn layui-btn-normal layui-btn-fluid"
-                                            lay-submit
-                                            lay-filter="login-submit" id="login">
-                                        <i style="display: none"
-                                           class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i>
-                                        立即登录
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="layui-form-item dimples-tr">
-                                <a id="register-href">注册账号</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+	<div class="login-wrap">
+		<div class="layui-container">
+			<div class="layui-row">
+				<div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4 dimples-tc">
+					<div class="layui-logo"><span><b>DIMPLES</b> 管理系统</span></div>
+				</div>
+				<!-- 用户登陆 -->
+				<div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4" id="login-div">
+					<div class="layui-form" lay-filter="login-form">
+						<div class="layui-anim layui-anim-upbit">
+							<ul class="login-type-tab">
+								<li class="active">系统登录</li>
+							</ul>
+							<div class="normal-login-form">
+								<div class="layui-form-item">
+									<label class="layui-icon label-icon layui-icon-username"></label>
+									<label>
+										<input type="text" name="username" lay-verify="required"
+													 placeholder="用户名" autocomplete="off"
+													 class="layui-input">
+									</label>
+								</div>
+								<div class="layui-form-item password-block">
+									<label class="layui-icon label-icon layui-icon-password"></label>
+									<label>
+										<input type="password" name="password" lay-verify="required"
+													 placeholder="密码" autocomplete="off"
+													 class="layui-input">
+									</label>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-row">
+										<div class="layui-col-xs7">
+											<label class="layui-icon label-icon layui-icon-vercode"></label>
+											<label>
+												<input type="text" maxlength="4" name="verifyCode"
+															 lay-verify="required"
+															 placeholder="验证码" class="layui-input"
+															 autocomplete="off">
+											</label>
+										</div>
+										<div class="layui-col-xs5">
+											<img class="code-img" id="code-img" alt=""
+													 th:src="@{/sys/captcha}" src="/images/captcha.png"
+													 onclick="this.src=this.src+'?d='+Math.random();"
+													 title="点击刷新"/>
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item" style="margin-top: -10px;">
+									<input type="checkbox" name="rememberMe" title="记住我"
+												 lay-skin="primary">
+								</div>
+								<div class="layui-form-item">
+									<button class="layui-btn layui-btn-normal layui-btn-fluid"
+													lay-submit
+													lay-filter="login-submit" id="login">
+										<i style="display: none"
+											 class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i>
+										立即登录
+									</button>
+								</div>
+							</div>
+							<div class="layui-form-item dimples-tr">
+								<a id="register-href">注册账号</a>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                <!-- 账号注册 -->
-                <div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4 dimples-hide"
-                     id="register-div">
-                    <div class="layui-form" lay-filter="register-form">
-                        <div class="layui-anim layui-anim-upbit">
-                            <ul class="login-type-tab">
-                                <li class="active">账号注册</li>
-                            </ul>
-                            <div class="normal-login-form">
-                                <div class="layui-form-item">
-                                    <label class="layui-icon label-icon layui-icon-username"></label>
-                                    <label>
-                                        <input type="text" name="username" minlength="2"
-                                               maxlength="10" lay-verify="range"
-                                               placeholder="用户名" autocomplete="off"
-                                               class="layui-input">
-                                    </label>
-                                </div>
-                                <div class="layui-form-item password-block">
-                                    <label class="layui-icon label-icon layui-icon-password"></label>
-                                    <label>
-                                        <input type="password" name="password" minlength="6"
-                                               lay-verify="range"
-                                               placeholder="密码" autocomplete="off"
-                                               class="layui-input">
-                                    </label>
-                                </div>
-                                <div class="layui-form-item password-block">
-                                    <label class="layui-icon label-icon layui-icon-password"></label>
-                                    <label>
-                                        <input type="password" name="passwordB"
-                                               lay-verify="required"
-                                               placeholder="密码确认" autocomplete="off"
-                                               class="layui-input">
-                                    </label>
-                                </div>
-                                <div class="layui-form-item">
-                                    <button class="layui-btn layui-btn-normal layui-btn-fluid"
-                                            lay-submit
-                                            lay-filter="register-submit" id="register">
-                                        <i style="display: none"
-                                           class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i>
-                                        立即注册
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-form-item dimples-tr">
-                            <a id="login-href">已有账号？马上登录</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				<!-- 账号注册 -->
+				<div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4 dimples-hide"
+						 id="register-div">
+					<div class="layui-form" lay-filter="register-form">
+						<div class="layui-anim layui-anim-upbit">
+							<ul class="login-type-tab">
+								<li class="active">账号注册</li>
+							</ul>
+							<div class="normal-login-form">
+								<div class="layui-form-item">
+									<label class="layui-icon label-icon layui-icon-username"></label>
+									<label>
+										<input type="text" name="username" minlength="2"
+													 maxlength="10" lay-verify="range"
+													 placeholder="用户名" autocomplete="off"
+													 class="layui-input">
+									</label>
+								</div>
+								<div class="layui-form-item password-block">
+									<label class="layui-icon label-icon layui-icon-password"></label>
+									<label>
+										<input type="password" name="password" minlength="6"
+													 lay-verify="range"
+													 placeholder="密码" autocomplete="off"
+													 class="layui-input">
+									</label>
+								</div>
+								<div class="layui-form-item password-block">
+									<label class="layui-icon label-icon layui-icon-password"></label>
+									<label>
+										<input type="password" name="passwordB"
+													 lay-verify="required"
+													 placeholder="密码确认" autocomplete="off"
+													 class="layui-input">
+									</label>
+								</div>
+								<div class="layui-form-item">
+									<button class="layui-btn layui-btn-normal layui-btn-fluid"
+													lay-submit
+													lay-filter="register-submit" id="register">
+										<i style="display: none"
+											 class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i>
+										立即注册
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="layui-form-item dimples-tr">
+							<a id="login-href">已有账号？马上登录</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </body>
 <!-- lay ui -->
@@ -151,10 +151,9 @@
 <script type="text/javascript">
     layui.extend({
         validate: '/dimples/lay/modules/validate'
-    }).use(['form', 'layer', 'validate'], function (form) {
+    }).use(['form', 'layer', 'validate'], function (form, layer) {
         let $ = layui.jquery,
             validate = layui.validate,
-            layer = layui.layer,
             $view = $('#dimples-login'),
             type = 'login',
             $loginDiv = $view.find('#login-div'),

@@ -1,7 +1,7 @@
 let currentUser = $('#header-username').text();
 layui.extend({
-    dropdown: '/dimples/lay/modules/dropdown'
-}).use(['table', 'dropdown',], function () {
+    dimples: '/dimples/lay/modules/dimples'
+}).use(['table', 'dimples'], function () {
     let table = layui.table,
         dropdown = layui.dropdown,
         dimples = layui.dimples,
@@ -13,6 +13,7 @@ layui.extend({
         createTimeFrom,
         createTimeTo;
 
+    form.render();
     //表格渲染
     table.render({
         elem: '#user-info',

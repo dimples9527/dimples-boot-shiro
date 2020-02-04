@@ -109,6 +109,7 @@ layui.define(['jquery'], function (exports) {
             html += '<div class="' + CLS_ARROW + '"></div>'
         }
         layui.each(data.options, function (i, option) {
+            // TODO : 暂时没有权限控制，所以全部放开
             let paserHtml = false;
             // let permissions = currentUser.permissionSet;
             let options = option.options || [];

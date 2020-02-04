@@ -1,19 +1,19 @@
 layui.extend({
-    conf: 'config',
-    api: 'lay/modules/api',
-    view: 'lay/modules/view'
+    conf: '/dimples/config',
+    api: '/dimples/lay/modules/api',
+    view: '/dimples/lay/modules/view'
 }).define(['conf', 'view', 'api', 'jquery', 'table'], function (exports) {
     POPUP_DATA = {};
-    var conf = layui.conf;
-    var layuiTable = layui.table;
-    var view = layui.view;
-    var element = layui.element;
-    var $ = layui.jquery;
-    var $bread = $('#febs-layout .febs-breadcrumb');
+    let conf = layui.conf;
+    let layuiTable = layui.table;
+    let view = layui.view;
+    let element = layui.element;
+    let $ = layui.jquery;
+    let $bread = $('#dimples-layout .dimples-breadcrumb');
 
     layui.extend(conf.extend);
-    var self = {};
-    var windowWidth = $(window).width();
+    let self = {};
+    let windowWidth = $(window).width();
 
     conf.viewTabs = currentUser.isTab === '1';
     self.route = layui.router();
@@ -23,7 +23,7 @@ layui.extend({
     self.ie8 = view.ie8;
     self.get = view.request;
     self.appBody = null;
-    self.shrinkCls = 'febs-sidebar-shrink';
+    self.shrinkCls = 'dimples-sidebar-shrink';
     self.isInit = false;
     self.routeLeaveFunc = null;
     self.routeLeave = function (callback) {
@@ -31,7 +31,7 @@ layui.extend({
     };
     self.render = function (elem) {
         if (typeof elem == 'string') elem = $('#' + elem);
-        var action = elem.get(0).tagName === 'SCRIPT' ? 'next' : 'find';
+        let action = elem.get(0).tagName === 'SCRIPT' ? 'next' : 'find';
         elem[action]('[is-template]').remove();
         view.parse(elem)
     };
@@ -56,7 +56,7 @@ layui.extend({
         route.fileurl = '/' + route.path.join('/');
 
         if ($.inArray(route.fileurl, conf.indPage) === -1) {
-            var loadRenderPage = function (params) {
+            let loadRenderPage = function (params) {
                 if (conf.viewTabs === true) {
                     view.renderTabs(route)
                 } else {
@@ -68,7 +68,7 @@ layui.extend({
                 //加载layout文件
                 view.renderLayout(function () {
                     //重新渲染导航
-                    element.render('nav', 'febs-sidebar');
+                    element.render('nav', 'dimples-sidebar');
                     //加载视图文件
                     loadRenderPage()
                 })
@@ -86,15 +86,15 @@ layui.extend({
     //根据当前加载的 URL高亮左侧导航
     self.sidebarFocus = function (url) {
         url = url || self.route.href;
-        var elem = $('#app-sidebar')
+        let elem = $('#app-sidebar')
             .find('[lay-href="' + url + '"]')
             .eq(0);
         // $bread.empty();
         if (elem.length > 0) {
             // 生成面包屑
-            // var breadHtml = '';
+            // let breadHtml = '';
             // elem.parents('dl').prev('a').each(function (k, v) {
-            //     var $this = $(this);
+            //     let $this = $(this);
             //     breadHtml += '<a>' + $this[0].innerText + ' / </a>';
             // });
             // breadHtml += '<a>' + elem[0].innerText+ ' </a>';
@@ -147,12 +147,12 @@ layui.extend({
         )
     };
     self.popup = function (params) {
-        var url = params.url || '';
-        var success = params.success || function () {
+        let url = params.url || '';
+        let success = params.success || function () {
         };
         params.skin = 'layui-layer-admin-page';
         POPUP_DATA = params.data || {};
-        var defaultParams = {
+        let defaultParams = {
             type: 1,
             area: $(window).width() <= 750 ? ['90%', '90%'] : ['60%', '90%'],
             shadeClose: true
@@ -168,7 +168,7 @@ layui.extend({
         view.tab.del(url);
 
         view.loadHtml(conf.views + url, function (res) {
-            var htmlElem = $('<div>' + res.html + '</div>');
+            let htmlElem = $('<div>' + res.html + '</div>');
 
             if (params.title === undefined) {
                 params.title = htmlElem.find('title').text() || '信息';
@@ -188,12 +188,12 @@ layui.extend({
     };
 
     //当小于这个尺寸的时候会进行手机端的适配
-    var mobileWidth = 991;
-    var isMobileAdapter = false;
+    let mobileWidth = 991;
+    let isMobileAdapter = false;
 
     function mobileAdapter() {
         self.flexible(false);
-        var device = layui.device();
+        let device = layui.device();
         if (device.weixin || device.android || device.ios) {
             //点击空白处关闭侧边栏
             $(document).on('click', '#' + conf.containerBody, function () {
@@ -228,8 +228,8 @@ layui.extend({
     });
 
     $(document).on('click', '[lay-href]', function (e) {
-        var href = $(this).attr('lay-href');
-        var target = $(this).attr('target');
+        let href = $(this).attr('lay-href');
+        let target = $(this).attr('target');
 
         if (href === '') return;
         if (self.isUrl(href)) {
@@ -249,7 +249,7 @@ layui.extend({
         return false
     });
     $(document).on('click', '[lay-popup]', function (e) {
-        var params = $(this).attr('lay-popup');
+        let params = $(this).attr('lay-popup');
         self.popup(
             params.indexOf('{') === 0
                 ? new Function('return ' + $(this).attr('lay-popup'))()
@@ -258,8 +258,8 @@ layui.extend({
         return false
     });
     $(document).on('mouseenter', '[lay-tips]', function (e) {
-        var title = $(this).attr('lay-tips');
-        var dire = $(this).attr('lay-dire') || 3;
+        let title = $(this).attr('lay-tips');
+        let dire = $(this).attr('lay-dire') || 3;
         if (title) {
             layer.tips(title, $(this), {
                 tips: [dire, '#263147']
@@ -274,12 +274,12 @@ layui.extend({
         self.event($(this).attr(conf.eventName), $(this))
     });
 
-    var shrinkSidebarBtn =
+    let shrinkSidebarBtn =
         '.' + self.shrinkCls + ' #app-sidebar .layui-nav-item a';
 
     $(document).on('click', shrinkSidebarBtn, function (e) {
         if (isMobileAdapter === true) return;
-        var chileLength = $(this)
+        let chileLength = $(this)
             .parent()
             .find('.layui-nav-child').length;
         if (chileLength > 0) {
@@ -288,7 +288,7 @@ layui.extend({
         }
     });
     $(document).on('mouseenter', shrinkSidebarBtn, function (e) {
-        var title = $(this).attr('title');
+        let title = $(this).attr('title');
         if (title) {
             layer.tips(title, $(this).find('.layui-icon'), {
                 tips: [2, '#263147']
@@ -300,12 +300,12 @@ layui.extend({
     });
 
     self.on('flexible', function (init) {
-        var status = view.container.hasClass(self.shrinkCls);
+        let status = view.container.hasClass(self.shrinkCls);
         self.flexible(status);
         self.data({key: 'flexible', value: status})
     });
     self.on('refresh', function (e) {
-        var url = self.route.href;
+        let url = self.route.href;
         if (conf.viewTabs === true) {
             //view.tab.refresh(url);
         } else {
@@ -319,7 +319,7 @@ layui.extend({
     if ($(window).width() <= mobileWidth) {
         mobileAdapter()
     } else {
-        var flexibleOpen = self.data().flexible;
+        let flexibleOpen = self.data().flexible;
         self.flexible(flexibleOpen === undefined ? true : flexibleOpen)
     }
     self.modal = {};
@@ -339,7 +339,7 @@ layui.extend({
         ];
         params = $.extend(
             {
-                skin: 'layui-layer-admin-modal febs-alert',
+                skin: 'layui-layer-admin-modal dimples-alert',
                 area: [windowWidth <= 750 ? '60%' : '400px'],
                 closeBtn: 0,
                 shadeClose: false
@@ -514,7 +514,7 @@ layui.extend({
     // 数据表封装
     self.table = {};
     self.table.init = function (params) {
-        var defaultSetting = {
+        let defaultSetting = {
             cellMinWidth: 80,
             page: true,
             skin: 'line',
@@ -562,22 +562,22 @@ layui.extend({
     self.download = function (url, params, fileName) {
         self.view.loadBar.start();
         url += '?' + parseParams(params);
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.responseType = "blob";
         xhr.onload = function () {
             if (this.status === 200) {
                 self.view.loadBar.finish();
-                var fileType = this.response.type;
-                var blob = this.response;
-                var reader = new FileReader();
+                let fileType = this.response.type;
+                let blob = this.response;
+                let reader = new FileReader();
                 reader.readAsDataURL(blob);
                 reader.onload = function (e) {
                     if ('msSaveOrOpenBlob' in navigator) { // IE，Edge
-                        var base64file = e.target.result + '';
+                        let base64file = e.target.result + '';
                         window.navigator.msSaveOrOpenBlob(createFile(base64file.replace('data:' + fileType + ';base64,', ''), fileType), fileName);
                     } else { // chrome，firefox
-                        var link = document.createElement('a');
+                        let link = document.createElement('a');
                         link.style.display = 'none';
                         link.href = e.target.result;
                         link.setAttribute('download', fileName);
@@ -596,10 +596,10 @@ layui.extend({
 
     // 判断 a种的属性是否 b都有，并且弱相等
     self.nativeEqual = function (a, b) {
-        var aProps = Object.getOwnPropertyNames(a);
-        var bProps = Object.getOwnPropertyNames(b);
-        for (var i = 0; i < aProps.length; i++) {
-            var propName = aProps[i];
+        let aProps = Object.getOwnPropertyNames(a);
+        let bProps = Object.getOwnPropertyNames(b);
+        for (let i = 0; i < aProps.length; i++) {
+            let propName = aProps[i];
             if (!compare(a[propName], b[propName])) {
                 return false;
             }
@@ -634,13 +634,13 @@ layui.extend({
 
     function parseParams(param, key, encode) {
         if (param == null) return '';
-        var arr = [];
-        var t = typeof (param);
+        let arr = [];
+        let t = typeof (param);
         if (t === 'string' || t === 'number' || t === 'boolean') {
             arr.push(key + '=' + ((encode == null || encode) ? encodeURIComponent(param) : param));
         } else {
-            for (var i in param) {
-                var k = key == null ? i : key + (param instanceof Array ? '[' + i + ']' : '.' + i);
+            for (let i in param) {
+                let k = key == null ? i : key + (param instanceof Array ? '[' + i + ']' : '.' + i);
                 arr.push(parseParams(param[i], k, encode));
             }
         }
@@ -649,7 +649,7 @@ layui.extend({
 
     // 解析 BASE64文件内容 for IE，Edge
     function createFile(urlData, fileType) {
-        var bytes = window.atob(urlData),
+        let bytes = window.atob(urlData),
             n = bytes.length,
             u8arr = new Uint8Array(n);
         while (n--) {
@@ -658,5 +658,5 @@ layui.extend({
         return new Blob([u8arr], {type: fileType});
     }
 
-    exports('febs', self)
+    exports('dimples', self)
 });
