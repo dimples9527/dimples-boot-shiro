@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="cmn-hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>新增用户</title>
+	<link rel="stylesheet" th:href="@{/layui/css/layui.css}"
+				href="../../../../../static/layui/css/layui.css"
+				media="all">
+	<link rel="stylesheet" th:href="@{/dimples/css/dimples/common.css}"
+				href="../../../../../static/dimples/css/dimples/common.css" media="all">
+</head>
+<style>
+	body {
+		background-color: #fff;
+	}
+
+	.dimples-hide {
+		display: none
+	}
+
+	#user-add {
+		background-color: #fff;
+		padding: 20px 25px 25px 0;
+	}
+
+	#user-add .layui-treeSelect .ztree li a, .ztree li span {
+		margin: 0 0 2px 3px !important;
+	}
+
+	.dimples-form-item-require:before {
+		display: inline-block;
+		margin-right: 4px;
+		content: "*";
+		line-height: 1;
+		font-size: 13px;
+		color: #f5222d
+	}
+
+</style>
+<body>
+<div class="layui-fluid" id="user-add">
+	<form class="layui-form" action="" lay-filter="user-add-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label dimples-form-item-require">用户名：</label>
+			<div class="layui-input-block">
+				<label>
+					<input type="text" name="username" minlength="2" maxlength="10"
+								 lay-verify="range|username"
+								 autocomplete="off" class="layui-input">
+				</label>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">手机：</label>
+			<div class="layui-input-block">
+				<label>
+					<input type="tel" name="mobile" lay-verify="phone" autocomplete="off" class="layui-input">
+				</label>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">邮箱：</label>
+			<div class="layui-input-block">
+				<label>
+					<input type="text" name="email" lay-verify="email" maxlength="50" autocomplete="off"
+								 class="layui-input">
+				</label>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label dimples-form-item-require">角色：</label>
+			<div class="layui-input-block">
+				<div id="user-add-role"></div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">部门：</label>
+			<div class="layui-input-block">
+				<div id="user-add-dept"></div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label dimples-form-item-require">状态：</label>
+			<div class="layui-input-block">
+				<input type="radio" name="status" value="1" title="有效" checked="">
+				<input type="radio" name="status" value="0" title="禁用">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label dimples-form-item-require">性别：</label>
+			<div class="layui-input-block">
+				<input type="radio" name="sex" value="0" title="男性">
+				<input type="radio" name="sex" value="1" title="女性">
+				<input type="radio" name="sex" value="2" title="保密" checked="">
+			</div>
+		</div>
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label">备注：</label>
+			<div class="layui-input-block">
+				<label>
+					<textarea name="description" maxlength="100" class="layui-textarea"></textarea>
+				</label>
+			</div>
+		</div>
+		<div class="layui-form-item dimples-hide">
+			<button class="layui-btn" lay-submit="" lay-filter="user-add-form-submit"
+							id="submit">立即提交
+			</button>
+			<button type="reset" class="layui-btn" id="reset">重置</button>
+		</div>
+	</form>
+</div>
+</body>
+<script type="application/javascript" th:src="@{/layui/layui.js}"
+				src="../../../../../static/layui/layui.js"></script>
+<script type="application/javascript">
+    layui.extend({
+        xmSelect: '/dimples/lay/extends/xm-select'
+    }).use(['form', 'xmSelect'], function () {
+        let form = layui.form,
+            xmSelect = layui.xmSelect;
+
+        form.on('submit(user-add-form-submit)', function (data) {
+            alert("立即提交");
+            return false;
+        });
+        let userRole = xmSelect.render({
+            el: '#user-add-role',
+            empty: '呀, 没有数据呢',
+            theme: {
+                color: '#1cbbb4',
+            },
+            toolbar: {
+                show: true,
+                list: ['ALL', 'CLEAR', 'REVERSE']
+            },
+            data: [
+                {name: '张三', value: 1},
+                {name: '李四', value: 2},
+                {name: '王五', value: 3},
+            ]
+        });
+        let userDept = xmSelect.render({
+            el: '#user-add-dept',
+            empty: '呀, 没有数据呢',
+            theme: {
+                color: '#1cbbb4',
+            },
+            toolbar: {
+                show: true,
+                list: ['ALL', 'CLEAR', 'REVERSE']
+            },
+            tree: {
+                show: true,
+                showFolderIcon: true,
+                showLine: true,
+                indent: 10,
+                expandedKeys: [-3],
+            },
+            data() {
+                return [
+                    {
+                        name: '销售员', value: -1, disabled: true, children: [
+                            {name: '张三1', value: 1, selected: true, children: []},
+                            {name: '李四1', value: 2, selected: true},
+                            {name: '王五1', value: 3, disabled: true},
+                        ]
+                    },
+                    {
+                        name: '奖品', value: -2, children: [
+                            {
+                                name: '奖品3', value: -3, children: [
+                                    {name: '苹果3', value: 14, selected: true},
+                                    {name: '香蕉3', value: 15},
+                                    {name: '葡萄3', value: 16},
+                                ]
+                            },
+                            {name: '苹果2', value: 4, selected: true, disabled: true},
+                            {name: '香蕉2', value: 5},
+                            {name: '葡萄2', value: 6},
+                        ]
+                    },
+                ]
+            }
+        });
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

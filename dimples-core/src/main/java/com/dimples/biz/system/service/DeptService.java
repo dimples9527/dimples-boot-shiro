@@ -1,5 +1,6 @@
 package com.dimples.biz.system.service;
 
+import com.dimples.biz.common.dto.DeptTreeDTO;
 import com.dimples.biz.system.po.Dept;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -19,4 +20,11 @@ public interface DeptService extends IService<Dept> {
      */
     List<Dept> findByUserId(Long userId);
 
+    /**
+     * 获取部门树（下拉选使用）
+     *
+     * @return 部门树集合
+     */
+    List<DeptTreeDTO<Dept>> findDeptList();
 }
+

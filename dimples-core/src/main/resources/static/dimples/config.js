@@ -1,11 +1,18 @@
-layui.define(function (exports) {
+/**
+ * 一个配置类
+ * 配置一些常量供后文使用
+ */
+layui.config({
+    debug: true
+}).define(function (exports) {
     exports('conf', {
         container: 'dimples',
         containerBody: 'dimples-body',
         v: '2.0',
-        base: layui.cache.base,
-        css: layui.cache.base + 'css/',
-        views: layui.cache.base + 'views/',
+        base: '/web/dimples',
+        css: '/dimples/css',
+        // 后台页面前缀
+        views: '/web/dimples/views',
         viewLoadBar: true,
         debug: layui.cache.debug,
         name: 'dimples',

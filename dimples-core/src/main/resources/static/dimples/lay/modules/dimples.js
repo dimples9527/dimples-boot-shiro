@@ -158,6 +158,7 @@ layui.extend({
             shadeClose: true
         };
 
+        // 是一个完整可访问的url链接
         if (self.isUrl(url)) {
             params.type = 2;
             params.content = url;
@@ -511,7 +512,7 @@ layui.extend({
         self.popup(params);
     };
 
-    // 数据表封装
+    // 数据表封装 TODO 使用中
     self.table = {};
     self.table.init = function (params) {
         let defaultSetting = {

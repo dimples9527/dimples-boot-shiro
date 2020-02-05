@@ -10,11 +10,10 @@ import java.util.List;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/1/30
+ * @date 2020/2/5
  */
 @Mapper
 public interface DeptMapper extends BaseMapper<Dept> {
-
     /**
      * 根据用户id查询用户部门信息
      *
@@ -22,5 +21,4 @@ public interface DeptMapper extends BaseMapper<Dept> {
      * @return List<Dept>
      */
     List<Dept> findByUserId(@Param("userId") Long userId);
-
 }

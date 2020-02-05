@@ -90,6 +90,11 @@ public enum CodeAndMessageEnum {
      * 身份验证失败（签名错误）
      */
     UNAUTHORIZED(401,"身份验证失败（签名错误）"),
+
+    /**
+     * 身份验证失败（签名错误）
+     */
+    EXPIRED_SESSION(401,"登陆失效，请重新登陆！"),
     /**
      * 没有权限
      */

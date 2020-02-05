@@ -1,11 +1,16 @@
 let currentUser = $('#header-username').text();
 layui.extend({
+    treeSelect: '/dimples/lay/extends/treeSelect',
     dimples: '/dimples/lay/modules/dimples'
-}).use(['table', 'dimples'], function () {
-    let table = layui.table,
-        dropdown = layui.dropdown,
+}).use(['table', 'laydate', 'layer', 'dimples', 'treeSelect'], function () {
+    let $ = layui.jquery,
+        laydate = layui.laydate,
+        layer = layui.layer,
+        table = layui.table,
         dimples = layui.dimples,
         form = layui.form,
+        dropdown = layui.dropdown,
+        treeSelect = layui.treeSelect,
         $view = $('#dimples-user'),
         $query = $view.find('#query'),
         sortObject = {field: 'createDate', type: null},
@@ -25,17 +30,7 @@ layui.extend({
         click: function (name, elem, event) {
             let checkStatus = table.checkStatus('userTable');
             if (name === 'add') {
-                dimples.modal.open('新增用户', 'system/user/add', {
-                    btn: ['提交', '重置'],
-                    area: $(window).width() <= 750 ? '95%' : '50%',
-                    yes: function (index, layero) {
-                        $('#user-add').find('#submit').trigger('click');
-                    },
-                    btn2: function () {
-                        $('#user-add').find('#reset').trigger('click');
-                        return false;
-                    }
-                });
+                openModelHtml('新增用户', '/web/dimples/views/system/user/add');
             }
             if (name === 'delete') {
                 if (!checkStatus.data.length) {
@@ -90,6 +85,73 @@ layui.extend({
             title: '导出Excel',
             perms: 'user:export'
         }]
+    });
+
+    treeSelect.render({
+        elem: $view.find('#dept'),
+        type: 'get',
+        data: '/dept/select/tree',
+        placeholder: '请选择',
+        search: false
+    });
+
+    // 渲染日期控件
+    laydate.render({
+        elem: '#user-createDate',
+        range: true,
+        trigger: 'click'
+    });
+
+    table.on('tool(userTable)', function (obj) {
+        let data = obj.data,
+            layEvent = obj.event;
+        if (layEvent === 'detail') {
+            dimples.modal.view('用户信息', 'system/user/detail/' + data.username, {
+                area: $(window).width() <= 750 ? '95%' : '660px'
+            });
+        }
+        if (layEvent === 'del') {
+            dimples.modal.confirm('删除用户', '确定删除该用户？', function () {
+                deleteUsers(data.userId);
+            });
+        }
+        if (layEvent === 'edit') {
+            dimples.modal.open('修改用户', 'system/user/update/' + data.username, {
+                area: $(window).width() <= 750 ? '90%' : '50%',
+                btn: ['提交', '取消'],
+                yes: function (index, layero) {
+                    $('#user-update').find('#submit').trigger('click');
+                },
+                btn2: function () {
+                    layer.closeAll();
+                }
+            });
+        }
+    });
+
+    table.on('sort(userTable)', function (obj) {
+        sortObject = obj;
+        tableIns.reload({
+            initSort: obj,
+            where: $.extend(getQueryParams(), {
+                field: obj.field,
+                order: obj.type
+            })
+        });
+    });
+
+    $query.on('click', function () {
+        let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+        tableIns.reload({where: params, page: {curr: 1}});
+    });
+
+    $reset.on('click', function () {
+        $searchForm[0].reset();
+        treeSelect.revokeNode('dept');
+        sortObject.type = 'null';
+        createTimeTo = null;
+        createTimeFrom = null;
+        tableIns.reload({where: getQueryParams(), page: {curr: 1}, initSort: sortObject});
     });
 
     /**
@@ -153,4 +215,27 @@ layui.extend({
             ]
         });
     }
+
+    let openModelHtml = function (title, url) {
+        layer.open({
+            type: 2,
+            title: title,
+            btn: ['提交', '重置'],
+            area: [$(window).width() <= 750 ? '95%' : '50%', $(window).height() <= 350 ? '95%' : '88%'],
+            maxmin: true,
+            anim: 0,
+            skin: 'layui-layer-admin-page',
+            content: url,
+            yes: function (index, layero) {
+                $('#user-add').find('#submit').trigger('click');
+                console.log("立即提交" + $("#submit").text());
+            },
+            btn2: function () {
+                $('#user-add').find('#reset').trigger('click');
+                console.log("重置");
+                return false;
+            }
+        });
+
+    };
 });

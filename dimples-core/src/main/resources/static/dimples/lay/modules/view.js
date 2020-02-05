@@ -156,13 +156,9 @@ layui
                 loadBar.start();
                 let queryIndex = url.indexOf('?');
                 if (queryIndex !== -1) url = url.slice(0, queryIndex);
+                let requestUrl = (url.indexOf(conf.base) === 0 ? '' : conf.views) + url + conf.engine + '?v=' + conf.v;
                 $.ajax({
-                    url:
-                        (url.indexOf(conf.base) === 0 ? '' : conf.views) +
-                        url +
-                        conf.engine +
-                        '?v=' +
-                        conf.v,
+                    url: requestUrl,
                     type: 'get',
                     data: {
                         'invalid_ie_cache': new Date().getTime()

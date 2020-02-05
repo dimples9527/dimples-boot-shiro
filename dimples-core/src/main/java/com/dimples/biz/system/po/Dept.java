@@ -10,16 +10,14 @@ import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/1/30
+ * @date 2020/2/5
  */
 @ApiModel(value = "com-dimples-biz-system-po-Dept")
 @Data
-@Builder
 @TableName(value = "db_dimples_shiro.tb_dept")
 public class Dept implements Serializable {
     /**
@@ -50,5 +48,20 @@ public class Dept implements Serializable {
     @ApiModelProperty(value = "更新日期")
     private Date modifyDate;
 
+    /**
+     * 父级id
+     */
+    @TableField(value = "parent_id")
+    @ApiModelProperty(value = "父级id")
+    private Long parentId;
+
+    /**
+     * 同级顺序
+     */
+    @TableField(value = "order_id")
+    @ApiModelProperty(value = "同级顺序")
+    private Long orderId;
+
     private static final long serialVersionUID = 1L;
+
 }

@@ -19,4 +19,11 @@ public interface RoleService extends IService<Role> {
      */
     List<Role> findByUserId(Long userId);
 
+    /**
+     * 查找所有角色
+     *
+     * @param role 角色对象（用于传递查询条件）
+     * @return 角色集合
+     */
+    List<Role> findRoles(Role role);
 }

@@ -67,4 +67,28 @@ public class WebController extends BaseController {
         return view;
     }
 
+    @GetMapping(WebConstant.VIEW_PREFIX + "system/user/add")
+    public ModelAndView systemUserAdd() {
+        return new ModelAndView(WebConstant.USER_ADD);
+    }
+
+    @GetMapping(WebConstant.VIEW_PREFIX + "404")
+    public ModelAndView error404() {
+        return new ModelAndView(WebConstant.ERROR_404);
+    }
+
+    @GetMapping(WebConstant.VIEW_PREFIX + "403")
+    public ModelAndView error403() {
+        return new ModelAndView(WebConstant.ERROR_403);
+    }
+
+    @GetMapping(WebConstant.VIEW_PREFIX + "500")
+    public ModelAndView error500() {
+        return new ModelAndView(WebConstant.ERROR_500);
+    }
+
 }
+
+
+
+
