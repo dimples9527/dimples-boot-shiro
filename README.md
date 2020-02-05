@@ -1,5 +1,11 @@
 # dimples-boot-shiro 项目
 
+#### 参考项目
+
+- [https://gitee.com/Jmysy/Pear-One-Layui](https://gitee.com/Jmysy/Pear-One-Layui)
+
+- [https://github.com/wuyouzhuguli/FEBS-Shiro](https://github.com/wuyouzhuguli/FEBS-Shiro)
+
 包含Springboot项目的一些基础配置和模块
 
 目前包含
