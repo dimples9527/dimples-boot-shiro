@@ -17,6 +17,7 @@ a:hover {
     color: #1e51c7
 }
 
+/* 重写浏览器滑条样式 */
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -1031,6 +1032,12 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15)
 }
 
+@font-face {
+    font-family: 'nep-icon';
+    src: url('../../../layui/font/iconfont.eot');
+    src: url('../../../layui/font/iconfont.eot#iefix') format('embedded-opentype'), url('../../../layui/font/iconfont.svg#iconfont') format('svg'), url('../../../layui/font/iconfont.woff') format('woff'), url('../../../layui/font/iconfont.ttf') format('truetype')
+}
+
 .layui-layer-dialog .layui-layer-content .layui-layer-ico {
     font-family: 'layui-icon', 'nep-icon' !important;
     font-style: normal;
@@ -1386,12 +1393,6 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 
 .layui-dropdown .layui-dropdown-title {
     padding-right: 20px
-}
-
-@font-face {
-    font-family: 'nep-icon';
-    src: url('../../../layui/font/iconfont.eot');
-    src: url('../../../layui/font/iconfont.eot#iefix') format('embedded-opentype'), url('../../../layui/font/iconfont.svg#iconfont') format('svg'), url('../../../layui/font/iconfont.woff') format('woff'), url('../../../layui/font/iconfont.ttf') format('truetype')
 }
 
 .layui-icon {
