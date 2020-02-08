@@ -45,22 +45,6 @@
 		</where>
 		ORDER BY u.user_id
 	</select>
-	<select id="getUserInfoByUsername" resultType="com.dimples.biz.system.dto.UserDetailDTO">
-		SELECT tu.user_id,
-		       tu.username,
-		       tu.`status`,
-		       tu.create_date,
-		       tu.modify_date,
-		       email,
-		       mobile,
-		       last_login_time,
-		       avatar,
-		       gender,
-		       description
-		FROM tb_user tu
-			     LEFT JOIN tb_user_info tui ON tu.user_id = tui.user_id
-		WHERE tu.username = 'dimples'
-	</select>
 
 </mapper>
 

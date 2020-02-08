@@ -44,12 +44,19 @@ public interface UserService extends IService<User> {
     IPage<UserDetailDTO> findUserDetailList(User user, QueryRequest request);
 
     /**
-     * 根据用户名获取用户信息
+     * 查找用户详细信息
      *
-     * @param username 用户名
-     * @return 用户信息
+     * @param user 用户对象，用于传递查询条件
+     * @return IPage
      */
-    UserDetailDTO getUserInfoByUsername(String username);
+    IPage<UserDetailDTO> findUserDetailList(User user);
+
+    /**
+     * 更新用户登录时间
+     *
+     * @param user 用户
+     */
+    void updateLoginTime(User user);
 }
 
 

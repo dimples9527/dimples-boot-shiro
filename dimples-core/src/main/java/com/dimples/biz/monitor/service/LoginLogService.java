@@ -23,14 +23,14 @@ public interface LoginLogService extends IService<LoginLog> {
      *
      * @return Integer
      */
-    Integer todayIpTotal();
+    Integer todayIp();
 
     /**
      * 统计当日访问量
      *
      * @return Integer
      */
-    Integer todayTotal();
+    Integer todayVisitCount();
 
     /**
      * 根据用户名查询到了日志信息

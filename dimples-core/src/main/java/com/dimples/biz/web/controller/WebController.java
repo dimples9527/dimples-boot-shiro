@@ -53,16 +53,26 @@ public class WebController extends BaseController {
     @GetMapping("index/{username}")
     public ModelAndView index(@NotBlank(message = "{required}") @PathVariable String username) {
         log.info("============= 当前登陆用户：{} =============", username);
+        User user = new User();
+        user.setUsername(username);
         // 先获取用户的登录信息
-        UserDetailDTO userDetail = userService.getUserInfoByUsername(username);
+        UserDetailDTO userDetail = userService.findUserDetailList(user).getRecords().get(0);
+        // 更新用户的上次登录时间
+        user.setUserId(userDetail.getUserId());
+        this.userService.updateLoginTime(user);
+        // 获取系统访问记录
         StatisticVO statistic = StatisticVO.builder()
-                .loginTotal(loginLogService.count())
-                .todayIpTotal(loginLogService.todayIpTotal())
-                .todayTotal(loginLogService.todayTotal())
+                .totalVisitCount(loginLogService.count())
+                .todayIp(loginLogService.todayIp())
+                .todayVisitCount(loginLogService.todayVisitCount())
                 .build();
-        statistic.buildLastLoginTime(loginLogService.findByUsername(username));
+        // 处理上一次登录时间显示
+        statistic.buildLastLoginTime(userDetail.getLastLoginTime());
+        // 获取角色信息
         statistic.buildRole(roleService.findByUserId(userDetail.getUserId()));
+        // 获取部门信息
         statistic.buildDept(deptService.findByUserId(userDetail.getUserId()));
+        // 
         ModelAndView view = new ModelAndView(WebConstant.INDEX);
         view.addObject("user", userDetail);
         view.addObject("statistic", statistic);

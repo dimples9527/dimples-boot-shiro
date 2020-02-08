@@ -1,12 +1,12 @@
 package com.dimples.biz.monitor.vo;
 
-import com.dimples.biz.monitor.po.LoginLog;
 import com.dimples.biz.system.po.Dept;
 import com.dimples.biz.system.po.Role;
 import com.dimples.core.util.DateUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,11 +21,11 @@ import lombok.Data;
 @Builder
 public class StatisticVO {
 
-    private Integer todayIpTotal;
+    private Integer todayIp;
 
-    private Integer todayTotal;
+    private Integer todayVisitCount;
 
-    private Integer loginTotal;
+    private Integer totalVisitCount;
 
     private String lastLoginTime;
 
@@ -33,9 +33,9 @@ public class StatisticVO {
 
     private String role;
 
-    public void buildLastLoginTime(List<LoginLog> loginLog) {
-        if (loginLog.size() > 1) {
-            String formatDate = DateUtil.format(loginLog.get(1).getLoginTime(), DateUtil.YYYY_MM_DD_HH_MM_SS);
+    public void buildLastLoginTime(Date lastLoginTime) {
+        if (lastLoginTime != null) {
+            String formatDate = DateUtil.format(lastLoginTime, DateUtil.YYYY_MM_DD_HH_MM_SS);
             String[] string = StringUtils.splitByWholeSeparatorPreserveAllTokens(formatDate, null);
             String[] stringD = StringUtils.splitByWholeSeparatorPreserveAllTokens(string[0], "-");
             String[] stringT = StringUtils.splitByWholeSeparatorPreserveAllTokens(string[1], ":");

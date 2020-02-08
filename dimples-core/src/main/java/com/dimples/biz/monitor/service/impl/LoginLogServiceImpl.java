@@ -41,13 +41,13 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
     }
 
     @Override
-    public Integer todayIpTotal() {
+    public Integer todayIp() {
         List<String> ipTotal = loginLogMapper.todayIpTotal();
         return Math.max(ipTotal.size(), 0);
     }
 
     @Override
-    public Integer todayTotal() {
+    public Integer todayVisitCount() {
         return loginLogMapper.todayTotal();
     }
 

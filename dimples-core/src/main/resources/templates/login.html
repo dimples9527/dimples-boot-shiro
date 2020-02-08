@@ -170,7 +170,7 @@
             loading.show();
             $.post('/sys/login', data.field, function (r) {
                 if (r.code === 200) {
-                    location.href = '/web/index';
+                    location.href = '/web/index/' + data.field.username;
                 } else {
                     layer.msg(r.message);
                     loading.hide();

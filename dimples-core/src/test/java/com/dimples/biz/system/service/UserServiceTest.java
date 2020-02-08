@@ -23,6 +23,11 @@ public class UserServiceTest {
         User name = userService.findByName("zhongyj");
         log.info("根据用户名查询用户信息：{}", name);
     }
+
+    @Test
+    public void findUserDetailList() {
+    }
+
 }
 
 

@@ -1,15 +1,20 @@
 package com.dimples.biz.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dimples.biz.system.dto.UserDetailDTO;
+import com.dimples.biz.system.mapper.UserInfoMapper;
 import com.dimples.biz.system.mapper.UserMapper;
 import com.dimples.biz.system.po.RoleUser;
 import com.dimples.biz.system.po.User;
+import com.dimples.biz.system.po.UserInfo;
 import com.dimples.biz.system.service.RoleUserService;
 import com.dimples.biz.system.service.UserService;
 import com.dimples.core.constant.DimplesConstant;
+import com.dimples.core.eunm.CodeAndMessageEnum;
+import com.dimples.core.exception.BizException;
 import com.dimples.core.transport.QueryRequest;
 import com.dimples.core.util.MD5Util;
 
@@ -32,11 +37,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     private RoleUserService roleUserService;
     private UserMapper userMapper;
+    private UserInfoMapper userInfoMapper;
 
     @Autowired
-    public UserServiceImpl(RoleUserService roleUserService, UserMapper userMapper) {
+    public UserServiceImpl(RoleUserService roleUserService, UserMapper userMapper, UserInfoMapper userInfoMapper) {
         this.roleUserService = roleUserService;
         this.userMapper = userMapper;
+        this.userInfoMapper = userInfoMapper;
     }
 
     @Override
@@ -76,9 +83,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public UserDetailDTO getUserInfoByUsername(String username) {
-        return this.baseMapper.getUserInfoByUsername(username);
+    public IPage<UserDetailDTO> findUserDetailList(User user) {
+        Page<UserDetailDTO> page = new Page<>(1, 1);
+        IPage<UserDetailDTO> userDetailPage = this.baseMapper.findUserDetailPage(page, user);
+        List<UserDetailDTO> records = userDetailPage.getRecords();
+        if (records.isEmpty()) {
+            throw new BizException(CodeAndMessageEnum.NO_THIS_USER);
+        }
+        return userDetailPage;
     }
+
+    @Override
+    public void updateLoginTime(User user) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setLastLoginTime(new Date());
+        this.userInfoMapper.update(userInfo, new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getUserId, user.getUserId()));
+    }
+
 }
 
 
