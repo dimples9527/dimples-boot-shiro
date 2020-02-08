@@ -42,6 +42,14 @@ public interface UserService extends IService<User> {
      * @return IPage
      */
     IPage<UserDetailDTO> findUserDetailList(User user, QueryRequest request);
+
+    /**
+     * 根据用户名获取用户信息
+     *
+     * @param username 用户名
+     * @return 用户信息
+     */
+    UserDetailDTO getUserInfoByUsername(String username);
 }
 
 

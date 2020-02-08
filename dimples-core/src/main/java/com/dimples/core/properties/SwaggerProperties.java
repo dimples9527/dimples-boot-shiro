@@ -8,6 +8,7 @@ import lombok.Data;
  */
 @Data
 public class SwaggerProperties {
+    private String enable;
     private String basePackage;
     private String title;
     private String description;

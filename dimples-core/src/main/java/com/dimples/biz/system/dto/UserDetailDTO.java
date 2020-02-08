@@ -42,7 +42,7 @@ public class UserDetailDTO {
     private Date modifyDate;
 
     /**
-     * 用户邮箱
+     * 用户部门
      */
     @ApiModelProperty(value="用户部门")
     private String deptName;

@@ -74,6 +74,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Page<UserDetailDTO> page = new Page<>(request.getPageNum(), request.getPageSize());
         return this.baseMapper.findUserDetailPage(page, user);
     }
+
+    @Override
+    public UserDetailDTO getUserInfoByUsername(String username) {
+        return this.baseMapper.getUserInfoByUsername(username);
+    }
 }
 
 

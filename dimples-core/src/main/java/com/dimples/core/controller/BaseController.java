@@ -12,7 +12,7 @@ import org.apache.shiro.subject.Subject;
  */
 public class BaseController {
 
-    private Subject getSubject() {
+    protected Subject getSubject() {
         return SecurityUtils.getSubject();
     }
 
