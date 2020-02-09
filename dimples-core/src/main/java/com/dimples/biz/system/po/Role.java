@@ -48,5 +48,10 @@ public class Role implements Serializable {
     @ApiModelProperty(value = "更新日期")
     private Date modifyDate;
 
+    /**
+     * 角色对应的菜单（按钮） id
+     */
+    private transient String menuIds;
+
     private static final long serialVersionUID = 1L;
 }

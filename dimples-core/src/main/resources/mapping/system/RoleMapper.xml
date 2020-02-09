@@ -30,5 +30,33 @@
 			     LEFT JOIN tb_user u ON (u.user_id = ru.user_id)
 		WHERE u.username = #{username,jdbcType=VARCHAR}
 	</select>
+	<select id="findRolePage" resultMap="BaseResultMap">
+		SELECT r.role_id,
+		role_name,
+		create_date,
+		modify_date,
+		GROUP_CONCAT(mr.menu_id) menu_ids
+		FROM tb_role r
+		LEFT JOIN tb_menu_role mr ON mr.role_id = r.role_id
+		<where>
+			<if test="role.roleName != null and role.roleName != ''">
+				r.role_name LIKE CONCAT('%',#{role.roleName,jdbcType=VARCHAR},'%')
+			</if>
+		</where>
+		GROUP BY r.role_id
+	</select>
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

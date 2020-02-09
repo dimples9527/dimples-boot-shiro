@@ -2,7 +2,7 @@ package com.dimples.biz.system.controller;
 
 import com.dimples.biz.system.po.User;
 import com.dimples.core.transport.QueryRequest;
-import com.dimples.core.transport.ResponseDTO;
+import com.dimples.core.transport.DimplesResponse;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ public class UserControllerTest {
     @Test
     public void userList() {
         User build = new User();
-        ResponseDTO responseDTO = userController.userList(build, new QueryRequest());
-        log.error("" + responseDTO.getData());
+        DimplesResponse dimplesResponse = userController.userList(build, new QueryRequest());
+        log.error("" + dimplesResponse.getData());
     }
 }

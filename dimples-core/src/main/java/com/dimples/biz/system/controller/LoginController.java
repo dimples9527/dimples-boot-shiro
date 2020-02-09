@@ -15,7 +15,7 @@ import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.controller.BaseController;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.helper.RedisHelper;
-import com.dimples.core.transport.ResponseDTO;
+import com.dimples.core.transport.DimplesResponse;
 import com.dimples.core.util.MD5Util;
 
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -77,7 +77,7 @@ public class LoginController extends BaseController {
             @ApiImplicitParam(name = "rememberMe", value = "记住我", defaultValue = "false")
     })
     @PostMapping("/login")
-    public ResponseDTO login(String username, String password, String verifyCode, @RequestParam(defaultValue = "false") Boolean rememberMe, HttpServletRequest request) {
+    public DimplesResponse login(String username, String password, String verifyCode, @RequestParam(defaultValue = "false") Boolean rememberMe, HttpServletRequest request) {
         password = MD5Util.encrypt(username, password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         // 验证码验证
@@ -89,7 +89,7 @@ public class LoginController extends BaseController {
         this.loginLogService.saveLoginLog(username);
         // 登陆成功, 删除验证码
         redisHelper.del(DimplesConstant.CODE_PREFIX + key);
-        return ResponseDTO.success();
+        return DimplesResponse.success();
     }
 
     @ApiOperation(value = "退出登录", notes = "退出登录")
@@ -107,7 +107,7 @@ public class LoginController extends BaseController {
     }
 
     @GetMapping("index/{username}")
-    public ResponseDTO index(@NotBlank(message = "{required}") @PathVariable String username) {
+    public DimplesResponse index(@NotBlank(message = "{required}") @PathVariable String username) {
         log.info("============= 当前登陆用户：{} =============", username);
         User user = new User();
         user.setUsername(username);
@@ -131,7 +131,7 @@ public class LoginController extends BaseController {
         // 获取近期系统访问记录
 
         IndexVO build = IndexVO.builder().statistic(statistic).userDetail(userDetail).build();
-        return ResponseDTO.success(build);
+        return DimplesResponse.success(build);
     }
 
 }

@@ -1,7 +1,9 @@
 package com.dimples.biz.system.service;
 
-import com.dimples.biz.system.po.Role;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dimples.biz.system.po.Role;
+import com.dimples.core.transport.QueryRequest;
 
 import java.util.List;
 
@@ -34,4 +36,43 @@ public interface RoleService extends IService<Role> {
      * @return 角色集合
      */
     List<Role> findRoles(Role role);
+
+    /**
+     * 查找所有角色（分页）
+     *
+     * @param role    角色对象（用于传递查询条件）
+     * @param request request
+     * @return IPage
+     */
+    IPage<Role> findRoles(Role role, QueryRequest request);
+
+    /**
+     * 通过角色名称查找相应角色
+     *
+     * @param roleName 角色名称
+     * @return 角色
+     */
+    Role findByName(String roleName);
+
+    /**
+     * 新增角色
+     *
+     * @param role 待新增的角色
+     */
+    void createRole(Role role);
+
+    /**
+     * 修改角色
+     *
+     * @param role 待修改的角色
+     */
+    void updateRole(Role role);
+
+
+    /**
+     * 删除角色
+     *
+     * @param roleIds 待删除角色的 id
+     */
+    void deleteRoles(String roleIds);
 }

@@ -22,7 +22,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseDTO {
+public class DimplesResponse {
 
     public static final Integer ZERO = 0;
 
@@ -45,8 +45,8 @@ public class ResponseDTO {
     /**
      * 成功但不带数据
      **/
-    public static ResponseDTO success() {
-        ResponseDTO result = new ResponseDTO();
+    public static DimplesResponse success() {
+        DimplesResponse result = new DimplesResponse();
         result.setCode(CodeAndMessageEnum.SUCCESS.getCode());
         result.setMessage(CodeAndMessageEnum.SUCCESS.getMessage());
         return result;
@@ -55,8 +55,8 @@ public class ResponseDTO {
     /**
      * 成功带数据
      **/
-    public static ResponseDTO success(Integer code, Object object) {
-        ResponseDTO result = new ResponseDTO();
+    public static DimplesResponse success(Integer code, Object object) {
+        DimplesResponse result = new DimplesResponse();
         result.setCode(code);
         result.setMessage(CodeAndMessageEnum.SUCCESS.getMessage());
         result.setData(object);
@@ -66,8 +66,8 @@ public class ResponseDTO {
     /**
      * 成功带数据
      **/
-    public static ResponseDTO success(Object object) {
-        ResponseDTO result = new ResponseDTO();
+    public static DimplesResponse success(Object object) {
+        DimplesResponse result = new DimplesResponse();
         result.setCode(CodeAndMessageEnum.SUCCESS.getCode());
         result.setMessage(CodeAndMessageEnum.SUCCESS.getMessage());
         result.setData(object);
@@ -77,8 +77,8 @@ public class ResponseDTO {
     /**
      * 成功带数据
      **/
-    public static ResponseDTO successWithPage(Integer code, Long count, Object object) {
-        ResponseDTO result = new ResponseDTO();
+    public static DimplesResponse successWithPage(Integer code, Long count, Object object) {
+        DimplesResponse result = new DimplesResponse();
         result.setCode(code);
         result.setMessage(CodeAndMessageEnum.SUCCESS.getMessage());
         result.setCount(count);
@@ -91,8 +91,8 @@ public class ResponseDTO {
      *
      * @return ResponseDTO
      */
-    public static ResponseDTO failed() {
-        ResponseDTO result = new ResponseDTO();
+    public static DimplesResponse failed() {
+        DimplesResponse result = new DimplesResponse();
         result.setCode(CodeAndMessageEnum.FAIL.getCode());
         result.setMessage(CodeAndMessageEnum.FAIL.getMessage());
         return result;
@@ -101,22 +101,22 @@ public class ResponseDTO {
     /**
      * 失败
      **/
-    public static ResponseDTO failed(Integer code, String msg) {
-        ResponseDTO result = new ResponseDTO();
+    public static DimplesResponse failed(Integer code, String msg) {
+        DimplesResponse result = new DimplesResponse();
         result.setCode(code);
         result.setMessage(msg);
         return result;
     }
 
-    public static ResponseDTO failed(String message) {
-        ResponseDTO result = new ResponseDTO();
+    public static DimplesResponse failed(String message) {
+        DimplesResponse result = new DimplesResponse();
         result.setCode(CodeAndMessageEnum.SERVER_ERROR.getCode());
         result.setMessage(message);
         return result;
     }
 
-    public static ResponseDTO failed(CodeAndMessageEnum resultCodeEnum) {
-        ResponseDTO result = new ResponseDTO();
+    public static DimplesResponse failed(CodeAndMessageEnum resultCodeEnum) {
+        DimplesResponse result = new DimplesResponse();
         result.setCode(resultCodeEnum.getCode());
         result.setMessage(resultCodeEnum.getMessage());
         return result;

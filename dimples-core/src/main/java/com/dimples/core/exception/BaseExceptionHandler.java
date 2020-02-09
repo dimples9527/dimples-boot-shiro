@@ -1,7 +1,7 @@
 package com.dimples.core.exception;
 
 import com.dimples.core.eunm.CodeAndMessageEnum;
-import com.dimples.core.transport.ResponseDTO;
+import com.dimples.core.transport.DimplesResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -34,9 +34,9 @@ public class BaseExceptionHandler {
      * @return ResponseDTO
      */
     @ExceptionHandler(value = BizException.class)
-    public ResponseDTO handleBizException(BizException e) {
+    public DimplesResponse handleBizException(BizException e) {
         log.error("业务错误", e);
-        return ResponseDTO.failed(e.getMessage());
+        return DimplesResponse.failed(e.getMessage());
     }
 
     /**
@@ -45,8 +45,8 @@ public class BaseExceptionHandler {
      * @return ResponseDTO
      */
     @ExceptionHandler(value = AccessDeniedException.class)
-    public ResponseDTO handleAccessDeniedException() {
-        return ResponseDTO.failed(CodeAndMessageEnum.NOT_AUTH);
+    public DimplesResponse handleAccessDeniedException() {
+        return DimplesResponse.failed(CodeAndMessageEnum.NOT_AUTH);
     }
 
     /**
@@ -56,9 +56,9 @@ public class BaseExceptionHandler {
      * @return ResponseDTO
      */
     @ExceptionHandler(value = LockedAccountException.class)
-    public ResponseDTO handleException(LockedAccountException e) {
+    public DimplesResponse handleException(LockedAccountException e) {
         log.error("登录验证错误,异常信息: ", e);
-        return ResponseDTO.failed(CodeAndMessageEnum.ACCOUNT_LOCK);
+        return DimplesResponse.failed(CodeAndMessageEnum.ACCOUNT_LOCK);
     }
 
     /**
@@ -68,9 +68,9 @@ public class BaseExceptionHandler {
      * @return ResponseDTO
      */
     @ExceptionHandler(value = UnknownAccountException.class)
-    public ResponseDTO handleException(UnknownAccountException e) {
+    public DimplesResponse handleException(UnknownAccountException e) {
         log.error("登录验证错误,异常信息: ", e);
-        return ResponseDTO.failed(CodeAndMessageEnum.USER_NOT_EXISTED);
+        return DimplesResponse.failed(CodeAndMessageEnum.USER_NOT_EXISTED);
     }
 
 
@@ -81,9 +81,9 @@ public class BaseExceptionHandler {
      * @return ResponseDTO
      */
     @ExceptionHandler(value = IncorrectCredentialsException.class)
-    public ResponseDTO handleException(IncorrectCredentialsException e) {
+    public DimplesResponse handleException(IncorrectCredentialsException e) {
         log.error("登录验证错误,异常信息: ", e);
-        return ResponseDTO.failed(CodeAndMessageEnum.ACCOUNT_ERROR);
+        return DimplesResponse.failed(CodeAndMessageEnum.ACCOUNT_ERROR);
     }
 
     /**
@@ -93,7 +93,7 @@ public class BaseExceptionHandler {
      * @return ResponseDTO
      */
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public ResponseDTO handleConstraintViolationException(ConstraintViolationException e) {
+    public DimplesResponse handleConstraintViolationException(ConstraintViolationException e) {
         StringBuilder message = new StringBuilder();
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         for (ConstraintViolation<?> violation : violations) {
@@ -102,7 +102,7 @@ public class BaseExceptionHandler {
             message.append(pathArr[1]).append(violation.getMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
-        return ResponseDTO.failed(CodeAndMessageEnum.REQUEST_INVALIDATE.getCode(), message.toString());
+        return DimplesResponse.failed(CodeAndMessageEnum.REQUEST_INVALIDATE.getCode(), message.toString());
     }
 
     /**
@@ -112,9 +112,9 @@ public class BaseExceptionHandler {
      * @return ResponseDTO
      */
     @ExceptionHandler(value = Exception.class)
-    public ResponseDTO handleException(Exception e) {
+    public DimplesResponse handleException(Exception e) {
         log.error("系统内部异常,异常信息: ", e);
-        return ResponseDTO.failed(CodeAndMessageEnum.FAIL);
+        return DimplesResponse.failed(CodeAndMessageEnum.FAIL);
     }
 
 }

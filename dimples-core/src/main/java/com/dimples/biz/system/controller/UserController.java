@@ -9,7 +9,7 @@ import com.dimples.core.controller.BaseController;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
 import com.dimples.core.transport.QueryRequest;
-import com.dimples.core.transport.ResponseDTO;
+import com.dimples.core.transport.DimplesResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,13 +48,13 @@ public class UserController extends BaseController {
     @ApiOperation(value = "增加用户", notes = "增加用户")
     @OpsLog(value = "增加用户", type = OpsLogTypeEnum.ADD)
     @PostMapping("/add")
-    public ResponseDTO add(@ApiParam(name = "user", value = "用户User对象", required = true) User user) {
+    public DimplesResponse add(@ApiParam(name = "user", value = "用户User对象", required = true) User user) {
         try {
             userService.add(user);
         } catch (Exception e) {
             throw new BizException(e.getMessage());
         }
-        return ResponseDTO.success();
+        return DimplesResponse.success();
     }
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
@@ -64,7 +64,7 @@ public class UserController extends BaseController {
     })
     @OpsLog(value = "用户注册", type = OpsLogTypeEnum.ADD)
     @PostMapping("register")
-    public ResponseDTO register(
+    public DimplesResponse register(
             @NotBlank(message = "{required}") String username,
             @NotBlank(message = "{required}") String password) throws BizException {
         User user = userService.findByName(username);
@@ -72,15 +72,15 @@ public class UserController extends BaseController {
             throw new BizException("该用户名已存在");
         }
         this.userService.register(username, password);
-        return ResponseDTO.success();
+        return DimplesResponse.success();
     }
 
     @ApiOperation(value = "用户查询", notes = "用户查询")
     @OpsLog(value = "分页查询用户", type = OpsLogTypeEnum.SELECT)
     @GetMapping("list")
-    public ResponseDTO userList(User user, QueryRequest request) {
+    public DimplesResponse userList(User user, QueryRequest request) {
         IPage<UserDetailDTO> userList = this.userService.findUserDetailList(user, request);
-        return ResponseDTO.success(userList);
+        return DimplesResponse.success(userList);
     }
 
 }

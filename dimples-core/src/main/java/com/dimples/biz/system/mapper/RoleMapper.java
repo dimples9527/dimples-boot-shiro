@@ -1,9 +1,12 @@
 package com.dimples.biz.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dimples.biz.system.po.Role;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -29,5 +32,14 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return List<Role>
      */
     List<Role> findByUserId(Long userId);
+
+    /**
+     * 查找角色详情
+     *
+     * @param page 分页
+     * @param role 角色
+     * @return IPage<User>
+     */
+    IPage<Role> findRolePage(@Param("page") Page<Role> page, @Param("role") Role role);
 
 }

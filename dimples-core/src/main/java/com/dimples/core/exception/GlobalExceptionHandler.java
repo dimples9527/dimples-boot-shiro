@@ -1,12 +1,11 @@
 package com.dimples.core.exception;
 
 import com.dimples.core.eunm.CodeAndMessageEnum;
-import com.dimples.core.transport.ResponseDTO;
+import com.dimples.core.transport.DimplesResponse;
 
 import org.apache.shiro.session.ExpiredSessionException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -26,9 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler extends BaseExceptionHandler {
 
     @ExceptionHandler(value = ExpiredSessionException.class)
-    public ResponseDTO handleExpiredSessionException(ExpiredSessionException e) {
+    public DimplesResponse handleExpiredSessionException(ExpiredSessionException e) {
         log.debug("ExpiredSessionException", e);
-        return ResponseDTO.failed(CodeAndMessageEnum.EXPIRED_SESSION.getCode(), e.getMessage());
+        return DimplesResponse.failed(CodeAndMessageEnum.EXPIRED_SESSION.getCode(), e.getMessage());
     }
 
 }

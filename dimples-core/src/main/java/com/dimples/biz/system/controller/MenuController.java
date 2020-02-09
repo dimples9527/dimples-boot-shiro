@@ -9,7 +9,7 @@ import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.controller.BaseController;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
-import com.dimples.core.transport.ResponseDTO;
+import com.dimples.core.transport.DimplesResponse;
 import com.wuwenze.poi.ExcelKit;
 
 import org.apache.commons.lang3.StringUtils;
@@ -52,48 +52,48 @@ public class MenuController extends BaseController {
     @ApiImplicitParam(name = "username", value = "用户名", paramType = "string", dataType = "path", required = true)
     @OpsLog(value = "获取用户菜单", type = OpsLogTypeEnum.SELECT)
     @GetMapping("{username}")
-    public ResponseDTO getUserMenus(@NotBlank(message = "{required}") @PathVariable String username) {
+    public DimplesResponse getUserMenus(@NotBlank(message = "{required}") @PathVariable String username) {
         User currentUser = getCurrentUser();
         if (!StringUtils.equalsIgnoreCase(username, currentUser.getUsername())) {
             throw new BizException("您无权获取别人的菜单");
         }
         MenuTreeDTO<Menu> userMenus = this.menuService.findUserMenus(username);
-        return ResponseDTO.success(userMenus);
+        return DimplesResponse.success(userMenus);
     }
 
     @ApiOperation(value = "获取菜单树", notes = "获取菜单树")
     @OpsLog(value = "获取菜单树", type = OpsLogTypeEnum.SELECT)
     @GetMapping("tree")
-    public ResponseDTO getMenuTree(Menu menu) {
+    public DimplesResponse getMenuTree(Menu menu) {
         MenuTreeDTO<Menu> menus = this.menuService.findMenus(menu);
-        return ResponseDTO.success(menus.getChilds());
+        return DimplesResponse.success(menus.getChilds());
     }
 
     @ApiOperation(value = "新增菜单/按钮", notes = "新增菜单/按钮")
     @OpsLog(value = "新增菜单/按钮", type = OpsLogTypeEnum.ADD)
     @PostMapping
     @RequiresPermissions("menu:add")
-    public ResponseDTO addMenu(@Valid Menu menu) {
+    public DimplesResponse addMenu(@Valid Menu menu) {
         this.menuService.createMenu(menu);
-        return ResponseDTO.success();
+        return DimplesResponse.success();
     }
 
     @ApiOperation(value = "删除菜单/按钮", notes = "删除菜单/按钮")
     @OpsLog(value = "删除菜单/按钮", type = OpsLogTypeEnum.ADD)
     @GetMapping("delete/{menuIds}")
     @RequiresPermissions("menu:delete")
-    public ResponseDTO deleteMenus(@NotBlank(message = "{required}") @PathVariable String menuIds) {
+    public DimplesResponse deleteMenus(@NotBlank(message = "{required}") @PathVariable String menuIds) {
         this.menuService.deleteMeuns(menuIds);
-        return ResponseDTO.success();
+        return DimplesResponse.success();
     }
 
     @ApiOperation(value = "修改菜单/按钮", notes = "修改菜单/按钮")
     @OpsLog(value = "修改菜单/按钮", type = OpsLogTypeEnum.ADD)
     @PostMapping("update")
     @RequiresPermissions("menu:update")
-    public ResponseDTO updateMenu(@Valid Menu menu) {
+    public DimplesResponse updateMenu(@Valid Menu menu) {
         this.menuService.updateMenu(menu);
-        return ResponseDTO.success();
+        return DimplesResponse.success();
     }
 
     @ApiOperation(value = "导出菜单Excel", notes = "导出菜单Excel")
