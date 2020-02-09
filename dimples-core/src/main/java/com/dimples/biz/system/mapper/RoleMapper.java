@@ -15,6 +15,14 @@ import java.util.List;
 public interface RoleMapper extends BaseMapper<Role> {
 
     /**
+     * 通过用户名查找用户角色
+     *
+     * @param username 用户名
+     * @return 用户角色集合
+     */
+    List<Role> findUserRole(String username);
+
+    /**
      * 根据用户id查询角色信息
      *
      * @param userId 用户id

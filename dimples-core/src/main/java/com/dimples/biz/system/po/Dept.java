@@ -14,7 +14,7 @@ import lombok.Data;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/2/5
+ * @date 2020/2/8
  */
 @ApiModel(value = "com-dimples-biz-system-po-Dept")
 @Data
@@ -58,10 +58,9 @@ public class Dept implements Serializable {
     /**
      * 同级顺序
      */
-    @TableField(value = "order_id")
+    @TableField(value = "order_num")
     @ApiModelProperty(value = "同级顺序")
-    private Long orderId;
+    private Long orderNum;
 
     private static final long serialVersionUID = 1L;
-
 }

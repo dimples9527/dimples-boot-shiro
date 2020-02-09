@@ -1,6 +1,10 @@
 package com.dimples.core.framework.shiro;
 
+import com.dimples.biz.system.po.Menu;
+import com.dimples.biz.system.po.Role;
 import com.dimples.biz.system.po.User;
+import com.dimples.biz.system.service.MenuService;
+import com.dimples.biz.system.service.RoleService;
 import com.dimples.biz.system.service.UserService;
 import com.dimples.core.eunm.CodeAndMessageEnum;
 
@@ -21,6 +25,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.annotation.Resource;
 
 /**
@@ -32,6 +40,10 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Resource
     private UserService userService;
+    @Resource
+    private MenuService menuService;
+    @Resource
+    private RoleService roleService;
 
     /**
      * 权限校验
@@ -45,8 +57,20 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
+        String userName = user.getUsername();
+
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        return null;
+
+        // 获取用户角色集
+        List<Role> roleList = this.roleService.findUserRole(userName);
+        Set<String> roleSet = roleList.stream().map(Role::getRoleName).collect(Collectors.toSet());
+        simpleAuthorizationInfo.setRoles(roleSet);
+
+        // 获取用户权限集
+        List<Menu> permissionList = this.menuService.findUserPermissions(userName);
+        Set<String> permissionSet = permissionList.stream().map(Menu::getPerms).collect(Collectors.toSet());
+        simpleAuthorizationInfo.setStringPermissions(permissionSet);
+        return simpleAuthorizationInfo;
     }
 
     /**
@@ -78,6 +102,17 @@ public class ShiroRealm extends AuthorizingRealm {
         session.setAttribute("username", username);
         return authenticationInfo;
     }
+
+    /**
+     * 清除当前用户权限缓存
+     * 使用方法：在需要清除用户权限的地方注入 ShiroRealm,
+     * 然后调用其 clearCache方法。
+     */
+    public void clearCache() {
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+        super.clearCache(principals);
+    }
+
 }
 
 

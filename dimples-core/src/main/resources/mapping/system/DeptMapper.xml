@@ -9,11 +9,11 @@
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_num" jdbcType="BIGINT" property="orderNum" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    dept_id, dept_name, create_date, modify_date, parent_id, order_id
+    dept_id, dept_name, create_date, modify_date, parent_id, order_num
   </sql>
 	<select id="findByUserId" resultMap="BaseResultMap">
 		select td.dept_id, td.dept_name, td.create_date, td.modify_date

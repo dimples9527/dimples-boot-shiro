@@ -1,4 +1,4 @@
-package com.dimples.biz.monitor.vo;
+package com.dimples.biz.monitor.dto;
 
 import com.dimples.biz.system.po.Dept;
 import com.dimples.biz.system.po.Role;
@@ -19,7 +19,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class StatisticVO {
+public class StatisticDTO {
 
     private Integer todayIp;
 

@@ -22,16 +22,16 @@ public class DeptTreeDTO<T> implements Serializable {
     private String href;
     private String name;
     private Map<String, Object> state;
-    private boolean checked = false;
+    private Boolean checked;
     private Map<String, Object> attributes;
     private List<DeptTreeDTO<T>> children;
     private String parentId;
-    private boolean hasParent = false;
-    private boolean hasChild = false;
+    private Boolean hasParent;
+    private Boolean hasChild;
 
     private Dept data;
 
-    public void initChildren(){
+    public void initChildren() {
         this.children = new ArrayList<>();
     }
 

@@ -20,5 +20,15 @@
 			     join db_dimples_shiro.tb_role tr on tru.role_id = tr.role_id
 		where tru.user_id = 4;
 	</select>
+	<select id="findUserRole" resultMap="BaseResultMap">
+		SELECT r.role_id,
+		       role_name,
+		       r.create_date,
+		       r.modify_date
+		FROM tb_role r
+			     LEFT JOIN tb_role_user ru ON (r.role_id = ru.role_id)
+			     LEFT JOIN tb_user u ON (u.user_id = ru.user_id)
+		WHERE u.username = #{username,jdbcType=VARCHAR}
+	</select>
 
 </mapper>

@@ -1,8 +1,15 @@
 package com.dimples.biz.system.controller;
 
+import com.dimples.biz.monitor.dto.StatisticDTO;
 import com.dimples.biz.monitor.service.LoginLogService;
+import com.dimples.biz.system.dto.UserDetailDTO;
+import com.dimples.biz.system.po.User;
+import com.dimples.biz.system.service.DeptService;
+import com.dimples.biz.system.service.RoleService;
+import com.dimples.biz.system.service.UserService;
 import com.dimples.biz.system.service.impl.ValidateCodeServiceImpl;
 import com.dimples.biz.web.constant.WebConstant;
+import com.dimples.biz.web.vo.IndexVO;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.controller.BaseController;
@@ -14,6 +21,7 @@ import com.dimples.core.util.MD5Util;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +32,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -46,12 +55,18 @@ public class LoginController extends BaseController {
     private RedisHelper redisHelper;
     private ValidateCodeServiceImpl validateCodeService;
     private LoginLogService loginLogService;
+    private RoleService roleService;
+    private DeptService deptService;
+    private UserService userService;
 
     @Autowired
-    public LoginController(RedisHelper redisHelper, ValidateCodeServiceImpl validateCodeService, LoginLogService loginLogService) {
+    public LoginController(RedisHelper redisHelper, ValidateCodeServiceImpl validateCodeService, LoginLogService loginLogService, RoleService roleService, DeptService deptService, UserService userService) {
         this.redisHelper = redisHelper;
         this.validateCodeService = validateCodeService;
         this.loginLogService = loginLogService;
+        this.roleService = roleService;
+        this.deptService = deptService;
+        this.userService = userService;
     }
 
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
@@ -89,6 +104,34 @@ public class LoginController extends BaseController {
     @GetMapping("/captcha")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         validateCodeService.create(request, response);
+    }
+
+    @GetMapping("index/{username}")
+    public ResponseDTO index(@NotBlank(message = "{required}") @PathVariable String username) {
+        log.info("============= 当前登陆用户：{} =============", username);
+        User user = new User();
+        user.setUsername(username);
+        // 先获取用户的登录信息
+        UserDetailDTO userDetail = userService.findUserDetailList(user).getRecords().get(0);
+        // 更新用户的上次登录时间
+        user.setUserId(userDetail.getUserId());
+        this.userService.updateLoginTime(user);
+        // 获取系统访问记录
+        StatisticDTO statistic = StatisticDTO.builder()
+                .totalVisitCount(loginLogService.count())
+                .todayIp(loginLogService.todayIp())
+                .todayVisitCount(loginLogService.todayVisitCount())
+                .build();
+        // 处理上一次登录时间显示
+        statistic.buildLastLoginTime(userDetail.getLastLoginTime());
+        // 获取角色信息
+        statistic.buildRole(roleService.findByUserId(userDetail.getUserId()));
+        // 获取部门信息
+        statistic.buildDept(deptService.findByUserId(userDetail.getUserId()));
+        // 获取近期系统访问记录
+
+        IndexVO build = IndexVO.builder().statistic(statistic).userDetail(userDetail).build();
+        return ResponseDTO.success(build);
     }
 
 }

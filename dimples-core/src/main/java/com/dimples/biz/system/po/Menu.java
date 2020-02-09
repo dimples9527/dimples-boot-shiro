@@ -14,17 +14,32 @@ import lombok.Data;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/2/5
+ * @date 2020/2/9
  */
 @ApiModel(value = "com-dimples-biz-system-po-Menu")
 @Data
 @TableName(value = "db_dimples_shiro.tb_menu")
 public class Menu implements Serializable {
+
     /**
-     * 菜单/按钮ID
+     * 菜单
+     */
+    public static final String TYPE_MENU = "0";
+    /**
+     * 按钮
+     */
+    public static final String TYPE_BUTTON = "1";
+
+    /**
+     * 顶级ID
+     */
+    public static final Long TOP_NODE = 0L;
+
+    /**
+     * 类型 0 菜单 1按钮
      */
     @TableId(value = "menu_id", type = IdType.AUTO)
-    @ApiModelProperty(value = "菜单/按钮ID")
+    @ApiModelProperty(value = "类型 0 菜单 1按钮")
     private Long menuId;
 
     /**

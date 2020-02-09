@@ -3,6 +3,9 @@ package com.dimples.biz.common.util;
 
 import com.dimples.biz.common.dto.DeptTreeDTO;
 import com.dimples.biz.common.dto.MenuTreeDTO;
+import com.dimples.biz.system.po.Dept;
+import com.dimples.biz.system.po.Menu;
+import com.dimples.core.constant.DimplesConstant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,7 +63,7 @@ public class TreeUtil {
         List<DeptTreeDTO<T>> result = new ArrayList<>();
         nodes.forEach(children -> {
             String pid = children.getParentId();
-            if (pid == null || "0".equals(pid)) {
+            if (pid == null || DimplesConstant.DEFAULT_ROOT.equals(pid)) {
                 result.add(children);
                 return;
             }
@@ -103,4 +106,45 @@ public class TreeUtil {
         });
         return topNodes;
     }
+
+    /**
+     * 将 List<Dept> 转换成 List<DeptTreeDTO<Dept>>
+     *
+     * @param deptList List<Dept>
+     * @return List<DeptTreeDTO < Dept>>
+     */
+    public static List<DeptTreeDTO<Dept>> convertDeptList(List<Dept> deptList) {
+        List<DeptTreeDTO<Dept>> trees = new ArrayList<>();
+        deptList.forEach(dept -> {
+            DeptTreeDTO<Dept> tree = new DeptTreeDTO<>();
+            tree.setId(String.valueOf(dept.getDeptId()));
+            tree.setParentId(String.valueOf(dept.getParentId()));
+            tree.setName(dept.getDeptName());
+            tree.setData(dept);
+            trees.add(tree);
+        });
+        return trees;
+    }
+
+    /**
+     * 将 List<Menu> 转换成 List<MenuTreeDTO<Menu>>
+     *
+     * @param menuList List<Dept>
+     * @return List<DeptTreeDTO < Dept>>
+     */
+    public static List<MenuTreeDTO<Menu>> convertMenus(List<Menu> menuList) {
+        List<MenuTreeDTO<Menu>> trees = new ArrayList<>();
+        menuList.forEach(menu -> {
+            MenuTreeDTO<Menu> tree = new MenuTreeDTO<>();
+            tree.setId(String.valueOf(menu.getMenuId()));
+            tree.setParentId(String.valueOf(menu.getParentId()));
+            tree.setTitle(menu.getMenuName());
+            tree.setIcon(menu.getIcon());
+            tree.setHref(menu.getPath());
+            tree.setData(menu);
+            trees.add(tree);
+        });
+        return trees;
+    }
+
 }

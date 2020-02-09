@@ -22,12 +22,12 @@ public class MenuTreeDTO<T> implements Serializable {
     private String href;
     private String title;
     private Map<String, Object> state;
-    private boolean checked = false;
+    private Boolean checked;
     private Map<String, Object> attributes;
     private List<MenuTreeDTO<T>> childs = new ArrayList<>();
     private String parentId;
-    private boolean hasParent = false;
-    private boolean hasChild = false;
+    private Boolean hasParent;
+    private Boolean hasChild;
 
     private Menu data;
 

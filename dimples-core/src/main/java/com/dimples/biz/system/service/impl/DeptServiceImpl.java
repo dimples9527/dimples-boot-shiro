@@ -1,17 +1,26 @@
 package com.dimples.biz.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dimples.biz.common.dto.DeptTreeDTO;
 import com.dimples.biz.common.util.TreeUtil;
 import com.dimples.biz.system.mapper.DeptMapper;
 import com.dimples.biz.system.po.Dept;
 import com.dimples.biz.system.service.DeptService;
+import com.dimples.core.constant.DimplesConstant;
+import com.dimples.core.transport.QueryRequest;
+import com.dimples.core.util.SortUtil;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,23 +45,74 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     @Override
     public List<DeptTreeDTO<Dept>> findDeptList() {
         List<Dept> deptList = this.baseMapper.selectList(new QueryWrapper<>());
-        List<DeptTreeDTO<Dept>> trees = this.convertDeptList(deptList);
+        List<DeptTreeDTO<Dept>> trees = TreeUtil.convertDeptList(deptList);
         return TreeUtil.buildDeptTree(trees);
     }
 
-    private List<DeptTreeDTO<Dept>> convertDeptList(List<Dept> depts) {
-        List<DeptTreeDTO<Dept>> trees = new ArrayList<>();
-        depts.forEach(dept -> {
-            DeptTreeDTO<Dept> tree = new DeptTreeDTO<>();
-            tree.setId(String.valueOf(dept.getDeptId()));
-            tree.setParentId(String.valueOf(dept.getParentId()));
-            tree.setName(dept.getDeptName());
-            tree.setData(dept);
-            trees.add(tree);
-        });
-        return trees;
+    @Override
+    public List<DeptTreeDTO<Dept>> findDeptList(Dept dept) {
+        QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(dept.getDeptName())) {
+            queryWrapper.lambda().eq(Dept::getDeptName, dept.getDeptName());
+        }
+        queryWrapper.lambda().orderByAsc(Dept::getOrderNum);
+        List<Dept> deptList = this.baseMapper.selectList(queryWrapper);
+        List<DeptTreeDTO<Dept>> trees = TreeUtil.convertDeptList(deptList);
+        return TreeUtil.buildDeptTree(trees);
     }
+
+    @Override
+    public List<Dept> findDeptList(Dept dept, QueryRequest request) {
+        QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(dept.getDeptName())) {
+            queryWrapper.lambda().eq(Dept::getDeptName, dept.getDeptName());
+        }
+        SortUtil.handleWrapperSort(request, queryWrapper, "orderNum", DimplesConstant.ORDER_ASC, true);
+        return this.baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public void insertDept(Dept dept) {
+        Long parentId = dept.getParentId();
+        if (parentId == null) {
+            dept.setParentId(0L);
+        }
+        dept.setCreateDate(new Date());
+        this.save(dept);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteDeptList(String[] deptIds) {
+        this.delete(Arrays.asList(deptIds));
+    }
+
+    /**
+     * 删除部门树
+     *
+     * @param deptIds 部门id 集合
+     */
+    private void delete(List<String> deptIds) {
+        removeByIds(deptIds);
+
+        LambdaQueryWrapper<Dept> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.in(Dept::getParentId, deptIds);
+        List<Dept> depts = baseMapper.selectList(queryWrapper);
+        if (CollectionUtils.isNotEmpty(depts)) {
+            List<String> deptIdList = new ArrayList<>();
+            depts.forEach(d -> deptIdList.add(String.valueOf(d.getDeptId())));
+            this.delete(deptIdList);
+        }
+    }
+
+    @Override
+    public void updateDept(Dept dept) {
+        dept.setModifyDate(new Date());
+        this.baseMapper.updateById(dept);
+    }
+
 }
+
 
 
 

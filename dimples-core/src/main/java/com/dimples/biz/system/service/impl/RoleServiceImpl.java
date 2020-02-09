@@ -7,7 +7,6 @@ import com.dimples.biz.system.po.Role;
 import com.dimples.biz.system.service.RoleService;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,16 +18,14 @@ import java.util.List;
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
-    private RoleMapper roleMapper;
-
-    @Autowired
-    public RoleServiceImpl(RoleMapper roleMapper) {
-        this.roleMapper = roleMapper;
+    @Override
+    public List<Role> findUserRole(String username) {
+        return this.baseMapper.findUserRole(username);
     }
 
     @Override
     public List<Role> findByUserId(Long userId) {
-        return roleMapper.findByUserId(userId);
+        return this.baseMapper.findByUserId(userId);
     }
 
 

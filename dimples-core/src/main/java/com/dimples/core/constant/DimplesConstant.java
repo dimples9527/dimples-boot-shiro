@@ -39,4 +39,8 @@ public class DimplesConstant {
      */
     public static final String ASYNC_POOL = "dimplesAsyncThreadPool";
 
+    /**
+     * 默认父节点id
+     */
+    public static final String DEFAULT_ROOT = "0";
 }

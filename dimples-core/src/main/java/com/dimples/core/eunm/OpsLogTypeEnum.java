@@ -68,6 +68,10 @@ public enum OpsLogTypeEnum {
     /**
      * 测试
      */
-    TEST
+    TEST,
+    /**
+     * 导出
+     */
+    EXPORT
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/2/5
+ * @date 2020/2/8
  */
 @Mapper
 public interface DeptMapper extends BaseMapper<Dept> {
