@@ -16,11 +16,6 @@
 
 - [https://github.com/wuyouzhuguli/FEBS-Shiro](https://github.com/wuyouzhuguli/FEBS-Shiro)
 
-#### 致谢
-
-本项目的完成多是参考[鸟哥](https://github.com/wuyouzhuguli/FEBS-Shiro)作品。算起来也不算自己原生完成的，只是在
-完成的过程中加强自己的理解，并加上一些自己希望整合的东西，为自己做记录。
-
 #### 功能模块
 
 ```
@@ -43,6 +38,11 @@
 |  ├─高德地图
 │  └─影视资讯
 ```
+
+#### 致谢
+
+本项目的完成多是参考[wuyouzhuguli](https://github.com/wuyouzhuguli/FEBS-Shiro)作品。算起来也不算自己原生完成的，只是在
+完成的过程中加强自己的理解，并加上一些自己希望整合的东西，为自己做记录。
 
    
    
