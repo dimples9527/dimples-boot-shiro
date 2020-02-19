@@ -1,185 +1,185 @@
-<html lang="zh">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-  <meta name="author" content="dimples">
-  <title>用户管理</title>
-  <!-- lay ui css -->
-  <link href="../../../static/component/layui/css/layui.css" rel="stylesheet">
-  <!-- 自定义 css -->
-  <link rel="stylesheet" href="../../../static/dimples/css/dimples.css"/>
-  <style>
-    .layui-table-cell .layui-form-checkbox[lay-skin=primary] {
-      top: 5px;
-    }
-  </style>
+	<meta charset="utf-8">
+	<meta name="viewport"
+				content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<meta name="author" content="dimples">
+	<title>用户管理</title>
+	<!-- lay ui css -->
+	<link th:href="@{/component/layui/css/layui.css}" rel="stylesheet">
+	<!-- 自定义 css -->
+	<link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
+	<style>
+		.layui-table-cell .layui-form-checkbox[lay-skin=primary] {
+			top: 6px;
+		}
+	</style>
 </head>
 <body>
 <!-- 内容 -->
 <div class="dimples-layout-web">
-  <div class="dimples-layout-container">
+	<div class="dimples-layout-container">
 
-    <!--页面主要内容-->
-    <main class="dimples-layout-content">
-      <div class="container-fluid">
-        <div class="row">
-          <!-- 主页内容 -->
-          <div class="layui-fluid layui-anim dimples-anim" id="dimples-user">
-            <div class="layui-row dimples-container">
-              <div class="layui-col-md12">
-                <div class="layui-card">
-                  <div class="layui-card-body dimples-table-full">
-                    <!-- 顶部筛选栏 -->
-                    <form class="layui-form layui-table-form"
-                          lay-filter="user-table-form">
-                      <div class="layui-row">
-                        <div class="layui-col-md10">
-                          <div class="layui-form-item">
-                            <div class="layui-inline">
-                              <label class="layui-form-label layui-form-label-sm">用户名</label>
-                              <div class="layui-input-inline">
-                                <label>
-                                  <input type="text"
-                                         name="username"
-                                         autocomplete="off"
-                                         class="layui-input">
-                                </label>
-                              </div>
-                            </div>
-                            <div class="layui-inline">
-                              <label class="layui-form-label layui-form-label-sm">创建时间</label>
-                              <div class="layui-input-inline">
-                                <label for="user-createDate"></label><input
-                                      type="text"
-                                      name="createDate"
-                                      id="user-createDate"
-                                      class="layui-input">
-                              </div>
-                            </div>
-                            <div class="layui-inline">
-                              <label class="layui-form-label layui-form-label-sm">状态</label>
-                              <div class="layui-input-inline">
-                                <label>
-                                  <select name="status">
-                                    <option value=""></option>
-                                    <option value="0">禁用
-                                    </option>
-                                    <option value="1">有效
-                                    </option>
-                                  </select>
-                                </label>
-                              </div>
-                            </div>
-                            <div class="layui-inline">
-                              <label class="layui-form-label layui-form-label-sm">手机</label>
-                              <div class="layui-input-inline">
-                                <label>
-                                  <input type="text"
-                                         name="mobile"
-                                         autocomplete="off"
-                                         class="layui-input">
-                                </label>
-                              </div>
-                            </div>
-                            <div class="layui-inline">
-                              <label class="layui-form-label layui-form-label-sm">部门</label>
-                              <div class="layui-input-inline">
-                                <label for="dept"></label><input
-                                      type="text"
-                                      name="dept" id="dept"
-                                      lay-filter="dept"
-                                      class="layui-input">
-                              </div>
-                            </div>
-                            <div class="layui-inline">
-                              <label class="layui-form-label layui-form-label-sm">性别</label>
-                              <div class="layui-input-inline">
-                                <label>
-                                  <select name="sex">
-                                    <option value=""></option>
-                                    <option value="0">男
-                                    </option>
-                                    <option value="1">女
-                                    </option>
-                                    <option value="2">保密
-                                    </option>
-                                  </select>
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
-                          <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
-                               id="query">
-                            <i class="layui-icon">&#xe848;</i>
-                          </div>
-                          <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
-                               id="reset">
-                            <i class="layui-icon">&#xe79b;</i>
-                          </div>
-                          <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
-                            <i class="layui-icon">&#xe875;</i>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                    <!-- 表格 -->
-                    <table id="userTable" lay-filter="userTable"
-                           lay-data="{id: 'userTable'"></table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-    <!--End 页面主要内容-->
+		<!--页面主要内容-->
+		<main class="dimples-layout-content">
+			<div class="container-fluid">
+				<div class="row">
+					<!-- 主页内容 -->
+					<div class="layui-fluid layui-anim dimples-anim" id="dimples-user">
+						<div class="layui-row dimples-container">
+							<div class="layui-col-md12">
+								<div class="layui-card">
+									<div class="layui-card-body dimples-table-full">
+										<!-- 顶部筛选栏 -->
+										<form class="layui-form layui-table-form"
+													lay-filter="user-table-form">
+											<div class="layui-row">
+												<div class="layui-col-md10">
+													<div class="layui-form-item">
+														<div class="layui-inline">
+															<label class="layui-form-label layui-form-label-sm">用户名</label>
+															<div class="layui-input-inline">
+																<label>
+																	<input type="text"
+																				 name="username"
+																				 autocomplete="off"
+																				 class="layui-input">
+																</label>
+															</div>
+														</div>
+														<div class="layui-inline">
+															<label class="layui-form-label layui-form-label-sm">创建时间</label>
+															<div class="layui-input-inline">
+																<label for="user-createDate"></label><input
+																			type="text"
+																			name="createDate"
+																			id="user-createDate"
+																			class="layui-input">
+															</div>
+														</div>
+														<div class="layui-inline">
+															<label class="layui-form-label layui-form-label-sm">状态</label>
+															<div class="layui-input-inline">
+																<label>
+																	<select name="status">
+																		<option value=""></option>
+																		<option value="0">禁用
+																		</option>
+																		<option value="1">有效
+																		</option>
+																	</select>
+																</label>
+															</div>
+														</div>
+														<div class="layui-inline">
+															<label class="layui-form-label layui-form-label-sm">手机</label>
+															<div class="layui-input-inline">
+																<label>
+																	<input type="text"
+																				 name="mobile"
+																				 autocomplete="off"
+																				 class="layui-input">
+																</label>
+															</div>
+														</div>
+														<div class="layui-inline">
+															<label class="layui-form-label layui-form-label-sm">部门</label>
+															<div class="layui-input-inline">
+																<label for="dept"></label><input
+																			type="text"
+																			name="dept" id="dept"
+																			lay-filter="dept"
+																			class="layui-input">
+															</div>
+														</div>
+														<div class="layui-inline">
+															<label class="layui-form-label layui-form-label-sm">性别</label>
+															<div class="layui-input-inline">
+																<label>
+																	<select name="sex">
+																		<option value=""></option>
+																		<option value="0">男
+																		</option>
+																		<option value="1">女
+																		</option>
+																		<option value="2">保密
+																		</option>
+																	</select>
+																</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+													<div class="layui-btn layui-btn-sm layui-btn-primary table-action"
+															 id="query">
+														<i class="layui-icon">&#xe848;</i>
+													</div>
+													<div class="layui-btn layui-btn-sm layui-btn-primary table-action"
+															 id="reset">
+														<i class="layui-icon">&#xe79b;</i>
+													</div>
+													<div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
+														<i class="layui-icon">&#xe875;</i>
+													</div>
+												</div>
+											</div>
+										</form>
+										<!-- 表格 -->
+										<table id="userTable" lay-filter="userTable"
+													 lay-data="{id: 'userTable'"></table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!--End 页面主要内容-->
 
-  </div>
+	</div>
 </div>
 <!-- 用户状态 -->
 <script type="text/html" id="user-status">
-  {{#
-  var status = {
-  1: {title: '有效', color: 'green'},
-  0: {title: '禁用', color: 'volcano'}
-  }[d.status];
-  }}
-  <span class="layui-badge dimples-tag-{{status.color}}">{{ status.title }}</span>
+	{{#
+	var status = {
+	1: {title: '有效', color: 'green'},
+	0: {title: '禁用', color: 'volcano'}
+	}[d.status];
+	}}
+	<span class="layui-badge dimples-tag-{{status.color}}">{{ status.title }}</span>
 </script>
 <!-- 性别 -->
 <script type="text/html" id="user-sex">
-  {{#
-  var gender = {
-  2: {title: '保密'},
-  1: {title: '女'},
-  0: {title: '男'}
-  }[d.gender];
-  }}
-  <span>{{ gender.title }}</span>
+	{{#
+	var gender = {
+	2: {title: '保密'},
+	1: {title: '女'},
+	0: {title: '男'}
+	}[d.gender];
+	}}
+	<span>{{ gender.title }}</span>
 </script>
 <!-- 用户操作 -->
 <script type="text/html" id="user-option">
-  <a lay-event="detail"><i
-          class="layui-icon dimples-edit-area dimples-green">&#xe7a5;</i></a>
-  <a lay-event="edit"><i
-          class="layui-icon dimples-edit-area dimples-blue">&#xe7a4;</i></a>
-  <a lay-event="del"><i
-          class="layui-icon dimples-edit-area dimples-red">&#xe7f9;</i></a>
+	<a lay-event="detail"><i
+					class="layui-icon dimples-edit-area dimples-green">&#xe7a5;</i></a>
+	<a lay-event="edit"><i
+					class="layui-icon dimples-edit-area dimples-blue">&#xe7a4;</i></a>
+	<a lay-event="del"><i
+					class="layui-icon dimples-edit-area dimples-red">&#xe7f9;</i></a>
 </script>
 </body>
 <!-- lay ui js -->
-<script type="text/javascript" src="../../../static/component/layui/layui.js"></script>
+<script type="text/javascript" th:src="@{/component/layui/layui.js}"></script>
 <!-- 页面处理 -->
 <script type="text/javascript">
     layui.extend({
-        xmSelect: '/dimples-shiro-web/static/component/layui/lay/extends/xm-select',
-        dimples: '/dimples-shiro-web/static/component/layui/lay/extends/dimples',
-        treeSelect: '/dimples-shiro-web/static/component/layui/lay/extends/treeSelect',
-    }).use(['table', 'laydate', 'layer', 'xmSelect', 'dimples', 'dropdown', 'treeSelect'], function () {
+        xmSelect: '/component/layui/lay/extends/dimples/xm-select',
+        treeSelect: '/component/layui/lay/extends/dimples/treeSelect',
+        dropdown: '/component/layui/lay/extends/dimples/dropdown'
+    }).use(['jquery', 'table', 'laydate', 'layer', 'xmSelect', 'dropdown', 'treeSelect'], function () {
         let $ = layui.jquery,
             laydate = layui.laydate,
             layer = layui.layer,
@@ -187,7 +187,6 @@
             form = layui.form,
             dropdown = layui.dropdown,
             xmSelect = layui.xmSelect,
-            dimples = layui.dimples,
             treeSelect = layui.treeSelect;
         let
             $view = $('#dimples-user'),
@@ -200,46 +199,67 @@
             createTimeTo;
 
         form.render();
-        //表格渲染
-        initTable();
-
-        /**
-         * 初始化表格
-         */
-        function initTable() {
-            tableIns = dimples.table.init({
-                elem: $view.find('table'),
-                id: 'userTable',
-                url: '../../../api/table.json',
-                cols: [
-                    [
-                        {type: 'checkbox'},
-                        {field: 'username', title: '用户名', minWidth: 100},
-                        {title: '性别', templet: '#user-sex'},
-                        {field: 'deptName', title: '部门'},
-                        {field: 'mobile', title: '手机', minWidth: 165},
-                        {field: 'email', title: '邮箱', minWidth: 180},
-                        {title: '状态', templet: '#user-status'},
-                        {field: 'createDate', title: '创建时间', minWidth: 180, sort: true},
-                        {title: '操作', toolbar: '#user-option', minWidth: 140}
-                    ]
-                ]
-            });
-        }
-
-        treeSelect.render({
-            elem: $view.find('#dept'),
-            type: 'get',
-            data: '../../../api/dept.json',
-            placeholder: '请选择',
-            search: false
-        });
-
         // 渲染日期控件
         laydate.render({
             elem: '#user-createDate',
             range: true,
             trigger: 'click'
+        });
+
+        //表格渲染
+        initTable({
+            elem: $view.find('table'),
+            id: 'userTable',
+            url: '/user/list',
+            cols: [
+                [
+                    {type: 'checkbox'},
+                    {field: 'username', title: '用户名', minWidth: 100},
+                    {title: '性别', templet: '#user-sex'},
+                    {field: 'deptName', title: '部门'},
+                    {field: 'mobile', title: '手机', minWidth: 165},
+                    {field: 'email', title: '邮箱', minWidth: 180},
+                    {title: '状态', templet: '#user-status'},
+                    {field: 'createDate', title: '创建时间', minWidth: 180, sort: true},
+                    {title: '操作', toolbar: '#user-option', minWidth: 140}
+                ]
+            ]
+        });
+
+        /**
+         * 初始化表格
+         */
+        function initTable(params) {
+            var defaultSetting = {
+                cellMinWidth: 80,
+                page: true,
+                skin: 'line',
+                limit: 10,
+                limits: [5, 10, 20, 30, 40, 100],
+                autoSort: false,
+                request: {
+                    pageName: 'pageNum',
+                    limitName: 'pageSize'
+                },
+                parseData: function (res) {
+                    return {
+                        "code": res.code == 200 ? 0 : res.code,
+                        "count": res.data.total,
+                        "data": res.data.records
+                    }
+                }
+            };
+            return table.render(
+                $.extend({}, defaultSetting, params)
+            );
+        }
+
+        treeSelect.render({
+            elem: $view.find('#dept'),
+            type: 'get',
+            data: '/dept/select/tree',
+            placeholder: '请选择',
+            search: false
         });
 
         /* 更多操作下拉框 */
@@ -248,7 +268,7 @@
             click: function (name, elem, event) {
                 let checkStatus = table.checkStatus('userTable');
                 if (name === 'add') {
-                    openModelHtml('新增用户', 'view/system/userAdd.html');
+                    openModelHtml('新增用户', '/web/sys/user/add');
                 }
                 if (name === 'delete') {
                     if (!checkStatus.data.length) {
@@ -344,7 +364,10 @@
         });
 
         $query.on('click', function () {
-            let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+            let params = $.extend(getQueryParams(), {
+                field: sortObject.field,
+                order: sortObject.type
+            });
             tableIns.reload({where: params, page: {curr: 1}});
         });
 

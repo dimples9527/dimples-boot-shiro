@@ -15,8 +15,8 @@ public class WebConstant {
 
     public static final String LOGIN = "login";
     public static final String INDEX = "index";
-    public static final String USER = "user";
-    public static final String USER_ADD = VIEW_PREFIX + "system/user/userAdd";
+    public static final String USER = VIEW_PREFIX + "system/user";
+    public static final String USER_ADD = VIEW_PREFIX + "system/userAdd";
     public static final String ERROR_403 = VIEW_PREFIX + "error/403";
     public static final String ERROR_404 = VIEW_PREFIX + "error/404";
     public static final String ERROR_500 = VIEW_PREFIX + "error/500";

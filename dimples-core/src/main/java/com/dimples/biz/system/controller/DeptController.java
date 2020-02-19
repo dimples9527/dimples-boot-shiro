@@ -50,9 +50,9 @@ public class DeptController {
     @ApiOperation(value = "获取部门树", notes = "获取部门树")
     @OpsLog(value = "获取部门树", type = OpsLogTypeEnum.SELECT)
     @GetMapping("select/tree")
-    public DimplesResponse getDeptTree() {
+    public List<DeptTreeDTO<Dept>> getDeptTree() {
         List<DeptTreeDTO<Dept>> deptList = this.deptService.findDeptList();
-        return DimplesResponse.success(deptList);
+        return deptList;
     }
 
     @ApiOperation(value = "根据条件获取部门树", notes = "根据条件获取部门树")

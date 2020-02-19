@@ -292,7 +292,7 @@ layui.define(function (exports) {
             // private properties
             var tab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
                 pad = '=', // default pad according with the RFC standard
-                url = false, // URL encoding support @todo
+                url = false, // URL encoding support @
                 utf8 = true; // by default enable UTF-8 support encoding
 
             // public method for encoding
