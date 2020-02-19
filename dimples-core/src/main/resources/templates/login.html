@@ -5,16 +5,114 @@
 	<meta name="viewport"
 				content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 	<title>Dimples 后台管理系统</title>
-	<link rel="icon" th:href="@{/images/favicon.ico}" type="image/ico">
+	<link rel="icon" th:href="@{/dimples/images/favicon.ico}" type="image/ico">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport"
 				content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<!-- 外部样式 -->
-	<link th:href="@{/layui/css/layui.css}" rel="stylesheet">
-	<link th:href="@{/dimples/css/dimples/dimples.css}" rel="stylesheet">
-	<link th:href="@{/dimples/css/dimples/login.css}" rel="stylesheet">
+	<link th:href="@{/component/layui/css/layui.css}" rel="stylesheet">
+	<link th:href="@{/dimples/css/dimples.css}" rel="stylesheet">
+	<style>
+		#dimples-login {
+			background-size: 100% 100%;
+			background: #f0f2f5 url("/dimples/images/background.png");
+			height: 100%;
+			width: 100%;
+			position: fixed;
+			padding-top: 1px;
+			margin-top: -1px;
+		}
+
+		#dimples-login .layui-logo {
+			user-select: none;
+			overflow: hidden;
+			position: static;
+			font-size: 27px;
+			width: 100%;
+			padding: 0;
+			line-height: 120px;
+			height: 120px;
+			color: #3491ff;
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			transition: height .8s cubic-bezier(0.075, 0.82, 0.165, 1)
+		}
+
+		#dimples-login .layui-logo span {
+			font-weight: 600;
+			color: rgba(0, 0, 0, .85);
+			border-bottom: 1px solid #3491ff
+		}
+
+		#dimples-login .layui-logo span b {
+			color: #3491ff
+		}
+
+		#dimples-login .login-wrap {
+			position: relative;
+			top: 50%;
+			margin-top: -290px;
+			height: 540px
+		}
+
+		#dimples-login .layui-form {
+			overflow: hidden;
+			background: #fff;
+			padding: 40px 40px 20px;
+			border-radius: 0;
+			box-shadow: 1px 3px 3px #ccc;
+			position: relative
+		}
+
+		#dimples-login .layui-form-item {
+			position: relative
+		}
+
+		#dimples-login .layui-input {
+			text-indent: 26px
+		}
+
+		#dimples-login .code-img {
+			margin-left: 10px;
+			cursor: pointer
+		}
+
+		#dimples-login .houseimg img {
+			display: inline-block;
+			margin-top: 5%
+		}
+
+		#dimples-login .login-type-tab {
+			margin-bottom: 20px;
+			overflow: hidden
+		}
+
+		#dimples-login .login-type-tab li {
+			display: inline-block;
+			padding-right: 20px;
+			font-size: 16px;
+			line-height: 30px;
+			color: #bbb;
+			cursor: pointer;
+			transition: color .5s ease
+		}
+
+		#dimples-login .login-type-tab li.active {
+			color: #333
+		}
+
+		#dimples-login .layui-form-item .label-icon {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 38px;
+			line-height: 38px;
+			text-align: center;
+			color: #d2d2d2 !important
+		}
+
+	</style>
 </head>
 
 <body>
@@ -23,7 +121,7 @@
 		<div class="layui-container">
 			<div class="layui-row">
 				<div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4 dimples-tc">
-					<div class="layui-logo"><span><b>DIMPLES</b> 管理系统</span></div>
+					<div class="layui-logo"><span><b>DIMPLES</b></span></div>
 				</div>
 				<!-- 用户登陆 -->
 				<div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4" id="login-div">
@@ -62,9 +160,8 @@
 										</div>
 										<div class="layui-col-xs5">
 											<img class="code-img" id="code-img" alt=""
-													 th:src="@{/sys/captcha}" src="/images/captcha.png"
-													 onclick="this.src=this.src+'?d='+Math.random();"
-													 title="点击刷新"/>
+													 th:src="@{/sys/captcha}"
+													 title="点击刷新" src="../static/dimples/images/captcha.png"/>
 										</div>
 									</div>
 								</div>
@@ -147,30 +244,28 @@
 </div>
 </body>
 <!-- lay ui -->
-<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/component/layui/layui.js}"></script>
 <script type="text/javascript">
-    layui.extend({
-        validate: '/dimples/lay/modules/validate'
-    }).use(['form', 'layer', 'validate'], function (form, layer) {
+    layui.use(['form', 'layer'], function (form, layer) {
         let $ = layui.jquery,
-            validate = layui.validate,
             $view = $('#dimples-login'),
             type = 'login',
             $loginDiv = $view.find('#login-div'),
             $registerDiv = $view.find('#register-div');
-
-        form.verify(validate);
-        form.render();
-        initCode();
 
         //提交登录表单
         form.on('submit(login-submit)', function (data) {
             let loading = $(this).find('.layui-icon');
             if (loading.is(":visible")) return;
             loading.show();
+            // 将用户名缓存
+            let username = $('input[name=username]').val();
+            layui.data('currentUser', {
+                key: 'username', value: username
+            });
             $.post('/sys/login', data.field, function (r) {
                 if (r.code === 200) {
-                    location.href = '/web/index/' + data.field.username;
+                    location.href = '/web/sys/index';
                 } else {
                     layer.msg(r.message);
                     loading.hide();

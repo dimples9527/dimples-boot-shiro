@@ -140,7 +140,7 @@ public class TreeUtil {
             tree.setParentId(String.valueOf(menu.getParentId()));
             tree.setTitle(menu.getMenuName());
             tree.setIcon(menu.getIcon());
-            tree.setHref(menu.getPath());
+            tree.setHref(menu.getHref());
             tree.setData(menu);
             trees.add(tree);
         });

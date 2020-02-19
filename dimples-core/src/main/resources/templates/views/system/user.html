@@ -1,0 +1,426 @@
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+  <meta name="author" content="dimples">
+  <title>用户管理</title>
+  <!-- lay ui css -->
+  <link href="../../../static/component/layui/css/layui.css" rel="stylesheet">
+  <!-- 自定义 css -->
+  <link rel="stylesheet" href="../../../static/dimples/css/dimples.css"/>
+  <style>
+    .layui-table-cell .layui-form-checkbox[lay-skin=primary] {
+      top: 5px;
+    }
+  </style>
+</head>
+<body>
+<!-- 内容 -->
+<div class="dimples-layout-web">
+  <div class="dimples-layout-container">
+
+    <!--页面主要内容-->
+    <main class="dimples-layout-content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- 主页内容 -->
+          <div class="layui-fluid layui-anim dimples-anim" id="dimples-user">
+            <div class="layui-row dimples-container">
+              <div class="layui-col-md12">
+                <div class="layui-card">
+                  <div class="layui-card-body dimples-table-full">
+                    <!-- 顶部筛选栏 -->
+                    <form class="layui-form layui-table-form"
+                          lay-filter="user-table-form">
+                      <div class="layui-row">
+                        <div class="layui-col-md10">
+                          <div class="layui-form-item">
+                            <div class="layui-inline">
+                              <label class="layui-form-label layui-form-label-sm">用户名</label>
+                              <div class="layui-input-inline">
+                                <label>
+                                  <input type="text"
+                                         name="username"
+                                         autocomplete="off"
+                                         class="layui-input">
+                                </label>
+                              </div>
+                            </div>
+                            <div class="layui-inline">
+                              <label class="layui-form-label layui-form-label-sm">创建时间</label>
+                              <div class="layui-input-inline">
+                                <label for="user-createDate"></label><input
+                                      type="text"
+                                      name="createDate"
+                                      id="user-createDate"
+                                      class="layui-input">
+                              </div>
+                            </div>
+                            <div class="layui-inline">
+                              <label class="layui-form-label layui-form-label-sm">状态</label>
+                              <div class="layui-input-inline">
+                                <label>
+                                  <select name="status">
+                                    <option value=""></option>
+                                    <option value="0">禁用
+                                    </option>
+                                    <option value="1">有效
+                                    </option>
+                                  </select>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="layui-inline">
+                              <label class="layui-form-label layui-form-label-sm">手机</label>
+                              <div class="layui-input-inline">
+                                <label>
+                                  <input type="text"
+                                         name="mobile"
+                                         autocomplete="off"
+                                         class="layui-input">
+                                </label>
+                              </div>
+                            </div>
+                            <div class="layui-inline">
+                              <label class="layui-form-label layui-form-label-sm">部门</label>
+                              <div class="layui-input-inline">
+                                <label for="dept"></label><input
+                                      type="text"
+                                      name="dept" id="dept"
+                                      lay-filter="dept"
+                                      class="layui-input">
+                              </div>
+                            </div>
+                            <div class="layui-inline">
+                              <label class="layui-form-label layui-form-label-sm">性别</label>
+                              <div class="layui-input-inline">
+                                <label>
+                                  <select name="sex">
+                                    <option value=""></option>
+                                    <option value="0">男
+                                    </option>
+                                    <option value="1">女
+                                    </option>
+                                    <option value="2">保密
+                                    </option>
+                                  </select>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                          <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
+                               id="query">
+                            <i class="layui-icon">&#xe848;</i>
+                          </div>
+                          <div class="layui-btn layui-btn-sm layui-btn-primary table-action"
+                               id="reset">
+                            <i class="layui-icon">&#xe79b;</i>
+                          </div>
+                          <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more">
+                            <i class="layui-icon">&#xe875;</i>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    <!-- 表格 -->
+                    <table id="userTable" lay-filter="userTable"
+                           lay-data="{id: 'userTable'"></table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!--End 页面主要内容-->
+
+  </div>
+</div>
+<!-- 用户状态 -->
+<script type="text/html" id="user-status">
+  {{#
+  var status = {
+  1: {title: '有效', color: 'green'},
+  0: {title: '禁用', color: 'volcano'}
+  }[d.status];
+  }}
+  <span class="layui-badge dimples-tag-{{status.color}}">{{ status.title }}</span>
+</script>
+<!-- 性别 -->
+<script type="text/html" id="user-sex">
+  {{#
+  var gender = {
+  2: {title: '保密'},
+  1: {title: '女'},
+  0: {title: '男'}
+  }[d.gender];
+  }}
+  <span>{{ gender.title }}</span>
+</script>
+<!-- 用户操作 -->
+<script type="text/html" id="user-option">
+  <a lay-event="detail"><i
+          class="layui-icon dimples-edit-area dimples-green">&#xe7a5;</i></a>
+  <a lay-event="edit"><i
+          class="layui-icon dimples-edit-area dimples-blue">&#xe7a4;</i></a>
+  <a lay-event="del"><i
+          class="layui-icon dimples-edit-area dimples-red">&#xe7f9;</i></a>
+</script>
+</body>
+<!-- lay ui js -->
+<script type="text/javascript" src="../../../static/component/layui/layui.js"></script>
+<!-- 页面处理 -->
+<script type="text/javascript">
+    layui.extend({
+        xmSelect: '/dimples-shiro-web/static/component/layui/lay/extends/xm-select',
+        dimples: '/dimples-shiro-web/static/component/layui/lay/extends/dimples',
+        treeSelect: '/dimples-shiro-web/static/component/layui/lay/extends/treeSelect',
+    }).use(['table', 'laydate', 'layer', 'xmSelect', 'dimples', 'dropdown', 'treeSelect'], function () {
+        let $ = layui.jquery,
+            laydate = layui.laydate,
+            layer = layui.layer,
+            table = layui.table,
+            form = layui.form,
+            dropdown = layui.dropdown,
+            xmSelect = layui.xmSelect,
+            dimples = layui.dimples,
+            treeSelect = layui.treeSelect;
+        let
+            $view = $('#dimples-user'),
+            $query = $view.find('#query'),
+            sortObject = {field: 'createDate', type: null},
+            $reset = $view.find('#reset'),
+            $searchForm = $view.find('form'),
+            tableIns,
+            createTimeFrom,
+            createTimeTo;
+
+        form.render();
+        //表格渲染
+        initTable();
+
+        /**
+         * 初始化表格
+         */
+        function initTable() {
+            tableIns = dimples.table.init({
+                elem: $view.find('table'),
+                id: 'userTable',
+                url: '../../../api/table.json',
+                cols: [
+                    [
+                        {type: 'checkbox'},
+                        {field: 'username', title: '用户名', minWidth: 100},
+                        {title: '性别', templet: '#user-sex'},
+                        {field: 'deptName', title: '部门'},
+                        {field: 'mobile', title: '手机', minWidth: 165},
+                        {field: 'email', title: '邮箱', minWidth: 180},
+                        {title: '状态', templet: '#user-status'},
+                        {field: 'createDate', title: '创建时间', minWidth: 180, sort: true},
+                        {title: '操作', toolbar: '#user-option', minWidth: 140}
+                    ]
+                ]
+            });
+        }
+
+        treeSelect.render({
+            elem: $view.find('#dept'),
+            type: 'get',
+            data: '../../../api/dept.json',
+            placeholder: '请选择',
+            search: false
+        });
+
+        // 渲染日期控件
+        laydate.render({
+            elem: '#user-createDate',
+            range: true,
+            trigger: 'click'
+        });
+
+        /* 更多操作下拉框 */
+        dropdown.render({
+            elem: $view.find('.action-more'),
+            click: function (name, elem, event) {
+                let checkStatus = table.checkStatus('userTable');
+                if (name === 'add') {
+                    openModelHtml('新增用户', 'view/system/userAdd.html');
+                }
+                if (name === 'delete') {
+                    if (!checkStatus.data.length) {
+                        dimples.alert.warn('请选择需要删除的用户');
+                    } else {
+                        dimples.modal.confirm('删除用户', '确定删除该用户？', function () {
+                            let userIds = [];
+                            layui.each(checkStatus.data, function (key, item) {
+                                userIds.push(item.userId)
+                            });
+                            deleteUsers(userIds.join(','));
+                        });
+                    }
+                }
+                if (name === 'reset') {
+                    if (!checkStatus.data.length) {
+                        dimples.alert.warn('请选择需要重置密码的用户');
+                    } else {
+                        let usernameArr = [];
+                        layui.each(checkStatus.data, function (key, item) {
+                            usernameArr.push(item.username)
+                        });
+                        dimples.post(ctx + 'user/password/reset/' + usernameArr.join(','), null, function () {
+                            dimples.alert.success('所选用户密码已重置为1234qwer');
+                        });
+                    }
+                }
+                if (name === 'export') {
+                    let params = $.extend(getQueryParams(), {
+                        field: sortObject.field,
+                        order: sortObject.type
+                    });
+                    params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
+                    params.pageNum = $view.find(".layui-laypage-em").next().html();
+                    dimples.download(ctx + 'user/excel', params, '用户信息表.xlsx');
+                }
+            },
+            options: [{
+                name: 'add',
+                title: '新增用户',
+                perms: 'user:add'
+            }, {
+                name: 'delete',
+                title: '删除用户',
+                perms: 'user:delete'
+            }, {
+                name: 'reset',
+                title: '密码重置',
+                perms: 'user:password:reset'
+            }, {
+                name: 'export',
+                title: '导出Excel',
+                perms: 'user:export'
+            }]
+        });
+
+        table.on('tool(userTable)', function (obj) {
+            let data = obj.data,
+                layEvent = obj.event;
+            if (layEvent === 'detail') {
+                dimples.modal.view('用户信息', 'system/user/detail/' + data.username, {
+                    area: $(window).width() <= 750 ? '95%' : '660px'
+                });
+            }
+            if (layEvent === 'del') {
+                dimples.modal.confirm('删除用户', '确定删除该用户？', function () {
+                    deleteUsers(data.userId);
+                });
+            }
+            if (layEvent === 'edit') {
+                dimples.modal.open('修改用户', 'system/user/update/' + data.username, {
+                    area: $(window).width() <= 750 ? '90%' : '50%',
+                    btn: ['提交', '取消'],
+                    yes: function (index, layero) {
+                        $('#user-update').find('#submit').trigger('click');
+                    },
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+                });
+            }
+        });
+
+        table.on('sort(userTable)', function (obj) {
+            sortObject = obj;
+            tableIns.reload({
+                initSort: obj,
+                where: $.extend(getQueryParams(), {
+                    field: obj.field,
+                    order: obj.type
+                })
+            });
+        });
+
+        $query.on('click', function () {
+            let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+            tableIns.reload({where: params, page: {curr: 1}});
+        });
+
+        $reset.on('click', function () {
+            $searchForm[0].reset();
+            xmSelect.revokeNode('dept');
+            sortObject.type = 'null';
+            createTimeTo = null;
+            createTimeFrom = null;
+            tableIns.reload({where: getQueryParams(), page: {curr: 1}, initSort: sortObject});
+        });
+
+        /**
+         * 删除用户点击事件
+         * @param userIds
+         */
+        function deleteUsers(userIds) {
+            let currentUserId = currentUser.userId + '';
+            if (('' + userIds).split(',').indexOf(currentUserId) !== -1) {
+                dimples.alert.warn('所选用户包含当前登录用户，无法删除');
+                return;
+            }
+            dimples.get(ctx + 'user/delete/' + userIds, null, function () {
+                dimples.alert.success('删除用户成功');
+                $query.click();
+            });
+        }
+
+        /**
+         * 获取查询参数
+         * @returns {{invalidate_ie_cache: Date, createTimeTo: *, createTimeFrom: (*|string), sex: *, mobile: *, deptId: *, username: *, status: *}}
+         */
+        function getQueryParams() {
+            let createTime = $searchForm.find('input[name="createDate"]').val();
+            if (createTime) {
+                createTimeFrom = createTime.split(' - ')[0];
+                createTimeTo = createTime.split(' - ')[1];
+            }
+            return {
+                createTimeFrom: createTimeFrom,
+                createTimeTo: createTimeTo,
+                username: $searchForm.find('input[name="username"]').val().trim(),
+                status: $searchForm.find("select[name='status']").val(),
+                sex: $searchForm.find("select[name='sex']").val(),
+                mobile: $searchForm.find("input[name='mobile']").val().trim(),
+                deptId: $searchForm.find("input[name='dept']").val().trim(),
+                invalidate_ie_cache: new Date()
+            };
+        }
+
+        let openModelHtml = function (title, url) {
+            parent.layer.open({
+                type: 2,
+                title: title,
+                area: [$(window).width() <= 750 ? '95%' : '65%', $(window).height() <= 350 ? '95%' : '92%'],
+                offset: '10px',
+                shadeClose: true,
+                maxmin: true,
+                anim: 0,
+                skin: 'layui-layer-admin-page',
+                content: url,
+            });
+
+        };
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

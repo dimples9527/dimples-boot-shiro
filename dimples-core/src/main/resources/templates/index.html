@@ -1,429 +1,127 @@
+<!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport"
-				content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-	<title>首页 - Dimples后台管理系统</title>
-	<link rel="icon" th:href="@{/images/favicon.ico}" type="image/ico">
-	<meta name="keywords" content="Dimples 后台管理系统">
-	<meta name="description" content="Dimples是一个基于SpringBoot的后台管理系统。">
-	<meta name="author" content="dimples">
-	<link th:href="@{/dimples/css/bootstrap.min.css}" rel="stylesheet">
-	<link th:href="@{/dimples/css/materialdesignicons.min.css}" rel="stylesheet">
-	<link th:href="@{/dimples/css/style.min.css}" rel="stylesheet">
-	<link th:href="@{/layui/css/layui.css}" rel="stylesheet">
-	<link th:href="@{/dimples/css/dimples/common.css}" rel="stylesheet">
-	<link th:href="@{/dimples/css/dimples/index.css}" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>DIMPLES后台管理</title>
+	<link rel="icon" th:href="@{/dimples/images/favicon.ico}" type="image/ico">
+	<link rel="stylesheet" th:href="@{/component/layui/css/layui.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/pearMenu.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/pearTab.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/pearTheme.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/pearLoad.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/pearFrame.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/pearAdmin.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/pearSocial.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
+	<style id="pearone-bg-color">
+		/** 自 定 义 主 题 */
+	</style>
+	<style>
+		.layui-nav-item .layui-nav-child.dimples-nav-child {
+			top: 60px;
+		}
+	</style>
 </head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin pear-admin">
 
-<body>
-<div class="dimples-layout-web">
-	<div class="dimples-layout-container">
-		<!--左侧导航-->
-		<aside th:fragment="sidebar-fragment" class="dimples-layout-sidebar">
+	<div class="layui-header">
+		<ul class="layui-nav layui-layout-left">
+			<!-- 侧菜单按钮 -->
+			<li class="collaspe layui-nav-item"><a href="#"
+																						 class="layui-icon layui-icon-shrink-right dimples-zoom-tool"></a>
+			</li>
+			<!-- 刷新按钮 -->
+			<li class="refresh layui-nav-item"><a href="#" class="layui-icon layui-icon-refresh-1"></a>
+			</li>
+		</ul>
+		<div id="control" class="layui-layout-control"></div>
+		<ul class="layui-nav layui-layout-right">
+			<!-- 全屏 -->
+			<li class="layui-nav-item layui-hide-xs"><a href="#"
+																									class="fullScreen layui-icon layui-icon-screen-full"></a>
+			</li>
+			<!-- 消息提醒 -->
+			<li class="layui-nav-item layui-hide-xs"><a href="#"
+																									class="notice layui-icon layui-icon-notice"><span
+							class="layui-badge-dot"></span></a></li>
 
-			<!-- logo -->
-			<div id="logo" class="sidebar-header">
-				<a th:href="@{/web/index}"><img src="images/logo-sidebar.png"
-																				th:src="@{/images/logo-sidebar.png}"
-																				title="DimplesSystem"
-																				alt="DimplesSystem"/></a>
-			</div>
-			<div class="dimples-layout-sidebar-scroll">
+			<!-- 主题切换 -->
+			<li class="setting layui-nav-item"><a href="#"
+																						class="layui-icon layui-icon-theme layui-icon-more-vertical"></a>
+			</li>
 
-				<nav class="sidebar-main">
-					<ul class="nav nav-drawer">
-						<li class="nav-item active"><a th:href="@{/web/index}"><i
-										class="mdi mdi-home"></i> 系统首页</a></li>
-						<li class="nav-item nav-item-has-subnav">
-							<a href="javascript:void(0)"><i
-											class="mdi mdi-account-settings-variant"></i> 系统管理</a>
-							<ul class="nav nav-subnav">
-								<li><a th:href="@{/web/user}" href="#">用户管理</a></li>
-								<li><a href="#">角色管理</a></li>
-								<li><a href="#">菜单管理</a></li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-has-subnav">
-							<a href="javascript:void(0)"><i
-											class="mdi mdi-format-align-justify"></i> 系统监控</a>
-							<ul class="nav nav-subnav">
-								<li><a href="#">在线用户</a></li>
-								<li><a href="#">登录日志</a></li>
-								<li><a href="#">Redis监控</a></li>
-								<li><a th:href="@{/druid}" target="_blank" href="#">Druid监控</a></li>
-								<li><a th:href="@{/doc.html}" target="_blank" href="#">Swagger文档</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-has-subnav">
-							<a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i>
-								任务调度</a>
-							<ul class="nav nav-subnav">
-								<li><a href="#">定时任务</a></li>
-								<li><a href="#">调度日志</a></li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-has-subnav">
-							<a href="javascript:void(0)"><i class="mdi mdi-unity"></i>
-								其它模块</a>
-							<ul class="nav nav-subnav">
-								<li><a href="#">七牛云存储</a></li>
-								<li><a href="#">天气查询</a></li>
-								<li><a href="#">影视资讯</a></li>
-								<li><a href="#">高德地图</a></li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
-
-				<div class="sidebar-footer">
-					<p class="copyright">Copyright &copy; 2020
-						<a target="_blank" href="http://github.com/dimples822">GitHub</a></p>
-				</div>
-			</div>
-
-		</aside>
-		<!--End 左侧导航-->
-		<!--头部信息-->
-		<header th:fragment="header-fragment" class="dimples-layout-header">
-
-			<nav class="navbar navbar-default">
-				<div class="topbar">
-
-					<div class="topbar-left">
-						<div class="dimples-aside-toggler">
-							<span class="dimples-toggler-bar"></span>
-							<span class="dimples-toggler-bar"></span>
-							<span class="dimples-toggler-bar"></span>
-						</div>
-						<span class="navbar-page-title"> 系统首页 </span>
-					</div>
-
-					<ul class="topbar-right">
-						<!-- 登陆用户展示 -->
-						<li class="dropdown dropdown-profile">
-							<a href="javascript:void(0)" data-toggle="dropdown">
-								<img class="img-avatar img-avatar-48 m-r-10"
-										 src="images/users/avatar.png"
-										 th:src="@{/images/users/avatar.png}" th:alt="${user.username}"
-										 alt="Dimples"/>
-								<span id="header-username" th:text="${user.username}">Dimples <span
-												class="caret"></span></span>
-							</a>
-							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a href="#"><i
-												class="mdi mdi-account"></i> 个人信息</a></li>
-								<li><a href="#"><i
-												class="mdi mdi-lock-outline"></i> 修改密码</a></li>
-								<li><a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a>
-								</li>
-								<li class="divider"></li>
-								<li><a th:href="@{/sys/logout}"><i
-												class="mdi mdi-logout-variant"></i> 退出登录</a></li>
-							</ul>
-						</li>
-						<!--切换主题配色-->
-						<li class="dropdown dropdown-skin">
-                            <span data-toggle="dropdown" class="icon-palette"><i
-																		class="mdi mdi-palette"></i></span>
-							<ul class="dropdown-menu dropdown-menu-right"
-									data-stopPropagation="true">
-								<li class="drop-title"><p>主题</p></li>
-								<li class="drop-skin-li clearfix">
-                  <span class="inverse">
-                    <input type="radio" name="site_theme" value="default" id="site_theme_1" checked>
-                    <label for="site_theme_1"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="site_theme" value="dark" id="site_theme_2">
-                    <label for="site_theme_2"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="site_theme" value="translucent" id="site_theme_3">
-                    <label for="site_theme_3"></label>
-                  </span>
-								</li>
-								<li class="drop-title"><p>LOGO</p></li>
-								<li class="drop-skin-li clearfix">
-                  <span class="inverse">
-                    <input type="radio" name="logo_bg" value="default" id="logo_bg_1" checked>
-                    <label for="logo_bg_1"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="logo_bg" value="color_2" id="logo_bg_2">
-                    <label for="logo_bg_2"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="logo_bg" value="color_3" id="logo_bg_3">
-                    <label for="logo_bg_3"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="logo_bg" value="color_4" id="logo_bg_4">
-                    <label for="logo_bg_4"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="logo_bg" value="color_5" id="logo_bg_5">
-                    <label for="logo_bg_5"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="logo_bg" value="color_6" id="logo_bg_6">
-                    <label for="logo_bg_6"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="logo_bg" value="color_7" id="logo_bg_7">
-                    <label for="logo_bg_7"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="logo_bg" value="color_8" id="logo_bg_8">
-                    <label for="logo_bg_8"></label>
-                  </span>
-								</li>
-								<li class="drop-title"><p>头部</p></li>
-								<li class="drop-skin-li clearfix">
-                  <span class="inverse">
-                    <input type="radio" name="header_bg" value="default" id="header_bg_1" checked>
-                    <label for="header_bg_1"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="header_bg" value="color_2" id="header_bg_2">
-                    <label for="header_bg_2"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="header_bg" value="color_3" id="header_bg_3">
-                    <label for="header_bg_3"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="header_bg" value="color_4" id="header_bg_4">
-                    <label for="header_bg_4"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="header_bg" value="color_5" id="header_bg_5">
-                    <label for="header_bg_5"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="header_bg" value="color_6" id="header_bg_6">
-                    <label for="header_bg_6"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="header_bg" value="color_7" id="header_bg_7">
-                    <label for="header_bg_7"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="header_bg" value="color_8" id="header_bg_8">
-                    <label for="header_bg_8"></label>
-                  </span>
-								</li>
-								<li class="drop-title"><p>侧边栏</p></li>
-								<li class="drop-skin-li clearfix">
-                  <span class="inverse">
-                    <input type="radio" name="sidebar_bg" value="default" id="sidebar_bg_1" checked>
-                    <label for="sidebar_bg_1"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="sidebar_bg" value="color_2" id="sidebar_bg_2">
-                    <label for="sidebar_bg_2"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="sidebar_bg" value="color_3" id="sidebar_bg_3">
-                    <label for="sidebar_bg_3"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="sidebar_bg" value="color_4" id="sidebar_bg_4">
-                    <label for="sidebar_bg_4"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="sidebar_bg" value="color_5" id="sidebar_bg_5">
-                    <label for="sidebar_bg_5"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="sidebar_bg" value="color_6" id="sidebar_bg_6">
-                    <label for="sidebar_bg_6"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="sidebar_bg" value="color_7" id="sidebar_bg_7">
-                    <label for="sidebar_bg_7"></label>
-                  </span>
-									<span>
-                    <input type="radio" name="sidebar_bg" value="color_8" id="sidebar_bg_8">
-                    <label for="sidebar_bg_8"></label>
-                  </span>
-								</li>
-							</ul>
-						</li>
-						<!--切换主题配色-->
-					</ul>
-
-				</div>
-			</nav>
-
-		</header>
-		<!--End 头部信息-->
-
-		<!--页面主要内容-->
-		<main class="dimples-layout-content">
-
-			<div class="container-fluid">
-
-				<!-- 欢迎信息 -->
-				<div class="row">
-					<div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
-						<div class="layui-card">
-							<div class="layui-card-body layui-anim layui-anim-fadein">
-								<div class="layui-row welcome-info">
-									<div class="layui-col-md6 layui-col-sm12 layui-col-xs12">
-										<div class="layui-row welcome-info-wrapper">
-											<div class="user-header">
-												<img alt="头像" id="user-avatar"
-														 data-th-src="@{/images/users/avatar.png}"
-														 src="">
-											</div>
-											<div class="user-info">
-												<div class="layui-row">
-													<div class="random-message">
-                                                        <span id="welcome-message">晚上好，
-                                                            <a id="dimples-index-user"
-																															 th:text="${user.username}">zhongyj</a>，今天帮助别人了吗
-                                                        </span>
-													</div>
-													<div class="user-dept">
-                                                        <span id="user-dept"
-																															th:text="${statistic.dept}">暂无所属部门</span>
-														|
-														<span id="user-role"
-																	th:text="${statistic.role}">暂无角色</span>
-													</div>
-													<div class="user-login-info">
-														上次登录时间：
-														<span id="last-login-time"
-																	th:text="${statistic.lastLoginTime}">第一次访问系统</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="layui-col-md6 layui-col-sm12 layui-col-xs12">
-										<div class="layui-col-md-offset5">
-											<table class="login-count-table">
-												<tr>
-													<td>今日IP</td>
-													<td>今日访问</td>
-													<td>总访问量</td>
-												</tr>
-												<tr>
-													<td class="count" id="today-ip"
-															th:text="${statistic.todayIp} == null ? '0' : ${statistic.todayIp}">
-														0
-													</td>
-													<td class="count" id="today-visit-count"
-															th:text="${statistic.todayVisitCount}">
-														0
-													</td>
-													<td class="count" id="total-visit-count"
-															th:text="${statistic.totalVisitCount}">
-														0
-													</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- 图表展示 -->
-				<div class="row">
-
-					<div class="col-lg-6">
-						<div class="card">
-							<div class="card-header">
-								<h4>每月用户</h4>
-							</div>
-							<div class="card-body">
-								<canvas class="js-chartjs-lines"></canvas>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-6">
-						<div class="card">
-							<div class="card-header">
-								<h4>暂无</h4>
-							</div>
-							<div class="card-body">
-								<canvas class="js-chartjs-bars"></canvas>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-
-		</main>
-		<!--End 页面主要内容-->
+			<!-- 个人中心 -->
+			<li class="layui-nav-item">
+				<a href="javascript:void(0)">
+					<!-- 个人头像 -->
+					<img id="dimples-user-avatar" src="/dimples/images/avatar/default.jpg"
+							 class="layui-nav-img" alt="" th:src="${user.avatar}">
+					<span small-mobile id="header-username" th:text="${user.username}">DIMPLES</span>
+				</a>
+				<dl class="layui-nav-child dimples-nav-child" style="text-align: center;">
+					<dd><a href="javascript:void(0)" class="site-demo-active"
+								 data-url="views/system/personal.html"
+								 data-title="个人资料"
+								 data-id="1221234215" data-icon="layui-icon layui-icon-username"><i
+									class="fa fa-address-card-o"></i>&nbsp;&nbsp;个人资料</a>
+					</dd>
+					<dd><a href="javascript:void(0)" id="changePassword"><i class="fa fa-cog fa-fw"></i>&nbsp;&nbsp;修改密码</a>
+					</dd>
+					<dd><a href="javascript:void(0)" id="logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;退出登录</a>
+					</dd>
+				</dl>
+			</li>
+		</ul>
 	</div>
+
+	<!-- 侧菜单 -->
+	<div class="layui-side layui-bg-black">
+		<!-- 侧菜单logo -->
+		<div class="layui-logo">
+			<img src="/dimples/images/logo.png" th:src="@{/dimples/images/logo.png}" alt="Logo"/>
+		</div>
+		<div class="layui-side-scroll">
+			<div id="sideMenu"></div>
+		</div>
+	</div>
+
+	<div class="layui-body">
+		<div id="content"></div>
+	</div>
+
 </div>
 
-<script type="text/javascript" th:src="@{/dimples/js/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/dimples/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/dimples/js/perfect-scrollbar.min.js}"></script>
-<script type="text/javascript" th:src="@{/dimples/js/main.min.js}"></script>
-<!--图表插件-->
-<script type="text/javascript" th:src="@{/dimples/js/Chart.js}"></script>
-<!-- 自定义js -->
-<script type="text/javascript" th:src="@{/dimples/js/dimples/index.js}"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
+<div class="preloader">
+	<div class="preloader-inner"></div>
+</div>
 
-        /* 生成用户信息 */
-        let username = $("#header-username").text();
-        console.log("当前登陆用户：" + username);
-        index.welcomeMsg(username);
-        let $dashChartBarsCnt = jQuery('.js-chartjs-bars')[0].getContext('2d'),
-            $dashChartLinesCnt = jQuery('.js-chartjs-lines')[0].getContext('2d');
+<!-- 通讯按钮 -->
+<!--<div id="adminSocial"></div>-->
 
-        let $dashChartBarsData = {
-            labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-            datasets: [
-                {
-                    label: '暂无',
-                    borderWidth: 1,
-                    borderColor: 'rgba(0,0,0,0)',
-                    backgroundColor: 'rgba(51,202,185,0.5)',
-                    hoverBackgroundColor: "rgba(51,202,185,0.7)",
-                    hoverBorderColor: "rgba(0,0,0,0)",
-                    data: [2500, 1500, 1200, 3200, 4800, 3500, 1500]
-                }
-            ]
-        };
-        let $dashChartLinesData = {
-            labels: ['2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014'],
-            datasets: [
-                {
-                    label: '登录用户',
-                    data: [20, 25, 40, 30, 45, 40, 55, 40, 48, 40, 42, 50],
-                    borderColor: '#358ed7',
-                    backgroundColor: 'rgba(53, 142, 215, 0.175)',
-                    borderWidth: 1,
-                    fill: false,
-                    lineTension: 0.5
-                }
-            ]
+<script th:src="@{/component/layui/layui.js}"></script>
+
+<script>
+
+    layui.use(['pearAdmin', 'jquery'], function () {
+        let $ = layui.jquery;
+        var pearAdmin = layui.pearAdmin;
+
+        /** Pear Admin 框 架 初 始 化 */
+        var config = {
+            keepLoad: 600,                          // 主 页 加 载 过 度 时 长
+            muiltTab: true,                         // 是 否 开 启 多 标 签 页 true 开启 false 关闭
+            control: false,                         // 是 否 开 启 多 系 统 菜 单 true 开启 false 关闭
+            theme: "dark-theme",                    // 默 认 主 题 样 式 dark-theme 默认主题 light-theme 亮主题
+            index: '/web/console',   							  // 默 认 加 载 主 页
+            data: '/menu/' + layui.data('currentUser').username           // 菜 单 数 据 加 载 地 址
         };
 
-        new Chart($dashChartBarsCnt, {
-            type: 'bar',
-            data: $dashChartBarsData
-        });
+        pearAdmin.render(config);
 
-        let myLineChart = new Chart($dashChartLinesCnt, {
-            type: 'line',
-            data: $dashChartLinesData,
-        });
-    });
+    })
+
 </script>
 </body>
 </html>

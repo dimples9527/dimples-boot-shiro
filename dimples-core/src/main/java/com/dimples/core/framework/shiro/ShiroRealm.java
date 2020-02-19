@@ -100,8 +100,7 @@ public class ShiroRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(password), getName());
         Session session = SecurityUtils.getSubject().getSession();
         session.setAttribute("username", username);
-        return authenticationInfo;
-    }
+        return authenticationInfo;     }
 
     /**
      * 清除当前用户权限缓存

@@ -9,11 +9,10 @@ import java.util.List;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/2/9
+ * @date 2020/2/18
  */
 @Mapper
 public interface MenuMapper extends BaseMapper<Menu> {
-
     /**
      * 查找用户权限集
      *

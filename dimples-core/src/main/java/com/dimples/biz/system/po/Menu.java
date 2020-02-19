@@ -12,15 +12,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/2/9
- */
 @ApiModel(value = "com-dimples-biz-system-po-Menu")
 @Data
 @TableName(value = "db_dimples_shiro.tb_menu")
 public class Menu implements Serializable {
-
     /**
      * 菜单
      */
@@ -29,12 +24,10 @@ public class Menu implements Serializable {
      * 按钮
      */
     public static final String TYPE_BUTTON = "1";
-
     /**
      * 顶级ID
      */
     public static final Long TOP_NODE = 0L;
-
     /**
      * 类型 0 菜单 1按钮
      */
@@ -59,9 +52,9 @@ public class Menu implements Serializable {
     /**
      * 对应路由path
      */
-    @TableField(value = "path")
+    @TableField(value = "href")
     @ApiModelProperty(value = "对应路由path")
-    private String path;
+    private String href;
 
     /**
      * 对应路由组件component
@@ -96,7 +89,7 @@ public class Menu implements Serializable {
      */
     @TableField(value = "order_num")
     @ApiModelProperty(value = "排序")
-    private Double orderNum;
+    private Integer orderNum;
 
     /**
      * 创建时间

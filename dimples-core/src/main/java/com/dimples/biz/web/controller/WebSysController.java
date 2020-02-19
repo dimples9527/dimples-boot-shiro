@@ -1,7 +1,12 @@
 package com.dimples.biz.web.controller;
 
+import com.dimples.biz.system.dto.UserDetailDTO;
+import com.dimples.biz.system.po.User;
+import com.dimples.biz.system.service.UserService;
 import com.dimples.biz.web.constant.WebConstant;
+import com.dimples.core.controller.BaseController;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +21,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("web/sys")
-public class WebSysController {
+public class WebSysController extends BaseController {
+
+    private UserService userService;
+
+    @Autowired
+    public WebSysController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("login")
     public ModelAndView login() {
@@ -25,7 +37,11 @@ public class WebSysController {
 
     @GetMapping("index")
     public ModelAndView index() {
-        return new ModelAndView(WebConstant.INDEX);
+        ModelAndView view = new ModelAndView(WebConstant.INDEX);
+        User user = getCurrentUser();
+        UserDetailDTO userDetail = userService.findUserDetailList(user).getRecords().get(0);
+        view.addObject("user", userDetail);
+        return view;
     }
 
     @GetMapping("user")

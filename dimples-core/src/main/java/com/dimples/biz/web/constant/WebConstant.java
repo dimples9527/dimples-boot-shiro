@@ -11,7 +11,7 @@ public class WebConstant {
     /**
      * 前端页面路径前缀
      */
-    public static final String VIEW_PREFIX = "dimples/views/";
+    public static final String VIEW_PREFIX = "views/";
 
     public static final String LOGIN = "login";
     public static final String INDEX = "index";
@@ -21,4 +21,5 @@ public class WebConstant {
     public static final String ERROR_404 = VIEW_PREFIX + "error/404";
     public static final String ERROR_500 = VIEW_PREFIX + "error/500";
 
+    public static final String CONSOLE = VIEW_PREFIX + "console/console";
 }

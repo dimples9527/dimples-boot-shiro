@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>系统首页</title>
+	<link rel="stylesheet" th:href="@{/component/layui/css/layui.css}"/>
+	<link rel="stylesheet" th:href="@{/component/font-awesome-4.7.0/css/font-awesome.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/dimplesReset.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
+
+	<style>
+		.avatar {
+			width: 100px;
+			height: 100px;
+			border-radius: 100px;
+			margin: 10px 10px 10px 35px;
+		}
+
+		#info {
+			margin-top: 5px;
+		}
+
+		#info .info-title {
+
+			opacity: 0.8;
+			font-size: 18px;
+		}
+
+		#info .info-content {
+			margin-top: 20px;
+			font-size: 13px;
+			color: gray;
+		}
+
+		.card {
+			width: 100%;
+			height: 160px;
+			background-color: whitesmoke;
+			border-radius: 5px;
+
+		}
+
+		.card .header .avatar {
+			width: 25px;
+			height: 25px;
+			margin: 20px;
+		}
+
+		.card .header {
+			color: dimgray;
+		}
+
+		.card .body {
+			color: gray;
+		}
+
+		.card .body {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+
+		.card .footer {
+			margin-left: 20px;
+			margin-right: 20px;
+			margin-top: 20px;
+			font-size: 13px;
+			color: gray;
+			position: absolute;
+
+		}
+
+		.card:hover {
+			box-shadow: 0 0 5px darkgray;
+			background-color: white;
+		}
+
+		.list .list-item {
+			height: 40px;
+			line-height: 40px;
+			color: gray;
+			padding: 5px 5px 5px 15px;
+			border-radius: 3px;
+		}
+
+		.list .list-item:hover {
+			background-color: whitesmoke;
+		}
+
+
+		.list .list-item .title {
+			font-size: 14px;
+			width: 100%;
+		}
+
+		.list .list-item .footer {
+			position: absolute;
+			right: 30px;
+			font-size: 12px;
+		}
+
+		/* 统计量样式 */
+		#dimples-index-header {
+			margin: 5px;
+		}
+
+		#dimples-index-header .login-count-table {
+			width: 100%;
+			margin: 1rem;
+		}
+
+		#dimples-index-header .login-count-table .count {
+			padding-top: .8rem;
+			font-size: 1rem;
+			font-weight: 600;
+			color: #1890ff;
+		}
+
+		#dimples-index-header .welcome-info {
+			border: 1px solid #f1f1f1;
+			padding: .5rem;
+		}
+
+	</style>
+
+</head>
+<body style="background-color: whitesmoke;" class="layui-anim layui-anim-upbit">
+<div class="layui-card" id="dimples-index-header">
+	<div class="layui-card-body">
+		<div class="layui-row welcome-info">
+			<div class="layui-col-md2 layui-col-xs4 layui-hide-xs">
+				<img th:src="@{/dimples/images/avatar/default.jpg}" style="box-shadow:2px 0 10px gray;"
+						 class="avatar" alt="" src="" id="dimples-content-avatar">
+			</div>
+			<div class="layui-col-md6 layui-col-xs12">
+				<div id="info">
+					<h3 class="info-title">晚上好，就眠仪式，休息一会儿吧 !</h3>
+					<div class="info-content">
+						<span id="dimples-user-dept">前端工程师</span> |
+						<span id="dimples-user-role">软件二部</span>
+					</div>
+					<div class="info-content">
+						<span>上次登录时间：<span id="dimples-last-login-time">
+								2020年02月18日 23时26分50秒
+						</span></span>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md4 layui-col-xs4 layui-hide-xs">
+				<div class="layui-col-md-offset5">
+					<table class="login-count-table">
+						<tr>
+							<td>今日IP</td>
+							<td>今日访问</td>
+							<td>总访问量</td>
+						</tr>
+						<tr>
+							<td class="count" id="today-ip">
+								0
+							</td>
+							<td class="count" id="today-visit-count">
+								0
+							</td>
+							<td class="count" id="total-visit-count">
+								0
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+</div>
+
+<div class="layui-pearone-container layui-row layui-col-space10" style="margin:5px">
+
+	<!-- 左边 -->
+	<div class="layui-col-md9 layui-row" style="padding: 0 5px 0 0">
+		<div class="layui-col-md12">
+			<div class="layui-card">
+				<div class="layui-card-header">我的项目</div>
+				<div class="layui-card-body">
+					<div class="layui-row layui-col-space10">
+						<div class="layui-col-md4">
+							<div class="card">
+								<div class="header">
+									<img class="avatar" th:src="@{/dimples/images/avatar/default.jpg}" alt="" src=""/><span
+												class="title">PearOne</span>
+								</div>
+								<div class="body">
+									城镇中有那么多的酒馆，她却偏偏走进了我的酒馆
+								</div>
+								<div class="footer">9小时前</div>
+							</div>
+						</div>
+						<div class="layui-col-md4">
+							<div class="card">
+								<div class="header">
+									<img class="avatar" th:src="@{/dimples/images/avatar/default.jpg}" alt="" src=""/><span
+												class="title">Angular</span>
+								</div>
+								<div class="body">
+									希望是一个好东西，也许是最好的，好东西是不会消亡
+								</div>
+								<div class="footer">9小时前</div>
+							</div>
+						</div>
+						<div class="layui-col-md4">
+							<div class="card">
+								<div class="header">
+									<img class="avatar" th:src="@{/dimples/images/avatar/default.jpg}" alt="" src=""/><span
+												class="title">Vue</span>
+								</div>
+								<div class="body">
+									生命就像一盒巧克力，结果往往出人意料
+								</div>
+								<div class="footer">9小时前</div>
+							</div>
+						</div>
+						<div class="layui-col-md4">
+							<div class="card">
+								<div class="header">
+									<img class="avatar" th:src="@{/dimples/images/avatar/default.jpg}" alt="" src=""/><span
+												class="title">BootStrap</span>
+								</div>
+								<div class="body">
+									一切都在不可避免的走向庸俗
+								</div>
+								<div class="footer">9小时前</div>
+							</div>
+						</div>
+						<div class="layui-col-md4">
+							<div class="card">
+								<div class="header">
+									<img class="avatar" th:src="@{/dimples/images/avatar/default.jpg}" alt="" src=""/><span
+												class="title">Ant Design</span>
+								</div>
+								<div class="body">
+									你要是愿意，我就永远爱你，你要是不愿意，我就永远相思
+								</div>
+								<div class="footer">9小时前</div>
+							</div>
+						</div>
+						<div class="layui-col-md4">
+							<div class="card">
+								<div class="header">
+									<img class="avatar" th:src="@{/dimples/images/avatar/default.jpg}" alt="" src=""/><span
+												class="title">Jmys</span>
+								</div>
+								<div class="body">
+									在所谓'人世间'摸爬滚打至今，我唯一愿意是为真理的，一切都会过去
+								</div>
+								<div class="footer">9小时前</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 右边 -->
+	<div class="layui-col-md3" style="padding: 0">
+		<!-- 版本信息 -->
+		<div class="layui-card">
+			<div class="layui-card-header">版本信息</div>
+			<div class="layui-card-body">
+				<table class="layui-table">
+					<thead>
+					<tr>
+						<th>脚手框架</th>
+						<th>Pear One</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>开源作者</td>
+						<td>就 眠 仪 式</td>
+					</tr>
+					<tr>
+						<td>当前版本</td>
+						<td>1.0.1 Version</td>
+					</tr>
+					<tr>
+						<td>基于框架</td>
+						<td>Layui | JQuery | awesome</td>
+					</tr>
+					<tr>
+						<td>开源协议</td>
+						<td>Apache License</td>
+					</tr>
+					<tr>
+						<td>开发周期</td>
+						<td>2019 年 11 月 15 日</td>
+					</tr>
+
+					<tr>
+						<td>下载渠道</td>
+						<td>
+							<button class="layui-btn layui-btn-normal layui-btn-sm">
+								<i class="fa fa-gitlab"></i><span>&nbsp;码 云</span>
+							</button>
+							<button class="layui-btn layui-btn-primary layui-btn-sm">
+								<i class="fa fa-github"></i><span>&nbsp;Git Hub</span>
+							</button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+<script th:src="@{/component/layui/layui.js}"></script>
+<script>
+    layui.use(['carousel', 'form', 'jquery'], function () {
+        var $ = layui.jquery,
+            carousel = layui.carousel,
+            form = layui.form;
+
+        // 请求主页数据
+        $.ajax({
+            type: 'get',
+            url: '/sys/index/' + layui.data('currentUser').username,
+            dataType: 'json',
+            success: function (result) {
+                handleSuccess(result.data);
+            }
+        });
+
+        function handleSuccess(data) {
+            $('#dimples-content-avatar').attr("src", data.userDetail.avatar);
+            $('#dimples-user-dept').text(data.userDetail.deptName);
+            $('#header-username').text(data.statistic.role);
+            $('#dimples-last-login-time').text(data.statistic.lastLoginTime);
+            $('#today-ip').text(data.statistic.todayIp);
+            $('#today-visit-count').text(data.statistic.todayVisitCount);
+            $('#total-visit-count').text(data.statistic.totalVisitCount);
+        }
+
+    });
+</script>
+
+</body>
+</html>

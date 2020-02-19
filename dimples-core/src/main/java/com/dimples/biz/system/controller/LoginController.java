@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -89,6 +90,7 @@ public class LoginController extends BaseController {
         this.loginLogService.saveLoginLog(username);
         // 登陆成功, 删除验证码
         redisHelper.del(DimplesConstant.CODE_PREFIX + key);
+        log.info("用户 [{}] 已登录, 登陆时间：{}", getCurrentUser().getUsername(), new Date());
         return DimplesResponse.success();
     }
 

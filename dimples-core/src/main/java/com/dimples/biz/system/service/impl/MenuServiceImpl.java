@@ -110,7 +110,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             menu.setParentId(Menu.TOP_NODE);
         }
         if (Menu.TYPE_BUTTON.equals(menu.getType())) {
-            menu.setPath(null);
+            menu.setHref(null);
             menu.setIcon(null);
         }
     }
@@ -140,4 +140,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
 }
+
+
 
