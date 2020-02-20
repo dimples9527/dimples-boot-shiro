@@ -6,8 +6,8 @@ import com.dimples.biz.system.po.Dept;
 import com.dimples.biz.system.service.DeptService;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
-import com.dimples.core.transport.QueryRequest;
 import com.dimples.core.transport.DimplesResponse;
+import com.dimples.core.transport.QueryRequest;
 import com.wuwenze.poi.ExcelKit;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -51,8 +51,7 @@ public class DeptController {
     @OpsLog(value = "获取部门树", type = OpsLogTypeEnum.SELECT)
     @GetMapping("select/tree")
     public List<DeptTreeDTO<Dept>> getDeptTree() {
-        List<DeptTreeDTO<Dept>> deptList = this.deptService.findDeptList();
-        return deptList;
+        return this.deptService.findDeptList();
     }
 
     @ApiOperation(value = "根据条件获取部门树", notes = "根据条件获取部门树")
@@ -73,7 +72,7 @@ public class DeptController {
     }
 
     @ApiOperation(value = "删除部门", notes = "删除部门")
-    @ApiImplicitParam(name = "deptIds", value = "部门字符串，以,分隔", paramType = "string", dataType = "path", required = true)
+    @ApiImplicitParam(name = "deptIds", value = "部门字符串，以,分隔", paramType = "string", dataType = "path", required = true,example = "{key:}")
     @OpsLog(value = "删除部门", type = OpsLogTypeEnum.DELETE)
     @DeleteMapping("delete/{deptIds}")
     @RequiresPermissions("dept:delete")

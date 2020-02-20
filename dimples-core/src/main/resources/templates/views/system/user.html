@@ -177,9 +177,8 @@
 <script type="text/javascript">
     layui.extend({
         xmSelect: '/component/layui/lay/extends/dimples/xm-select',
-        treeSelect: '/component/layui/lay/extends/dimples/treeSelect',
-        dropdown: '/component/layui/lay/extends/dimples/dropdown'
-    }).use(['jquery', 'table', 'laydate', 'layer', 'xmSelect', 'dropdown', 'treeSelect'], function () {
+        treeSelect: '/component/layui/lay/extends/dimples/treeSelect'
+    }).use(['jquery', 'table', 'laydate', 'layer', 'xmSelect', 'dropdown', 'treeSelect', 'pearDimples'], function () {
         let $ = layui.jquery,
             laydate = layui.laydate,
             layer = layui.layer,
@@ -187,6 +186,7 @@
             form = layui.form,
             dropdown = layui.dropdown,
             xmSelect = layui.xmSelect,
+            pearDimples = layui.pearDimples,
             treeSelect = layui.treeSelect;
         let
             $view = $('#dimples-user'),
@@ -329,17 +329,17 @@
             let data = obj.data,
                 layEvent = obj.event;
             if (layEvent === 'detail') {
-                dimples.modal.view('用户信息', 'system/user/detail/' + data.username, {
+                pearDimples.modal.view('用户信息', 'system/user/detail/' + data.username, {
                     area: $(window).width() <= 750 ? '95%' : '660px'
                 });
             }
             if (layEvent === 'del') {
-                dimples.modal.confirm('删除用户', '确定删除该用户？', function () {
+                pearDimples.modal.confirm('删除用户', '确定删除该用户？', function () {
                     deleteUsers(data.userId);
                 });
             }
             if (layEvent === 'edit') {
-                dimples.modal.open('修改用户', 'system/user/update/' + data.username, {
+                pearDimples.modal.open('修改用户', 'system/user/update/' + data.username, {
                     area: $(window).width() <= 750 ? '90%' : '50%',
                     btn: ['提交', '取消'],
                     yes: function (index, layero) {
@@ -387,10 +387,10 @@
         function deleteUsers(userIds) {
             let currentUserId = currentUser.userId + '';
             if (('' + userIds).split(',').indexOf(currentUserId) !== -1) {
-                dimples.alert.warn('所选用户包含当前登录用户，无法删除');
+                pearDimples.alert.warn('所选用户包含当前登录用户，无法删除');
                 return;
             }
-            dimples.get(ctx + 'user/delete/' + userIds, null, function () {
+            pearDimples.get(ctx + 'user/delete/' + userIds, null, function () {
                 dimples.alert.success('删除用户成功');
                 $query.click();
             });

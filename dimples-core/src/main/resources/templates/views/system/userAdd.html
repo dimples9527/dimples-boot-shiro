@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>新增用户</title>
-  <link rel="stylesheet" href="../../../static/component/layui/css/layui.css" media="all">
-  <link rel="stylesheet" href="../../../static/dimples/css/dimples.css"/>
+  <link rel="stylesheet" th:href="@{/component/layui/css/layui.css}" media="all">
+  <link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
 </head>
 <!-- 自定义样式 -->
 <style>
@@ -122,12 +122,12 @@
   </form>
 </div>
 </body>
-<script type="application/javascript" src="../../../static/component/layui/layui.js"></script>
+<script type="application/javascript" th:src="@{/component/layui/layui.js}"></script>
 <script type="application/javascript">
     layui.extend({
-        xmSelect: '/dimples-shiro-web/static/component/layui/lay/extends/xm-select',
-        validate: '/dimples-shiro-web/static/component/layui/lay/extends/validate',
-        treeSelect: '/dimples-shiro-web/static/component/layui/lay/extends/treeSelect'
+        xmSelect: '/component/layui/lay/extends/dimples/xm-select',
+        validate: '/component/layui/lay/extends/dimples/validate',
+        treeSelect: '/component/layui/lay/extends/dimples/treeSelect'
     }).use(['form', 'jquery', 'xmSelect', 'validate', 'treeSelect'], function () {
         let $ = layui.jquery,
             form = layui.form,
@@ -145,7 +145,7 @@
         treeSelect.render({
             elem: $view.find('#user-add-dept'),
             type: 'get',
-            data: '../../../api/dept.json',
+            data: '/dept/select/tree',
             placeholder: '请选择',
             search: false
         });
@@ -166,7 +166,7 @@
 
         $.ajax({
             type: 'get',
-            url: '../../../api/role.json'
+            url: '/role'
         }).then(response => {
             var res = response.data;
             console.log(res);
