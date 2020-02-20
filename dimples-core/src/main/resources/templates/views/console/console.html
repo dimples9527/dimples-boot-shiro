@@ -334,7 +334,7 @@
         function handleSuccess(data) {
             $('#dimples-content-avatar').attr("src", data.userDetail.avatar);
             $('#dimples-user-dept').text(data.userDetail.deptName);
-            $('#header-username').text(data.statistic.role);
+            $('#dimples-user-role').text(data.statistic.role);
             $('#dimples-last-login-time').text(data.statistic.lastLoginTime);
             $('#today-ip').text(data.statistic.todayIp);
             $('#today-visit-count').text(data.statistic.todayVisitCount);
