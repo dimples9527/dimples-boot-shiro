@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dimples.biz.system.dto.UserDetailDTO;
-import com.dimples.biz.system.mapper.UserInfoMapper;
 import com.dimples.biz.system.mapper.UserMapper;
 import com.dimples.biz.system.po.RoleUser;
 import com.dimples.biz.system.po.User;
 import com.dimples.biz.system.po.UserInfo;
 import com.dimples.biz.system.service.RoleUserService;
+import com.dimples.biz.system.service.UserInfoService;
 import com.dimples.biz.system.service.UserService;
 import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.eunm.CodeAndMessageEnum;
@@ -37,13 +37,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     private RoleUserService roleUserService;
     private UserMapper userMapper;
-    private UserInfoMapper userInfoMapper;
+    private UserInfoService userInfoService;
 
     @Autowired
-    public UserServiceImpl(RoleUserService roleUserService, UserMapper userMapper, UserInfoMapper userInfoMapper) {
+    public UserServiceImpl(RoleUserService roleUserService, UserMapper userMapper, UserInfoService userInfoService) {
         this.roleUserService = roleUserService;
         this.userMapper = userMapper;
-        this.userInfoMapper = userInfoMapper;
+        this.userInfoService = userInfoService;
     }
 
     @Override
@@ -53,10 +53,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public void add(User user) {
+    public UserDetailDTO findUserDetailByName(String username) {
+        return this.userMapper.findUserDetailByName(username);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void add(UserDetailDTO userDetail) {
+        User user = new User();
+        UserInfo userInfo = new UserInfo();
+        user.setUsername(userDetail.getUsername());
         user.setCreateDate(new Date());
-        user.setPassword(MD5Util.encrypt(user.getUsername(), user.getPassword()));
-        //然后直接调用存储方法
+        user.setStatus(userDetail.getStatus());
+        user.setPassword(MD5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
+        this.userMapper.insertSelective(user);
+
+        userInfo.setUserId(user.getUserId());
+        userInfo.setEmail(userDetail.getEmail());
+        userInfo.setMobile(userDetail.getMobile());
+        userInfo.setGender(userDetail.getGender());
+        userInfo.setAvatar(UserDetailDTO.DEFAULT_AVATAR);
+        userInfo.setDescription(userDetail.getDescription());
+        this.userInfoService.save(userInfo);
     }
 
     @Override
@@ -97,10 +115,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void updateLoginTime(User user) {
         UserInfo userInfo = new UserInfo();
         userInfo.setLastLoginTime(new Date());
-        this.userInfoMapper.update(userInfo, new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getUserId, user.getUserId()));
+        this.userInfoService.update(userInfo, new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getUserId, user.getUserId()));
     }
 
+    @Override
+    public int insert(User record) {
+        return userMapper.insert(record);
+    }
+
+    @Override
+    public int insertSelective(User record) {
+        return userMapper.insertSelective(record);
+    }
 }
+
+
+
+
 
 
 

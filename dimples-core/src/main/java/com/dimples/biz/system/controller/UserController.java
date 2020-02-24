@@ -8,22 +8,24 @@ import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.controller.BaseController;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
-import com.dimples.core.transport.QueryRequest;
 import com.dimples.core.transport.DimplesResponse;
+import com.dimples.core.transport.QueryRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -33,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2019/11/14
  */
 @Slf4j
+@Validated
 @Api(value = "用户管理模块", tags = "用户管理模块")
 @RestController
 @RequestMapping("/user")
@@ -47,13 +50,9 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "增加用户", notes = "增加用户")
     @OpsLog(value = "增加用户", type = OpsLogTypeEnum.ADD)
-    @PostMapping("/add")
-    public DimplesResponse add(@ApiParam(name = "user", value = "用户User对象", required = true) User user) {
-        try {
-            userService.add(user);
-        } catch (Exception e) {
-            throw new BizException(e.getMessage());
-        }
+    @PostMapping()
+    public DimplesResponse add(@Valid UserDetailDTO user) {
+        userService.add(user);
         return DimplesResponse.success();
     }
 
@@ -81,6 +80,13 @@ public class UserController extends BaseController {
     public DimplesResponse userList(User user, QueryRequest request) {
         IPage<UserDetailDTO> userList = this.userService.findUserDetailList(user, request);
         return DimplesResponse.success(userList);
+    }
+
+    @ApiOperation(value = "检查用户名是否存在", notes = "检查用户名是否存在")
+    @OpsLog(value = "检查用户名是否存在", type = OpsLogTypeEnum.SELECT)
+    @GetMapping("check/{username}")
+    public boolean checkUserName(@NotBlank(message = "{required}") @PathVariable String username) {
+        return this.userService.findByName(username) == null;
     }
 
 }

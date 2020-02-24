@@ -59,10 +59,16 @@
             echarts: "extends/echarts",
             echartsTheme: "extends/echartsTheme",
             treeTable: "extends/treeTable",
+
+            /* Dimples Start */
+            treeSelect: "extends/dimples/treeSelect",
             dropdown: "extends/dimples/dropdown",
             loadBar: "extends/dimples/loadBar",
+            xmSelect: "extends/dimples/xm-select",
             pearDimples: "extends/pearDimples",
             pearView: "extends/pearView",
+            /* Dimples End */
+
             view: "extends/dimples/view",
             "layui.all": "../layui.all"
         };

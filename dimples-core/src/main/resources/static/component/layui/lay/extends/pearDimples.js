@@ -3,7 +3,7 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
 
     var MOD_NAME = 'pearDimples';
     var $ = layui.jquery,
-		pearView = layui.pearView;
+        pearView = layui.pearView;
 
     var windowWidth = $(window).width();
 
@@ -27,7 +27,7 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
         ];
         params = $.extend(
             {
-                skin: 'layui-layer-admin-modal febs-alert',
+                skin: 'layui-layer-admin-modal dimples-alert',
                 area: [windowWidth <= 750 ? '60%' : '400px'],
                 closeBtn: 0,
                 shadeClose: false
@@ -103,6 +103,22 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
         pearDimples.popup(params);
     };
 
+    pearDimples.modal.info = function (title, msg, yes, params) {
+        params = params || {};
+        params.titleIco = 'infomation';
+        params.titleIcoColor = '#2db7f5';
+        params.titleValue = title;
+        params.shadeClose = false;
+        params = $.extend({
+            btn: ['确定']
+            , yes: function (index, layero) {
+                yes && (yes)();
+                layer.close(index);
+            }
+        }, params);
+        pearDimples.modal.base(msg, params);
+    };
+
     pearDimples.isUrl = function (str) {
         return /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/.test(
             str
@@ -113,7 +129,6 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
         var success = params.success || function () {
         };
         params.skin = 'layui-layer-admin-page';
-        POPUP_DATA = params.data || {};
         var defaultParams = {
             type: 1,
             area: $(window).width() <= 750 ? ['90%', '90%'] : ['60%', '90%'],
@@ -128,9 +143,9 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
             return
         }
 
-		pearView.tab.del(url);
+        pearView.tab.del(url);
 
-		pearView.loadHtml(conf.views + url, function (res) {
+        pearView.loadHtml(url, function (res) {
             var htmlElem = $('<div>' + res.html + '</div>');
 
             if (params.title === undefined) {
@@ -142,13 +157,39 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
             params.success = function (layer, index) {
                 success(layer, index);
 
-				pearView.parse(layer);
+                pearView.parse(layer);
             };
 
             params = $.extend(defaultParams, params);
             layer.open($.extend(defaultParams, params));
         });
     };
+
+    // ----------------- 网络请求类 --------------------- //
+    // ajax post请求
+    pearDimples.post = function (url, params, success) {
+        if (params) {
+            params.invalidate_ie_cache = new Date();
+        }
+        $.post(url, params, function (r) {
+            resolveResponse(r, success);
+        })
+    };
+
+    function resolveResponse(r, f) {
+        if (r.code === 200) {
+            f(r) && (f)();
+        } else if (r.code === 401) {
+            pearDimples.modal.info('登录失效', '登录已失效，请重新登录', function () {
+                window.location.href = ctx + 'login';
+            });
+        } else if (r.code === 403) {
+            pearDimples.alert.warn('对不起，您暂无该操作权限');
+        } else {
+            pearDimples.alert.error(r.message ? r.message : '操作失败');
+            console.error(r);
+        }
+    }
 
     exports(MOD_NAME, pearDimples);
 });

@@ -22,4 +22,5 @@ public class WebConstant {
     public static final String ERROR_500 = VIEW_PREFIX + "error/500";
 
     public static final String CONSOLE = VIEW_PREFIX + "console/console";
+    public static final String USER_DETAIL = VIEW_PREFIX + "system/userDetail";
 }

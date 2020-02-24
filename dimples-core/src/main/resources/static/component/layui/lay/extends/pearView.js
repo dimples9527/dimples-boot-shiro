@@ -94,7 +94,7 @@ layui.define(['jquery'], function (exports) {
 
     pearDimples.loadHtml = function (url, callback) {
         url = url || conf.entry;
-        loadBar.start();
+        // loadBar.start();
         var queryIndex = url.indexOf('?');
         if (queryIndex !== -1) url = url.slice(0, queryIndex);
         $.ajax({

@@ -166,7 +166,7 @@
 									</div>
 								</div>
 								<div class="layui-form-item" style="margin-top: -10px;">
-									<input type="checkbox" name="rememberMe" title="记住我"
+									<input type="checkbox" name="rememberMe" title="记住我" checked
 												 lay-skin="primary">
 								</div>
 								<div class="layui-form-item">
@@ -300,6 +300,10 @@
         function initCode() {
             $view.find('#code-img').attr("src", "/sys/captcha?data=" + Math.random());
         }
+
+        $("#code-img").on("click", function () {
+            initCode();
+        });
 
         $view.find('#register-href').on('click', function () {
             resetForm();

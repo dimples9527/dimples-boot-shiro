@@ -19,12 +19,21 @@ public interface UserService extends IService<User> {
      */
     User findByName(String username);
 
+
+    /**
+     * 根据用户名查询用户详细信息
+     *
+     * @param username String
+     * @return UserDetailDTO
+     */
+    UserDetailDTO findUserDetailByName(String username);
+
     /**
      * 增加一条数据
      *
-     * @param user User
+     * @param user UserDetailDTO
      */
-    void add(User user);
+    void add(UserDetailDTO user);
 
     /**
      * 注册用户
@@ -57,7 +66,15 @@ public interface UserService extends IService<User> {
      * @param user 用户
      */
     void updateLoginTime(User user);
+
+    int insert(User record);
+
+    int insertSelective(User record);
 }
+
+
+
+
 
 
 

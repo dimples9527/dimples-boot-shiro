@@ -13,10 +13,18 @@ import java.util.List;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/1/30
+ * @date 2020/2/21
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+
+    /**
+     * 根据User对象插入数据
+     *
+     * @param record User
+     * @return User
+     */
+    int insertSelective(User record);
 
     /**
      * 根据用户名查询用户信息
@@ -35,4 +43,11 @@ public interface UserMapper extends BaseMapper<User> {
      */
     IPage<UserDetailDTO> findUserDetailPage(@Param("page") Page<UserDetailDTO> page, @Param("user") User user);
 
+    /**
+     * 根据用户名查询用户详细信息
+     *
+     * @param username String
+     * @return UserDetailDTO
+     */
+    UserDetailDTO findUserDetailByName(String username);
 }

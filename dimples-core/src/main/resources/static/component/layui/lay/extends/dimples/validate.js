@@ -7,10 +7,7 @@ layui.define(['jquery'], function (exports) {
                 var result = '';
                 // TODO 需要请求后台验证当前用户名是否存在
                 $.ajax({
-                    url: ctx + 'user/check/' + value,
-                    data: {
-                        "userId": item.getAttribute('id')
-                    },
+                    url: '/user/check/' + value,
                     async: false,
                     type: 'get',
                     success: function (d) {

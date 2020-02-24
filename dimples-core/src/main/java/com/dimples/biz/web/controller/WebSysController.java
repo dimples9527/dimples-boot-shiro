@@ -9,6 +9,7 @@ import com.dimples.core.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,6 +55,13 @@ public class WebSysController extends BaseController {
         return new ModelAndView(WebConstant.USER_ADD);
     }
 
+    @GetMapping("user/detail/{username}")
+    public ModelAndView systemUserDetail(@PathVariable String username) {
+        ModelAndView view = new ModelAndView(WebConstant.USER_DETAIL);
+        buildUserModel(username, view, true);
+        return view;
+    }
+
     @GetMapping("404")
     public ModelAndView error404() {
         return new ModelAndView(WebConstant.ERROR_404);
@@ -67,6 +75,21 @@ public class WebSysController extends BaseController {
     @GetMapping("500")
     public ModelAndView error500() {
         return new ModelAndView(WebConstant.ERROR_500);
+    }
+
+    private void buildUserModel(@PathVariable String username, ModelAndView view, Boolean transform) {
+        UserDetailDTO detail = userService.findUserDetailByName(username);
+        if (transform) {
+            String gender = detail.getGender();
+            if (User.SEX_MALE.equals(gender)) {
+                detail.setGender("男");
+            } else if (User.SEX_FEMALE.equals(gender)) {
+                detail.setGender("女");
+            } else {
+                detail.setGender("保密");
+            }
+        }
+        view.addObject("user", detail);
     }
 
 }

@@ -11,8 +11,14 @@ import lombok.Data;
  * @date 2020/2/3
  */
 @Data
-@ApiModel(value="com-dimples-biz-system-dto-UserDetailDTO")
+@ApiModel(value = "com-dimples-biz-system-dto-UserDetailDTO")
 public class UserDetailDTO {
+
+    /**
+     * 默认头像
+     */
+    public static final String DEFAULT_AVATAR = "/dimples/images/avatar/default.jpg";
+
 
     @ApiModelProperty(value = "用户id")
     private Long userId;
@@ -44,42 +50,54 @@ public class UserDetailDTO {
     /**
      * 用户部门
      */
-    @ApiModelProperty(value="用户部门")
+    @ApiModelProperty(value = "用户部门")
     private String deptName;
 
     /**
      * 用户邮箱
      */
-    @ApiModelProperty(value="用户邮箱")
+    @ApiModelProperty(value = "用户邮箱")
     private String email;
 
     /**
      * 用户电话
      */
-    @ApiModelProperty(value="用户电话")
+    @ApiModelProperty(value = "用户电话")
     private String mobile;
 
     /**
      * 上次登录时间
      */
-    @ApiModelProperty(value="上次登录时间")
+    @ApiModelProperty(value = "上次登录时间")
     private Date lastLoginTime;
 
     /**
      * 用户头像
      */
-    @ApiModelProperty(value="用户头像")
+    @ApiModelProperty(value = "用户头像")
     private String avatar;
 
     /**
      * 性别
      */
-    @ApiModelProperty(value="性别")
+    @ApiModelProperty(value = "性别")
     private String gender;
 
     /**
      * 描述
      */
-    @ApiModelProperty(value="描述")
+    @ApiModelProperty(value = "描述")
     private String description;
+
+    /**
+     * 角色 ID
+     */
+    @ApiModelProperty(value = "角色 ID")
+    private String roleId;
+
+    /**
+     * 角色
+     */
+    @ApiModelProperty(value = "角色")
+    private String roleName;
 }

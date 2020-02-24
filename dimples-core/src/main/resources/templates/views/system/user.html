@@ -175,10 +175,7 @@
 <script type="text/javascript" th:src="@{/component/layui/layui.js}"></script>
 <!-- 页面处理 -->
 <script type="text/javascript">
-    layui.extend({
-        xmSelect: '/component/layui/lay/extends/dimples/xm-select',
-        treeSelect: '/component/layui/lay/extends/dimples/treeSelect'
-    }).use(['jquery', 'table', 'laydate', 'layer', 'xmSelect', 'dropdown', 'treeSelect', 'pearDimples'], function () {
+    layui.use(['jquery', 'table', 'laydate', 'layer', 'xmSelect', 'dropdown', 'treeSelect', 'pearDimples'], function () {
         let $ = layui.jquery,
             laydate = layui.laydate,
             layer = layui.layer,
@@ -329,7 +326,7 @@
             let data = obj.data,
                 layEvent = obj.event;
             if (layEvent === 'detail') {
-                pearDimples.modal.view('用户信息', 'system/user/detail/' + data.username, {
+                pearDimples.modal.view('用户信息', '/web/sys/user/detail/' + data.username, {
                     area: $(window).width() <= 750 ? '95%' : '660px'
                 });
             }

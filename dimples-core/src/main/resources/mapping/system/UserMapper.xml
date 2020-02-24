@@ -15,6 +15,45 @@
 		<!--@mbg.generated-->
 		user_id, username, `password`, `status`, create_date, modify_date
 	</sql>
+	<insert id="insertSelective" keyColumn="user_id" keyProperty="userId"
+		parameterType="com.dimples.biz.system.po.User" useGeneratedKeys="true">
+		<!--@mbg.generated-->
+		insert into db_dimples_shiro.tb_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="username != null">
+				username,
+			</if>
+			<if test="password != null">
+				`password`,
+			</if>
+			<if test="status != null">
+				`status`,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="modifyDate != null">
+				modify_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				#{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
 	<select id="findByUsername" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
@@ -45,18 +84,21 @@
 		</where>
 		ORDER BY u.user_id
 	</select>
+	<select id="findUserDetailByName" resultType="com.dimples.biz.system.dto.UserDetailDTO">
+		SELECT tu.user_id,
+		       tu.username,
+		       tu.`status`,
+		       tu.create_date,
+		       tu.modify_date,
+		       tui.email,
+		       tui.mobile,
+		       tui.last_login_time,
+		       tui.avatar,
+		       tui.gender,
+		       tui.description
+		FROM tb_user tu
+			     LEFT JOIN tb_user_info tui on tu.user_id = tui.user_id
+		WHERE tu.username = #{username,jdbcType=VARCHAR}
+	</select>
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
