@@ -93,17 +93,10 @@ layui.define(['jquery'], function (exports) {
     };
 
     pearDimples.loadHtml = function (url, callback) {
-        url = url || conf.entry;
-        // loadBar.start();
         var queryIndex = url.indexOf('?');
         if (queryIndex !== -1) url = url.slice(0, queryIndex);
         $.ajax({
-            url:
-                (url.indexOf(conf.base) === 0 ? '' : conf.views) +
-                url +
-                conf.engine +
-                '?v=' +
-                conf.v,
+            url: url,
             type: 'get',
             data: {
                 'invalid_ie_cache': new Date().getTime()
@@ -111,7 +104,6 @@ layui.define(['jquery'], function (exports) {
             dataType: 'html',
             success: function (r) {
                 callback({html: r, url: url});
-                loadBar.finish()
             }
         });
     };

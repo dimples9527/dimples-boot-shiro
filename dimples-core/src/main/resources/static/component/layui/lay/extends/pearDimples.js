@@ -157,11 +157,16 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
             params.success = function (layer, index) {
                 success(layer, index);
 
-                pearView.parse(layer);
+                // pearView.parse(layer);
             };
 
             params = $.extend(defaultParams, params);
-            layer.open($.extend(defaultParams, params));
+
+            if (params.location != null && params.location != "") {
+                params.location.layer.open($.extend(defaultParams, params));
+            } else {
+                layer.open($.extend(defaultParams, params));
+            }
         });
     };
 

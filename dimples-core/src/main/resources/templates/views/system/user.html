@@ -327,7 +327,8 @@
                 layEvent = obj.event;
             if (layEvent === 'detail') {
                 pearDimples.modal.view('用户信息', '/web/sys/user/detail/' + data.username, {
-                    area: $(window).width() <= 750 ? '95%' : '660px'
+                    area: $(window).width() <= 750 ? '95%' : '660px',
+										location: parent.parent
                 });
             }
             if (layEvent === 'del') {
