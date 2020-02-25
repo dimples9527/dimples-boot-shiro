@@ -119,6 +119,19 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
         pearDimples.modal.base(msg, params);
     };
 
+    pearDimples.modal.open = function (title, url, params) {
+        params = $.extend({
+            url: url,
+            maxmin: true,
+            shadeClose: false,
+            title: [
+                (title || '请填写头部信息'),
+                'font-size:16px;color:#08132b;line-height:46px;padding-bottom:0;border-bottom:1px solid #fcfcfc;background-color:#fcfcfc'
+            ]
+        }, params);
+        pearDimples.popup(params);
+    };
+
     pearDimples.isUrl = function (str) {
         return /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/.test(
             str
@@ -173,20 +186,18 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
     // ----------------- 网络请求类 --------------------- //
     // ajax post请求
     pearDimples.post = function (url, params, success) {
-        if (params) {
-            params.invalidate_ie_cache = new Date();
-        }
         $.post(url, params, function (r) {
             resolveResponse(r, success);
         })
     };
 
     function resolveResponse(r, f) {
-        if (r.code === 200) {
+        if (r.code == 200) {
+            console.log("ajax 请求返回数据: {}", r);
             f(r) && (f)();
         } else if (r.code === 401) {
             pearDimples.modal.info('登录失效', '登录已失效，请重新登录', function () {
-                window.location.href = ctx + 'login';
+                window.location.href = '/web/sys/login';
             });
         } else if (r.code === 403) {
             pearDimples.alert.warn('对不起，您暂无该操作权限');

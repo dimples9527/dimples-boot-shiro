@@ -50,6 +50,12 @@ public class UserDetailDTO {
     /**
      * 用户部门
      */
+    @ApiModelProperty(value = "用户部门Id")
+    private String deptId;
+
+    /**
+     * 用户部门
+     */
     @ApiModelProperty(value = "用户部门")
     private String deptName;
 

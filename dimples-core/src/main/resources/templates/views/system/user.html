@@ -155,8 +155,8 @@
 	{{#
 	var gender = {
 	2: {title: '保密'},
-	1: {title: '女'},
-	0: {title: '男'}
+	0: {title: '女'},
+	1: {title: '男'}
 	}[d.gender];
 	}}
 	<span>{{ gender.title }}</span>
@@ -328,7 +328,7 @@
             if (layEvent === 'detail') {
                 pearDimples.modal.view('用户信息', '/web/sys/user/detail/' + data.username, {
                     area: $(window).width() <= 750 ? '95%' : '660px',
-										location: parent.parent
+                    location: parent.parent
                 });
             }
             if (layEvent === 'del') {
@@ -337,8 +337,10 @@
                 });
             }
             if (layEvent === 'edit') {
-                pearDimples.modal.open('修改用户', 'system/user/update/' + data.username, {
+                openModelHtml('修改用户', '/web/sys/user/update/' + data.username);
+                /*pearDimples.modal.open('修改用户', '/web/sys/user/update/' + data.username, {
                     area: $(window).width() <= 750 ? '90%' : '50%',
+                    location: parent.parent,
                     btn: ['提交', '取消'],
                     yes: function (index, layero) {
                         $('#user-update').find('#submit').trigger('click');
@@ -346,7 +348,7 @@
                     btn2: function () {
                         layer.closeAll();
                     }
-                });
+                });*/
             }
         });
 

@@ -95,9 +95,17 @@
 		       tui.last_login_time,
 		       tui.avatar,
 		       tui.gender,
-		       tui.description
+		       tui.description,
+		       td.dept_id,
+		       td.dept_name,
+		       tr.role_id,
+		       tr.role_name
 		FROM tb_user tu
-			     LEFT JOIN tb_user_info tui on tu.user_id = tui.user_id
+			     LEFT JOIN tb_user_info tui ON tu.user_id = tui.user_id
+			     LEFT JOIN tb_user_dept tud ON tud.user_id = tu.user_id
+			     LEFT JOIN tb_dept td ON td.dept_id = tud.dept_id
+			     LEFT JOIN tb_role_user tru ON tru.user_id = tu.user_id
+			     LEFT JOIN tb_role tr ON tr.role_id = tru.role_id
 		WHERE tu.username = #{username,jdbcType=VARCHAR}
 	</select>
 

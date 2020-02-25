@@ -7,7 +7,9 @@ import com.dimples.biz.system.service.MenuService;
 import com.dimples.biz.system.service.RoleService;
 import com.dimples.biz.system.service.UserService;
 import com.dimples.core.eunm.CodeAndMessageEnum;
+import com.dimples.core.exception.BizException;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -56,7 +58,15 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        // 由于shiro和热部署插件同时存在时，直接获取对象强制转换会报错，所以此处使用拷贝的方式转换
+        Object principal = SecurityUtils.getSubject().getPrincipal();
+        User user = new User();
+        try {
+            PropertyUtils.copyProperties(user, principal);
+        } catch (Exception e) {
+            throw new BizException("Principal 转换为 User 装换异常", e);
+        }
+
         String userName = user.getUsername();
 
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
@@ -100,7 +110,8 @@ public class ShiroRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(password), getName());
         Session session = SecurityUtils.getSubject().getSession();
         session.setAttribute("username", username);
-        return authenticationInfo;     }
+        return authenticationInfo;
+    }
 
     /**
      * 清除当前用户权限缓存

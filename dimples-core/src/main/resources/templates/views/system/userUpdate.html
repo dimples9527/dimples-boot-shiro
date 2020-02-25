@@ -10,40 +10,36 @@
 </head>
 <!-- 自定义样式 -->
 <style>
-	body {
-		background-color: #fff;
+	#user-update {
+		padding: 20px 25px 25px 0;
 	}
 
-	#user-add {
-		background-color: #fff;
-		padding: 20px 25px 0 25px;
-	}
-
-	#user-add .layui-treeSelect .ztree li a, .ztree li span {
+	#user-update .layui-treeSelect .ztree li a, .ztree li span {
 		margin: 0 0 2px 3px !important;
 	}
-
-	#user-add .layui-form .dimples-form-submit {
-		float: right;
-	}
-
 </style>
 
 <body>
-<div class="layui-fluid" id="user-add">
-	<form class="layui-form" action="" lay-filter="user-add-form">
-		<!-- 用户名 -->
+<div class="layui-fluid" id="user-update">
+	<form class="layui-form" action="" lay-filter="user-update-form">
+		<div class="layui-form-item dimples-hide">
+			<label class="layui-form-label dimples-form-item-require">用户id：</label>
+			<div class="layui-input-block">
+				<label>
+					<input type="text" name="userId" data-th-value="${user.userId}">
+				</label>
+			</div>
+		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label dimples-form-item-require">用户名：</label>
 			<div class="layui-input-block">
 				<label>
-					<input type="text" name="username" minlength="2" maxlength="10"
-								 required lay-verify="range|username|required"
-								 autocomplete="off" class="layui-input">
+					<input type="text" name="username" minlength="4" maxlength="10"
+								 data-th-id="${user.userId}"
+								 lay-verify="range|username" autocomplete="off" class="layui-input" readonly>
 				</label>
 			</div>
 		</div>
-		<!-- 电话号码 -->
 		<div class="layui-form-item">
 			<label class="layui-form-label">手机：</label>
 			<div class="layui-input-block">
@@ -52,7 +48,6 @@
 				</label>
 			</div>
 		</div>
-		<!-- 邮箱 -->
 		<div class="layui-form-item">
 			<label class="layui-form-label">邮箱：</label>
 			<div class="layui-input-block">
@@ -62,40 +57,36 @@
 				</label>
 			</div>
 		</div>
-		<!-- 角色 -->
 		<div class="layui-form-item">
 			<label class="layui-form-label dimples-form-item-require">角色：</label>
 			<div class="layui-input-block">
-				<div id="user-add-role"></div>
+				<div id="user-update-role"></div>
 			</div>
 		</div>
-		<!-- 部门 -->
 		<div class="layui-form-item">
 			<label class="layui-form-label">部门：</label>
 			<div class="layui-input-block">
-				<!--<div id="user-add-dept"></div>-->
-				<label for="user-add-dept"></label>
-				<input type="text" name="deptId" id="user-add-dept" class="layui-input">
+				<label for="user-update-dept"></label>
+				<input type="text" name="deptId" id="user-update-dept"
+							 lay-filter="user-update-dept"
+							 class="layui-input">
 			</div>
 		</div>
-		<!-- 状态 -->
 		<div class="layui-form-item">
 			<label class="layui-form-label dimples-form-item-require">状态：</label>
 			<div class="layui-input-block">
-				<input type="radio" name="status" value="1" title="有效" checked="">
+				<input type="radio" name="status" value="1" title="有效">
 				<input type="radio" name="status" value="0" title="禁用">
 			</div>
 		</div>
-		<!-- 性别 -->
 		<div class="layui-form-item">
 			<label class="layui-form-label dimples-form-item-require">性别：</label>
 			<div class="layui-input-block">
-				<input type="radio" name="gender" value="0" title="女性">
-				<input type="radio" name="gender" value="1" title="男性">
-				<input type="radio" name="gender" value="2" title="保密" checked="">
+				<input type="radio" name="sex" value="0" title="男性">
+				<input type="radio" name="sex" value="1" title="女性">
+				<input type="radio" name="sex" value="2" title="保密">
 			</div>
 		</div>
-		<!-- 备注 -->
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">备注：</label>
 			<div class="layui-input-block">
@@ -104,44 +95,48 @@
 				</label>
 			</div>
 		</div>
-		<!-- 提交 -->
-		<div class="layui-form-item dimples-form-submit">
-			<button class="layui-btn" lay-submit="" lay-filter="user-add-form-submit"
-							id="submit">立即提交
-			</button>
-			<button type="reset" class="layui-btn" id="reset">重置</button>
+		<div class="layui-form-item dimples-hide">
+			<button class="layui-btn" lay-submit="" lay-filter="user-update-form-submit"
+							id="submit"></button>
 		</div>
 	</form>
 </div>
 </body>
 <script type="application/javascript" th:src="@{/component/layui/layui.js}"></script>
 <script type="application/javascript">
-    layui.use(['form', 'jquery', 'layer', 'xmSelect', 'treeSelect', 'pearDimples'], function () {
-        let $ = layui.jquery,
-            form = layui.form,
+    layui.use(['pearDimples', 'form', 'xmSelect', 'validate', 'treeSelect'], function () {
+        var $ = layui.$,
+            dimples = layui.pearDimples,
             layer = layui.layer,
             xmSelect = layui.xmSelect,
             treeSelect = layui.treeSelect,
-            pearDimples = layui.pearDimples;
-        let $view = $('#user-add');
+            form = layui.form,
+            $view = $('#user-update'),
+            validate = layui.validate;
 
+        var user = /*[[${user}]]*/ "用户对象";
+
+        form.verify(validate);
         form.render();
 
-        /* 部门下拉框 */
+        initUserValue();
+
+        xmSelect.render();
+
         treeSelect.render({
-            elem: $view.find('#user-add-dept'),
+            elem: $view.find('#user-update-dept'),
             type: 'get',
             data: '/dept/select/tree',
             placeholder: '请选择',
-            search: false
+            search: false,
+            success: function () {
+                treeSelect.checkNode('user-update-dept', user.deptId);
+            }
         });
 
         /* 角色下拉框 */
         let userRole = xmSelect.render({
-            el: '#user-add-role',
-            name: 'roleId',
-            layVerify: 'required',
-            layVerType: 'tips',
+            el: '#user-update-role',
             empty: '呀, 没有数据呢',
             theme: {
                 color: '#1cbbb4',
@@ -169,14 +164,29 @@
                 autoRow: true,
             })
         });
+
         /* 角色渲染完成 */
 
-        form.on('submit(user-add-form-submit)', function (data) {
-            console.log(data.field);
-            pearDimples.post('/user', data.field, function () {
+        function initUserValue() {
+            form.val("user-update-form", {
+                "username": user.username,
+                "mobile": user.mobile,
+                "email": user.email,
+                "status": user.status,
+                "sex": user.sex,
+                "description": user.description
+            });
+        }
+
+        form.on('submit(user-update-form-submit)', function (data) {
+            if (dimples.nativeEqual(data.field, user)) {
+                dimples.alert.warn('数据未作任何修改！');
+                return false;
+            }
+            dimples.post(ctx + 'user/update', data.field, function () {
                 layer.closeAll();
-                pearDimples.alert.success('新增用户成功，初始密码为 123456');
-                $('#dimples-refresh', window.parent.parent.document).click();
+                dimples.alert.success(user.username + ' 用户数据修改成功');
+                $('#dimples-user').find('#query').click();
             });
             return false;
         });

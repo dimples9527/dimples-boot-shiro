@@ -6,6 +6,7 @@ import com.dimples.biz.system.service.UserService;
 import com.dimples.biz.web.constant.WebConstant;
 import com.dimples.core.controller.BaseController;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,9 +57,18 @@ public class WebSysController extends BaseController {
     }
 
     @GetMapping("user/detail/{username}")
+    @RequiresPermissions("user:view")
     public ModelAndView systemUserDetail(@PathVariable String username) {
         ModelAndView view = new ModelAndView(WebConstant.USER_DETAIL);
         buildUserModel(username, view, true);
+        return view;
+    }
+
+    @GetMapping("user/update/{username}")
+    @RequiresPermissions("user:update")
+    public ModelAndView systemUserUpdate(@PathVariable String username) {
+        ModelAndView view = new ModelAndView(WebConstant.USER_UPDATE);
+        buildUserModel(username, view, false);
         return view;
     }
 

@@ -65,6 +65,7 @@
             dropdown: "extends/dimples/dropdown",
             loadBar: "extends/dimples/loadBar",
             xmSelect: "extends/dimples/xm-select",
+            validate: "extends/dimples/validate",
             pearDimples: "extends/pearDimples",
             pearView: "extends/pearView",
             /* Dimples End */
