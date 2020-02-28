@@ -49,6 +49,13 @@ public class Role implements Serializable {
     private Date modifyDate;
 
     /**
+     * 角色描述
+     */
+    @TableField(value = "remark")
+    @ApiModelProperty(value = "角色描述")
+    private String remark;
+
+    /**
      * 角色对应的菜单（按钮） id
      */
     private transient String menuIds;

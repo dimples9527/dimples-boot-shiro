@@ -3,39 +3,12 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
 
     var MOD_NAME = 'pearDimples';
     var $ = layui.jquery,
-        pearView = layui.pearView;
+        pearView = layui.pearView,
+        layuiTable = layui.table;
 
     var windowWidth = $(window).width();
 
     var pearDimples = {};
-
-
-    pearDimples.modal = {};
-
-    pearDimples.modal.base = function (msg, params) {
-        params = params || {};
-        params.titleIcoColor = params.titleIcoColor || '#5a8bff';
-        params.titleIco = params.titleIco || 'exclaimination';
-        params.title = params.title || [
-            '<i class="layui-icon layui-icon-' +
-            params.titleIco +
-            '" style="font-size:12px;background:' +
-            params.titleIcoColor +
-            ';display:inline-block;position:relative;top:-2px;height:21px;line-height:21px;text-align:center;width:21px;color:#fff;border-radius:50%;margin-right:12px;"></i>' +
-            params.titleValue,
-            'background:#fff;border:none;font-weight:bold;font-size:16px;color:#08132b;padding-top:10px;height:36px;line-height:46px;padding-bottom:0;'
-        ];
-        params = $.extend(
-            {
-                skin: 'layui-layer-admin-modal dimples-alert',
-                area: [windowWidth <= 750 ? '60%' : '400px'],
-                closeBtn: 0,
-                shadeClose: false
-            },
-            params
-        );
-        layer.alert(msg, params);
-    };
 
     // ----------------- 弹窗类 --------------------- //
 
@@ -88,6 +61,33 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
     };
 
     // ----------------- 模态框类 --------------------- //
+
+    pearDimples.modal = {};
+
+    pearDimples.modal.base = function (msg, params) {
+        params = params || {};
+        params.titleIcoColor = params.titleIcoColor || '#5a8bff';
+        params.titleIco = params.titleIco || 'exclaimination';
+        params.title = params.title || [
+            '<i class="layui-icon layui-icon-' +
+            params.titleIco +
+            '" style="font-size:12px;background:' +
+            params.titleIcoColor +
+            ';display:inline-block;position:relative;top:-2px;height:21px;line-height:21px;text-align:center;width:21px;color:#fff;border-radius:50%;margin-right:12px;"></i>' +
+            params.titleValue,
+            'background:#fff;border:none;font-weight:bold;font-size:16px;color:#08132b;padding-top:10px;height:36px;line-height:46px;padding-bottom:0;'
+        ];
+        params = $.extend(
+            {
+                skin: 'layui-layer-admin-modal dimples-alert',
+                area: [windowWidth <= 750 ? '60%' : '400px'],
+                closeBtn: 0,
+                shadeClose: false
+            },
+            params
+        );
+        layer.alert(msg, params);
+    };
 
     pearDimples.modal.view = function (title, url, params) {
         params = $.extend({
@@ -206,6 +206,33 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
             console.error(r);
         }
     }
+
+    // ----------------- 数据表封装 --------------------- //
+    pearDimples.table = {};
+    pearDimples.table.init = function (params) {
+        var defaultSetting = {
+            cellMinWidth: 80,
+            page: true,
+            skin: 'line',
+            limit: 10,
+            limits: [5, 10, 20, 30, 40, 100],
+            autoSort: false,
+            request: {
+                pageName: 'pageNum',
+                limitName: 'pageSize'
+            },
+            parseData: function (res) {
+                return {
+                    "code": res.code == 200 ? 0 : res.code,
+                    "count": res.data.total,
+                    "data": res.data.records
+                }
+            }
+        };
+        return layuiTable.render(
+            $.extend({}, defaultSetting, params)
+        );
+    };
 
     exports(MOD_NAME, pearDimples);
 });

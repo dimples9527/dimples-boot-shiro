@@ -8,10 +8,11 @@
 		<result column="role_name" jdbcType="VARCHAR" property="roleName" />
 		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
 		<result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		<!--@mbg.generated-->
-		role_id, role_name, create_date, modify_date
+		role_id, role_name, create_date, modify_date,remark
 	</sql>
 
 	<select id="findByUserId" resultType="com.dimples.biz.system.po.Role">
@@ -24,7 +25,8 @@
 		SELECT r.role_id,
 		       role_name,
 		       r.create_date,
-		       r.modify_date
+		       r.modify_date,
+		       r.remark
 		FROM tb_role r
 			     LEFT JOIN tb_role_user ru ON (r.role_id = ru.role_id)
 			     LEFT JOIN tb_user u ON (u.user_id = ru.user_id)
@@ -35,6 +37,7 @@
 		role_name,
 		create_date,
 		modify_date,
+		remark,
 		GROUP_CONCAT(mr.menu_id) menu_ids
 		FROM tb_role r
 		LEFT JOIN tb_menu_role mr ON mr.role_id = r.role_id

@@ -63,6 +63,7 @@
             /* Dimples Start */
             treeSelect: "extends/dimples/treeSelect",
             dropdown: "extends/dimples/dropdown",
+            eleTree: "extends/dimples/eleTree",
             loadBar: "extends/dimples/loadBar",
             xmSelect: "extends/dimples/xm-select",
             validate: "extends/dimples/validate",
