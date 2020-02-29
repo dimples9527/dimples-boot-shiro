@@ -36,7 +36,7 @@ public class TreeUtil {
             for (MenuTreeDTO<T> parent : nodes) {
                 String id = parent.getId();
                 if (id != null && id.equals(pid)) {
-                    parent.getChilds().add(children);
+                    parent.getChildren().add(children);
                     children.setHasParent(true);
                     parent.setHasChild(true);
                     return;
@@ -50,7 +50,7 @@ public class TreeUtil {
         root.setHasParent(false);
         root.setHasChild(true);
         root.setChecked(true);
-        root.setChilds(topNodes);
+        root.setChildren(topNodes);
         Map<String, Object> state = new HashMap<>(16);
         root.setState(state);
         return root;
@@ -98,7 +98,7 @@ public class TreeUtil {
             nodes.forEach(parent -> {
                 String id = parent.getId();
                 if (id != null && id.equals(pid)) {
-                    parent.getChilds().add(children);
+                    parent.getChildren().add(children);
                     children.setHasParent(true);
                     parent.setHasChild(true);
                 }

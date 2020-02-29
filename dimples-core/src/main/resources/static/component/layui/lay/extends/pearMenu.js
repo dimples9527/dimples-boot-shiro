@@ -175,7 +175,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
             data = result;
         });
 
-        data = data.data.childs;
+        data = data.data.children;
 
         $.ajaxSettings.async = true;
 
@@ -316,12 +316,12 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
         var content = '<dl class="layui-nav-child">';
 
         // 如 果 嵌 套 不 等 于 空
-        if (obj.childs != null && obj.childs.length > 0) {
+        if (obj.children != null && obj.children.length > 0) {
             if (menuTier == 2) {
                 paddingLeft += 20;
             }
             // 遍 历 子 项 目
-            $.each(obj.childs, function (i, note) {
+            $.each(obj.children, function (i, note) {
                 // 创 建 子 项 结 构
                 content += '<dd style="padding-left: ' + paddingLeft + 'px;">';
                 // 判 断 子 项 类 型

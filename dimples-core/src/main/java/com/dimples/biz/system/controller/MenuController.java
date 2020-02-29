@@ -66,7 +66,7 @@ public class MenuController extends BaseController {
     @GetMapping("tree")
     public DimplesResponse getMenuTree(Menu menu) {
         MenuTreeDTO<Menu> menus = this.menuService.findMenus(menu);
-        return DimplesResponse.success(menus.getChilds());
+        return DimplesResponse.success(menus.getChildren());
     }
 
     @ApiOperation(value = "新增菜单/按钮", notes = "新增菜单/按钮")

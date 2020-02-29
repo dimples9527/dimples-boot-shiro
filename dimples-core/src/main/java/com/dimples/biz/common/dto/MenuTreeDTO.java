@@ -24,7 +24,7 @@ public class MenuTreeDTO<T> implements Serializable {
     private Map<String, Object> state;
     private Boolean checked = false;
     private Map<String, Object> attributes;
-    private List<MenuTreeDTO<T>> childs = new ArrayList<>();
+    private List<MenuTreeDTO<T>> children = new ArrayList<>();
     private String parentId;
     private Boolean hasParent;
     private Boolean hasChild;

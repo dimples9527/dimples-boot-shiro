@@ -9,6 +9,13 @@
 	<link th:href="@{/component/layui/css/layui.css}" rel="stylesheet">
 	<!-- 自定义 css -->
 	<link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
+	<style>
+		.menu-tree .layui-tree .layui-tree-main, .layui-tree-icon {
+			height: 14px !important;
+			line-height: 10px !important;
+			width: 14px !important;
+		}
+	</style>
 </head>
 <body>
 <div class="layui-fluid layui-anim dimples-anim" id="dimples-role" lay-title="角色管理">
@@ -81,7 +88,10 @@
 						</div>
 						<div class="layui-form-item">
 							<label class="layui-form-label">角色权限：</label>
-							<div class="layui-input-block menu-tree" style="margin-top: .8rem;"></div>
+							<!--<div class="layui-input-block menu-tree" style="margin-top: .8rem;"></div>-->
+
+							<div id="menu-tree" class="layui-input-block menu-tree"
+									 style="margin-top: .8rem;"></div>
 						</div>
 						<div class="layui-form-item dimples-hide">
 							<button type="reset" class="layui-btn" id="reset-form"></button>
@@ -118,8 +128,8 @@
             table = layui.table,
             dropdown = layui.dropdown,
             validate = layui.validate,
-            eleTree = layui.eleTree,
-            tree = layui.tree;
+            tree = layui.tree,
+            eleTree = layui.eleTree;
         var
             $view = $('#dimples-role'),
             $query = $view.find('#query'),
@@ -134,7 +144,20 @@
 
         initTable();
 
-        var menuTree = eleTree.render({
+        $.ajax({
+            url: '/menu/tree',
+            dataType: 'json',
+            success: function (result) {
+                tree.render({
+                    elem: '#menu-tree',
+                    data: result.data,
+                    showCheckbox: true,  //是否显示复选框
+                    id: 'id',
+                });
+            }
+        });
+
+        /*var menuTree = eleTree.render({
             elem: '.menu-tree',
             url: '/menu/tree',
             showCheckbox: true,
@@ -156,7 +179,7 @@
                 statusCode: 200,
                 dataName: "data"
             }
-        });
+        });*/
 
         laydate.render({
             elem: '#createDate',
