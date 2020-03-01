@@ -8,6 +8,7 @@
 	<link rel="stylesheet" th:href="@{/dimples/css/dimplesReset.css}"/>
 	<link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
 
+	<!-- 自定义 CSS -->
 	<style>
 		.avatar {
 			width: 100px;
@@ -124,6 +125,7 @@
 
 </head>
 <body style="background-color: whitesmoke;" class="layui-anim layui-anim-upbit">
+<!-- 问候语 -->
 <div class="layui-card" id="dimples-index-header">
 	<div class="layui-card-body">
 		<div class="layui-row welcome-info">
@@ -131,12 +133,13 @@
 				<img th:src="@{/dimples/images/avatar/default.jpg}" style="box-shadow:2px 0 10px gray;"
 						 class="avatar" alt="" src="" id="dimples-content-avatar">
 			</div>
+
 			<div class="layui-col-md6 layui-col-xs12">
 				<div id="info">
-					<h3 class="info-title">晚上好，就眠仪式，休息一会儿吧 !</h3>
+					<h3 class="info-title">晚上好，Dimples，休息一会儿吧 !</h3>
 					<div class="info-content">
-						<span id="dimples-user-dept">前端工程师</span> |
-						<span id="dimples-user-role">软件二部</span>
+						<span id="dimples-user-dept">后端工程师</span> |
+						<span id="dimples-user-role">软件部</span>
 					</div>
 					<div class="info-content">
 						<span>上次登录时间：<span id="dimples-last-login-time">
@@ -169,13 +172,11 @@
 			</div>
 
 		</div>
-
-
 	</div>
 </div>
 
+<!-- 主内容 -->
 <div class="layui-pearone-container layui-row layui-col-space10" style="margin:5px">
-
 	<!-- 左边 -->
 	<div class="layui-col-md9 layui-row" style="padding: 0 5px 0 0">
 		<div class="layui-col-md12">
@@ -270,21 +271,21 @@
 					<thead>
 					<tr>
 						<th>脚手框架</th>
-						<th>Pear One</th>
+						<th>dimples-shiro</th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr>
 						<td>开源作者</td>
-						<td>就 眠 仪 式</td>
+						<td>Dimples</td>
 					</tr>
 					<tr>
 						<td>当前版本</td>
-						<td>1.0.1 Version</td>
+						<td>1.0.0 Version</td>
 					</tr>
 					<tr>
 						<td>基于框架</td>
-						<td>Layui | JQuery | awesome</td>
+						<td>SpringBoot | Shiro | Layui</td>
 					</tr>
 					<tr>
 						<td>开源协议</td>
@@ -292,7 +293,7 @@
 					</tr>
 					<tr>
 						<td>开发周期</td>
-						<td>2019 年 11 月 15 日</td>
+						<td>2020 年 03 月 01 日</td>
 					</tr>
 
 					<tr>
@@ -317,9 +318,7 @@
 <script th:src="@{/component/layui/layui.js}"></script>
 <script>
     layui.use(['carousel', 'form', 'jquery'], function () {
-        var $ = layui.jquery,
-            carousel = layui.carousel,
-            form = layui.form;
+        var $ = layui.jquery;
 
         // 请求主页数据
         $.ajax({
