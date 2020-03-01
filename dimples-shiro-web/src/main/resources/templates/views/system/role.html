@@ -7,6 +7,7 @@
 	<title>角色管理</title>
 	<!-- lay ui css -->
 	<link th:href="@{/component/layui/css/layui.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/dimples/css/eleTree.css}"/>
 	<!-- 自定义 css -->
 	<link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
 	<style>
@@ -14,6 +15,17 @@
 			height: 14px !important;
 			line-height: 10px !important;
 			width: 14px !important;
+		}
+
+		#dimples-role .dimples-container .layui-card {
+			height: 600px;
+		}
+
+		#dimples-role .dimples-container .layui-card .layui-card-body {
+			height: 442px !important;
+		}
+		#dimples-role .dimples-container .layui-card .layui-card-body .layui-table-box {
+			height: 470px !important;
 		}
 	</style>
 </head>
@@ -88,10 +100,10 @@
 						</div>
 						<div class="layui-form-item">
 							<label class="layui-form-label">角色权限：</label>
-							<!--<div class="layui-input-block menu-tree" style="margin-top: .8rem;"></div>-->
+							<div class="layui-input-block menu-tree" style="margin-top: .8rem;"></div>
 
-							<div id="menu-tree" class="layui-input-block menu-tree"
-									 style="margin-top: .8rem;"></div>
+							<!--<div id="menu-tree" class="layui-input-block menu-tree"
+									 style="margin-top: .8rem;"></div>-->
 						</div>
 						<div class="layui-form-item dimples-hide">
 							<button type="reset" class="layui-btn" id="reset-form"></button>
@@ -144,20 +156,8 @@
 
         initTable();
 
-        $.ajax({
-            url: '/menu/tree',
-            dataType: 'json',
-            success: function (result) {
-                tree.render({
-                    elem: '#menu-tree',
-                    data: result.data,
-                    showCheckbox: true,  //是否显示复选框
-                    id: 'id',
-                });
-            }
-        });
-
-        /*var menuTree = eleTree.render({
+        // 渲染树形角色菜单
+        var menuTree = eleTree.render({
             elem: '.menu-tree',
             url: '/menu/tree',
             showCheckbox: true,
@@ -170,7 +170,7 @@
             request: {
                 name: "title",
                 key: "id",
-                children: "childs",
+                children: "children",
                 checked: "checked",
                 data: "data"
             },
@@ -179,7 +179,7 @@
                 statusCode: 200,
                 dataName: "data"
             }
-        });*/
+        });
 
         laydate.render({
             elem: '#createDate',
@@ -266,6 +266,23 @@
             $view.find('#submit-form').trigger('click');
         });
 
+        form.on('submit(role-form-submit)', function (data) {
+            var selected = menuTree.getChecked(false, true);
+            var menuIds = [];
+            layui.each(selected, function (key, item) {
+                menuIds.push(item.id)
+            });
+            data.field.menuIds = menuIds.join(',');
+            if (!menuIds.length) {
+                pearDimples.modal.confirm('提示', '当前角色未授予任何权限，是否继续？', function () {
+                    addOrUpdateRole(data.field);
+                });
+            } else {
+                addOrUpdateRole(data.field);
+            }
+            return false;
+        });
+
         function initTable() {
             tableIns = pearDimples.table.init({
                 elem: $view.find('table'),
@@ -294,23 +311,6 @@
             menuTree.setChecked([], true);
             menuTree.unExpandAll();
         }
-
-        form.on('submit(role-form-submit)', function (data) {
-            var selected = menuTree.getChecked(false, true);
-            var menuIds = [];
-            layui.each(selected, function (key, item) {
-                menuIds.push(item.id)
-            });
-            data.field.menuIds = menuIds.join(',');
-            if (!menuIds.length) {
-                pearDimples.modal.confirm('提示', '当前角色未授予任何权限，是否继续？', function () {
-                    addOrUpdateRole(data.field);
-                });
-            } else {
-                addOrUpdateRole(data.field);
-            }
-            return false;
-        });
 
         function deleteRoles(roleIds) {
             pearDimples.get(ctx + 'role/delete/' + roleIds, null, function () {

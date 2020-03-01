@@ -77,6 +77,11 @@ public class WebSysController extends BaseController {
         return new ModelAndView(WebConstant.ROLE);
     }
 
+    @GetMapping("dept")
+    public ModelAndView dept() {
+        return new ModelAndView(WebConstant.DEPT);
+    }
+
     @GetMapping("404")
     public ModelAndView error404() {
         return new ModelAndView(WebConstant.ERROR_404);
