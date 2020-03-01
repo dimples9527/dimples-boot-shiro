@@ -7,7 +7,7 @@ echo "=================================== 开始构建项目 ===================
 echo "================================= Steep 1 编译打包 ================================="
 sudo mvn clean install -Dmaven.test.skip=true
 echo "================================= Steep 2 构建镜像 ================================="
-sudo docker build -t dimples/dimples-shiro:dimples .
+sudo docker build -t dimples/dimples-shiro:dimples -f dimples-shiro-web/Dockerfile .
 sudo docker rm dimples/dimples-shiro
 sudo docker images
 echo "=================================== 构建项目成功 ==================================="
