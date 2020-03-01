@@ -12,7 +12,7 @@
 
 	<modules>
 		<module>dimples-shiro-core</module>
-		<module>dimple-shiro-web</module>
+		<module>dimples-shiro-web</module>
 		<module>dimples-shiro-system</module>
 	</modules>
 
