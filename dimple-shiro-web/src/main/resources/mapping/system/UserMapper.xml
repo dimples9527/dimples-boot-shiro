@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimples.system.mapper.UserMapper">
+	<resultMap id="BaseResultMap" type="com.dimples.system.po.User">
+		<!--@mbg.generated-->
+		<!--@Table db_dimples_shiro.tb_user-->
+		<id column="user_id" jdbcType="BIGINT" property="userId" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		<!--@mbg.generated-->
+		user_id, username, `password`, `status`, create_date, modify_date
+	</sql>
+	<insert id="insertSelective" keyColumn="user_id" keyProperty="userId"
+		parameterType="com.dimples.system.po.User" useGeneratedKeys="true">
+		<!--@mbg.generated-->
+		insert into db_dimples_shiro.tb_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="username != null">
+				username,
+			</if>
+			<if test="password != null">
+				`password`,
+			</if>
+			<if test="status != null">
+				`status`,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="modifyDate != null">
+				modify_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				#{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="findByUsername" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from db_dimples_shiro.tb_user
+		where username = #{username,jdbcType=VARCHAR}
+	</select>
+	<select id="findUserDetailPage" resultType="com.dimples.system.dto.UserDetailDTO">
+		SELECT
+		u.user_id,
+		u.username,
+		u.status,
+		u.create_date,
+		u.modify_date,
+		tui.email, tui.mobile, tui.last_login_time, tui.avatar, tui.gender, tui.description,
+		td.dept_name
+		FROM
+		db_dimples_shiro.tb_user u
+		LEFT JOIN db_dimples_shiro.tb_user_info tui ON u.user_id = tui.user_id
+		LEFT JOIN db_dimples_shiro.tb_user_dept tud ON u.user_id = tud.user_id
+		LEFT JOIN db_dimples_shiro.tb_dept td ON tud.dept_id = td.dept_id
+		<where>
+			<if test="user.username != null and user.username != ''">
+				AND u.username = #{user.username}
+			</if>
+			<if test="user.status != null and user.status != ''">
+				AND u.status = #{user.status}
+			</if>
+		</where>
+		ORDER BY u.user_id
+	</select>
+	<select id="findUserDetailByName" resultType="com.dimples.system.dto.UserDetailDTO">
+		SELECT tu.user_id,
+		       tu.username,
+		       tu.`status`,
+		       tu.create_date,
+		       tu.modify_date,
+		       tui.email,
+		       tui.mobile,
+		       tui.last_login_time,
+		       tui.avatar,
+		       tui.gender,
+		       tui.description,
+		       td.dept_id,
+		       td.dept_name,
+		       tr.role_id,
+		       tr.role_name
+		FROM tb_user tu
+			     LEFT JOIN tb_user_info tui ON tu.user_id = tui.user_id
+			     LEFT JOIN tb_user_dept tud ON tud.user_id = tu.user_id
+			     LEFT JOIN tb_dept td ON td.dept_id = tud.dept_id
+			     LEFT JOIN tb_role_user tru ON tru.user_id = tu.user_id
+			     LEFT JOIN tb_role tr ON tr.role_id = tru.role_id
+		WHERE tu.username = #{username,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

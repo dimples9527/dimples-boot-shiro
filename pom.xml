@@ -11,16 +11,16 @@
 	</parent>
 
 	<modules>
-		<module>dimples-core</module>
+		<module>dimples-shiro-core</module>
+		<module>dimple-shiro-web</module>
+		<module>dimples-shiro-system</module>
 	</modules>
 
 	<groupId>com.dimples.shiro</groupId>
 	<artifactId>dimples-shiro</artifactId>
 	<version>1.0.0</version>
 
-	<name>dimples-shiro</name>
 	<packaging>pom</packaging>
-	<description>Springboot基础配置和模块整合</description>
 
 	<properties>
 		<java.version>1.8</java.version>
