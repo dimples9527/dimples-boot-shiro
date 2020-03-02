@@ -234,6 +234,30 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
         );
     };
 
+    // ----------------- 工具方法封装 --------------------- //
+    // 判断 a种的属性是否 b都有，并且弱相等
+    pearDimples.nativeEqual = function (a, b) {
+        var aProps = Object.getOwnPropertyNames(a);
+        var bProps = Object.getOwnPropertyNames(b);
+        for (var i = 0; i < aProps.length; i++) {
+            var propName = aProps[i];
+            if (!compare(a[propName], b[propName])) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    function compare(a, b) {
+        if (a === '' && b === null) {
+            return true;
+        } else if (a === null && b === '') {
+            return true;
+        } else {
+            return a == b;
+        }
+    }
+
     exports(MOD_NAME, pearDimples);
 });
 

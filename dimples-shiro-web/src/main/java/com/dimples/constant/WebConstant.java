@@ -26,4 +26,5 @@ public class WebConstant {
     public static final String USER_UPDATE = VIEW_PREFIX + "system/userUpdate";
     public static final String ROLE = VIEW_PREFIX + "system/role";
     public static final String DEPT = VIEW_PREFIX + "system/dept";
+    public static final String MENU = VIEW_PREFIX + "system/menu";
 }
