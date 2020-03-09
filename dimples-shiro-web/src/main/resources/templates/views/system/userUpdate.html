@@ -35,7 +35,7 @@
 			<div class="layui-input-block">
 				<label>
 					<input type="text" name="username" minlength="4" maxlength="10"
-								 data-th-id="${user.userId}"
+								 data-th-id="${user.userId}" data-th-value="${user.username}"
 								 lay-verify="range|username" autocomplete="off" class="layui-input" readonly>
 				</label>
 			</div>
@@ -44,7 +44,8 @@
 			<label class="layui-form-label">手机：</label>
 			<div class="layui-input-block">
 				<label>
-					<input type="tel" name="mobile" lay-verify="phone" autocomplete="off" class="layui-input">
+					<input type="tel" name="mobile" lay-verify="phone" data-th-value="${user.mobile}"
+								 autocomplete="off" class="layui-input">
 				</label>
 			</div>
 		</div>
@@ -52,7 +53,8 @@
 			<label class="layui-form-label">邮箱：</label>
 			<div class="layui-input-block">
 				<label>
-					<input type="text" name="email" lay-verify="email" maxlength="50" autocomplete="off"
+					<input type="text" name="email" lay-verify="email" data-th-value="${user.email}"
+								 maxlength="50" autocomplete="off"
 								 class="layui-input">
 				</label>
 			</div>
@@ -68,30 +70,32 @@
 			<div class="layui-input-block">
 				<label for="user-update-dept"></label>
 				<input type="text" name="deptId" id="user-update-dept"
-							 lay-filter="user-update-dept"
+							 lay-filter="user-update-dept" data-th-value="${user.deptName}"
+							 data-th-id="${user.deptId}"
 							 class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label dimples-form-item-require">状态：</label>
 			<div class="layui-input-block">
-				<input type="radio" name="status" value="1" title="有效">
-				<input type="radio" name="status" value="0" title="禁用">
+				<input type="radio" name="status" value="1" title="有效" th:field="${user.status}">
+				<input type="radio" name="status" value="0" title="禁用" th:field="${user.status}">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label dimples-form-item-require">性别：</label>
 			<div class="layui-input-block">
-				<input type="radio" name="sex" value="0" title="男性">
-				<input type="radio" name="sex" value="1" title="女性">
-				<input type="radio" name="sex" value="2" title="保密">
+				<input type="radio" name="gender" value="0" title="女性" th:field="${user.gender}">
+				<input type="radio" name="gender" value="1" title="男性" th:field="${user.gender}">
+				<input type="radio" name="gender" value="2" title="保密" th:field="${user.gender}">
 			</div>
 		</div>
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">备注：</label>
 			<div class="layui-input-block">
 				<label>
-					<textarea name="description" maxlength="100" class="layui-textarea"></textarea>
+					<textarea name="description" data-th-text="${user.description}" maxlength="100"
+										class="layui-textarea"></textarea>
 				</label>
 			</div>
 		</div>
@@ -114,14 +118,8 @@
             $view = $('#user-update'),
             validate = layui.validate;
 
-        var user = /*[[${user}]]*/ "用户对象";
-
         form.verify(validate);
         form.render();
-
-        initUserValue();
-
-        xmSelect.render();
 
         treeSelect.render({
             elem: $view.find('#user-update-dept'),
@@ -129,8 +127,9 @@
             data: '/dept/select/tree',
             placeholder: '请选择',
             search: false,
-            success: function () {
-                treeSelect.checkNode('user-update-dept', user.deptId);
+            success: function (d) {
+                console.log("部门菜单数据 => ", d);
+                treeSelect.checkNode('user-update-dept', d.deptId);
             }
         });
 
@@ -166,17 +165,6 @@
         });
 
         /* 角色渲染完成 */
-
-        function initUserValue() {
-            form.val("user-update-form", {
-                "username": user.username,
-                "mobile": user.mobile,
-                "email": user.email,
-                "status": user.status,
-                "sex": user.sex,
-                "description": user.description
-            });
-        }
 
         form.on('submit(user-update-form-submit)', function (data) {
             if (dimples.nativeEqual(data.field, user)) {
