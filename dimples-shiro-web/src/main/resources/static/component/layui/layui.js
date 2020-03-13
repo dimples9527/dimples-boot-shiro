@@ -64,6 +64,7 @@
             treeSelect: "extends/dimples/treeSelect",
             dropdown: "extends/dimples/dropdown",
             eleTree: "extends/dimples/eleTree",
+            formSelects: "extends/dimples/formSelects-v4",
             loadBar: "extends/dimples/loadBar",
             xmSelect: "extends/dimples/xm-select",
             validate: "extends/dimples/validate",

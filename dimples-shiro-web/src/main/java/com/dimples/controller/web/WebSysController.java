@@ -1,14 +1,16 @@
 package com.dimples.controller.web;
 
+import com.dimples.common.controller.BaseController;
+import com.dimples.constant.WebConstant;
 import com.dimples.system.dto.UserDetailDTO;
 import com.dimples.system.po.User;
 import com.dimples.system.service.UserService;
-import com.dimples.constant.WebConstant;
-import com.dimples.common.controller.BaseController;
+import com.dimples.system.vo.UserDetailVO;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,17 +60,17 @@ public class WebSysController extends BaseController {
 
     @GetMapping("user/detail/{username}")
     @RequiresPermissions("user:view")
-    public ModelAndView systemUserDetail(@PathVariable String username) {
+    public ModelAndView systemUserDetail(@PathVariable String username,Model model) {
         ModelAndView view = new ModelAndView(WebConstant.USER_DETAIL);
-        buildUserModel(username, view, true);
+        buildUserModel(username, model, true);
         return view;
     }
 
     @GetMapping("user/update/{username}")
     @RequiresPermissions("user:update")
-    public ModelAndView systemUserUpdate(@PathVariable String username) {
+    public ModelAndView systemUserUpdate(@PathVariable String username, Model model) {
         ModelAndView view = new ModelAndView(WebConstant.USER_UPDATE);
-        buildUserModel(username, view, false);
+        buildUserModel(username, model, false);
         return view;
     }
 
@@ -102,7 +104,7 @@ public class WebSysController extends BaseController {
         return new ModelAndView(WebConstant.ERROR_500);
     }
 
-    private void buildUserModel(@PathVariable String username, ModelAndView view, Boolean transform) {
+    private void buildUserModel(@PathVariable String username, Model view, Boolean transform) {
         UserDetailDTO detail = userService.findUserDetailByName(username);
         if (transform) {
             String gender = detail.getGender();
@@ -114,7 +116,7 @@ public class WebSysController extends BaseController {
                 detail.setGender("保密");
             }
         }
-        view.addObject("user", detail);
+        view.addAttribute("user", UserDetailVO.copy(detail));
     }
 
 }

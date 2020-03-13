@@ -7,6 +7,7 @@
 	<title>新增用户</title>
 	<link rel="stylesheet" th:href="@{/component/layui/css/layui.css}" media="all">
 	<link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
+	<link rel="stylesheet" th:href="@{/dimples/css/formSelects-v4.css}"/>
 </head>
 <!-- 自定义样式 -->
 <style>
@@ -62,7 +63,14 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label dimples-form-item-require">角色：</label>
 			<div class="layui-input-block">
-				<div id="user-update-role"></div>
+				<label>
+					<select name="roleId"
+									lay-verify="required"
+									xm-select-direction="down"
+									xm-select="user-update-role"
+									xm-select-skin="default">
+					</select>
+				</label>
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -70,8 +78,7 @@
 			<div class="layui-input-block">
 				<label for="user-update-dept"></label>
 				<input type="text" name="deptId" id="user-update-dept"
-							 lay-filter="user-update-dept" data-th-value="${user.deptName}"
-							 data-th-id="${user.deptId}"
+							 lay-filter="user-update-dept"
 							 class="layui-input">
 			</div>
 		</div>
@@ -108,18 +115,48 @@
 </body>
 <script type="application/javascript" th:src="@{/component/layui/layui.js}"></script>
 <script type="application/javascript">
-    layui.use(['pearDimples', 'form', 'xmSelect', 'validate', 'treeSelect'], function () {
+    layui.use(['pearDimples', 'form', 'xmSelect', 'validate', 'treeSelect', 'formSelects'], function () {
         var $ = layui.$,
             dimples = layui.pearDimples,
             layer = layui.layer,
             xmSelect = layui.xmSelect,
             treeSelect = layui.treeSelect,
+            formSelects = layui.formSelects,
             form = layui.form,
             $view = $('#user-update'),
             validate = layui.validate;
+        var user = {};
+        user = '[[${user}]]';
 
         form.verify(validate);
         form.render();
+        formSelects.render();
+
+        formSelects.config('user-update-role', {
+            searchUrl: '/role',
+            response: {
+                statusCode: 200
+            },
+            beforeSuccess: function (id, url, searchVal, result) {
+                var data = result.data;
+                var tranData = [];
+                for (var i = 0; i < data.length; i++) {
+                    tranData.push({
+                        name: data[i].roleName,
+                        value: data[i].roleId
+                    })
+                }
+                result.data = tranData;
+                return result;
+            },
+            success: function () {
+                formSelects.value('user-update-role', String([[${user.roleId}]]).split(','));
+            },
+            error: function (id, url, searchVal, err) {
+                console.error(err);
+                dimples.alert.error('获取角色列表失败');
+            }
+        });
 
         treeSelect.render({
             elem: $view.find('#user-update-dept'),
@@ -127,44 +164,10 @@
             data: '/dept/select/tree',
             placeholder: '请选择',
             search: false,
-            success: function (d) {
-                console.log("部门菜单数据 => ", d);
-                treeSelect.checkNode('user-update-dept', d.deptId);
+            success: function () {
+                treeSelect.checkNode('user-update-dept', String([[${user.deptId}]]));
             }
         });
-
-        /* 角色下拉框 */
-        let userRole = xmSelect.render({
-            el: '#user-update-role',
-            empty: '呀, 没有数据呢',
-            theme: {
-                color: '#1cbbb4',
-            },
-            toolbar: {
-                show: true,
-                list: ['ALL', 'CLEAR', 'REVERSE']
-            },
-            data: []
-        });
-        $.ajax({
-            type: 'get',
-            url: '/role'
-        }).then(response => {
-            var res = response.data;
-            var tranData = [];
-            for (var i = 0; i < res.length; i++) {
-                tranData.push({
-                    name: res[i].roleName,
-                    value: res[i].roleId
-                })
-            }
-            userRole.update({
-                data: tranData,
-                autoRow: true,
-            })
-        });
-
-        /* 角色渲染完成 */
 
         form.on('submit(user-update-form-submit)', function (data) {
             if (dimples.nativeEqual(data.field, user)) {

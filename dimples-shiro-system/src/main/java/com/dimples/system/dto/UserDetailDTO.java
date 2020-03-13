@@ -1,5 +1,6 @@
 package com.dimples.system.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
@@ -12,7 +13,9 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value = "com-dimples-biz-system-dto-UserDetailDTO")
-public class UserDetailDTO {
+public class UserDetailDTO implements Serializable {
+
+    private static final long serialVersionUID = -5400704441650059140L;
 
     /**
      * 默认头像

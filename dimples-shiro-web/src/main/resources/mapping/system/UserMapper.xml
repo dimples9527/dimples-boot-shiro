@@ -98,8 +98,8 @@
 		       tui.description,
 		       td.dept_id,
 		       td.dept_name,
-		       tr.role_id,
-		       tr.role_name
+		       GROUP_CONCAT(tr.role_id)   AS roleId,
+		       GROUP_CONCAT(tr.role_name) AS roleName
 		FROM tb_user tu
 			     LEFT JOIN tb_user_info tui ON tu.user_id = tui.user_id
 			     LEFT JOIN tb_user_dept tud ON tud.user_id = tu.user_id
@@ -107,6 +107,18 @@
 			     LEFT JOIN tb_role_user tru ON tru.user_id = tu.user_id
 			     LEFT JOIN tb_role tr ON tr.role_id = tru.role_id
 		WHERE tu.username = #{username,jdbcType=VARCHAR}
+		GROUP BY tu.username,
+		         tu.user_id,
+		         tui.email,
+		         tui.mobile,
+		         tu.status,
+		         tu.create_date,
+		         tui.gender,
+		         td.dept_id,
+		         tui.last_login_time,
+		         tu.modify_date,
+		         tui.description,
+		         tui.avatar
 	</select>
 
 </mapper>
