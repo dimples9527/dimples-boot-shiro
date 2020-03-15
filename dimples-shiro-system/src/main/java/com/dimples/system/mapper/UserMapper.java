@@ -50,4 +50,5 @@ public interface UserMapper extends BaseMapper<User> {
      * @return UserDetailDTO
      */
     UserDetailDTO findUserDetailByName(String username);
+
 }

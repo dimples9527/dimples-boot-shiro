@@ -67,9 +67,13 @@ public interface UserService extends IService<User> {
      */
     void updateLoginTime(User user);
 
-    int insert(User record);
+    /**
+     * 修改用户
+     *
+     * @param userDetailDTO userDetailDTO
+     */
+    void updateUser(UserDetailDTO userDetailDTO);
 
-    int insertSelective(User record);
 }
 
 

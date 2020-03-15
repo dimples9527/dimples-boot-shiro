@@ -15,6 +15,7 @@
 		<!--@mbg.generated-->
 		user_id, username, `password`, `status`, create_date, modify_date
 	</sql>
+
 	<insert id="insertSelective" keyColumn="user_id" keyProperty="userId"
 		parameterType="com.dimples.system.po.User" useGeneratedKeys="true">
 		<!--@mbg.generated-->
@@ -54,12 +55,14 @@
 			</if>
 		</trim>
 	</insert>
+
 	<select id="findByUsername" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from db_dimples_shiro.tb_user
-		where username = #{username,jdbcType=VARCHAR}
+		where username = #{username,jdbcType=VARCHAR} and status = '1'
 	</select>
+
 	<select id="findUserDetailPage" resultType="com.dimples.system.dto.UserDetailDTO">
 		SELECT
 		u.user_id,
@@ -84,6 +87,7 @@
 		</where>
 		ORDER BY u.user_id
 	</select>
+
 	<select id="findUserDetailByName" resultType="com.dimples.system.dto.UserDetailDTO">
 		SELECT tu.user_id,
 		       tu.username,
@@ -98,8 +102,8 @@
 		       tui.description,
 		       td.dept_id,
 		       td.dept_name,
-		       GROUP_CONCAT(tr.role_id)   AS roleId,
-		       GROUP_CONCAT(tr.role_name) AS roleName
+		       GROUP_CONCAT(tr.role_id separator '|')   AS roleId,
+		       GROUP_CONCAT(tr.role_name separator '|') AS roleName
 		FROM tb_user tu
 			     LEFT JOIN tb_user_info tui ON tu.user_id = tui.user_id
 			     LEFT JOIN tb_user_dept tud ON tud.user_id = tu.user_id

@@ -1,7 +1,14 @@
 package com.dimples.system.dto;
 
+import com.dimples.system.po.User;
+import com.dimples.system.po.UserInfo;
+
+import org.springframework.beans.BeanUtils;
+
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -29,6 +36,7 @@ public class UserDetailDTO implements Serializable {
     /**
      * 用户名
      */
+    @NotBlank(message = "username 不能为空")
     @ApiModelProperty(value = "用户名")
     private String username;
 
@@ -77,7 +85,7 @@ public class UserDetailDTO implements Serializable {
     /**
      * 上次登录时间
      */
-    @ApiModelProperty(value = "上次登录时间")
+    @ApiModelProperty(value = "上次登录时间", hidden = true)
     private Date lastLoginTime;
 
     /**
@@ -109,4 +117,17 @@ public class UserDetailDTO implements Serializable {
      */
     @ApiModelProperty(value = "角色")
     private String roleName;
+
+    public static User convertUser(UserDetailDTO userDetailDTO) {
+        User user = new User();
+        BeanUtils.copyProperties(userDetailDTO, user);
+        return user;
+    }
+
+    public static UserInfo convertUserInfo(UserDetailDTO userDetailDTO) {
+        UserInfo user = new UserInfo();
+        BeanUtils.copyProperties(userDetailDTO, user);
+        return user;
+    }
+
 }

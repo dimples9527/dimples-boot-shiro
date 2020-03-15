@@ -10,4 +10,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserInfoService extends IService<UserInfo> {
 
 
+    /**
+     * 根据用户id更新用户信息
+     *
+     * @param userInfo UserInfo
+     */
+    void updateByUserId(UserInfo userInfo);
 }

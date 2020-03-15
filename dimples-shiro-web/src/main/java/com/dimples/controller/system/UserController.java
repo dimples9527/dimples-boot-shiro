@@ -1,16 +1,17 @@
 package com.dimples.controller.system;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.dimples.system.dto.UserDetailDTO;
-import com.dimples.system.po.User;
-import com.dimples.system.service.UserService;
-import com.dimples.core.annotation.OpsLog;
 import com.dimples.common.controller.BaseController;
+import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
 import com.dimples.core.transport.DimplesResponse;
 import com.dimples.core.transport.QueryRequest;
+import com.dimples.system.dto.UserDetailDTO;
+import com.dimples.system.po.User;
+import com.dimples.system.service.UserService;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,6 +88,15 @@ public class UserController extends BaseController {
     @GetMapping("check/{username}")
     public boolean checkUserName(@NotBlank(message = "{required}") @PathVariable String username) {
         return this.userService.findByName(username) == null;
+    }
+
+    @ApiOperation(value = "更新用户信息", notes = "更新用户信息")
+    @OpsLog(value = "更新用户信息", type = OpsLogTypeEnum.UPDATE)
+    @RequiresPermissions("user:update")
+    @PostMapping("update")
+    public DimplesResponse update(@Valid UserDetailDTO userDetailDTO) {
+        this.userService.updateUser(userDetailDTO);
+        return DimplesResponse.success();
     }
 
 }

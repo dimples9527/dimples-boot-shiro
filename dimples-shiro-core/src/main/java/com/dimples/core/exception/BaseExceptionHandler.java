@@ -4,9 +4,14 @@ import com.dimples.core.eunm.CodeAndMessageEnum;
 import com.dimples.core.transport.DimplesResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.nio.file.AccessDeniedException;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -36,6 +41,11 @@ public class BaseExceptionHandler {
         return DimplesResponse.failed(e.getMessage());
     }
 
+    @ExceptionHandler(value = DataException.class)
+    public DimplesResponse handleBizException(DataException e) {
+        return DimplesResponse.failed(e.getCode(), e.getMessage());
+    }
+
     /**
      * AccessDeniedException
      *
@@ -63,6 +73,24 @@ public class BaseExceptionHandler {
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
         return DimplesResponse.failed(CodeAndMessageEnum.REQUEST_INVALIDATE.getCode(), message.toString());
+    }
+
+    /**
+     * 统一处理请求参数校验(实体对象传参)
+     *
+     * @param e BindException
+     * @return ResponseDTO
+     */
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public DimplesResponse handleBindException(BindException e) {
+        StringBuilder message = new StringBuilder();
+        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        for (FieldError error : fieldErrors) {
+            message.append(error.getField()).append(error.getDefaultMessage()).append(",");
+        }
+        message = new StringBuilder(message.substring(0, message.length() - 1));
+        return DimplesResponse.failed(message.toString());
     }
 
     /**

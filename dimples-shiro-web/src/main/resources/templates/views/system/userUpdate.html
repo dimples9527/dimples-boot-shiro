@@ -18,19 +18,45 @@
 	#user-update .layui-treeSelect .ztree li a, .ztree li span {
 		margin: 0 0 2px 3px !important;
 	}
+
+	#user-update #submit {
+		float: right;
+	}
 </style>
 
 <body>
 <div class="layui-fluid" id="user-update">
 	<form class="layui-form" action="" lay-filter="user-update-form">
-		<div class="layui-form-item dimples-hide">
-			<label class="layui-form-label dimples-form-item-require">用户id：</label>
-			<div class="layui-input-block">
-				<label>
-					<input type="text" name="userId" data-th-value="${user.userId}">
-				</label>
+		<!-- hide 元素 Start -->
+		<div>
+			<div class="layui-form-item dimples-hide">
+				<label class="layui-form-label dimples-form-item-require">角色id：</label>
+				<div class="layui-input-block">
+					<label>
+						<input type="text" name="roleIds" id="roleIds" data-th-value="${user.roleId}">
+					</label>
+				</div>
+			</div>
+			<div class="layui-form-item dimples-hide">
+				<label class="layui-form-label dimples-form-item-require">角色name：</label>
+				<div class="layui-input-block">
+					<label>
+						<input type="text" name="roleNames" id="roleNames" data-th-value="${user.roleName}">
+					</label>
+				</div>
+			</div>
+
+			<div class="layui-form-item dimples-hide">
+				<label class="layui-form-label dimples-form-item-require">用户id：</label>
+				<div class="layui-input-block">
+					<label>
+						<input type="text" name="userId" data-th-value="${user.userId}">
+					</label>
+				</div>
 			</div>
 		</div>
+		<!-- hide 元素 End -->
+
 		<div class="layui-form-item">
 			<label class="layui-form-label dimples-form-item-require">用户名：</label>
 			<div class="layui-input-block">
@@ -106,9 +132,13 @@
 				</label>
 			</div>
 		</div>
-		<div class="layui-form-item dimples-hide">
-			<button class="layui-btn" lay-submit="" lay-filter="user-update-form-submit"
-							id="submit"></button>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="user-update-form-submit"
+								id="submit">
+					立即提交
+				</button>
+			</div>
 		</div>
 	</form>
 </div>
@@ -119,16 +149,11 @@
         var $ = layui.$,
             dimples = layui.pearDimples,
             layer = layui.layer,
-            xmSelect = layui.xmSelect,
             treeSelect = layui.treeSelect,
             formSelects = layui.formSelects,
             form = layui.form,
-            $view = $('#user-update'),
-            validate = layui.validate;
-        var user = {};
-        user = '[[${user}]]';
+            $view = $('#user-update');
 
-        form.verify(validate);
         form.render();
         formSelects.render();
 
@@ -150,7 +175,12 @@
                 return result;
             },
             success: function () {
-                formSelects.value('user-update-role', String([[${user.roleId}]]).split(','));
+                let roleIds = $("#roleIds").val();
+
+                var role = roleIds.split("|");
+                for (let i = 0; i < role.length; i++) {
+                    formSelects.value('user-update-role', role);
+                }
             },
             error: function (id, url, searchVal, err) {
                 console.error(err);
@@ -170,14 +200,24 @@
         });
 
         form.on('submit(user-update-form-submit)', function (data) {
-            if (dimples.nativeEqual(data.field, user)) {
+            /*if (dimples.nativeEqual(data.field, user)) {
                 dimples.alert.warn('数据未作任何修改！');
                 return false;
-            }
-            dimples.post(ctx + 'user/update', data.field, function () {
-                layer.closeAll();
-                dimples.alert.success(user.username + ' 用户数据修改成功');
-                $('#dimples-user').find('#query').click();
+            }*/
+            $.ajax({
+                type: 'post',
+                url: '/user/update',
+                dataType: 'json',
+                data: data.field,
+                success: function (res) {
+                    if (res.code === 200) {
+                        parent.layer.closeAll();
+                        parent.dimples.alert.success(String([[${user.username}]]) + ' 用户数据修改成功');
+                        parent.$('#dimples-user').find('#query').click();
+                    } else {
+                        dimples.alert.error(data.message);
+                    }
+                },
             });
             return false;
         });
