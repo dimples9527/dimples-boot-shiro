@@ -79,7 +79,7 @@ public class MenuController extends BaseController {
     }
 
     @ApiOperation(value = "删除菜单/按钮", notes = "删除菜单/按钮")
-    @OpsLog(value = "删除菜单/按钮", type = OpsLogTypeEnum.ADD)
+    @OpsLog(value = "删除菜单/按钮", type = OpsLogTypeEnum.DELETE)
     @GetMapping("delete/{menuIds}")
     @RequiresPermissions("menu:delete")
     public DimplesResponse deleteMenus(@NotBlank(message = "{required}") @PathVariable String menuIds) {
@@ -88,7 +88,7 @@ public class MenuController extends BaseController {
     }
 
     @ApiOperation(value = "修改菜单/按钮", notes = "修改菜单/按钮")
-    @OpsLog(value = "修改菜单/按钮", type = OpsLogTypeEnum.ADD)
+    @OpsLog(value = "修改菜单/按钮", type = OpsLogTypeEnum.UPDATE)
     @PostMapping("update")
     @RequiresPermissions("menu:update")
     public DimplesResponse updateMenu(@Valid Menu menu) {
@@ -97,7 +97,7 @@ public class MenuController extends BaseController {
     }
 
     @ApiOperation(value = "导出菜单Excel", notes = "导出菜单Excel")
-    @OpsLog(value = "导出菜单Excel", type = OpsLogTypeEnum.ADD)
+    @OpsLog(value = "导出菜单Excel", type = OpsLogTypeEnum.EXPORT)
     @GetMapping("excel")
     @RequiresPermissions("menu:export")
     public void export(Menu menu, HttpServletResponse response) {
