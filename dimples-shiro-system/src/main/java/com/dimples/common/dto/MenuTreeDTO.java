@@ -10,7 +10,8 @@ import java.util.Map;
 import lombok.Data;
 
 /**
- * @author MrBird
+ * @author zhongyj <1126834403@qq.com><br/>
+ * @date 2020/3/16
  */
 @Data
 public class MenuTreeDTO<T> implements Serializable {
