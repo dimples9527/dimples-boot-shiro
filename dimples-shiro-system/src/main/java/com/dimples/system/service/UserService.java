@@ -74,6 +74,12 @@ public interface UserService extends IService<User> {
      */
     void updateUser(UserDetailDTO userDetailDTO);
 
+    /**
+     * 删除用户
+     *
+     * @param userIds 用户 id数组
+     */
+    void deleteUsers(String userIds);
 }
 
 

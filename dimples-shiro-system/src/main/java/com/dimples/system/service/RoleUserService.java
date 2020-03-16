@@ -18,4 +18,10 @@ public interface RoleUserService extends IService<RoleUser> {
      */
     void deleteUserRolesByRoleId(List<String> roleIds);
 
+    /**
+     * 通过用户 id 删除
+     *
+     * @param userIds 用户 id
+     */
+    void deleteUserRolesByUserId(List<String> userIds);
 }

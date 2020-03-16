@@ -1,4 +1,4 @@
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"
@@ -26,6 +26,7 @@
 
 		<!--页面主要内容-->
 		<main class="dimples-layout-content">
+			<label id="user-id-label" th:text="${user.userId}" hidden></label>
 			<div class="container-fluid">
 				<div class="row">
 					<!-- 主页内容 -->
@@ -167,11 +168,14 @@
 </script>
 <!-- 用户操作 -->
 <script type="text/html" id="user-option">
-	<a lay-event="detail"><i
+	<span shiro:lacksPermission="user:view,user:update,user:delete">
+        <span class="layui-badge-dot dimples-bg-orange"></span> 无权限
+    </span>
+	<a lay-event="detail" shiro:hasPermission="user:view"><i
 					class="layui-icon dimples-edit-area dimples-green">&#xe7a5;</i></a>
-	<a lay-event="edit"><i
+	<a lay-event="edit" shiro:hasPermission="user:update"><i
 					class="layui-icon dimples-edit-area dimples-blue">&#xe7a4;</i></a>
-	<a lay-event="del"><i
+	<a lay-event="del" shiro:hasPermission="user:delete"><i
 					class="layui-icon dimples-edit-area dimples-red">&#xe7f9;</i></a>
 </script>
 </body>
@@ -267,6 +271,7 @@
         dropdown.render({
             elem: $view.find('.action-more'),
             click: function (name, elem, event) {
+                console.log("name => " + name + ", elem => " + elem + ", event => " + event);
                 let checkStatus = table.checkStatus('userTable');
                 if (name === 'add') {
                     openModelHtml('新增用户', '/web/sys/user/add');
@@ -378,14 +383,22 @@
          * @param userIds
          */
         function deleteUsers(userIds) {
-            let currentUserId = currentUser.userId + '';
+            let currentUserId = '' + $('#user-id-label').text();
+            console.log(currentUserId);
             if (('' + userIds).split(',').indexOf(currentUserId) !== -1) {
                 pearDimples.alert.warn('所选用户包含当前登录用户，无法删除');
                 return;
             }
-            pearDimples.get(ctx + 'user/delete/' + userIds, null, function () {
-                dimples.alert.success('删除用户成功');
-                $query.click();
+            $.ajax({
+                type: 'post',
+                url: '/user/delete' + userIds,
+                dataType: 'json',
+                success: function (result) {
+                    if (result.code === 200) {
+                        dimples.alert.success('删除用户成功');
+                        $query.click();
+                    }
+                }
             });
         }
 

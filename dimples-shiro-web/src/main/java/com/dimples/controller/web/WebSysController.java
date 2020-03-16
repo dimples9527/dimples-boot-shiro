@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.SimpleDateFormat;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -50,7 +52,10 @@ public class WebSysController extends BaseController {
 
     @GetMapping("user")
     public ModelAndView user() {
-        return new ModelAndView(WebConstant.USER);
+        ModelAndView view = new ModelAndView(WebConstant.USER);
+        User currentUser = getCurrentUser();
+        view.addObject("user", currentUser);
+        return view;
     }
 
     @GetMapping("user/add")
@@ -60,7 +65,7 @@ public class WebSysController extends BaseController {
 
     @GetMapping("user/detail/{username}")
     @RequiresPermissions("user:view")
-    public ModelAndView systemUserDetail(@PathVariable String username,Model model) {
+    public ModelAndView systemUserDetail(@PathVariable String username, Model model) {
         ModelAndView view = new ModelAndView(WebConstant.USER_DETAIL);
         buildUserModel(username, model, true);
         return view;
@@ -116,7 +121,11 @@ public class WebSysController extends BaseController {
                 detail.setGender("保密");
             }
         }
-        view.addAttribute("user", UserDetailVO.copy(detail));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = formatter.format(detail.getLastLoginTime());
+        UserDetailVO detailVO = UserDetailVO.copy(detail);
+        detailVO.setLastLoginTime(format);
+        view.addAttribute("user", detailVO);
     }
 
 }

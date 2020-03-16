@@ -64,6 +64,25 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
 
     pearDimples.modal = {};
 
+    pearDimples.modal.confirm = function (title, msg, yes, no, params) {
+        params = params || {};
+        params.titleIco = 'exclaimination';
+        params.titleIcoColor = '#ffc107';
+        params.titleValue = title;
+        params.shadeClose = false;
+        params = $.extend({
+            btn: ['确定', '取消']
+            , yes: function (index, layero) {
+                yes && (yes)();
+                layer.close(index);
+            }
+            , btn2: function (index, layero) {
+                no && (no)();
+            }
+        }, params);
+        pearDimples.modal.base(msg, params);
+    };
+
     pearDimples.modal.base = function (msg, params) {
         params = params || {};
         params.titleIcoColor = params.titleIcoColor || '#5a8bff';

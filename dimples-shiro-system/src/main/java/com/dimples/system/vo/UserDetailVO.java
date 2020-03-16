@@ -72,6 +72,11 @@ public class UserDetailVO implements Serializable {
     private String description;
 
     /**
+     * 最后登录时间
+     */
+    private String lastLoginTime;
+
+    /**
      * 角色 ID
      */
     private String roleId;

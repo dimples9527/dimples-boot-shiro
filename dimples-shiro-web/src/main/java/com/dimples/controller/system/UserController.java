@@ -99,6 +99,16 @@ public class UserController extends BaseController {
         return DimplesResponse.success();
     }
 
+    @ApiOperation(value = "删除用户", notes = "删除用户")
+    @ApiImplicitParam(name = "userIds", value = "用户id(多个以|分隔)", paramType = "query")
+    @OpsLog(value = "删除用户", type = OpsLogTypeEnum.DELETE)
+    @RequiresPermissions("user:delete")
+    @PostMapping("delete/{userIds}")
+    public DimplesResponse delete(@NotBlank(message = "userIds不能为空") @PathVariable String userIds) {
+        this.userService.deleteUsers(userIds);
+        return DimplesResponse.success();
+    }
+
 }
 
 
