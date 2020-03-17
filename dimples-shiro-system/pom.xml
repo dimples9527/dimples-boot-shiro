@@ -11,40 +11,11 @@
 
 	<artifactId>dimples-shiro-system</artifactId>
 
-	<properties>
-		<shiro-spring.version>1.4.0</shiro-spring.version>
-		<shiro-redis.version>3.2.2</shiro-redis.version>
-		<shiro-thymeleaf-extras.version>2.0.0</shiro-thymeleaf-extras.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.dimples.shiro</groupId>
 			<artifactId>dimples-shiro-core</artifactId>
 			<version>1.0.0</version>
-		</dependency>
-		<!-- shiro -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-			<version>${shiro-spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.crazycake</groupId>
-			<artifactId>shiro-redis</artifactId>
-			<version>${shiro-redis.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.puppycrawl.tools</groupId>
-					<artifactId>checkstyle</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!-- shiro + thymeleaf 实现页面级权限控制-->
-		<dependency>
-			<groupId>com.github.theborakompanioni</groupId>
-			<artifactId>thymeleaf-extras-shiro</artifactId>
-			<version>${shiro-thymeleaf-extras.version}</version>
 		</dependency>
 	</dependencies>
 

@@ -309,7 +309,7 @@
                     });
                     params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
                     params.pageNum = $view.find(".layui-laypage-em").next().html();
-                    dimples.download(ctx + 'user/excel', params, '用户信息表.xlsx');
+                    pearDimples.download('/user/excel', params, '用户信息表.xlsx');
                 }
             },
             options: [{
@@ -331,6 +331,7 @@
             }]
         });
 
+        /* 表按钮操作 */
         table.on('tool(userTable)', function (obj) {
             let data = obj.data,
                 layEvent = obj.event;
@@ -350,6 +351,7 @@
             }
         });
 
+        /* 排序 */
         table.on('sort(userTable)', function (obj) {
             sortObject = obj;
             tableIns.reload({
@@ -361,6 +363,7 @@
             });
         });
 
+        /* 刷新 */
         $query.on('click', function () {
             let params = $.extend(getQueryParams(), {
                 field: sortObject.field,

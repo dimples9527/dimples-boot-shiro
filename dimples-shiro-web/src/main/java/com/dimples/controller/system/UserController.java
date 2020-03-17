@@ -1,5 +1,6 @@
 package com.dimples.controller.system;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dimples.common.controller.BaseController;
 import com.dimples.core.annotation.OpsLog;
@@ -20,6 +21,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URLEncoder;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
@@ -107,6 +112,19 @@ public class UserController extends BaseController {
     public DimplesResponse delete(@NotBlank(message = "userIds不能为空") @PathVariable String userIds) {
         this.userService.deleteUsers(userIds);
         return DimplesResponse.success();
+    }
+
+    @GetMapping("excel")
+    @RequiresPermissions("user:export")
+    public void export(QueryRequest queryRequest, User user, HttpServletResponse response) throws Exception {
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easy-excel没有关系
+        String fileName = URLEncoder.encode("测试", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        // 获取数据
+        List<UserDetailDTO> userDetailS = this.userService.findUserDetailList(user, queryRequest).getRecords();
+        EasyExcel.write(response.getOutputStream(), UserDetailDTO.class).sheet("模板").doWrite(userDetailS);
     }
 
 }

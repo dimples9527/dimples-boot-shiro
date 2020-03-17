@@ -1,13 +1,12 @@
 package com.dimples.controller.system;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.dimples.system.po.Role;
-import com.dimples.system.service.RoleService;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.transport.DimplesResponse;
 import com.dimples.core.transport.QueryRequest;
-import com.wuwenze.poi.ExcelKit;
+import com.dimples.system.po.Role;
+import com.dimples.system.service.RoleService;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -95,8 +92,7 @@ public class RoleController {
     @GetMapping("excel")
     @RequiresPermissions("role:export")
     public void export(QueryRequest queryRequest, Role role, HttpServletResponse response) {
-        List<Role> roles = this.roleService.findRoles(role, queryRequest).getRecords();
-        ExcelKit.$Export(Role.class, response).downXlsx(roles, false);
+
     }
 
 }

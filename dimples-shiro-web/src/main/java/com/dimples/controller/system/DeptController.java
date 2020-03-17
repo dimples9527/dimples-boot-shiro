@@ -2,13 +2,12 @@ package com.dimples.controller.system;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.dimples.common.dto.DeptTreeDTO;
-import com.dimples.system.po.Dept;
-import com.dimples.system.service.DeptService;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.transport.DimplesResponse;
 import com.dimples.core.transport.QueryRequest;
-import com.wuwenze.poi.ExcelKit;
+import com.dimples.system.po.Dept;
+import com.dimples.system.service.DeptService;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,8 +95,7 @@ public class DeptController {
     @GetMapping("excel")
     @RequiresPermissions("dept:export")
     public void export(Dept dept, QueryRequest request, HttpServletResponse response) {
-        List<Dept> depts = this.deptService.findDeptList(dept, request);
-        ExcelKit.$Export(Dept.class, response).downXlsx(depts, false);
+
     }
 
 }

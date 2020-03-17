@@ -1,5 +1,6 @@
 package com.dimples.system.dto;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.dimples.system.po.User;
 import com.dimples.system.po.UserInfo;
 
@@ -31,6 +32,7 @@ public class UserDetailDTO implements Serializable {
 
 
     @ApiModelProperty(value = "用户id")
+    @ExcelProperty(value = "用户id")
     private Long userId;
 
     /**
@@ -38,24 +40,28 @@ public class UserDetailDTO implements Serializable {
      */
     @NotBlank(message = "username 不能为空")
     @ApiModelProperty(value = "用户名")
+    @ExcelProperty(value = "用户名")
     private String username;
 
     /**
      * 用户状态，0不启用，1启用，默认为1
      */
     @ApiModelProperty(value = "用户状态，0不启用，1启用，默认为1 ")
+    @ExcelProperty(value = "用户状态")
     private String status;
 
     /**
      * 创建日期
      */
     @ApiModelProperty(value = "创建日期")
+    @ExcelProperty(value = "创建日期")
     private Date createDate;
 
     /**
      * 更新日期
      */
     @ApiModelProperty(value = "更新日期")
+    @ExcelProperty(value = "更新日期")
     private Date modifyDate;
 
     /**
@@ -74,36 +80,42 @@ public class UserDetailDTO implements Serializable {
      * 用户邮箱
      */
     @ApiModelProperty(value = "用户邮箱")
+    @ExcelProperty(value = "用户邮箱")
     private String email;
 
     /**
      * 用户电话
      */
     @ApiModelProperty(value = "用户电话")
+    @ExcelProperty(value = "用户电话")
     private String mobile;
 
     /**
      * 上次登录时间
      */
     @ApiModelProperty(value = "上次登录时间", hidden = true)
+    @ExcelProperty(value = "上次登录时间")
     private Date lastLoginTime;
 
     /**
      * 用户头像
      */
     @ApiModelProperty(value = "用户头像")
+    @ExcelProperty(value = "用户头像")
     private String avatar;
 
     /**
      * 性别
      */
     @ApiModelProperty(value = "性别")
+    @ExcelProperty(value = "性别")
     private String gender;
 
     /**
      * 描述
      */
     @ApiModelProperty(value = "描述")
+    @ExcelProperty(value = "描述")
     private String description;
 
     /**

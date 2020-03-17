@@ -1,16 +1,15 @@
 package com.dimples.controller.system;
 
 
-import com.dimples.common.dto.MenuTreeDTO;
-import com.dimples.system.po.Menu;
-import com.dimples.system.po.User;
-import com.dimples.system.service.MenuService;
-import com.dimples.core.annotation.OpsLog;
 import com.dimples.common.controller.BaseController;
+import com.dimples.common.dto.MenuTreeDTO;
+import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
 import com.dimples.core.transport.DimplesResponse;
-import com.wuwenze.poi.ExcelKit;
+import com.dimples.system.po.Menu;
+import com.dimples.system.po.User;
+import com.dimples.system.service.MenuService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -20,8 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -101,7 +98,6 @@ public class MenuController extends BaseController {
     @GetMapping("excel")
     @RequiresPermissions("menu:export")
     public void export(Menu menu, HttpServletResponse response) {
-        List<Menu> menus = this.menuService.findMenuList(menu);
-        ExcelKit.$Export(Menu.class, response).downXlsx(menus, false);
+
     }
 }

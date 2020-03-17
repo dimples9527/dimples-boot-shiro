@@ -14,6 +14,7 @@ import com.dimples.core.eunm.CodeAndMessageEnum;
 import com.dimples.core.exception.BizException;
 import com.dimples.core.exception.DataException;
 import com.dimples.core.transport.QueryRequest;
+import com.dimples.core.util.SortUtil;
 import com.dimples.framework.shiro.ShiroRealm;
 import com.dimples.system.dto.UserDetailDTO;
 import com.dimples.system.mapper.UserMapper;
@@ -136,6 +137,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public IPage<UserDetailDTO> findUserDetailList(User user, QueryRequest request) {
         Page<UserDetailDTO> page = new Page<>(request.getPageNum(), request.getPageSize());
+        SortUtil.handlePageSort(request, page, "user_id", DimplesConstant.ORDER_ASC, false);
         return this.baseMapper.findUserDetailPage(page, user);
     }
 

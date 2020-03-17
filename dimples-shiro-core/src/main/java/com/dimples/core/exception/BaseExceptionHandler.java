@@ -4,6 +4,9 @@ import com.dimples.core.eunm.CodeAndMessageEnum;
 import com.dimples.core.transport.DimplesResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -54,6 +57,42 @@ public class BaseExceptionHandler {
     @ExceptionHandler(value = AccessDeniedException.class)
     public DimplesResponse handleAccessDeniedException() {
         return DimplesResponse.failed(CodeAndMessageEnum.NOT_AUTH);
+    }
+
+    /**
+     * 没有权限
+     *
+     * @param e UnauthorizedException
+     * @return DimplesResponse
+     */
+    @ExceptionHandler(value = UnauthorizedException.class)
+    public DimplesResponse handleUnauthorizedException(UnauthorizedException e) {
+        log.error("UnauthorizedException", e);
+        return DimplesResponse.failed(CodeAndMessageEnum.NOT_FOUND);
+    }
+
+    /**
+     * 认证失败
+     *
+     * @param e AuthenticationException
+     * @return DimplesResponse
+     */
+    @ExceptionHandler(value = AuthenticationException.class)
+    public DimplesResponse handleAuthenticationException(AuthenticationException e) {
+        log.error("AuthenticationException", e);
+        return DimplesResponse.failed(CodeAndMessageEnum.UNAUTHORIZED);
+    }
+
+    /**
+     * 权限校验
+     *
+     * @param e AuthorizationException
+     * @return DimplesResponse
+     */
+    @ExceptionHandler(value = AuthorizationException.class)
+    public DimplesResponse handleAuthorizationException(AuthorizationException e) {
+        log.error("AuthorizationException", e);
+        return DimplesResponse.failed(CodeAndMessageEnum.NOT_FOUND);
     }
 
     /**
