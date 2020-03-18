@@ -278,27 +278,27 @@
                 }
                 if (name === 'delete') {
                     if (!checkStatus.data.length) {
-                        dimples.alert.warn('请选择需要删除的用户');
+                        pearDimples.alert.warn('请选择需要删除的用户');
                     } else {
-                        dimples.modal.confirm('删除用户', '确定删除该用户？', function () {
+                        pearDimples.modal.confirm('删除用户', '确定删除该用户？', function () {
                             let userIds = [];
                             layui.each(checkStatus.data, function (key, item) {
                                 userIds.push(item.userId)
                             });
-                            deleteUsers(userIds.join(','));
+                            deleteUsers(userIds.join('|'));
                         });
                     }
                 }
                 if (name === 'reset') {
                     if (!checkStatus.data.length) {
-                        dimples.alert.warn('请选择需要重置密码的用户');
+                        pearDimples.alert.warn('请选择需要重置密码的用户');
                     } else {
                         let usernameArr = [];
                         layui.each(checkStatus.data, function (key, item) {
                             usernameArr.push(item.username)
                         });
-                        dimples.post(ctx + 'user/password/reset/' + usernameArr.join(','), null, function () {
-                            dimples.alert.success('所选用户密码已重置为1234qwer');
+                        pearDimples.post(ctx + 'user/password/reset/' + usernameArr.join(','), null, function () {
+                            pearDimples.alert.success('所选用户密码已重置为1234qwer');
                         });
                     }
                 }
@@ -387,18 +387,17 @@
          */
         function deleteUsers(userIds) {
             let currentUserId = '' + $('#user-id-label').text();
-            console.log(currentUserId);
             if (('' + userIds).split(',').indexOf(currentUserId) !== -1) {
                 pearDimples.alert.warn('所选用户包含当前登录用户，无法删除');
                 return;
             }
             $.ajax({
                 type: 'post',
-                url: '/user/delete' + userIds,
+                url: '/user/delete/' + userIds,
                 dataType: 'json',
                 success: function (result) {
                     if (result.code === 200) {
-                        dimples.alert.success('删除用户成功');
+                        pearDimples.alert.success('删除用户成功');
                         $query.click();
                     }
                 }

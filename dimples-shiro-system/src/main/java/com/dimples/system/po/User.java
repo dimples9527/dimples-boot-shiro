@@ -41,6 +41,15 @@ public class User implements Serializable {
      */
     public static final String SEX_FEMALE = "0";
 
+    /**
+     * 删除
+     */
+    public static final String ALIVE_STATUS = "1";
+    /**
+     * 存活
+     */
+    public static final String ALIVE_STATUS_NOT = "0";
+
 
     /**
      * 用户id
@@ -83,6 +92,10 @@ public class User implements Serializable {
     @TableField(value = "modify_date")
     @ApiModelProperty(value = "更新日期")
     private Date modifyDate;
+
+    @TableField(value = "alive_status")
+    @ApiModelProperty(value = "是否删除")
+    private String aliveStatus;
 
     private static final long serialVersionUID = 1L;
 

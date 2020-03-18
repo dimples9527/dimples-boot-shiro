@@ -58,7 +58,7 @@ public class UserController extends BaseController {
     @OpsLog(value = "增加用户", type = OpsLogTypeEnum.ADD)
     @PostMapping()
     public DimplesResponse add(@Valid UserDetailDTO user) {
-        userService.add(user);
+        this.userService.add(user);
         return DimplesResponse.success();
     }
 

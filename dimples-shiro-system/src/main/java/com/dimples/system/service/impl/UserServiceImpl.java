@@ -1,7 +1,6 @@
 package com.dimples.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -211,16 +210,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void deleteUsers(String userIds) {
         String[] ids = StringUtils.splitByWholeSeparator(userIds, StringPool.PIPE);
         List<String> list = Arrays.asList(ids);
-        // 删除用户
-        this.removeByIds(list);
         list.forEach(item -> {
-            // 删除关联用户信息
-            this.userInfoService.remove(new LambdaUpdateWrapper<UserInfo>().eq(UserInfo::getUserId, item));
-            // 删除部门关联
-            this.userDeptService.remove(new LambdaUpdateWrapper<UserDept>().eq(UserDept::getUserId, item));
+            // 删除用户,假删除, 更新删除字段
+            User user = new User();
+            user.setUserId(Long.valueOf(item));
+            user.setAliveStatus(User.ALIVE_STATUS_NOT);
+            user.setModifyDate(new Date());
+            this.update(user, new UpdateWrapper<User>().eq(User.USER_ID, user.getUserId()));
         });
-        // 删除关联角色
-        this.roleUserService.deleteUserRolesByUserId(list);
     }
 }
 

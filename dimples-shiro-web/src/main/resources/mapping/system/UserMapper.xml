@@ -10,10 +10,11 @@
 		<result column="status" jdbcType="VARCHAR" property="status" />
 		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
 		<result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+		<result column="alive_status" jdbcType="VARCHAR" property="aliveStatus" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		<!--@mbg.generated-->
-		user_id, username, `password`, `status`, create_date, modify_date
+		user_id, username, `password`, `status`, create_date, modify_date,alive_status
 	</sql>
 
 	<insert id="insertSelective" keyColumn="user_id" keyProperty="userId"
@@ -36,6 +37,9 @@
 			<if test="modifyDate != null">
 				modify_date,
 			</if>
+			<if test="aliveStatus != null and aliveStatus != ''">
+				alive_status,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="username != null">
@@ -53,6 +57,9 @@
 			<if test="modifyDate != null">
 				#{modifyDate,jdbcType=TIMESTAMP},
 			</if>
+			<if test="aliveStatus != null and aliveStatus != ''">
+				#{aliveStatus,jdbcType=VARCHAR},
+			</if>
 		</trim>
 	</insert>
 
@@ -60,7 +67,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from db_dimples_shiro.tb_user
-		where username = #{username,jdbcType=VARCHAR} and status = '1'
+		where username = #{username,jdbcType=VARCHAR} and status = '1' AND alive_status = '1'
 	</select>
 
 	<select id="findUserDetailPage" resultType="com.dimples.system.dto.UserDetailDTO">
@@ -84,6 +91,7 @@
 			<if test="user.status != null and user.status != ''">
 				AND u.status = #{user.status}
 			</if>
+			AND u.alive_status = '1'
 		</where>
 		ORDER BY u.user_id
 	</select>
@@ -110,7 +118,7 @@
 			     LEFT JOIN tb_dept td ON td.dept_id = tud.dept_id
 			     LEFT JOIN tb_role_user tru ON tru.user_id = tu.user_id
 			     LEFT JOIN tb_role tr ON tr.role_id = tru.role_id
-		WHERE tu.username = #{username,jdbcType=VARCHAR}
+		WHERE tu.username = #{username,jdbcType=VARCHAR} AND tu.alive_status = '1'
 		GROUP BY tu.username,
 		         tu.user_id,
 		         tui.email,
