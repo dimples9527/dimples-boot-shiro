@@ -79,6 +79,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setCreateDate(new Date());
         user.setStatus(userDetail.getStatus());
         user.setPassword(MD5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
+        user.setAliveStatus(User.ALIVE_STATUS);
         // 保存用户登陆信息
         this.baseMapper.insertSelective(user);
 
