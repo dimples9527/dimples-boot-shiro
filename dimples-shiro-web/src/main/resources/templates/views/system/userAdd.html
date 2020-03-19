@@ -174,9 +174,9 @@
         form.on('submit(user-add-form-submit)', function (data) {
             console.log(data.field);
             pearDimples.post('/user', data.field, function () {
-                layer.closeAll();
-                pearDimples.alert.success('新增用户成功，初始密码为 123456');
-                $('#dimples-refresh', window.parent.parent.document).click();
+                parent.layer.closeAll();
+                parent.layer.msg('新增用户成功，初始密码为 123456', {icon: 1});
+                $('#dimples-refresh', parent.document).click();
             });
             return false;
         });
