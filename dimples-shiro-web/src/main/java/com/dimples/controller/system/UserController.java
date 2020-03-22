@@ -2,6 +2,7 @@ package com.dimples.controller.system;
 
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.dimples.common.controller.BaseController;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
@@ -124,7 +125,18 @@ public class UserController extends BaseController {
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
         // 获取数据
         List<UserDetailDTO> userDetailS = this.userService.findUserDetailList(user, queryRequest).getRecords();
-        EasyExcel.write(response.getOutputStream(), UserDetailDTO.class).sheet("模板").doWrite(userDetailS);
+        EasyExcel.write(response.getOutputStream(), UserDetailDTO.class).sheet("用户信息").doWrite(userDetailS);
+    }
+
+    @ApiOperation(value = "重置用户密码", notes = "重置用户密码")
+    @ApiImplicitParam(name = "usernameList", value = "用户id(多个以|分隔)", paramType = "path")
+    @OpsLog(value = "重置用户密码", type = OpsLogTypeEnum.RESET)
+    @PostMapping("password/reset/{usernameList}")
+    @RequiresPermissions("user:password:reset")
+    public DimplesResponse resetPassword(@NotBlank(message = "usernameList 不能为空") @PathVariable String usernameList) {
+        String[] usernameArr = usernameList.split(StringPool.PIPE);
+        this.userService.resetPassword(usernameArr);
+        return DimplesResponse.success();
     }
 
 }

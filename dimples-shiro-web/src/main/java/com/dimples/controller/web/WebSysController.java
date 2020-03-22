@@ -2,11 +2,13 @@ package com.dimples.controller.web;
 
 import com.dimples.common.controller.BaseController;
 import com.dimples.constant.WebConstant;
+import com.dimples.framework.shiro.ShiroHelper;
 import com.dimples.system.dto.UserDetailDTO;
 import com.dimples.system.po.User;
 import com.dimples.system.service.UserService;
 import com.dimples.system.vo.UserDetailVO;
 
+import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,10 +32,12 @@ import lombok.extern.slf4j.Slf4j;
 public class WebSysController extends BaseController {
 
     private UserService userService;
+    private ShiroHelper shiroHelper;
 
     @Autowired
-    public WebSysController(UserService userService) {
+    public WebSysController(UserService userService, ShiroHelper shiroHelper) {
         this.userService = userService;
+        this.shiroHelper = shiroHelper;
     }
 
     @GetMapping("login")
@@ -53,8 +57,11 @@ public class WebSysController extends BaseController {
     @GetMapping("user")
     public ModelAndView user() {
         ModelAndView view = new ModelAndView(WebConstant.USER);
+        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
         User currentUser = getCurrentUser();
         view.addObject("user", currentUser);
+        view.addObject("permissions", authorizationInfo.getStringPermissions());
+        view.addObject("roles", authorizationInfo.getRoles());
         return view;
     }
 
@@ -81,7 +88,13 @@ public class WebSysController extends BaseController {
 
     @GetMapping("role")
     public ModelAndView role() {
-        return new ModelAndView(WebConstant.ROLE);
+        ModelAndView view = new ModelAndView(WebConstant.ROLE);
+        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
+        User currentUser = getCurrentUser();
+        view.addObject("user", currentUser);
+        view.addObject("permissions", authorizationInfo.getStringPermissions());
+        view.addObject("roles", authorizationInfo.getRoles());
+        return view;
     }
 
     @GetMapping("dept")

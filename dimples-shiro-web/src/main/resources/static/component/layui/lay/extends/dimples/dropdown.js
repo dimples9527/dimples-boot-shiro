@@ -10,11 +10,6 @@ layui.define(['jquery'], function (exports) {
     var DEPTH = 0;
     var INDEX = 0;
 
-    // TODO 需要完善
-    var currentUser = {};
-    currentUser.roleSet = ["系统管理员"];
-    currentUser.permissionSet = ["user:add", "user:delete", "user:password:reset", "user:export"];
-
     var Class = function (config) {
         this.config = $.extend({}, this.config, config);
         this.render(config)

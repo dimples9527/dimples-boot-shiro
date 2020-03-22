@@ -11,7 +11,7 @@ import org.apache.shiro.subject.Subject;
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2020/3/13
  */
-public class DimplesUtil {
+public class ShiroUtil {
 
     /**
      * 使用 PropertyUtils.copyProperties() 方法的原因是：
@@ -32,7 +32,7 @@ public class DimplesUtil {
     }
 
     public static boolean isCurrentUser(Long id) {
-        User currentUser = DimplesUtil.getCurrentUser();
+        User currentUser = ShiroUtil.getCurrentUser();
         return currentUser.getUserId().equals(id);
     }
 

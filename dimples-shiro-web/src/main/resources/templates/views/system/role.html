@@ -24,6 +24,7 @@
 		#dimples-role .dimples-container .layui-card .layui-card-body {
 			height: 442px !important;
 		}
+
 		#dimples-role .dimples-container .layui-card .layui-card-body .layui-table-box {
 			height: 470px !important;
 		}
@@ -124,23 +125,31 @@
         <span class="layui-badge-dot dimples-bg-orange"></span> 无权限
     </span>
 	<a lay-event="edit" shiro:hasPermission="role:update"><i
-					class="layui-icon dimples-edit-area dimples-blue">&#xe7a4;</i></a>
+					class="layui-icon dimples-edit-area dimples-blue">&#xe642;</i></a>
 	<a lay-event="del" shiro:hasPermission="role:delete"><i
 					class="layui-icon dimples-edit-area dimples-red">&#xe7f9;</i></a>
 </script>
 </body>
 <!-- lay ui js -->
 <script type="text/javascript" th:src="@{/component/layui/layui.js}"></script>
+
+<script th:inline="javascript">
+    var currentUser = {};
+    currentUser.roleSet = [[${roles}]];
+    currentUser.permissionSet = [[${permissions}]];
+    console.log("用户角色：" + currentUser.roleSet);
+    console.log("用户权限：" + currentUser.permissionSet);
+</script>
 <script data-th-inline="none" type="text/javascript">
-    layui.use(['dropdown', 'jquery', 'laydate', 'pearDimples', 'form', 'table', 'validate', 'tree', 'eleTree'], function () {
+    layui.use(['dropdown', 'jquery', 'laydate', 'layer', 'pearDimples', 'form', 'table', 'validate', 'tree', 'eleTree'], function () {
         var $ = layui.jquery,
             laydate = layui.laydate,
+            layer = layui.layer,
             pearDimples = layui.pearDimples,
             form = layui.form,
             table = layui.table,
             dropdown = layui.dropdown,
             validate = layui.validate,
-            tree = layui.tree,
             eleTree = layui.eleTree;
         var
             $view = $('#dimples-role'),
@@ -202,7 +211,7 @@
                             layui.each(checkStatus.data, function (key, item) {
                                 roleIds.push(item.roleId);
                             });
-                            deleteRoles(roleIds.join(','));
+                            deleteRoles(roleIds.join('|'));
                         });
                     }
                 }
@@ -210,7 +219,7 @@
                     var params = getQueryParams();
                     params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
                     params.pageNum = $view.find(".layui-laypage-em").next().html();
-                    pearDimples.download(ctx + 'role/excel', params, '角色信息表.xlsx');
+                    pearDimples.download('/role/excel', params, '角色信息表.xlsx');
                 }
             },
             options: [{
@@ -239,6 +248,7 @@
                     "remark": data.remark
                 });
                 if (data.menuIds) {
+                    console.log("菜单信息：" + data.menuIds);
                     menuTree.setChecked(data.menuIds.split(','), true);
                 } else {
                     menuTree.setChecked([], true);
@@ -272,7 +282,7 @@
             layui.each(selected, function (key, item) {
                 menuIds.push(item.id)
             });
-            data.field.menuIds = menuIds.join(',');
+            data.field.menuIds = menuIds.join('|');
             if (!menuIds.length) {
                 pearDimples.modal.confirm('提示', '当前角色未授予任何权限，是否继续？', function () {
                     addOrUpdateRole(data.field);
@@ -313,24 +323,26 @@
         }
 
         function deleteRoles(roleIds) {
-            pearDimples.get(ctx + 'role/delete/' + roleIds, null, function () {
+            pearDimples.post('/role/delete/' + roleIds, null, function () {
                 pearDimples.alert.success('删除角色成功');
                 $query.trigger('click');
             })
         }
 
         var addOrUpdateRole = function (data) {
+            var index = layer.load(0, {shade: false});
             if (data.roleId && $header.text() === '修改角色') {
-                pearDimples.post(ctx + 'role/update', data, function () {
+                pearDimples.post('/role/update', data, function () {
                     pearDimples.alert.success('修改角色成功');
                     $query.trigger('click');
                 });
             } else {
-                pearDimples.post(ctx + 'role', data, function () {
+                pearDimples.post('/role', data, function () {
                     pearDimples.alert.success('新增角色成功');
                     $query.trigger('click');
                 });
             }
+            layer.close(index);
         }
     });
 </script>

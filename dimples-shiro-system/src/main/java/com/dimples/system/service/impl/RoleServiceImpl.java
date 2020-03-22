@@ -26,10 +26,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2020/1/29
  */
+@Slf4j
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
@@ -100,16 +103,18 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteRoles(String roleIds) {
-        List<String> list = Arrays.asList(roleIds.split(StringPool.COMMA));
+        List<String> list = Arrays.asList(roleIds.split(StringPool.PIPE));
+        // 删除角色信息
         this.baseMapper.delete(new QueryWrapper<Role>().lambda().in(Role::getRoleId, list));
-
+        // 删除角色关联菜单信息
         this.menuRoleService.deleteRoleMenusByRoleId(list);
+        // 删除用户关联角色信息
         this.roleUserService.deleteUserRolesByRoleId(list);
     }
 
     private void saveRoleMenus(Role role) {
         if (StringUtils.isNotBlank(role.getMenuIds())) {
-            String[] menuIds = role.getMenuIds().split(StringPool.COMMA);
+            String[] menuIds = StringUtils.splitByWholeSeparatorPreserveAllTokens(role.getMenuIds(), StringPool.PIPE);
             List<MenuRole> roleMenus = new ArrayList<>();
             Arrays.stream(menuIds).forEach(menuId -> {
                 MenuRole roleMenu = new MenuRole();

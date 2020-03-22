@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dimples.common.util.DimplesUtil;
+import com.dimples.common.util.ShiroUtil;
 import com.dimples.common.util.MD5Util;
 import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.eunm.CodeAndMessageEnum;
@@ -190,7 +190,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userDept.setDeptId(Long.valueOf(userDetailDTO.getDeptId()));
         this.userDeptService.save(userDept);
         // 清楚用户的session信息
-        User currentUser = DimplesUtil.getCurrentUser();
+        User currentUser = ShiroUtil.getCurrentUser();
         if (StringUtils.equalsIgnoreCase(currentUser.getUsername(), userDetailDTO.getUsername())) {
             shiroRealm.clearCache();
         }
@@ -218,6 +218,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             user.setAliveStatus(User.ALIVE_STATUS_NOT);
             user.setModifyDate(new Date());
             this.update(user, new UpdateWrapper<User>().eq(User.USER_ID, user.getUserId()));
+        });
+    }
+
+    @Override
+    public void resetPassword(String[] usernameArr) {
+        Arrays.stream(usernameArr).forEach(username -> {
+            User user = new User();
+            user.setModifyDate(new Date());
+            user.setPassword(MD5Util.encrypt(username, User.DEFAULT_PASSWORD));
+            this.baseMapper.update(user, new LambdaQueryWrapper<User>().eq(User::getUsername, username));
         });
     }
 }

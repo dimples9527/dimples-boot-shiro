@@ -177,7 +177,15 @@
 </body>
 <!-- lay ui js -->
 <script type="text/javascript" th:src="@{/component/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/component/layui/lay/modules/jquery.js}"></script>
 <!-- 页面处理 -->
+<script th:inline="javascript">
+    var currentUser = {};
+    currentUser.roleSet = [[${roles}]];
+    currentUser.permissionSet = [[${permissions}]];
+    console.log("用户角色：" + currentUser.roleSet);
+    console.log("用户权限：" + currentUser.permissionSet);
+</script>
 <script type="text/javascript">
     layui.use(['jquery', 'table', 'laydate', 'layer', 'xmSelect', 'dropdown', 'treeSelect', 'pearDimples'], function () {
         let $ = layui.jquery,
@@ -294,8 +302,8 @@
                         layui.each(checkStatus.data, function (key, item) {
                             usernameArr.push(item.username)
                         });
-                        pearDimples.post(ctx + 'user/password/reset/' + usernameArr.join(','), null, function () {
-                            pearDimples.alert.success('所选用户密码已重置为1234qwer');
+                        pearDimples.post('/user/password/reset/' + usernameArr.join('|'), null, function () {
+                            pearDimples.alert.success('所选用户密码已重置为123456');
                         });
                     }
                 }

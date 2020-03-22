@@ -80,6 +80,13 @@ public interface UserService extends IService<User> {
      * @param userIds 用户 id数组
      */
     void deleteUsers(String userIds);
+
+    /**
+     * 重置密码
+     *
+     * @param usernameArr 用户名数组
+     */
+    void resetPassword(String[] usernameArr);
 }
 
 

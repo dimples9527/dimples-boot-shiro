@@ -1,5 +1,6 @@
 package com.dimples.system.po;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,6 +35,7 @@ public class Role implements Serializable {
      */
     @TableField(value = "role_name")
     @ApiModelProperty(value = "角色名称")
+    @NotBlank(message = "roleName 不能为空")
     private String roleName;
 
     /**
@@ -58,7 +62,11 @@ public class Role implements Serializable {
     /**
      * 角色对应的菜单（按钮） id
      */
-    private transient String menuIds;
+    @ExcelIgnore
+    @TableField(exist = false)
+    @NotBlank(message = "menuIds 不能为空")
+    @ApiModelProperty(value = "菜单id(多个以|分隔)")
+    private String menuIds;
 
     private static final long serialVersionUID = 1L;
 }
