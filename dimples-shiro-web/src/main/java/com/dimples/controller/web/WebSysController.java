@@ -78,6 +78,7 @@ public class WebSysController extends BaseController {
     @RequiresPermissions("user:update")
     public ModelAndView systemUserUpdate(@PathVariable String username, Model model) {
         ModelAndView view = new ModelAndView(WebConstant.USER_UPDATE);
+        getUserShiroInfo(view);
         buildUserModel(username, model, false);
         return view;
     }
@@ -96,17 +97,11 @@ public class WebSysController extends BaseController {
         return view;
     }
 
-    private void getUserShiroInfo(ModelAndView view) {
-        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
-        User currentUser = getCurrentUser();
-        view.addObject("user", currentUser);
-        view.addObject("permissions", authorizationInfo.getStringPermissions());
-        view.addObject("roles", authorizationInfo.getRoles());
-    }
-
     @GetMapping("menu")
     public ModelAndView menu() {
-        return new ModelAndView(WebConstant.MENU);
+        ModelAndView view = new ModelAndView(WebConstant.MENU);
+        getUserShiroInfo(view);
+        return view;
     }
 
     @GetMapping("404")
@@ -122,6 +117,15 @@ public class WebSysController extends BaseController {
     @GetMapping("500")
     public ModelAndView error500() {
         return new ModelAndView(WebConstant.ERROR_500);
+    }
+
+
+    private void getUserShiroInfo(ModelAndView view) {
+        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
+        User currentUser = getCurrentUser();
+        view.addObject("shiroUser", currentUser);
+        view.addObject("permissions", authorizationInfo.getStringPermissions());
+        view.addObject("roles", authorizationInfo.getRoles());
     }
 
     private void buildUserModel(@PathVariable String username, Model view, Boolean transform) {

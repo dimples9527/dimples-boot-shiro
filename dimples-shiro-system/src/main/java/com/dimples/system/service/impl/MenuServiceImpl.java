@@ -85,7 +85,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMeuns(String menuIds) {
-        String[] menuIdsArray = menuIds.split(StringPool.COMMA);
+        String[] menuIdsArray = menuIds.split(StringPool.PIPE);
         // 需要递归删除，同时需要解除与角色的绑定关系
         this.delete(Arrays.asList(menuIdsArray));
 

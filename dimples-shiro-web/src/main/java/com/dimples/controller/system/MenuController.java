@@ -1,6 +1,7 @@
 package com.dimples.controller.system;
 
 
+import com.alibaba.excel.EasyExcel;
 import com.dimples.common.controller.BaseController;
 import com.dimples.common.dto.MenuTreeDTO;
 import com.dimples.core.annotation.OpsLog;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URLEncoder;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -77,9 +81,9 @@ public class MenuController extends BaseController {
 
     @ApiOperation(value = "删除菜单/按钮", notes = "删除菜单/按钮")
     @OpsLog(value = "删除菜单/按钮", type = OpsLogTypeEnum.DELETE)
-    @GetMapping("delete/{menuIds}")
+    @PostMapping("delete/{menuIds}")
     @RequiresPermissions("menu:delete")
-    public DimplesResponse deleteMenus(@NotBlank(message = "{required}") @PathVariable String menuIds) {
+    public DimplesResponse deleteMenus(@NotBlank(message = "menuIds 不能为空") @PathVariable String menuIds) {
         this.menuService.deleteMeuns(menuIds);
         return DimplesResponse.success();
     }
@@ -97,7 +101,14 @@ public class MenuController extends BaseController {
     @OpsLog(value = "导出菜单Excel", type = OpsLogTypeEnum.EXPORT)
     @GetMapping("excel")
     @RequiresPermissions("menu:export")
-    public void export(Menu menu, HttpServletResponse response) {
-
+    public void export(HttpServletResponse response) throws Exception {
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easy-excel没有关系
+        String fileName = URLEncoder.encode("菜单导出信息", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        // 获取数据
+        List<Menu> list = this.menuService.list();
+        EasyExcel.write(response.getOutputStream(), Menu.class).sheet("菜单信息").doWrite(list);
     }
 }

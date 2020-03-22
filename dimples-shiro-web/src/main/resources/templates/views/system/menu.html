@@ -148,11 +148,19 @@
 </body>
 <!-- lay ui js -->
 <script type="text/javascript" th:src="@{/component/layui/layui.js}"></script>
+<script th:inline="javascript">
+    var currentUser = {};
+    currentUser.roleSet = [[${roles}]];
+    currentUser.permissionSet = [[${permissions}]];
+    console.log("用户角色：" + currentUser.roleSet);
+    console.log("用户权限：" + currentUser.permissionSet);
+</script>
 <script data-th-inline="none" type="text/javascript">
-    layui.use(['dropdown', 'jquery', 'pearDimples', 'form', 'eleTree', 'validate'], function () {
+    layui.use(['dropdown', 'jquery', 'pearDimples', 'form', 'eleTree', 'validate', 'layer'], function () {
         var $ = layui.jquery,
             dimples = layui.pearDimples,
             form = layui.form,
+            layer = layui.layer,
             validate = layui.validate,
             eleTree = layui.eleTree,
             dropdown = layui.dropdown,
@@ -205,7 +213,7 @@
                         menuIds.push(item.id)
                     });
                     dimples.modal.confirm('提示', '当您点击确定按钮后，这些记录将会被彻底删除，如果其包含子记录，也将一并删除！', function () {
-                        dimples.get('/menu/delete/' + menuIds.join(','), null, function () {
+                        dimples.post('/menu/delete/' + menuIds.join('|'), null, function () {
                             dimples.alert.success('删除成功！');
                             reloadMenuTree();
                             reset();
@@ -355,6 +363,7 @@
         };
 
         form.on('submit(menu-form-submit)', function (data) {
+            var index = layer.load(0, {shade: false});
             if (data.field.menuId && $header.text().indexOf('修改') !== -1) {
                 if (dimples.nativeEqual(data.field, _currentMenuData)) {
                     dimples.alert.warn('数据未作任何修改！');
@@ -372,6 +381,7 @@
                     reset();
                 })
             }
+            layer.close(index);
             return false;
         });
     });

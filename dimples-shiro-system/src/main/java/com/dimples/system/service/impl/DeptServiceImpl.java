@@ -6,15 +6,14 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dimples.common.dto.DeptTreeDTO;
 import com.dimples.common.util.TreeUtil;
-import com.dimples.system.mapper.DeptMapper;
-import com.dimples.system.po.Dept;
-import com.dimples.system.service.DeptService;
 import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.transport.QueryRequest;
 import com.dimples.core.util.SortUtil;
+import com.dimples.system.mapper.DeptMapper;
+import com.dimples.system.po.Dept;
+import com.dimples.system.service.DeptService;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,16 +29,9 @@ import java.util.List;
 @Service
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements DeptService {
 
-    private DeptMapper deptMapper;
-
-    @Autowired
-    public DeptServiceImpl(DeptMapper deptMapper) {
-        this.deptMapper = deptMapper;
-    }
-
     @Override
     public List<Dept> findByUserId(Long userId) {
-        return deptMapper.findByUserId(userId);
+        return this.baseMapper.findByUserId(userId);
     }
 
     @Override

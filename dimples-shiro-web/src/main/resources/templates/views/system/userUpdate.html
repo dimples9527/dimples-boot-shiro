@@ -144,6 +144,10 @@
 </div>
 </body>
 <script type="application/javascript" th:src="@{/component/layui/layui.js}"></script>
+
+<script th:inline="javascript">
+    var currentUser = [[${shiroUser}]];
+</script>
 <script type="application/javascript">
     layui.use(['pearDimples', 'form', 'xmSelect', 'validate', 'treeSelect', 'formSelects'], function () {
         var $ = layui.$,
@@ -200,7 +204,7 @@
         });
 
         form.on('submit(user-update-form-submit)', function (data) {
-            /*if (dimples.nativeEqual(data.field, user)) {
+            /*if (dimples.nativeEqual(data.field, currentUser)) {
                 dimples.alert.warn('数据未作任何修改！');
                 return false;
             }*/
