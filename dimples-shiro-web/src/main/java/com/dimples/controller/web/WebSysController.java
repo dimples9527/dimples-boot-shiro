@@ -57,11 +57,7 @@ public class WebSysController extends BaseController {
     @GetMapping("user")
     public ModelAndView user() {
         ModelAndView view = new ModelAndView(WebConstant.USER);
-        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
-        User currentUser = getCurrentUser();
-        view.addObject("user", currentUser);
-        view.addObject("permissions", authorizationInfo.getStringPermissions());
-        view.addObject("roles", authorizationInfo.getRoles());
+        getUserShiroInfo(view);
         return view;
     }
 
@@ -89,17 +85,23 @@ public class WebSysController extends BaseController {
     @GetMapping("role")
     public ModelAndView role() {
         ModelAndView view = new ModelAndView(WebConstant.ROLE);
-        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
-        User currentUser = getCurrentUser();
-        view.addObject("user", currentUser);
-        view.addObject("permissions", authorizationInfo.getStringPermissions());
-        view.addObject("roles", authorizationInfo.getRoles());
+        getUserShiroInfo(view);
         return view;
     }
 
     @GetMapping("dept")
     public ModelAndView dept() {
-        return new ModelAndView(WebConstant.DEPT);
+        ModelAndView view = new ModelAndView(WebConstant.DEPT);
+        getUserShiroInfo(view);
+        return view;
+    }
+
+    private void getUserShiroInfo(ModelAndView view) {
+        AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
+        User currentUser = getCurrentUser();
+        view.addObject("user", currentUser);
+        view.addObject("permissions", authorizationInfo.getStringPermissions());
+        view.addObject("roles", authorizationInfo.getRoles());
     }
 
     @GetMapping("menu")

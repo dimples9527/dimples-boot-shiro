@@ -550,7 +550,7 @@ layui.define(["jquery", "laytpl"], function (exports) {
                                         }
                                     })
                                 }
-                            }
+                            };
                             // 展开指定id项
                             var id = el.parent(".eleTree-node").data(options.request.key);
                             if ($.inArray(id, options.defaultExpandedKeys) !== -1) {
@@ -609,7 +609,7 @@ layui.define(["jquery", "laytpl"], function (exports) {
             arr.forEach(function (val, index) {
                 var nodeContent = options.elem.find("[data-" + options.request.key + "='" + val + "']").children(".eleTree-node-content");
                 nodeContent.length > 0 && _self.checkedOneNode(nodeContent);
-            })
+            });
             this.checkboxInit();
         },
         // 自定义checkbox解析

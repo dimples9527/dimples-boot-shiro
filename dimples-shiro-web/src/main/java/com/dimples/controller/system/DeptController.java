@@ -1,23 +1,24 @@
 package com.dimples.controller.system;
 
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.dimples.common.dto.DeptTreeDTO;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.transport.DimplesResponse;
-import com.dimples.core.transport.QueryRequest;
 import com.dimples.system.po.Dept;
 import com.dimples.system.service.DeptService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -71,12 +72,12 @@ public class DeptController {
     }
 
     @ApiOperation(value = "删除部门", notes = "删除部门")
-    @ApiImplicitParam(name = "deptIds", value = "部门字符串，以,分隔", paramType = "string", dataType = "path", required = true,example = "{key:}")
+    @ApiImplicitParam(name = "deptIds", value = "部门字符串，以,分隔", paramType = "string", dataType = "path", required = true, example = "{key:}")
     @OpsLog(value = "删除部门", type = OpsLogTypeEnum.DELETE)
-    @DeleteMapping("delete/{deptIds}")
+    @PostMapping("delete/{deptIds}")
     @RequiresPermissions("dept:delete")
-    public DimplesResponse deleteDepts(@NotBlank(message = "{required}") @PathVariable String deptIds) {
-        String[] ids = deptIds.split(StringPool.COMMA);
+    public DimplesResponse deleteDepts(@NotBlank(message = "deptIds 不能为空") @PathVariable String deptIds) {
+        String[] ids = StringUtils.splitByWholeSeparatorPreserveAllTokens(deptIds, StringPool.PIPE);
         this.deptService.deleteDeptList(ids);
         return DimplesResponse.success();
     }
@@ -94,8 +95,15 @@ public class DeptController {
     @OpsLog(value = "导出部门Excel", type = OpsLogTypeEnum.EXPORT)
     @GetMapping("excel")
     @RequiresPermissions("dept:export")
-    public void export(Dept dept, QueryRequest request, HttpServletResponse response) {
-
+    public void export(HttpServletResponse response) throws Exception {
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easy-excel没有关系
+        String fileName = URLEncoder.encode("测试", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        // 获取数据
+        List<Dept> list = this.deptService.list();
+        EasyExcel.write(response.getOutputStream(), Dept.class).sheet("部门信息").doWrite(list);
     }
 
 }

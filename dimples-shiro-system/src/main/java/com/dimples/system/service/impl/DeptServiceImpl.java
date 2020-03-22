@@ -84,7 +84,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteDeptList(String[] deptIds) {
-        this.delete(Arrays.asList(deptIds));
+        this.deleteTree(Arrays.asList(deptIds));
     }
 
     /**
@@ -92,8 +92,8 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
      *
      * @param deptIds 部门id 集合
      */
-    private void delete(List<String> deptIds) {
-        removeByIds(deptIds);
+    private void deleteTree(List<String> deptIds) {
+        this.removeByIds(deptIds);
 
         LambdaQueryWrapper<Dept> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.in(Dept::getParentId, deptIds);
@@ -101,7 +101,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
         if (CollectionUtils.isNotEmpty(depts)) {
             List<String> deptIdList = new ArrayList<>();
             depts.forEach(d -> deptIdList.add(String.valueOf(d.getDeptId())));
-            this.delete(deptIdList);
+            this.deleteTree(deptIdList);
         }
     }
 
