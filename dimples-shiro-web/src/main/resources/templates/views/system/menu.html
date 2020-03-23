@@ -64,11 +64,11 @@
 				<div class="layui-card-header" id="form-header">新增菜单</div>
 				<div class="layui-card-body dimples-table-full">
 					<form class="layui-form layui-table-form" action="" lay-filter="menu-form">
-						<div class="layui-form-item dimples-hide">
+						<div class="layui-form-item">
 							<label class="layui-form-label dimples-form-item-require">ID：</label>
 							<div class="layui-input-block">
 								<label>
-									<input type="text" name="menuId" class="layui-input">
+									<input type="text" name="menuId" class="layui-input" disabled>
 								</label>
 							</div>
 						</div>
@@ -76,7 +76,7 @@
 							<label class="layui-form-label">上级ID：</label>
 							<div class="layui-input-block">
 								<label>
-									<input type="text" value="" name="parentId" readonly class="layui-input">
+									<input type="text" value="" name="parentId" class="layui-input">
 								</label>
 							</div>
 						</div>
@@ -245,6 +245,7 @@
 
         eleTree.on("nodeClick(menuTree)", function (d) {
             var data = d.data.currentData.data;
+            console.log(data);
             _currentMenuData = data;
             $type.attr("disabled", true);
             var type = data.type;

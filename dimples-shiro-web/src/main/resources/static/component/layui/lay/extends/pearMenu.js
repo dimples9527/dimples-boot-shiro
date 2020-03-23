@@ -337,14 +337,13 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
                         + note.icon + '"></i><span>' + note.title + '</span></a>';
                 } else if ((note.hasParent == null && note.hasChild == null) || (note.hasParent == true && note.hasChild == null)) {
                     // 创 建 菜 单 结 构
-                    console.log(note.href);
                     if ((note.href != null && (note.href).indexOf("doc.html") != -1)
                         || (note.href != null && (note.href).indexOf("swagger.html") != -1)) {
-                        /*content += '<a class="site-demo-active" href="' + note.href + '" target="_blank" menu-type="' + 1 + '" menu-url="' + note.href
+                        content += '<a class="site-demo-active" menu-type="' + 1 + '" menu-url="' + note.href
                             + '" menu-id="' + note.id + '" menu-title="' + note.title + '" menu-icon="' + note.icon
-                            + '" href="javascript:;"><i class="' + note.icon + '"></i><span>' + note.title + '</span></a>';*/
-                        content += '<a class="site-demo-active" href="' + note.href + '" target="_blank"'
-                            +'><i class="' + note.icon + '"></i><span>' + note.title + '</span></a>';
+                            + '" href="javascript:;"><i class="' + note.icon + '"></i><span>' + note.title + '</span></a>';
+                        /*content += '<a class="site-demo-active" href="' + note.href + '" target="_blank"'
+                            +'><i class="' + note.icon + '"></i><span>' + note.title + '</span></a>';*/
                     } else {
                         content += '<a class="site-demo-active" menu-type="' + 1 + '" menu-url="' + note.href
                             + '" menu-id="' + note.id + '" menu-title="' + note.title + '" menu-icon="' + note.icon

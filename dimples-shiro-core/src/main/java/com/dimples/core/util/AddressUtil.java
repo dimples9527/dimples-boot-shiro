@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 根据IP查询详细的地址位置
  * 试用开源的ip2region库，开源地址：https://github.com/lionsoul2014/ip2region
@@ -20,6 +22,7 @@ import java.util.Objects;
  * @author tycoding
  * @date 2019-02-15
  */
+@Slf4j
 public class AddressUtil {
 
     /**
@@ -52,9 +55,6 @@ public class AddressUtil {
             //define the method
             Method method;
             switch (algorithm) {
-                case DbSearcher.BTREE_ALGORITHM:
-                    method = searcher.getClass().getMethod("btreeSearch", String.class);
-                    break;
                 case DbSearcher.BINARY_ALGORITHM:
                     method = searcher.getClass().getMethod("binarySearch", String.class);
                     break;
@@ -78,5 +78,53 @@ public class AddressUtil {
             e.printStackTrace();
         }
         return "";
+    }
+
+    @SuppressWarnings("all")
+    public static String getCityInfo(String ip) {
+        DbSearcher searcher = null;
+        try {
+            String dbPath = AddressUtil.class.getResource("/config/ip2region.db").getPath();
+            File file = new File(dbPath);
+            if (!file.exists()) {
+                String tmpDir = System.getProperties().getProperty("java.io.tmpdir");
+                dbPath = tmpDir + "ip.db";
+                file = new File(dbPath);
+                FileUtils.copyInputStreamToFile(AddressUtil.class.getClassLoader()
+                        .getResourceAsStream("classpath:config/ip2region.db"), file);
+            }
+            int algorithm = DbSearcher.BTREE_ALGORITHM;
+            DbConfig config = new DbConfig();
+            searcher = new DbSearcher(config, dbPath);
+            Method method = null;
+            switch (algorithm) {
+                case DbSearcher.BTREE_ALGORITHM:
+                    method = searcher.getClass().getMethod("btreeSearch", String.class);
+                    break;
+                case DbSearcher.BINARY_ALGORITHM:
+                    method = searcher.getClass().getMethod("binarySearch", String.class);
+                    break;
+                case DbSearcher.MEMORY_ALGORITYM:
+                    method = searcher.getClass().getMethod("memorySearch", String.class);
+                    break;
+            }
+            DataBlock dataBlock = null;
+            if (!Util.isIpAddress(ip)) {
+                log.error("Error: Invalid ip address");
+            }
+            dataBlock = (DataBlock) method.invoke(searcher, ip);
+            return dataBlock.getRegion();
+        } catch (Exception e) {
+            log.error("获取IP地址失败，{}", e.getMessage());
+        } finally {
+            if (searcher != null) {
+                try {
+                    searcher.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 }

@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * 日期工具类
@@ -174,6 +175,11 @@ public class DateUtil extends DateUtils {
             return false;
         }
         return parseDate(s).getTime() >= parseDate(e).getTime();
+    }
+
+    public static String getDateFormat(Date date, String dateFormatType) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormatType, Locale.CHINA);
+        return simpleDateFormat.format(date);
     }
 
     /**

@@ -6,7 +6,7 @@ import com.dimples.common.controller.BaseController;
 import com.dimples.common.dto.MenuTreeDTO;
 import com.dimples.core.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
-import com.dimples.core.exception.BizException;
+import com.dimples.core.exception.DataException;
 import com.dimples.core.transport.DimplesResponse;
 import com.dimples.system.po.Menu;
 import com.dimples.system.po.User;
@@ -56,7 +56,7 @@ public class MenuController extends BaseController {
     public DimplesResponse getUserMenus(@NotBlank(message = "{required}") @PathVariable String username) {
         User currentUser = getCurrentUser();
         if (!StringUtils.equalsIgnoreCase(username, currentUser.getUsername())) {
-            throw new BizException("您无权获取别人的菜单");
+            throw new DataException("您无权获取别人的菜单");
         }
         MenuTreeDTO<Menu> userMenus = this.menuService.findUserMenus(username);
         return DimplesResponse.success(userMenus);
