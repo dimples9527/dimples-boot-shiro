@@ -194,7 +194,7 @@
         }
 
         function deleteLogs(logIds) {
-            dimples.get('/loginLog/delete/' + logIds, null, function () {
+            dimples.post('/loginLog/delete/' + logIds, null, function () {
                 dimples.alert.success('删除登录日志成功');
                 $query.click();
             });

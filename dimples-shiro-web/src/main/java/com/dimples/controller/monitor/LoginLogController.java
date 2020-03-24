@@ -13,6 +13,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,7 +56,7 @@ public class LoginLogController extends BaseController {
 
     @ApiOperation(value = "删除登陆日志", notes = "删除登陆日志")
     @ApiImplicitParam(name = "ids", value = "登陆日志对应id(多个以|分隔)", paramType = "query", required = true)
-    @GetMapping("delete/{ids}")
+    @PostMapping("delete/{ids}")
     @RequiresPermissions("login-log:delete")
     @OpsLog(value = "删除登陆日志", type = OpsLogTypeEnum.DELETE)
     public DimplesResponse deleteLogsList(@NotBlank(message = "ids 不能为空") @PathVariable String ids) {

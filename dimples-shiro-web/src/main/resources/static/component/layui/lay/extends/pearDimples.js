@@ -210,6 +210,16 @@ layui.define(['table', 'jquery', 'pearView'], function (exports) {
             })
         };
 
+        // ajax get请求
+        pearDimples.get = function (url, params, success) {
+            if (params) {
+                params.invalidate_ie_cache = new Date();
+            }
+            $.get(url, params, function (r) {
+                resolveResponse(r, success);
+            })
+        };
+
         pearDimples.download = function (url, params, fileName) {
             url += '?' + parseParams(params);
             var xhr = new XMLHttpRequest();
