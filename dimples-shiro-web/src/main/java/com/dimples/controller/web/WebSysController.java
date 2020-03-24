@@ -141,9 +141,11 @@ public class WebSysController extends BaseController {
             }
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String format = formatter.format(detail.getLastLoginTime());
         UserDetailVO detailVO = UserDetailVO.copy(detail);
-        detailVO.setLastLoginTime(format);
+        if (detail.getLastLoginTime() != null){
+            String format = formatter.format(detail.getLastLoginTime());
+            detailVO.setLastLoginTime(format);
+        }
         view.addAttribute("user", detailVO);
     }
 
