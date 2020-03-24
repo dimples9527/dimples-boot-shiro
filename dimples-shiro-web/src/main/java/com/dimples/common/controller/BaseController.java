@@ -1,12 +1,16 @@
 package com.dimples.common.controller;
 
-import com.dimples.system.po.User;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dimples.core.exception.BizException;
+import com.dimples.system.po.User;
+import com.google.common.collect.Maps;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+
+import java.util.Map;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
@@ -44,5 +48,11 @@ public class BaseController {
         return getSubject().getSession(flag);
     }
 
+    protected Map<String, Object> getDataTable(IPage<?> pageInfo) {
+        Map<String, Object> data = Maps.newHashMap();
+        data.put("records", pageInfo.getRecords());
+        data.put("total", pageInfo.getTotal());
+        return data;
+    }
 
 }

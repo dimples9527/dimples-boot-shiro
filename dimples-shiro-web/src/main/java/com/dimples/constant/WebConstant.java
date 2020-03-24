@@ -29,4 +29,5 @@ public class WebConstant {
     public static final String MENU = VIEW_PREFIX + "system/menu";
 
     public static final String ONLINE = VIEW_PREFIX + "monitor/online";
+    public static final String LOGIN_LOG = VIEW_PREFIX + "monitor/loginLog";
 }

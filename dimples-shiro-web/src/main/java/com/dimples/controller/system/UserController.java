@@ -121,7 +121,7 @@ public class UserController extends BaseController {
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
         // 这里URLEncoder.encode可以防止中文乱码 当然和easy-excel没有关系
-        String fileName = URLEncoder.encode("测试", "UTF-8");
+        String fileName = URLEncoder.encode("用户信息", "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
         // 获取数据
         List<UserDetailDTO> userDetailS = this.userService.findUserDetailList(user, queryRequest).getRecords();
