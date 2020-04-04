@@ -2,8 +2,8 @@ package com.dimples.monitor.service.impl;
 
 import com.dimples.core.util.AddressUtil;
 import com.dimples.core.util.DateUtil;
-import com.dimples.monitor.po.ActiveUser;
-import com.dimples.monitor.service.SessionService;
+import com.dimples.monitor.po.OnlineUser;
+import com.dimples.monitor.service.OnlineService;
 import com.dimples.system.po.User;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,23 +24,23 @@ import java.util.List;
  * @author MrBird
  */
 @Service
-public class SessionServiceImpl implements SessionService {
+public class OnlineServiceImpl implements OnlineService {
 
     private SessionDAO sessionDAO;
 
     @Autowired
-    public SessionServiceImpl(SessionDAO sessionDAO) {
+    public OnlineServiceImpl(SessionDAO sessionDAO) {
         this.sessionDAO = sessionDAO;
     }
 
     @Override
-    public List<ActiveUser> list(String username) {
+    public List<OnlineUser> list(String username) {
         String currentSessionId = (String) SecurityUtils.getSubject().getSession().getId();
 
-        List<ActiveUser> list = new ArrayList<>();
+        List<OnlineUser> list = new ArrayList<>();
         Collection<Session> sessions = sessionDAO.getActiveSessions();
         for (Session session : sessions) {
-            ActiveUser activeUser = new ActiveUser();
+            OnlineUser onlineUser = new OnlineUser();
             User user = new User();
             SimplePrincipalCollection principalCollection;
             if (session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY) == null) {
@@ -49,24 +49,24 @@ public class SessionServiceImpl implements SessionService {
                 principalCollection = (SimplePrincipalCollection) session
                         .getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
                 BeanUtils.copyProperties(principalCollection.getPrimaryPrincipal(), user);
-                activeUser.setUsername(user.getUsername());
-                activeUser.setUserId(user.getUserId().toString());
+                onlineUser.setUsername(user.getUsername());
+                onlineUser.setUserId(user.getUserId().toString());
             }
-            activeUser.setId((String) session.getId());
-            activeUser.setHost(session.getHost());
-            activeUser.setStartTimestamp(DateUtil.getDateFormat(session.getStartTimestamp(), DateUtil.YYYY_MM_DD_HH_MM_SS));
-            activeUser.setLastAccessTime(DateUtil.getDateFormat(session.getLastAccessTime(), DateUtil.YYYY_MM_DD_HH_MM_SS));
+            onlineUser.setId((String) session.getId());
+            onlineUser.setHost(session.getHost());
+            onlineUser.setStartTimestamp(DateUtil.getDateFormat(session.getStartTimestamp(), DateUtil.YYYY_MM_DD_HH_MM_SS));
+            onlineUser.setLastAccessTime(DateUtil.getDateFormat(session.getLastAccessTime(), DateUtil.YYYY_MM_DD_HH_MM_SS));
             long timeout = session.getTimeout();
-            activeUser.setStatus(timeout == 0L ? "0" : "1");
-            String address = AddressUtil.getCityInfo(activeUser.getHost());
-            activeUser.setLocation(address);
-            activeUser.setTimeout(timeout);
-            if (StringUtils.equals(currentSessionId, activeUser.getId())) {
-                activeUser.setCurrent(true);
+            onlineUser.setStatus(timeout == 0L ? "0" : "1");
+            String address = AddressUtil.getCityInfo(onlineUser.getHost());
+            onlineUser.setLocation(address);
+            onlineUser.setTimeout(timeout);
+            if (StringUtils.equals(currentSessionId, onlineUser.getId())) {
+                onlineUser.setCurrent(true);
             }
             if (StringUtils.isBlank(username)
-                    || StringUtils.equalsIgnoreCase(activeUser.getUsername(), username)) {
-                list.add(activeUser);
+                    || StringUtils.equalsIgnoreCase(onlineUser.getUsername(), username)) {
+                list.add(onlineUser);
             }
         }
         return list;

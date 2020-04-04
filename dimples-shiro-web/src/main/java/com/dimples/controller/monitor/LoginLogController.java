@@ -2,7 +2,8 @@ package com.dimples.controller.monitor;
 
 import com.alibaba.excel.EasyExcel;
 import com.dimples.common.controller.BaseController;
-import com.dimples.core.annotation.OpsLog;
+import com.dimples.common.annotation.OpsLog;
+import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.transport.DimplesResponse;
 import com.dimples.core.transport.QueryRequest;
@@ -73,7 +74,7 @@ public class LoginLogController extends BaseController {
         response.setCharacterEncoding("utf-8");
         // 这里URLEncoder.encode可以防止中文乱码 当然和easy-excel没有关系
         String fileName = URLEncoder.encode("登陆日志", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + DimplesConstant.VALID_FILE_TYPE[0]);
         // 获取数据
         EasyExcel.write(response.getOutputStream(), LoginLog.class).sheet("用户信息").doWrite(loginLogs);
     }

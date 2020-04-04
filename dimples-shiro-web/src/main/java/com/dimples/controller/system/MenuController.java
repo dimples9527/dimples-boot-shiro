@@ -4,7 +4,7 @@ package com.dimples.controller.system;
 import com.alibaba.excel.EasyExcel;
 import com.dimples.common.controller.BaseController;
 import com.dimples.common.dto.MenuTreeDTO;
-import com.dimples.core.annotation.OpsLog;
+import com.dimples.common.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.DataException;
 import com.dimples.core.transport.DimplesResponse;

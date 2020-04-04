@@ -30,4 +30,5 @@ public class WebConstant {
 
     public static final String ONLINE = VIEW_PREFIX + "monitor/online";
     public static final String LOGIN_LOG = VIEW_PREFIX + "monitor/loginLog";
+    public static final String OPS_LOG = VIEW_PREFIX + "monitor/opsLog";
 }

@@ -10,7 +10,7 @@ import lombok.Data;
  * @author MrBird
  */
 @Data
-public class ActiveUser implements Serializable {
+public class OnlineUser implements Serializable {
     private static final long serialVersionUID = -1277171780468841527L;
 
     /**

@@ -1,4 +1,4 @@
-package com.dimples.core.annotation;
+package com.dimples.common.annotation;
 
 import com.dimples.core.eunm.OpsLogTypeEnum;
 

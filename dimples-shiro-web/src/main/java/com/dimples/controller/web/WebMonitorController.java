@@ -38,8 +38,15 @@ public class WebMonitorController extends BaseController {
     }
 
     @GetMapping("loginLog")
-    public ModelAndView role() {
+    public ModelAndView loginLog() {
         ModelAndView view = new ModelAndView(WebConstant.LOGIN_LOG);
+        getUserShiroInfo(view);
+        return view;
+    }
+
+    @GetMapping("opsLog")
+    public ModelAndView opsLog() {
+        ModelAndView view = new ModelAndView(WebConstant.OPS_LOG);
         getUserShiroInfo(view);
         return view;
     }

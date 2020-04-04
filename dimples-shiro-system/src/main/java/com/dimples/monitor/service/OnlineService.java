@@ -1,13 +1,13 @@
 package com.dimples.monitor.service;
 
-import com.dimples.monitor.po.ActiveUser;
+import com.dimples.monitor.po.OnlineUser;
 
 import java.util.List;
 
 /**
  * @author MrBird
  */
-public interface SessionService {
+public interface OnlineService {
 
     /**
      * 获取在线用户列表
@@ -15,7 +15,7 @@ public interface SessionService {
      * @param username 用户名
      * @return List<ActiveUser>
      */
-    List<ActiveUser> list(String username);
+    List<OnlineUser> list(String username);
 
     /**
      * 踢出用户

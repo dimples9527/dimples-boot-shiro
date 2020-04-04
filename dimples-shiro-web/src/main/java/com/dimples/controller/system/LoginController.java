@@ -10,7 +10,7 @@ import com.dimples.system.service.UserService;
 import com.dimples.system.service.impl.ValidateCodeServiceImpl;
 import com.dimples.constant.WebConstant;
 import com.dimples.vo.IndexVO;
-import com.dimples.core.annotation.OpsLog;
+import com.dimples.common.annotation.OpsLog;
 import com.dimples.core.constant.DimplesConstant;
 import com.dimples.common.controller.BaseController;
 import com.dimples.core.eunm.OpsLogTypeEnum;

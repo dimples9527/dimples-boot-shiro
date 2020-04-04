@@ -3,7 +3,7 @@ package com.dimples.controller.system;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.dimples.common.dto.DeptTreeDTO;
-import com.dimples.core.annotation.OpsLog;
+import com.dimples.common.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.transport.DimplesResponse;
 import com.dimples.system.po.Dept;

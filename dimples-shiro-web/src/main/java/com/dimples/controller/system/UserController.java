@@ -4,7 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.dimples.common.controller.BaseController;
-import com.dimples.core.annotation.OpsLog;
+import com.dimples.common.annotation.OpsLog;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
 import com.dimples.core.transport.DimplesResponse;
