@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="cmn-hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>新增任务</title>
+	<link rel="stylesheet" th:href="@{/component/layui/css/layui.css}" media="all">
+	<link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
+</head>
+<!-- 自定义样式 -->
+<style>
+	#job-add {
+		padding: 20px 25px 25px 0;
+	}
+
+	#job-add .layui-form-label {
+		width: 88px;
+	}
+
+	#job-add .layui-input-block {
+		margin-left: 120px;
+	}
+	#job-add .layui-form .dimples-form-submit {
+		float: right;
+	}
+</style>
+
+<body>
+<div class="layui-fluid" id="job-add">
+	<form class="layui-form" action="" lay-filter="job-add-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label dimples-form-item-require">Bean名称：</label>
+			<div class="layui-input-block">
+				<label>
+					<input type="text" name="beanName" maxlength="20" lay-verify="range|required"
+								 autocomplete="off" class="layui-input">
+				</label>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label dimples-form-item-require">方法名称：</label>
+			<div class="layui-input-block">
+				<label>
+					<input type="text" name="methodName" maxlength="50" lay-verify="range|required"
+								 autocomplete="off" class="layui-input">
+				</label>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">方法参数：</label>
+			<div class="layui-input-block">
+				<label>
+					<input type="text" name="params" maxlength="50" lay-verify="range"
+								 autocomplete="off" class="layui-input">
+				</label>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label dimples-form-item-require">cron表达式：</label>
+			<div class="layui-input-block">
+				<label>
+					<input type="text" name="cronExpression" maxlength="20" lay-verify="range|required|cron"
+								 autocomplete="off" class="layui-input">
+				</label>
+			</div>
+		</div>
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label">任务备注：</label>
+			<div class="layui-input-block">
+				<label>
+					<textarea name="remark" maxlength="50" class="layui-textarea"></textarea>
+				</label>
+			</div>
+		</div>
+		<div class="layui-form-item dimples-form-submit">
+			<button class="layui-btn" lay-submit="" lay-filter="job-add-form-submit" id="submit">提交
+			</button>
+			<button type="reset" class="layui-btn" id="reset">重置</button>
+		</div>
+	</form>
+</div>
+</body>
+<script type="application/javascript" th:src="@{/component/layui/layui.js}"></script>
+<script>
+    layui.use(['jquery', 'pearDimples', 'form', 'validate'], function () {
+        var $ = layui.jquery,
+            dimples = layui.pearDimples,
+            form = layui.form,
+            validate = layui.validate;
+
+        form.verify(validate);
+        form.render();
+
+        form.on('submit(job-add-form-submit)', function (data) {
+            dimples.post('/job', data.field, function () {
+                parent.layer.closeAll();
+                dimples.alert.success('新增任务成功');
+                $('#dimples-job', parent.document).click();
+            });
+            return false;
+        });
+
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

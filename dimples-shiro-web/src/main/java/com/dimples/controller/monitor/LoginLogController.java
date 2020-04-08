@@ -31,8 +31,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author MrBird
- */
+  *
+  * @author zhongyj <1126834403@qq.com><br/>
+  * @date 2020/4/6
+  */
 @Slf4j
 @Api(tags = "登陆日志管理模块")
 @RestController

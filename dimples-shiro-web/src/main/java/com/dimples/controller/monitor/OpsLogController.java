@@ -61,7 +61,7 @@ public class OpsLogController extends BaseController {
     @com.dimples.common.annotation.OpsLog(value = "删除操作日志", type = OpsLogTypeEnum.DELETE)
     @PostMapping("delete/{ids}")
     @RequiresPermissions("ops-log:delete")
-    public DimplesResponse deleteLogs(@NotBlank(message = "{required}") @PathVariable String ids) {
+    public DimplesResponse deleteLogs(@NotBlank(message = "ids不能为空") @PathVariable String ids) {
         this.logService.deleteLogs(ids);
         return DimplesResponse.success();
     }

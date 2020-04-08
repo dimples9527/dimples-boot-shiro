@@ -23,7 +23,7 @@ layui.define(['jquery'], function (exports) {
             if (!isEmpty(value)) {
                 var result = '';
                 $.ajax({
-                    url: ctx + 'job/cron/check',
+                    url: '/job/cron/check',
                     data: {
                         "cron": value
                     },
