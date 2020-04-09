@@ -2,9 +2,11 @@ package com.dimples.job.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dimples.core.constant.DimplesConstant;
+import com.dimples.core.exception.DataException;
 import com.dimples.core.transport.QueryRequest;
 import com.dimples.core.util.SortUtil;
 import com.dimples.job.helper.ScheduleHelper;
@@ -17,8 +19,11 @@ import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
@@ -72,6 +77,55 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
         boolean save = this.save(job);
         ScheduleHelper.createScheduleJob(scheduler, job);
         return save;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteJobs(String jobIds) {
+        String[] jobs = StringUtils.splitByWholeSeparator(jobIds, StringPool.PIPE);
+        List<String> list = Arrays.asList(jobs);
+        list.forEach(jobId -> ScheduleHelper.deleteScheduleJob(scheduler, Long.valueOf(jobId)));
+        this.baseMapper.deleteBatchIds(list);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateJob(Job job) {
+        if (ObjectUtils.isEmpty(job.getJobId())) {
+            throw new DataException("更新任务时, jobId不能为空");
+        }
+        ScheduleHelper.updateScheduleJob(scheduler, job);
+        this.baseMapper.updateById(job);
+    }
+
+    @Override
+    public void run(String jobIds) {
+        String[] list = StringUtils.splitByWholeSeparator(jobIds, StringPool.PIPE);
+        Arrays.stream(list).forEach(jobId -> ScheduleHelper.run(scheduler, this.getById(Long.valueOf(jobId))));
+    }
+
+    @Override
+    public int pause(String jobIds) {
+        String[] list = StringUtils.splitByWholeSeparator(jobIds, StringPool.PIPE);
+        Arrays.stream(list).forEach(jobId -> ScheduleHelper.pauseJob(scheduler, Long.valueOf(jobId)));
+        return this.updateBatch(jobIds, Job.ScheduleStatus.PAUSE.getValue());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateBatch(String jobIds, String status) {
+        List<String> list = Arrays.asList(StringUtils.splitByWholeSeparator(jobIds, StringPool.PIPE));
+        Job job = new Job();
+        job.setStatus(status);
+        return this.baseMapper.update(job, new LambdaQueryWrapper<Job>().in(Job::getJobId, list));
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void resume(String jobIds) {
+        String[] list = StringUtils.splitByWholeSeparator(jobIds, StringPool.PIPE);
+        Arrays.stream(list).forEach(jobId -> ScheduleHelper.resumeJob(scheduler, Long.valueOf(jobId)));
+        this.updateBatch(jobIds, Job.ScheduleStatus.NORMAL.getValue());
     }
 }
 

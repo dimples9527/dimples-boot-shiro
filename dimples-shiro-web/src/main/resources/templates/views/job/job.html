@@ -153,7 +153,7 @@
                             layui.each(checkStatus.data, function (key, item) {
                                 jobIds.push(item.jobId)
                             });
-                            deleteJobs(jobIds.join(','))
+                            deleteJobs(jobIds.join('|'))
                         });
                     }
                 }
@@ -166,7 +166,7 @@
                             layui.each(checkStatus.data, function (key, item) {
                                 jobIds.push(item.jobId)
                             });
-                            dimples.get(ctx + 'job/pause/' + jobIds.join(','), null, function () {
+                            dimples.post('/job/pause/' + jobIds.join('|'), null, function () {
                                 dimples.alert.success('暂停任务成功');
                                 $query.click();
                             })
@@ -182,7 +182,7 @@
                             layui.each(checkStatus.data, function (key, item) {
                                 jobIds.push(item.jobId)
                             });
-                            dimples.get(ctx + 'job/resume/' + jobIds.join(','), null, function () {
+                            dimples.post('/job/resume/' + jobIds.join('|'), null, function () {
                                 dimples.alert.success('恢复任务成功');
                                 $query.click();
                             })
@@ -198,7 +198,7 @@
                             layui.each(checkStatus.data, function (key, item) {
                                 jobIds.push(item.jobId)
                             });
-                            dimples.get(ctx + 'job/run/' + jobIds.join(','), null, function () {
+                            dimples.post('/job/run/' + jobIds.join('|'), null, function () {
                                 dimples.alert.success('执行任务成功');
                                 $query.click();
                             })
@@ -212,7 +212,7 @@
                     });
                     params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
                     params.pageNum = $view.find(".layui-laypage-em").next().html();
-                    dimples.download(ctx + 'job/excel', params, '任务表.xlsx');
+                    dimples.download('/job/excel', params, '任务表.xlsx');
                 }
             },
             options: [{
@@ -296,7 +296,7 @@
         }
 
         function deleteJobs(jobIds) {
-            dimples.get(ctx + 'job/delete/' + jobIds, null, function () {
+            dimples.post('/job/delete/' + jobIds, null, function () {
                 dimples.alert.success('删除任务成功');
                 $query.click();
             });

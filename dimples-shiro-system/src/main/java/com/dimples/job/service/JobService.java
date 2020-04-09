@@ -28,4 +28,49 @@ public interface JobService extends IService<Job> {
      * @return boolean
      */
     boolean createJob(Job job);
+
+    /**
+     * 删除任务
+     *
+     * @param jobIds 任务id
+     */
+    void deleteJobs(String jobIds);
+
+    /**
+     * 批量更新
+     *
+     * @param jobIds String
+     * @param status String
+     * @return 结果
+     */
+    int updateBatch(String jobIds, String status);
+
+    /**
+     * 更新任务
+     *
+     * @param job Job
+     */
+    void updateJob(Job job);
+
+    /**
+     * 启动任务
+     *
+     * @param jobIds String
+     */
+    void run(String jobIds);
+
+    /**
+     * 暂停任务
+     *
+     * @param jobIds String
+     * @return int
+     */
+    int pause(String jobIds);
+
+    /**
+     * 恢复定时任务
+     *
+     * @param jobIds String
+     */
+    void resume(String jobIds);
 }

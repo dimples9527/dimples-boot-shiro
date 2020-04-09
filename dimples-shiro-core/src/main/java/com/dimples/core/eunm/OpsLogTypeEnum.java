@@ -57,6 +57,21 @@ public enum OpsLogTypeEnum {
     STOP,
 
     /**
+     * 启动
+     */
+    START,
+
+    /**
+     * 暂停
+     */
+    PAUSE,
+
+    /**
+     * 恢复
+     */
+    RESUME,
+
+    /**
      * 上传
      */
     UPLOAD,
@@ -72,6 +87,6 @@ public enum OpsLogTypeEnum {
     /**
      * 导出
      */
-    EXPORT
+    EXPORT;
 
 }

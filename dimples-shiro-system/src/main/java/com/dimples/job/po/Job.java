@@ -27,7 +27,7 @@ public class Job implements Serializable {
      * 任务id
      */
     @TableId(value = "job_id", type = IdType.AUTO)
-    @ApiModelProperty(value = "任务id")
+    @ApiModelProperty(value = "任务id(更新任务时不可少)")
     private Long jobId;
 
     /**

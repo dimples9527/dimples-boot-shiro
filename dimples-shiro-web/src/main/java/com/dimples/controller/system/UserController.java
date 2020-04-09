@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.dimples.common.controller.BaseController;
 import com.dimples.common.annotation.OpsLog;
+import com.dimples.core.constant.DimplesConstant;
 import com.dimples.core.eunm.OpsLogTypeEnum;
 import com.dimples.core.exception.BizException;
 import com.dimples.core.transport.DimplesResponse;
@@ -122,7 +123,7 @@ public class UserController extends BaseController {
         response.setCharacterEncoding("utf-8");
         // 这里URLEncoder.encode可以防止中文乱码 当然和easy-excel没有关系
         String fileName = URLEncoder.encode("用户信息", "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + DimplesConstant.VALID_FILE_TYPE[0]);
         // 获取数据
         List<UserDetailDTO> userDetailS = this.userService.findUserDetailList(user, queryRequest).getRecords();
         EasyExcel.write(response.getOutputStream(), UserDetailDTO.class).sheet("用户信息").doWrite(userDetailS);
