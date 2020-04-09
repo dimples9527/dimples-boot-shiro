@@ -8,6 +8,7 @@ import com.dimples.job.service.JobLogService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobExecutionContext;
+import org.springframework.beans.BeanUtils;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import java.util.Date;
@@ -28,7 +29,9 @@ public class ScheduleJob extends QuartzJobBean {
 
     @Override
     protected void executeInternal(JobExecutionContext context) {
-        Job scheduleJob = (Job) context.getMergedJobDataMap().get(Job.JOB_PARAM_KEY);
+        Object o = context.getMergedJobDataMap().get(Job.JOB_PARAM_KEY);
+        Job scheduleJob = new Job();
+        BeanUtils.copyProperties(o, scheduleJob);
 
         // 获取spring bean
         JobLogService scheduleJobLogService = SpringContextHolder.getBean(JobLogService.class);

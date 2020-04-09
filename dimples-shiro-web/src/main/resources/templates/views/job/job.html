@@ -89,6 +89,8 @@
 	<span shiro:lacksPermission="job:update,job:delete">
         <span class="layui-badge-dot dimples-bg-orange"></span> 无权限
     </span>
+	<a lay-event="run" shiro:hasPermission="job:run"><i
+					class="layui-icon dimples-edit-area dimples-green">&#xe652;</i></a>
 	<a lay-event="edit" shiro:hasPermission="job:update"><i
 					class="layui-icon dimples-edit-area dimples-blue">&#xe7a4;</i></a>
 	<a lay-event="del" shiro:hasPermission="job:delete"><i
@@ -245,6 +247,14 @@
         table.on('tool(jobTable)', function (obj) {
             var data = obj.data,
                 layEvent = obj.event;
+            if (layEvent === 'run') {
+                dimples.modal.confirm('执行任务', '确定执行所选任务？', function () {
+                    dimples.post('/job/run/' + data.jobId, null, function () {
+                        dimples.alert.success('执行任务成功');
+                        $query.click();
+                    })
+                });
+            }
             if (layEvent === 'del') {
                 dimples.modal.confirm('删除任务', '确定删除该任务？', function () {
                     deleteJobs(data.jobId);
