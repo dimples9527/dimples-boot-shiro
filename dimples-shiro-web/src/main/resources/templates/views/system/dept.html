@@ -65,11 +65,13 @@
 				<div class="layui-card-header" id="form-header">新增部门</div>
 				<div class="layui-card-body dimples-table-full">
 					<form class="layui-form layui-table-form" action="" lay-filter="dept-form">
-						<div class="layui-form-item dimples-hide">
-							<label class="layui-form-label dimples-form-item-require">ID：</label>
+						<div class="layui-form-item">
+							<label class="layui-form-label dimples-form-item-require">
+								ID：
+							</label>
 							<div class="layui-input-block">
 								<label>
-									<input type="text" name="deptId" class="layui-input">
+									<input type="text" name="deptId" class="layui-input" disabled="disabled">
 								</label>
 							</div>
 						</div>
@@ -77,7 +79,7 @@
 							<label class="layui-form-label">上级ID：</label>
 							<div class="layui-input-block">
 								<label>
-									<input type="text" value="" name="parentId" readonly autocomplete="off"
+									<input type="text" value="" name="parentId" autocomplete="off"
 												 class="layui-input">
 								</label>
 							</div>

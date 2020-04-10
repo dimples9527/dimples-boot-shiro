@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<title>任务日志</title>
+
+	<!-- lay ui css -->
+	<link th:href="@{/component/layui/css/layui.css}" rel="stylesheet">
+	<!-- 自定义 css -->
+	<link rel="stylesheet" th:href="@{/dimples/css/dimples.css}"/>
+	<style>
+		#dimples-job-log .layui-form-label {
+			width: 60px;
+		}
+	</style>
+</head>
+<body>
+<div class="layui-fluid layui-anim dimples-anim" id="dimples-job-log" lay-title="调度日志">
+	<div class="layui-row dimples-container">
+		<div class="layui-col-md12">
+			<div class="layui-card">
+				<div class="layui-card-body dimples-table-full">
+					<form class="layui-form layui-table-form" lay-filter="job-log-table-form">
+						<div class="layui-row">
+							<div class="layui-col-md10">
+								<div class="layui-form-item">
+									<div class="layui-inline">
+										<label class="layui-form-label">Bean名称</label>
+										<div class="layui-input-inline">
+											<label>
+												<input type="text" name="beanName" autocomplete="off" class="layui-input">
+											</label>
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-label">方法名称</label>
+										<div class="layui-input-inline">
+											<label>
+												<input type="text" name="methodName" class="layui-input">
+											</label>
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-label">状态</label>
+										<div class="layui-input-inline">
+											<label>
+												<select name="status">
+													<option value=""></option>
+													<option value="0">成功</option>
+													<option value="1">失败</option>
+												</select>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+								<div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="query">
+									<i class="layui-icon">&#xe848;</i>
+								</div>
+								<div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="reset">
+									<i class="layui-icon">&#xe79b;</i>
+								</div>
+								<div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more"
+										 shiro:hasAnyPermissions="job:log:delete,job:log:export">
+									<i class="layui-icon">&#xe875;</i>
+								</div>
+							</div>
+						</div>
+					</form>
+					<table lay-filter="jobLogTable" lay-data="{id: 'jobLogTable'}"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/html" id="jobLog-times">
+	<div>
+		{{# if (d.times < 500) { }}
+		<span class="layui-badge dimples-tag-green">{{d.times}} ms</span>
+		{{# } else if (d.times < 1000) { }}
+		<span class="layui-badge dimples-tag-cyan">{{d.times}} ms</span>
+		{{# } else if (d.times < 1500) { }}
+		<span class="layui-badge dimples-tag-orange">{{d.times}} ms</span>
+		{{# } else { }}
+		<span class="layui-badge dimples-tag-red">{{d.times}} ms</span>
+		{{# } }}
+	</div>
+</script>
+<script type="text/html" id="jobLog-status">
+	{{#
+	var status = {
+	0: {title: '成功', color: 'green'},
+	1: {title: '失败', color: 'volcano'}
+	}[d.status];
+	}}
+	<span class="layui-badge dimples-tag-{{status.color}}">{{ status.title }}</span>
+</script>
+<script type="text/html" id="jobLog-option">
+	<span shiro:lacksPermission="job:log:delete">
+        <span class="layui-badge-dot dimples-bg-orange"></span> 无权限
+    </span>
+	<a lay-event="del" shiro:hasPermission="job:log:delete"><i
+					class="layui-icon dimples-edit-area dimples-red">&#xe7f9;</i></a>
+</script>
+
+</body>
+
+<!-- lay ui js -->
+<script type="text/javascript" th:src="@{/component/layui/layui.js}"></script>
+<!-- 页面处理 -->
+<script th:inline="javascript">
+    var currentUser = {};
+    currentUser.roleSet = [[${roles}]];
+    currentUser.permissionSet = [[${permissions}]];
+    console.log("用户角色：" + currentUser.roleSet);
+    console.log("用户权限：" + currentUser.permissionSet);
+</script>
+<script data-th-inline="none" type="text/javascript">
+    layui.use(['dropdown', 'jquery', 'form', 'table', 'pearDimples'], function () {
+        var $ = layui.jquery,
+            dimples = layui.pearDimples,
+            form = layui.form,
+            table = layui.table,
+            dropdown = layui.dropdown,
+            $view = $('#dimples-job-log'),
+            $query = $view.find('#query'),
+            $reset = $view.find('#reset'),
+            $searchForm = $view.find('form'),
+            sortObject = {field: 'createTime', type: null},
+            tableIns;
+
+        form.render();
+        initTable();
+
+        dropdown.render({
+            elem: $view.find('.action-more'),
+            click: function (name, elem, event) {
+                var checkStatus = table.checkStatus('jobLogTable');
+                if (name === 'delete') {
+                    if (!checkStatus.data.length) {
+                        dimples.alert.warn('请选择需要删除的调度日志');
+                    } else {
+                        dimples.modal.confirm('删除日志', '确定删除该调度日志？', function () {
+                            var jobLogIds = [];
+                            layui.each(checkStatus.data, function (key, item) {
+                                jobLogIds.push(item.logId)
+                            });
+                            deleteJobsLogs(jobLogIds.join('|'));
+                        });
+                    }
+                }
+                if (name === 'export') {
+                    var params = $.extend(getQueryParams(), {
+                        field: sortObject.field,
+                        order: sortObject.type
+                    });
+                    params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
+                    params.pageNum = $view.find(".layui-laypage-em").next().html();
+                    dimples.download('/jobLog/excel', params, '调度日志表.xlsx');
+                }
+            },
+            options: [{
+                name: 'delete',
+                title: '删除日志',
+                perms: 'job:log:delete'
+            }, {
+                name: 'export',
+                title: '导出Excel',
+                perms: 'job:log:export'
+            }]
+        });
+
+        $query.on('click', function () {
+            var params = $.extend(getQueryParams(), {
+                field: sortObject.field,
+                order: sortObject.type
+            });
+            tableIns.reload({where: params, page: {curr: 1}});
+        });
+
+        $reset.on('click', function () {
+            $searchForm[0].reset();
+            sortObject.type = 'null';
+            tableIns.reload({where: getQueryParams(), page: {curr: 1}, initSort: sortObject});
+        });
+
+        table.on('tool(jobLogTable)', function (obj) {
+            var data = obj.data,
+                layEvent = obj.event;
+            if (layEvent === 'del') {
+                dimples.modal.confirm('删除调度日志', '确定删除调度日志？', function () {
+                    deleteJobsLogs(data.logId);
+                });
+            }
+        });
+
+        table.on('sort(jobLogTable)', function (obj) {
+            sortObject = obj;
+            tableIns.reload({
+                initSort: obj,
+                where: $.extend(getQueryParams(), {
+                    field: obj.field,
+                    order: obj.type
+                })
+            });
+        });
+
+        function deleteJobsLogs(jobLogIds) {
+            dimples.post('/jobLog/delete/' + jobLogIds, null, function () {
+                dimples.alert.success('删除调度日志成功');
+                $query.click();
+            });
+        }
+
+        function initTable() {
+            tableIns = dimples.table.init({
+                elem: $view.find('table'),
+                id: 'jobLogTable',
+                url: '/jobLog',
+                cols: [[
+                    {type: 'checkbox'},
+                    {field: 'jobId', title: '任务ID', width: 80},
+                    {field: 'beanName', title: 'Bean名称'},
+                    {field: 'methodName', title: '方法名称', maxWidth: 200},
+                    {field: 'params', title: '方法参数', maxWidth: 180},
+                    {title: '状态', templet: '#jobLog-status'},
+                    {field: 'error', title: '异常信息', maxWidth: 200},
+                    {title: '耗时', templet: '#jobLog-times'},
+                    {field: 'createTime', title: '执行时间', minWidth: 180, sort: true},
+                    {title: '操作', toolbar: '#jobLog-option', minWidth: 140}
+                ]]
+            });
+        }
+
+        function getQueryParams() {
+            return {
+                status: $searchForm.find("select[name='status']").val(),
+                beanName: $searchForm.find("input[name='beanName']").val().trim(),
+                methodName: $searchForm.find("input[name='methodName']").val().trim(),
+                invalidate_ie_cache: new Date()
+            };
+        }
+    })
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

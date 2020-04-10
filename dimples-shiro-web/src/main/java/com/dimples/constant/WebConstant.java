@@ -34,5 +34,6 @@ public class WebConstant {
 
     public static final String JOB = VIEW_PREFIX + "job/job";
     public static final String JOB_ADD = VIEW_PREFIX + "job/jobAdd";
+    public static final String JOB_LOG = VIEW_PREFIX + "job/jobLog";
 
 }

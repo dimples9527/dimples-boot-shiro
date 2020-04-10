@@ -47,6 +47,14 @@ public class WebJobController extends BaseController {
         return view;
     }
 
+    @GetMapping("log")
+    @RequiresPermissions("job:log:view")
+    public ModelAndView log() {
+        ModelAndView view = new ModelAndView(WebConstant.JOB_LOG);
+        this.getUserShiroInfo(view);
+        return view;
+    }
+
     private void getUserShiroInfo(ModelAndView view) {
         AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
         User currentUser = getCurrentUser();
