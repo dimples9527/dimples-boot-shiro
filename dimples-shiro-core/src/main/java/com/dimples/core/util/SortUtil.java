@@ -11,7 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 处理排序工具类
  *
- * @author MrBird
+ * @author zhongyj <1126834403@qq.com><br/>
+ * @date 2020/4/22
  */
 public class SortUtil {
     /**
