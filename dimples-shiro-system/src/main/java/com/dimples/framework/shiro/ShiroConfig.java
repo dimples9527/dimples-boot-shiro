@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Shiro权限配置类
@@ -37,6 +38,7 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
  * @author zhongyj <1126834403@qq.com><br/>
  * @date 2019/11/13
  */
+@Slf4j
 @Configuration
 public class ShiroConfig {
 
@@ -104,6 +106,7 @@ public class ShiroConfig {
         //      role: 该资源必须得到资源权限才可以访问
         Map<String, String> filterChainDefinitionMap = Maps.newLinkedHashMap();
         String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getShiro().getAnonUrl(), ",");
+        log.info("免认证配置路径：【{}】", Arrays.toString(anonUrls));
         for (String url : anonUrls) {
             filterChainDefinitionMap.put(url, "anon");
         }
