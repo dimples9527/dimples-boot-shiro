@@ -200,7 +200,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>28.1-jre</version>
+			<version>29.0-jre</version>
 		</dependency>
 		<!-- 自定义properties或者XML配置文件支持 -->
 		<dependency>
