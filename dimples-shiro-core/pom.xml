@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<log4j2.vsersion>2.0.2.RELEASE</log4j2.vsersion>
-		<shiro-spring.version>1.4.0</shiro-spring.version>
+		<shiro-spring.version>1.7.0</shiro-spring.version>
 		<shiro-redis.version>3.2.2</shiro-redis.version>
 		<shiro-thymeleaf-extras.version>2.0.0</shiro-thymeleaf-extras.version>
 		<actuator.version>2.1.0</actuator.version>
